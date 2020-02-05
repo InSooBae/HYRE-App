@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, AsyncStorage } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
-import { Ionicons } from '@expo/vector-icons';
+import { AsyncStorage } from 'react-native';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { persistCache } from 'apollo-cache-persist';
 import ApolloClient from 'apollo-boost';
+import { ThemeProvider } from 'styled-components';
 import { ApolloProvider } from '@apollo/react-hooks';
 import apolloClientOptions from './apollo';
+import styles from './styles';
+import NavController from './components/NavController';
+import { AuthProvider } from './AuthContext';
 // apollo cache persist가 local estate안에서 기본을 잘 동작하지 못함. context로 고침?
 //모든 apollo관련된 생성은 app.js에서 일어나게함
 
@@ -19,6 +23,8 @@ export default function App() {
   const [loaded, setLoaded] = useState(false);
   //apollo client (object 는 null로 둠)
   const [client, setClient] = useState(null);
+  //유저가 로그아웃했는지 알려고 null은 로그아웃했는지 체크 x false는 로그아웃 true는 로그인
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
   const preLoad = async () => {
     try {
       //처음 icon의 font를 load
@@ -45,6 +51,13 @@ export default function App() {
         cache,
         ...apolloClientOptions
       });
+
+      const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
+      if (!isLoggedIn || isLoggedIn === 'false') {
+        setIsLoggedIn(false);
+      } else {
+        setIsLoggedIn(true);
+      }
       //위 작업들을 위해 동기화 작업 필요 모든게 다되면 loaded false->true client null-> client
       setLoaded(true);
       setClient(client);
@@ -57,12 +70,19 @@ export default function App() {
     preLoad();
   }, []);
   // 처음 component가 mount 되면 loaded는 false,client는 null이됨 -> <AppLoading>
-  return loaded && client ? (
+  // !isLoggedIn 요케해두면 false, undefined, null 인상태에서 다동작됨 -> null이랑 비교(체크하면 false or true)
+
+  // 아직은 뭔지 모르겠는데 context는 위 두함수를 모든곳에서 사용할수있게해줌
+
+  return loaded && client && isLoggedIn !== null ? (
     //loaded,client가 둘다 true or exist 면 client를 ApolloProvider에게 pass
+    //AuthProvider가 감싸야 context이용가능 AuthContext에 설명
     <ApolloProvider client={client}>
-      <View>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+      <ThemeProvider theme={styles}>
+        <AuthProvider isLoggedIn={isLoggedIn}>
+          <NavController />
+        </AuthProvider>
+      </ThemeProvider>
     </ApolloProvider>
   ) : (
     //Apploading은 render를 하면 app의 splash screen을 render를 멈출때 까지 upfront해주는 component

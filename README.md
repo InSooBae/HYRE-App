@@ -1,13 +1,13 @@
-# Prismagram ios & Android App
+# HYRE(Han Yang Universe Graduate School Of Convergence Real Estate) ios & Android App
 
-Screen:
+## Screen:
 
-- [ ] Home
-- [ ] Seach
-- [ ] Upload
+- [ ] Auth
+- [ ] Contacts
+- [ ] Search
+- [ ] Upload(?)
 - [ ] Notiifications (C)
 - [ ] Profile
-- [ ] Edit Profile (C)
-- [ ] Photo Detail
-- [ ] Photo Comments (C)
-- [ ] Photo Likes (C)
+- [ ] Edit Profile
+- [ ] Notice
+- [ ] Professor & executives

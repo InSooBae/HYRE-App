@@ -11,6 +11,6 @@ const Text = styled.Text``;
 
 export default () => (
   <View>
-    <Text>Home</Text>
+    <Text>Take Photo</Text>
   </View>
 );

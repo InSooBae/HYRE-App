@@ -15,19 +15,27 @@ const TextInput = styled.TextInput`
 `;
 
 //onChangeText는 callback은 input이 변경될때 호출된다.
+//onEndEditing는 textInput이 끝나면 콜백함수로 실행된다
+//autoCorrect 는 자동수정기능이다.
 const AuthInput = ({
   placeholder,
   value,
   keyboardType = 'default',
   autoCapitalize = 'none',
-  onChange
+  onChange,
+  returnKeyType = 'done',
+  onEndEditing = () => null,
+  autoCorrect = true
 }) => (
   <Container>
     <TextInput
       onChangeText={onChange}
       keyboardType={keyboardType}
       placeholder={placeholder}
+      returnKeyType={returnKeyType}
       value={value}
+      onEndEditing={onEndEditing}
+      autoCorrect={autoCorrect}
       autoCapitalize={autoCapitalize}
     />
   </Container>
@@ -45,7 +53,10 @@ AuthInput.propTypes = {
     'phone-add'
   ]),
   autoCapitalize: PropTypes.oneOf(['none', 'sentences', 'words', 'characters']),
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  returnKeyType: PropTypes.oneOf(['done', 'go', 'next', 'search', 'send']),
+  onEndEditing: PropTypes.func,
+  autoCorrect: PropTypes.bool
 };
 
 export default AuthInput;

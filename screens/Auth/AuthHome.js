@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import constants from '../../constants';
+import AuthButton from '../../components/AuthButton';
 
 const View = styled.View`
   justify-content: center;
@@ -8,17 +10,36 @@ const View = styled.View`
   flex: 1;
 `;
 
-const Text = styled.Text``;
+const Image = styled.Image`
+  width: ${constants.width / 1.2};
+  margin-bottom: 150px;
+`;
 
-//navigation.navigate('네비게이션 이름') 이름 다르면 못찾음
+const Touchable = styled.TouchableOpacity``;
+
+const LoginLink = styled.View`
+  margin-top: 20px;
+  padding: 10px;
+  width: ${constants.width / 1.5};
+`;
+const LoginLinkText = styled.Text`
+  color: ${props => props.theme.blueColor};
+  font-weight: 600;
+  text-align: center;
+  font-size: 18px;
+`;
+
 export default ({ navigation }) => (
   <View>
-    <Text>Auth Home</Text>
-    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-      <Text>Go to Login</Text>
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-      <Text>Go to SignUp</Text>
-    </TouchableOpacity>
+    <Image resizeMode={'contain'} source={require('../../assets/HYU2.png')} />
+    <AuthButton
+      text={'Create New Account'}
+      onPress={() => navigation.navigate('SignUp')}
+    />
+    <Touchable onPress={() => navigation.navigate('Login')}>
+      <LoginLink>
+        <LoginLinkText>Log in</LoginLinkText>
+      </LoginLink>
+    </Touchable>
   </View>
 );

@@ -33,7 +33,10 @@ export default function App() {
       });
       //다음은 Asset(이미지)으로 loading
       //만약 여러개 해야하면 Asset.loadAsync([require('path'),require('path'),..])
-      await Asset.loadAsync([require('./assets/HYU.png')]);
+      await Asset.loadAsync([
+        require('./assets/HYU1.png'),
+        require('./assets/HYU2.png')
+      ]);
       //apollo memory에 있는 cache를 사용해서 새로운 cache를 만들어냄
       //기본으론 apollo boost는 memory에 있는 cache로 생겨나는데 이경우는 expose해야함 이유는 아래 persistCache
       const cache = new InMemoryCache();

@@ -13,10 +13,12 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ isLoggedIn: isLoggedInProp, children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(isLoggedInProp);
   //로그인 성공
-  const logUserIn = async () => {
+  const logUserIn = async token => {
+    console.log(token);
     try {
       //string으로 보내야 오류안남 걍 true하면 튕김
       await AsyncStorage.setItem('isLoggedIn', 'true');
+      await AsyncStorage.setItem('jwt', token);
       setIsLoggedIn(true);
     } catch (e) {
       console.log(e);

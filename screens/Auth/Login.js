@@ -16,7 +16,7 @@ const View = styled.View`
 const Text = styled.Text``;
 
 export default ({ navigation }) => {
-  const emailInput = useInput('');
+  const emailInput = useInput(navigation.getParam('email', ''));
   const [loading, setLoading] = useState(false);
   const [requestSecretMutation] = useMutation(LOG_IN, {
     variables: {
@@ -42,11 +42,12 @@ export default ({ navigation }) => {
       } = await requestSecretMutation();
       if (requestSecret) {
         Alert.alert('Check Your Email');
-        navigation.navigate('Confirm');
+        //navigate에 parameter보낼수있음 (email state보냄)
+        navigation.navigate('Confirm', { email: value });
         return;
       } else {
         Alert.alert('Account not Found');
-        navigation.navigate('SignUp');
+        navigation.navigate('SignUp', { email: value });
       }
     } catch (e) {
       Alert.alert("Can't Log In Now!");

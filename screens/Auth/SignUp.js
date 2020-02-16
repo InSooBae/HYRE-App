@@ -137,7 +137,6 @@ Number.prototype.zf = function(len) {
 export default ({ navigation }) => {
   //키보드 토글시 위로 패딩되는 offset값
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 80 : 0;
-  const [loading, setIsLoading] = useState(false);
   //회원가입값들
   const nameInput = useInput('');
   const [birth, setBirth] = useState('출생년도를 선택하세요');

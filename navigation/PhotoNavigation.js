@@ -4,7 +4,10 @@ import SelectPhoto from '../screens/Photo/SelectPhoto';
 import TakePhoto from '../screens/Photo/TakePhoto';
 import UploadPhoto from '../screens/Photo/UploadPhoto';
 import styles from '../styles';
+import React from 'react';
 import { stackStyles } from './config';
+import { Image, Text } from 'native-base';
+import { TouchableOpacity } from 'react-native';
 
 const PhotoTabs = createMaterialTopTabNavigator(
   {
@@ -45,15 +48,14 @@ export default createStackNavigator(
   {
     Tabs: {
       screen: PhotoTabs,
-      navigationOptions: {
-        headerTitle: '사진 업로드'
-      }
-    },
-    Upload: {
-      screen: UploadPhoto,
-      navigationOptions: {
-        headerTitle: '회원가입'
-      }
+      navigationOptions: ({ navigation }) => ({
+        headerTitle: '사진 업로드',
+        headerLeft: () => (
+          <TouchableOpacity onPress={() => navigation.goBack(null)}>
+            <Text style={{ marginLeft: 10 }}>Cancel</Text>
+          </TouchableOpacity>
+        )
+      })
     }
   },
   {

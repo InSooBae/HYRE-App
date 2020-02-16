@@ -1,5 +1,5 @@
 const options = {
-  uri: 'http://localhost:4000/'
+  uri: 'https://hure-backend.herokuapp.com/'
 };
 
 export default options;

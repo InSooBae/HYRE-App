@@ -10,20 +10,24 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import { useMutation } from '@apollo/react-hooks';
-import AuthButton from '../../components/AuthButton';
-import { LOG_IN, CREATE_ACCOUNT } from './AuthQueries';
 import {
   Container,
   Picker,
   Item,
   Icon,
-  Label,
   Input,
   Text,
-  Toast
+  Toast,
+  Card,
+  CardItem,
+  Thumbnail,
+  Left,
+  Body
 } from 'native-base';
+import axios from 'axios';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { useMutation } from '@apollo/react-hooks';
+import AuthButton from '../../components/AuthButton';
 import AuthInput from '../../components/AuthInput';
 import useInput from '../../hooks/useInput';
 import constants from '../../constants';
@@ -32,6 +36,7 @@ const View = styled.View`
   justify-content: center;
   align-items: center;
   flex: 1;
+  background-color: white;
 `;
 Date.prototype.format = function(f) {
   if (!this.valueOf()) return ' ';
@@ -142,6 +147,7 @@ export default ({ navigation }) => {
   const [birth, setBirth] = useState('출생년도를 선택하세요');
   const cellPhoneInput = useInput('');
   const companyInput = useInput('');
+  const workAddressInput = useInput('');
   const companyCatInput = useInput('');
   const teamInput = useInput('');
   const positionInput = useInput('');
@@ -158,7 +164,6 @@ export default ({ navigation }) => {
   };
 
   const handleConfirm = date => {
-    console.log();
     setBirth(date.format('yyyy-MM-dd'));
     hideDatePicker();
   };
@@ -183,11 +188,19 @@ export default ({ navigation }) => {
     const { value: name } = nameInput;
     const { value: cellPhone } = cellPhoneInput;
     const { value: company } = companyInput;
+    const { value: workAddress } = workAddressInput;
     const { value: companyCat } = companyCatInput;
     const { value: team } = teamInput;
     const { value: position } = positionInput;
     const { value: workPhone } = workPhoneInput;
     const { value: generation } = generationInput;
+    const formData = new FormData();
+
+    formData.append('file', {
+      name: photo.filename,
+      type: 'image/jpeg',
+      uri: photo.uri
+    });
     //이메일 99.99% 유효성 체크
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (name === '') {
@@ -256,11 +269,51 @@ export default ({ navigation }) => {
         style: { marginTop: 70 }
       });
     }
+
     try {
-      Alert.alert(
-        '프로필 사진을 첨부해주세요.',
-        '스킵을 누르시면 기본이미지로 됩니다.'
+      setLoading(true);
+      const {
+        data: { location }
+      } = await axios.post(
+        'https://hure-backend.herokuapp.com/api/upload',
+        formData,
+        {
+          headers: {
+            'content-type': 'multipart/form-data'
+          }
+        }
       );
+      const {
+        data: { upload }
+      } = await uploadMutation({
+        variables: {
+          file: location,
+          name: name,
+          birthday: birth,
+          email: email,
+          cellPhone: cellPhone,
+          company: company,
+          companyCategory: companyCat,
+          team: team,
+          position: position,
+          workPhone: workPhone,
+          workAddress: workAddress,
+          majorName: major,
+          generation: generation
+        }
+      });
+      if (upload.id) {
+        Toast.show({
+          text: `회원가입요청이 완료되었습니다. 관리자 인증후 로그인 가능합니다.`,
+          textStyle: { textAlign: 'center' },
+          buttonText: 'Okay',
+          type: 'success',
+          position: 'top',
+          duration: 3000,
+          style: { marginTop: 70 }
+        });
+        navigation.navigate('AuthHome');
+      }
     } catch (e) {
       Alert.alert('이미 존재하는 회원입니다!', '로그인 해주세요');
       navigation.navigate('Login', { email });
@@ -277,10 +330,29 @@ export default ({ navigation }) => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Container>
             <View>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() => navigation.navigate('PhotoNavigation')}
               >
                 <Image source={photo} style={{ height: 80, width: 80 }} />
+              </TouchableOpacity> */}
+              <TouchableOpacity
+                onPress={() => navigation.navigate('PhotoNavigation')}
+              >
+                <CardItem style={{ width: constants.width / 1.5 }}>
+                  <Left>
+                    <Thumbnail
+                      source={photo}
+                      style={{
+                        height: 80,
+                        width: 80
+                      }}
+                    />
+                    <Body>
+                      <Text>이미지를 선택하세요</Text>
+                      <Text note>미선택시 기본이미지로 지정됩니다.</Text>
+                    </Body>
+                  </Left>
+                </CardItem>
               </TouchableOpacity>
               <AuthInput
                 {...nameInput}
@@ -332,6 +404,12 @@ export default ({ navigation }) => {
               <AuthInput
                 {...companyInput}
                 placeholder="회사명 / Company Name"
+                returnKeyType="next"
+                autoCorrect={false}
+              />
+              <AuthInput
+                {...workAddressInput}
+                placeholder="사업장 / Work Address"
                 returnKeyType="next"
                 autoCorrect={false}
               />

@@ -11,6 +11,8 @@ import { ThemeProvider } from 'styled-components';
 import { ApolloProvider } from '@apollo/react-hooks';
 import apolloClientOptions from './apollo';
 import styles from './styles';
+import { Root } from 'native-base';
+
 import NavController from './components/NavController';
 import { AuthProvider } from './AuthContext';
 // apollo cache persist가 local estate안에서 기본을 잘 동작하지 못함. context로 고침?
@@ -31,6 +33,8 @@ export default function App() {
     try {
       //처음 icon의 font를 load
       await Font.loadAsync({
+        Roboto: require('native-base/Fonts/Roboto.ttf'),
+        Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
         ...Ionicons.font
       });
       //다음은 Asset(이미지)으로 loading
@@ -82,13 +86,15 @@ export default function App() {
   return loaded && client && isLoggedIn !== null ? (
     //loaded,client가 둘다 true or exist 면 client를 ApolloProvider에게 pass
     //AuthProvider가 감싸야 context이용가능 AuthContext에 설명
-    <ApolloProvider client={client}>
-      <ThemeProvider theme={styles}>
-        <AuthProvider isLoggedIn={isLoggedIn}>
-          <NavController />
-        </AuthProvider>
-      </ThemeProvider>
-    </ApolloProvider>
+    <Root>
+      <ApolloProvider client={client}>
+        <ThemeProvider theme={styles}>
+          <AuthProvider isLoggedIn={isLoggedIn}>
+            <NavController />
+          </AuthProvider>
+        </ThemeProvider>
+      </ApolloProvider>
+    </Root>
   ) : (
     //Apploading은 render를 하면 app의 splash screen을 render를 멈출때 까지 upfront해주는 component
     <AppLoading />

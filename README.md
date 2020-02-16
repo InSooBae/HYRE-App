@@ -2,7 +2,7 @@
 
 ## Screen:
 
-- [ ] Auth
+- [ ] Auth (It would be separate ios/android app to login(login by google,facebook))
 - [ ] Contacts
 - [ ] Search
 - [ ] Upload(?)

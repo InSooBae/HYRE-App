@@ -5,5 +5,6 @@ export default {
   lightGreyColor: 'rgb(230, 230, 230)',
   redColor: '#ED4956',
   blueColor: '#3897f0',
-  darkBlueColor: '#003569'
+  darkBlueColor: '#003569',
+  hanyangColor: '#00457E'
 };

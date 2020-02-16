@@ -18,16 +18,28 @@ SignMeUp: {
 }
 */
 
-const AuthNavigation = createStackNavigator(
-  {
-    Login,
-    AuthHome,
-    SignUp,
-    Confirm
+const AuthNavigation = createStackNavigator({
+  AuthHome: {
+    screen: AuthHome,
+    navigationOptions: {
+      headerShown: false
+    }
   },
-  {
-    headerMode: 'none'
-  }
-);
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      title: '로그인',
+      headerBackTitleVisible: false
+    }
+  },
+  SignUp: {
+    screen: SignUp,
+    navigationOptions: {
+      title: '회원가입',
+      headerBackTitleVisible: false
+    }
+  },
+  Confirm
+});
 
 export default createAppContainer(AuthNavigation);

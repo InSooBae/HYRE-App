@@ -6,7 +6,7 @@ const useInput = initilaValue => {
     setValue(text);
   };
 
-  return { value, onChange };
+  return { value, onChange, setValue };
 };
 
 export default useInput;

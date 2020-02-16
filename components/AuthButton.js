@@ -6,7 +6,7 @@ import { ActivityIndicator } from 'react-native';
 
 const Touchable = styled.TouchableOpacity``;
 const Container = styled.View`
-  background-color: ${props => props.theme.blueColor};
+  background-color: ${props => props.theme.hanyangColor};
   padding: 15px;
   margin: 0px 50px;
   border-radius: 4px;

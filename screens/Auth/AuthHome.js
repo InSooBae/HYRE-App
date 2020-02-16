@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Container } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import constants from '../../constants';
 import AuthButton from '../../components/AuthButton';
@@ -8,6 +9,7 @@ const View = styled.View`
   justify-content: center;
   align-items: center;
   flex: 1;
+  background-color: white;
 `;
 
 const Image = styled.Image`

@@ -1,8 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useIsLoggedIn } from '../AuthContext';
-import AuthNavigation from '../navigation/AuthNavigation';
 import TabNavigation from '../navigation/TabNavigation';
+import AuthMainNavigation from '../navigation/AuthMainNavigation';
 export default () => {
   const isLoggedIn = false;
   return (
@@ -11,7 +11,7 @@ export default () => {
         <TabNavigation />
       ) : (
         //When the User is logged out
-        <AuthNavigation />
+        <AuthMainNavigation />
       )}
     </View>
   );

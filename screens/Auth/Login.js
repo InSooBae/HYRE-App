@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard, Alert, Image } from 'react-native';
 import { useMutation } from '@apollo/react-hooks';
 import AuthButton from '../../components/AuthButton';
 import { LOG_IN } from './AuthQueries';
 import AuthInput from '../../components/AuthInput';
 import useInput from '../../hooks/useInput';
-
+import constants from '../../constants';
+import { Toast } from 'native-base';
 const View = styled.View`
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   flex: 1;
+  background-color: white;
 `;
-
-const Text = styled.Text``;
 
 export default ({ navigation }) => {
   const emailInput = useInput(navigation.getParam('email', ''));
@@ -29,11 +29,25 @@ export default ({ navigation }) => {
     //이메일 99.99% 유효성 체크
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (value === '') {
-      return Alert.alert("Email can't be empty");
-    } else if (!value.includes('@') || !value.includes('.')) {
-      return Alert.alert('Please Write an Email');
+      return Toast.show({
+        text: `이메일을 입력해 주세요.`,
+        textStyle: { textAlign: 'center' },
+        buttonText: 'Okay',
+        type: 'warning',
+        position: 'top',
+        duration: 3000,
+        style: { marginTop: 70 }
+      });
     } else if (!emailRegex.test(value)) {
-      return Alert.alert('That email is Invalid');
+      return Toast.show({
+        text: `이메일 형식이 맞지 않습니다.`,
+        textStyle: { textAlign: 'center' },
+        buttonText: 'Okay',
+        type: 'warning',
+        position: 'top',
+        duration: 3000,
+        style: { marginTop: 70 }
+      });
     }
     try {
       setLoading(true);
@@ -58,14 +72,24 @@ export default ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View>
+        <Image
+          style={{
+            width: constants.width / 2,
+            height: constants.height / 5
+          }}
+          resizeMode={'contain'}
+          source={require('../../assets/HYU1.png')}
+        />
+
         <AuthInput
           {...emailInput}
-          placeholder="Email"
+          placeholder="이메일"
           keyboardType="email-address"
           returnKeyType="send"
           onSubmitEditing={handleLogin}
           autoCorrect={false}
         />
+
         <AuthButton loading={loading} onPress={handleLogin} text={'Log In'} />
       </View>
     </TouchableWithoutFeedback>

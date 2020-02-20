@@ -4,7 +4,7 @@ import { useIsLoggedIn } from '../AuthContext';
 import TabNavigation from '../navigation/TabNavigation';
 import AuthMainNavigation from '../navigation/AuthMainNavigation';
 export default () => {
-  const isLoggedIn = false;
+  const isLoggedIn = useIsLoggedIn();
   return (
     <View style={{ flex: 1 }}>
       {isLoggedIn ? (

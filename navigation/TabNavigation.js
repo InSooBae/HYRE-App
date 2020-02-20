@@ -17,32 +17,35 @@ const stackFactory = (initialRoute, customConfig) =>
     }
   });
 
-const TabNavigation = createBottomTabNavigator({
-  Notice: {
-    screen: stackFactory(Notice, {
-      title: '공지사항'
-    })
+const TabNavigation = createBottomTabNavigator(
+  {
+    Notice: {
+      screen: stackFactory(Notice, {
+        title: '공지사항'
+      })
+    },
+    Search: {
+      screen: stackFactory(Search, {
+        title: '검색'
+      })
+    },
+    Contacts: {
+      screen: stackFactory(Contacts, {
+        title: '연락처'
+      })
+    },
+    Prof: {
+      screen: stackFactory(Prof, {
+        title: '교수 / 국장'
+      })
+    },
+    Profile: {
+      screen: stackFactory(Setting, {
+        title: '설정'
+      })
+    }
   },
-  Search: {
-    screen: stackFactory(Search, {
-      title: '검색'
-    })
-  },
-  Contacts: {
-    screen: stackFactory(Contacts, {
-      title: '연락처'
-    })
-  },
-  Prof: {
-    screen: stackFactory(Prof, {
-      title: '교수 / 국장'
-    })
-  },
-  Profile: {
-    screen: stackFactory(Setting, {
-      title: '설정'
-    })
-  }
-});
+  { initialRouteName: 'Contacts' }
+);
 
 export default createAppContainer(TabNavigation);

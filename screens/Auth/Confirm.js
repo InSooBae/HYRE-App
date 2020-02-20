@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { useMutation } from '@apollo/react-hooks';
 import AuthButton from '../../components/AuthButton';
-import { LOG_IN, CONFIRM_SECRET } from './AuthQueries';
+import { CONFIRM_SECRET } from './AuthQueries';
 import AuthInput from '../../components/AuthInput';
 import useInput from '../../hooks/useInput';
 import { useLogIn } from '../../AuthContext';
@@ -31,7 +31,7 @@ export default ({ navigation }) => {
   });
   const handleConfirm = async () => {
     const { value } = confirmInput;
-    if (value === '' || !value.includes(' ')) {
+    if (value === '') {
       return Alert.alert('Invalid secret');
     }
     try {

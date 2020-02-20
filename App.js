@@ -29,7 +29,6 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const preLoad = async () => {
     //preload때 AsyncStorage 비우기 -> 로그아웃
-    await AsyncStorage.clear();
     try {
       //처음 icon의 font를 load
       await Font.loadAsync({
@@ -58,6 +57,15 @@ export default function App() {
       // Continue setting up Apollo as usual. ApolloClient는 옵션이 많음 apollo.js에서 설정할예정
       const client = new ApolloClient({
         cache,
+        //요청할때마다 이함수가 실행하게됨
+        request: async operation => {
+          //아직 토큰이 없어서 생성
+          const token = await AsyncStorage.getItem('jwt');
+          //operation으로 할수있는게 많고 operation.setContext는 operation의 context를 조절하는 함수임
+          return operation.setContext({
+            headers: { Authorization: `Bearer ${token}` }
+          });
+        },
         ...apolloClientOptions
       });
 

@@ -22,7 +22,9 @@ import {
   CardItem,
   Thumbnail,
   Left,
-  Body
+  Body,
+  Content,
+  Right
 } from 'native-base';
 import axios from 'axios';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -31,6 +33,45 @@ import AuthButton from '../../components/AuthButton';
 import AuthInput from '../../components/AuthInput';
 import useInput from '../../hooks/useInput';
 import constants from '../../constants';
+import { gql } from 'apollo-boost';
+
+const REQUEST_CREATE_USER = gql`
+  mutation requestCreateUser(
+    $photo: String
+    $name: String!
+    $birthday: String!
+    $email: String!
+    $cellPhone: String!
+    $company: String
+    $companyCategory: String
+    $team: String
+    $position: String
+    $workPhone: String
+    $workAddress: String
+    $majorName: String!
+    $generation: Int!
+  ) {
+    requestCreateUser(
+      photo: $photo
+      name: $name
+      birthday: $birthday
+      email: $email
+      cellPhone: $cellPhone
+      company: $company
+      companyCategory: $companyCategory
+      team: $team
+      position: $position
+      workPhone: $workPhone
+      majorName: $majorName
+      workAddress: $workAddress
+      generation: $generation
+    ) {
+      id
+      name
+      photo
+    }
+  }
+`;
 
 const View = styled.View`
   justify-content: center;
@@ -38,6 +79,7 @@ const View = styled.View`
   flex: 1;
   background-color: white;
 `;
+
 Date.prototype.format = function(f) {
   if (!this.valueOf()) return ' ';
 
@@ -141,7 +183,7 @@ Number.prototype.zf = function(len) {
 
 export default ({ navigation }) => {
   //키보드 토글시 위로 패딩되는 offset값
-  const keyboardVerticalOffset = Platform.OS === 'ios' ? 80 : 0;
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? 85 : 0;
   //회원가입값들
   const nameInput = useInput('');
   const [birth, setBirth] = useState('출생년도를 선택하세요');
@@ -155,6 +197,7 @@ export default ({ navigation }) => {
   const [major, setMajor] = useState('');
   const generationInput = useInput('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [requestCreateUserMutation] = useMutation(REQUEST_CREATE_USER);
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -194,13 +237,6 @@ export default ({ navigation }) => {
     const { value: position } = positionInput;
     const { value: workPhone } = workPhoneInput;
     const { value: generation } = generationInput;
-    const formData = new FormData();
-
-    formData.append('file', {
-      name: photo.filename,
-      type: 'image/jpeg',
-      uri: photo.uri
-    });
     //이메일 99.99% 유효성 체크
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (name === '') {
@@ -269,25 +305,36 @@ export default ({ navigation }) => {
         style: { marginTop: 70 }
       });
     }
+    const formData = new FormData();
 
+    formData.append('photo', {
+      name: photo.filename,
+      type: 'image/jpeg',
+      uri: photo.uri
+    });
+    console.log('dkaadsk');
     try {
       setLoading(true);
-      const {
-        data: { location }
-      } = await axios.post(
-        'https://hure-backend.herokuapp.com/api/upload',
-        formData,
-        {
-          headers: {
-            'content-type': 'multipart/form-data'
+      let a = null;
+      if (photo.filename) {
+        const {
+          data: { location }
+        } = await axios.post(
+          'https://hure-backend.herokuapp.com/api/upload',
+          formData,
+          {
+            headers: {
+              'content-type': 'multipart/form-data'
+            }
           }
-        }
-      );
-      const {
-        data: { upload }
-      } = await uploadMutation({
+        );
+        a = location;
+        console.log('함수안');
+      }
+      console.log('요기요', a);
+      const { data } = await requestCreateUserMutation({
         variables: {
-          file: location,
+          photo: a,
           name: name,
           birthday: birth,
           email: email,
@@ -299,10 +346,11 @@ export default ({ navigation }) => {
           workPhone: workPhone,
           workAddress: workAddress,
           majorName: major,
-          generation: generation
+          generation: parseInt(generation)
         }
       });
-      if (upload.id) {
+      console.log('요기요12', data);
+      if (data) {
         Toast.show({
           text: `회원가입요청이 완료되었습니다. 관리자 인증후 로그인 가능합니다.`,
           textStyle: { textAlign: 'center' },
@@ -315,7 +363,7 @@ export default ({ navigation }) => {
         navigation.navigate('AuthHome');
       }
     } catch (e) {
-      Alert.alert('이미 존재하는 회원입니다!', '로그인 해주세요');
+      Alert.alert('이미 존재하는 이메일이 있습니다!', '로그인해주세요');
       navigation.navigate('Login', { email });
     } finally {
       setLoading(false);
@@ -325,6 +373,7 @@ export default ({ navigation }) => {
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : null}
       keyboardVerticalOffset={keyboardVerticalOffset}
+      enabled
     >
       <ScrollView>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -335,25 +384,26 @@ export default ({ navigation }) => {
               >
                 <Image source={photo} style={{ height: 80, width: 80 }} />
               </TouchableOpacity> */}
-              <TouchableOpacity
+
+              <CardItem
+                button
                 onPress={() => navigation.navigate('PhotoNavigation')}
+                style={{ width: constants.width / 1.5 }}
               >
-                <CardItem style={{ width: constants.width / 1.5 }}>
-                  <Left>
-                    <Thumbnail
-                      source={photo}
-                      style={{
-                        height: 80,
-                        width: 80
-                      }}
-                    />
-                    <Body>
-                      <Text>이미지를 선택하세요</Text>
-                      <Text note>미선택시 기본이미지로 지정됩니다.</Text>
-                    </Body>
-                  </Left>
-                </CardItem>
-              </TouchableOpacity>
+                <Left>
+                  <Thumbnail
+                    source={photo}
+                    style={{
+                      height: 80,
+                      width: 80
+                    }}
+                  />
+                  <Body>
+                    <Text>이미지를 선택하세요</Text>
+                    <Text note>미선택시 기본이미지로 지정됩니다.</Text>
+                  </Body>
+                </Left>
+              </CardItem>
               <AuthInput
                 {...nameInput}
                 placeholder="이름 / Full Name"
@@ -373,14 +423,30 @@ export default ({ navigation }) => {
               returnKeyType="next"
               autoCorrect={false}
             /> */}
-              <Item style={{ width: constants.width / 1.5, marginBottom: 5 }}>
-                <TouchableOpacity onPress={showDatePicker}>
-                  <Text style={{ color: '#bfc6ea', fontSize: 17 }}>
-                    {birth}
-                  </Text>
-                </TouchableOpacity>
-                <Input />
-              </Item>
+              <>
+                <Item
+                  style={{
+                    width: constants.width / 1.5,
+                    paddingTop: 10
+                  }}
+                >
+                  <TouchableOpacity
+                    style={{ flexDirection: 'row' }}
+                    onPress={showDatePicker}
+                  >
+                    <Text
+                      style={{
+                        width: constants.width / 1.7,
+                        fontSize: 18,
+                        color: '#bfc6ea'
+                      }}
+                    >
+                      {birth}
+                    </Text>
+                    <Icon active name="arrow-down" />
+                  </TouchableOpacity>
+                </Item>
+              </>
 
               <DateTimePickerModal
                 cancelTextIOS="취소"

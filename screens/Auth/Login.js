@@ -8,6 +8,7 @@ import AuthInput from '../../components/AuthInput';
 import useInput from '../../hooks/useInput';
 import constants from '../../constants';
 import { Toast } from 'native-base';
+
 const View = styled.View`
   justify-content: space-evenly;
   align-items: center;

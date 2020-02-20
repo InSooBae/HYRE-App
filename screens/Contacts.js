@@ -1,26 +1,8 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import {
-  Image,
-  FlatList,
-  RefreshControl,
-  ActivityIndicator,
-  View
-} from 'react-native';
-import {
-  Container,
-  Content,
-  Card,
-  CardItem,
-  Text,
-  Left,
-  Body,
-  Header,
-  Button,
-  Icon
-} from 'native-base';
-import constants from '../constants';
+import React, { useState, useEffect } from 'react';
+import { FlatList, RefreshControl } from 'react-native';
+import { Container } from 'native-base';
 import Contact from '../components/Contact';
-import { useQuery, useLazyQuery, useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import Loader from '../components/Loader';
 
@@ -72,42 +54,39 @@ export default () => {
   const [users, setUsers] = useState();
   const client = useApolloClient();
   const [addData, setAddData] = useState();
-  const { loading, data, refetch } = useLazyQuery(SEE_ALL_USER, {
-    query: SEE_ALL_USER,
-    variables: { limit: 5, page: 1 },
-    fetchPolicy: 'no-cache'
-  });
 
-  console.log(users / user, '----------user/user-------');
-  console.log(users, '--------------user--------');
-  console.log(page, '--------page---------');
-  console.log(addData, '----------------------');
   const refresh = async () => {
     try {
       setRefreshing(true);
+      setOnLoading(true);
+
       getInitialData();
       setPage(1);
     } catch (e) {
       console.log(e);
     } finally {
       setRefreshing(false);
+      setOnLoading(false);
     }
   };
   const moreData = async () => {
     console.log('aaaaa');
-    if (users / user >= 1) setPage(page + 1);
 
     const { data } = await client.query({
       query: SEE_ALL_USER,
-      variables: { limit: 5, page: page + 1 }
+      variables: { limit: 5, page: page + 1 },
+      fetchPolicy: 'network-only'
     });
+    setPage(page + 1);
+
     setAddData(addData.concat(data.seeAllUser));
   };
 
   const getInitialData = async () => {
     const { data } = await client.query({
       query: SEE_ALL_USER,
-      variables: { limit: 5, page: 1 }
+      variables: { limit: 5, page: 1 },
+      fetchPolicy: 'network-only'
     });
     if (!data) return;
     setUsers(data.howManyUser);
@@ -117,39 +96,10 @@ export default () => {
   };
   useEffect(() => {
     getInitialData();
+    return () => {
+      getInitialData();
+    };
   }, []);
-  // useEffect(() => {
-  //   allUser();
-  // }, [page]);
-  // useEffect(() => {
-  //   if (data) {
-  //     addUser();
-  //   }
-  //   console.log('Len', users.length);
-  // }, [data]);
-  const allUser = useCallback(() => {
-    seeUser({ variables: { limit: 6, page } });
-  });
-  const addUser = useCallback(() => {
-    setUsers(users.concat(data.seeAllUser));
-  });
-  const loadMore = useCallback(() => {
-    handleLoadMore();
-  });
-  const handleLoadMore = () => {
-    setPage(page + 1);
-  };
-  const handleLoadLess = () => {
-    setPage(page - 1);
-  };
-  //flatlist는 data에 배열줘야 에러안남 객체형태넘기면 에러 ㅋㅋ
-  // const renderFooter = () => {
-  //   return loading ? (
-  //     <View>
-  //       <ActivityIndicator />
-  //     </View>
-  //   ) : null;
-  // };
 
   if (onloading || addData === undefined) {
     return <Loader />;
@@ -157,32 +107,6 @@ export default () => {
   if (addData) {
     return (
       <Container>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            opacity: 0.2
-          }}
-        >
-          <Button
-            iconLeft
-            light
-            onPress={page == 1 ? () => null : handleLoadLess}
-          >
-            <Icon name="arrow-back" />
-            <Text>Back</Text>
-          </Button>
-          <Button
-            iconRight
-            light
-            onPress={
-              addData.howManyUser / user > 1 ? handleLoadMore : () => null
-            }
-          >
-            <Text>Next</Text>
-            <Icon name="arrow-forward" />
-          </Button>
-        </View>
         <FlatList
           data={addData}
           keyExtractor={(item, index) => index.toString()}

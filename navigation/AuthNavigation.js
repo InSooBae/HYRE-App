@@ -50,7 +50,7 @@ const AuthNavigation = createStackNavigator(
       }
     }
   },
-  { headerTitleAlign: 'center' | 'left' }
+  { headerLayoutPreset: 'center' | 'left' }
 );
 
 export default createAppContainer(AuthNavigation);

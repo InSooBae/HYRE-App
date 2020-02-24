@@ -2,15 +2,15 @@ import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
-import Contacts from '../screens/Contacts';
-import Notice from '../screens/Notice';
-import Search from '../screens/Search';
-import Prof from '../screens/Prof';
-import Setting from '../screens/Setting';
-import { Image, View } from 'react-native';
+import Contacts from '../screens/Tabs/Contacts';
+import Notice from '../screens/Tabs/Notice';
+import Search from '../screens/Tabs/Search';
+import Prof from '../screens/Tabs/Prof';
+import Setting from '../screens/Tabs/Setting';
+import { Image, View, Platform } from 'react-native';
 import styles from '../styles';
 import { stackStyles } from './config';
-import { Button, Icon, Text } from 'native-base';
+import NavIcon from '../components/NavIcon';
 
 //TabNavigator에 각 탭마다 StackNavigator효과를 주는일 customconfig에는설정들
 const stackFactory = (initialRoute, customConfig) =>
@@ -18,30 +18,47 @@ const stackFactory = (initialRoute, customConfig) =>
     {
       InitialRoute: {
         screen: initialRoute,
-        navigationOptions: { ...customConfig }
+        navigationOptions: {
+          ...customConfig,
+          headerTitleAlign: 'center' | 'left'
+        }
       }
     },
-    { headerLayoutPreset: 'center' | 'left' }
+    {
+      defaultNavigationOptions: {
+        headerBackTitle: null,
+        headerBackTitleVisible: false,
+        headerTintColor: styles.blackColor,
+        headerStyle: { ...stackStyles }
+      }
+    }
   );
 
 const TabNavigation = createMaterialTopTabNavigator(
   {
     Notice: {
-      screen: stackFactory(Notice, {
-        headerLayoutPreset: 'center'
-        // headerTitle: () => (
-        //   <Image
-        //     style={{}}
-        //     resizeMode="contain"
-        //     source={require('../assets/HYU_logo1.png')}
-        //   />
-        // )
-      })
+      screen: stackFactory(Notice, {}),
+      navigationOptions: {
+        tabBarIcon: ({ focused }) => (
+          <NavIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'newspaper-o' : 'newspaper-o'}
+          />
+        )
+      }
     },
     Search: {
       screen: stackFactory(Search, {
         title: '검색'
-      })
+      }),
+      navigationOptions: {
+        tabBarIcon: ({ focused }) => (
+          <NavIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'search' : 'search'}
+          />
+        )
+      }
     },
     Contacts: {
       screen: stackFactory(Contacts, {
@@ -58,18 +75,26 @@ const TabNavigation = createMaterialTopTabNavigator(
         )
       }),
       navigationOptions: {
-        tabBarIcon: () => (
-          <Button vertical>
-            <Icon name="person" />
-            <Text>Contact</Text>
-          </Button>
+        tabBarIcon: ({ focused }) => (
+          <NavIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'address-card' : 'address-card'}
+          />
         )
       }
     },
     Prof: {
       screen: stackFactory(Prof, {
         title: '교수 / 국장'
-      })
+      }),
+      navigationOptions: {
+        tabBarIcon: ({ focused }) => (
+          <NavIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'graduation-cap' : 'graduation-cap'}
+          />
+        )
+      }
     },
     Profile: {
       screen: stackFactory(Setting, {
@@ -81,7 +106,15 @@ const TabNavigation = createMaterialTopTabNavigator(
             source={require('../assets/HYU_logo1.png')}
           />
         )
-      })
+      }),
+      navigationOptions: {
+        tabBarIcon: ({ focused }) => (
+          <NavIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'gear' : 'gear'}
+          />
+        )
+      }
     }
   },
   {
@@ -91,13 +124,10 @@ const TabNavigation = createMaterialTopTabNavigator(
         backgroundColor: styles.blackColor,
         marginBottom: 20
       },
-      labelStyle: {
-        color: styles.blackColor,
-        fontWeight: '600'
-      },
       style: {
         paddingBottom: 20,
-        ...stackStyles
+        ...stackStyles,
+        backgroundColor: styles.hanyangColor
       },
       showIcon: true,
       showLabel: false

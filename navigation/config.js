@@ -1,3 +1,3 @@
 export const stackStyles = {
-  backgroundColor: '#FAFAFA'
+  backgroundColor: '#ffffff'
 };

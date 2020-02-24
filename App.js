@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
@@ -34,7 +34,7 @@ export default function App() {
       await Font.loadAsync({
         Roboto: require('native-base/Fonts/Roboto.ttf'),
         Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-        ...Ionicons.font
+        ...FontAwesome.font
       });
       //다음은 Asset(이미지)으로 loading
       //만약 여러개 해야하면 Asset.loadAsync([require('path'),require('path'),..])

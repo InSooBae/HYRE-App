@@ -6,5 +6,6 @@ export default {
   redColor: '#ED4956',
   blueColor: '#3897f0',
   darkBlueColor: '#003569',
-  hanyangColor: '#00457E'
+  hanyangColor: '#00457E',
+  greenColor: '#A5CE3A'
 };

@@ -14,9 +14,8 @@ import {
 import { useApolloClient } from '@apollo/react-hooks';
 import RNPickerSelect from 'react-native-picker-select';
 import { gql } from 'apollo-boost';
-import Contact from '../components/Contact';
-import Loader from '../components/Loader';
-import constants from '../constants';
+import Contact from '../../components/Contact';
+import Loader from '../../components/Loader';
 
 const SEE_ALL_USER = gql`
   query seeAllUser(
@@ -34,23 +33,16 @@ const SEE_ALL_USER = gql`
       id
       name
       birthday
-      email
       cellPhone
       company
-      companyCategory
       team
       position
-      workPhone
-      workAddress
       photo
-      emailSecret
-      isConfirmed
       major {
         name
       }
       graduatedYear {
-        year
-        semester
+        generation
       }
     }
     howManyUser
@@ -182,8 +174,6 @@ export default () => {
     }
   };
   const moreData = async () => {
-    console.log('aaaaa');
-
     const { data } = await client.query(queryOptions);
     setPage(page + 1);
 
@@ -193,7 +183,6 @@ export default () => {
   const getInitialData = async () => {
     const { data } = await client.query(initQueryOptions);
     if (!data) return;
-    console.log(data, '-----------data-------------------');
     setUsers(data.howManyUser);
     setAddData([...data.seeAllUser]);
     setGeneration(
@@ -205,7 +194,6 @@ export default () => {
         };
       })
     );
-    console.log(generation, '----------------g------------------');
     setMajor(
       data.seeAllMajor.map(e => {
         return {
@@ -290,24 +278,17 @@ export default () => {
           data={addData}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => {
-            console.log(item.name);
             return (
               <Contact
-                birth={item.birthday}
                 cellPhone={item.cellPhone}
                 company={item.company}
-                companyCat={item.companyCategory}
-                email={item.email}
-                semester={item.graduatedYear.semester}
-                year={item.graduatedYear.year}
                 id={item.id}
                 major={item.major.name}
                 name={item.name}
                 photo={item.photo === null ? '' : item.photo}
                 position={item.position}
                 team={item.team}
-                workAddress={item.workAddress}
-                workPhone={item.workPhone}
+                generation={item.graduatedYear.generation}
               />
             );
           }}

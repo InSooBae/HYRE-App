@@ -15,9 +15,11 @@ import {
 import constants from '../constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { callNumber, linkEmail } from '../components/PhoneCall';
+import { withNavigation } from 'react-navigation';
 
 const Contact = ({
   id,
+  __typename,
   photo,
   name,
   cellPhone,
@@ -25,62 +27,67 @@ const Contact = ({
   team,
   position,
   major,
-  generation
+  generation,
+  navigation
 }) => {
   return (
     <Card style={{ height: constants.height / 8 }}>
-      <CardItem cardBody>
-        <Left style={{ height: constants.height / 8 }}>
-          <Image
-            source={
-              photo === '' ? require('../assets/HYU1.png') : { uri: photo }
-            }
-            resizeMode="contain"
-            style={{
-              height: constants.height / 5,
-              width: constants.width / 6
-            }}
-          />
-          <Body style={{ width: constants.width }}>
-            <View style={{ flexDirection: 'row' }}>
-              <Text
-                style={{
-                  fontSize: 25,
-                  color: '#0000FF',
-                  fontWeight: '500'
-                }}
-              >
-                {name}
-              </Text>
-              <Text style={{ marginLeft: 20, marginTop: 5 }}>
-                {position && team
-                  ? `${position}/${team}`
-                  : position
-                  ? position
-                  : team}
-              </Text>
-            </View>
+      <TouchableOpacity onPress={() => navigation.navigate('UserDetail')}>
+        <CardItem cardBody>
+          <Left style={{ height: constants.height / 8 }}>
+            <Image
+              source={
+                photo === '' ? require('../assets/HYU1.png') : { uri: photo }
+              }
+              resizeMode="contain"
+              style={{
+                height: constants.height / 5,
+                width: constants.width / 6
+              }}
+            />
+            <Body style={{ width: constants.width }}>
+              <View style={{ flexDirection: 'row' }}>
+                <Text
+                  style={{
+                    fontSize: 25,
+                    color: '#0000FF',
+                    fontWeight: '500'
+                  }}
+                >
+                  {name}
+                </Text>
+                <Text style={{ marginLeft: 20, marginTop: 5 }}>
+                  {position && team
+                    ? `${position}/${team}`
+                    : position
+                    ? position
+                    : team}
+                </Text>
+              </View>
 
-            <TouchableOpacity onPress={() => callNumber(cellPhone)}>
-              <Text style={{ fontSize: 22, color: '#0099ff' }}>
-                {cellPhone}
-              </Text>
-            </TouchableOpacity>
-            <View>
-              <Text style={{ color: '#00aFFF' }}>{company}</Text>
-            </View>
-          </Body>
-        </Left>
+              <TouchableOpacity onPress={() => callNumber(cellPhone)}>
+                <Text style={{ fontSize: 22, color: '#0099ff' }}>
+                  {cellPhone}
+                </Text>
+              </TouchableOpacity>
+              <View>
+                <Text style={{ color: '#00aFFF' }}>{company}</Text>
+              </View>
+            </Body>
+          </Left>
 
-        <View
-          style={{
-            alignItems: 'flex-end'
-          }}
-        >
-          <Text>{`${generation}기`}</Text>
-          <Text>{`${major}과`}</Text>
-        </View>
-      </CardItem>
+          {__typename === 'User' ? (
+            <View
+              style={{
+                alignItems: 'flex-end'
+              }}
+            >
+              <Text>{`${generation}기`}</Text>
+              <Text>{`${major}과`}</Text>
+            </View>
+          ) : null}
+        </CardItem>
+      </TouchableOpacity>
     </Card>
   );
 };
@@ -93,8 +100,9 @@ Contact.propTypes = {
   team: PropTypes.string,
   position: PropTypes.string,
   photo: PropTypes.string,
-  major: PropTypes.string.isRequired,
-  generation: PropTypes.number.isRequired
+  major: PropTypes.string,
+  generation: PropTypes.number,
+  __typename: PropTypes.string
 };
 
-export default Contact;
+export default withNavigation(Contact);

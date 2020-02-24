@@ -9,7 +9,8 @@ import {
   ActionSheet,
   Item,
   View,
-  Row
+  Row,
+  Fab
 } from 'native-base';
 import { useApolloClient } from '@apollo/react-hooks';
 import RNPickerSelect from 'react-native-picker-select';
@@ -70,6 +71,7 @@ export default () => {
   const [generation, setGeneration] = useState([]);
   const [major, setMajor] = useState([]);
   const [addData, setAddData] = useState();
+  const [active, setActive] = useState(false);
 
   const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
@@ -280,6 +282,7 @@ export default () => {
           renderItem={({ item }) => {
             return (
               <Contact
+                __typename={item.__typename}
                 cellPhone={item.cellPhone}
                 company={item.company}
                 id={item.id}

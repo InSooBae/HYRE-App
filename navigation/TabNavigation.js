@@ -11,6 +11,7 @@ import { Image, View, Platform } from 'react-native';
 import styles from '../styles';
 import { stackStyles } from './config';
 import NavIcon from '../components/NavIcon';
+import UserDetail from '../screens/UserDetail';
 
 //TabNavigator에 각 탭마다 StackNavigator효과를 주는일 customconfig에는설정들
 const stackFactory = (initialRoute, customConfig) =>
@@ -22,6 +23,12 @@ const stackFactory = (initialRoute, customConfig) =>
           ...customConfig,
           headerTitleAlign: 'center' | 'left'
         }
+      },
+      UserDetail: {
+        screen: UserDetail,
+        navigationOptions: ({ navigation }) => ({
+          title: navigation.getParam('userName')
+        })
       }
     },
     {

@@ -65,6 +65,7 @@ const SearchPresenter = ({ query, shouldFetch }) => {
               console.log(item.name);
               return (
                 <Contact
+                  __typename={item.__typename}
                   cellPhone={item.cellPhone}
                   company={item.company}
                   id={item.id}

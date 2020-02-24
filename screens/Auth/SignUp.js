@@ -8,7 +8,9 @@ import {
   Platform,
   Image,
   TouchableOpacity,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  View,
+  Modal
 } from 'react-native';
 import {
   Container,
@@ -24,16 +26,20 @@ import {
   Left,
   Body,
   Content,
-  Right
+  Right,
+  Button,
+  Label,
+  Form
 } from 'native-base';
 import axios from 'axios';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useMutation } from '@apollo/react-hooks';
 import AuthButton from '../../components/AuthButton';
 import AuthInput from '../../components/AuthInput';
 import useInput from '../../hooks/useInput';
 import constants from '../../constants';
 import { gql } from 'apollo-boost';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import * as ImagePicker from 'expo-image-picker';
 
 const REQUEST_CREATE_USER = gql`
   mutation requestCreateUser(
@@ -71,13 +77,6 @@ const REQUEST_CREATE_USER = gql`
       photo
     }
   }
-`;
-
-const View = styled.View`
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  background-color: white;
 `;
 
 Date.prototype.format = function(f) {
@@ -183,7 +182,7 @@ Number.prototype.zf = function(len) {
 
 export default ({ navigation }) => {
   //키보드 토글시 위로 패딩되는 offset값
-  const keyboardVerticalOffset = Platform.OS === 'ios' ? 85 : 0;
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? 85 : 40;
   //회원가입값들
   const nameInput = useInput('');
   const [birth, setBirth] = useState('출생년도를 선택하세요');
@@ -198,8 +197,12 @@ export default ({ navigation }) => {
   const generationInput = useInput('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [requestCreateUserMutation] = useMutation(REQUEST_CREATE_USER);
+  const [selectedImage, setSelectedImage] = useState(
+    require('../../assets/HYU1.png')
+  );
   const showDatePicker = () => {
     setDatePickerVisibility(true);
+    Keyboard.dismiss();
   };
 
   const hideDatePicker = () => {
@@ -207,23 +210,38 @@ export default ({ navigation }) => {
   };
 
   const handleConfirm = date => {
-    setBirth(date.format('yyyy-MM-dd'));
     hideDatePicker();
+    setBirth(date.format('yyyy-MM-dd'));
   };
+
+  const openImagePickerAsync = async () => {
+    let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert('Permission to access camera roll is required!');
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: 'Images'
+    });
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+    pickerResult.filename =
+      'IMG_' + Math.floor(Math.random(4000) * 100000) + '.JPG';
+    setSelectedImage(pickerResult);
+    console.log(pickerResult);
+  };
+
+  // const handleConfirm = date => {
+  //   setBirth(date.format('yyyy-MM-dd'));
+  //   hideDatePicker();
+  // };
   //login에서 보낸 parameter가 있으면 받고 없으면 '' empty String
   const emailInput = useInput(navigation.getParam('email', ''));
-  let photo = navigation.getParam('photo', require('../../assets/HYU1.png'));
-  console.log(photo);
-  console.log(major);
+
   const [loading, setLoading] = useState(false);
-  // const [createAccountMutation] = useMutation(CREATE_ACCOUNT, {
-  //   variables: {
-  //     username: userNameInput,
-  //     email: emailInput.value,
-  //     firstName: nameInput.value,
-  //     lastName: lNameInput.value
-  //   }
-  // });
 
   // 이메일이 유효한지 검증
   const handleSignUp = async () => {
@@ -308,15 +326,17 @@ export default ({ navigation }) => {
     const formData = new FormData();
 
     formData.append('photo', {
-      name: photo.filename,
+      name: selectedImage.filename,
       type: 'image/jpeg',
-      uri: photo.uri
+      uri: selectedImage.uri
     });
     console.log('dkaadsk');
     try {
       setLoading(true);
       let a = null;
-      if (photo.filename) {
+      console.log('------------g------------', selectedImage.filename);
+      if (selectedImage.filename) {
+        console.log('ehla?');
         const {
           data: { location }
         } = await axios.post(
@@ -328,6 +348,7 @@ export default ({ navigation }) => {
             }
           }
         );
+
         a = location;
         console.log('함수안');
       }
@@ -371,177 +392,217 @@ export default ({ navigation }) => {
   };
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : null}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
       keyboardVerticalOffset={keyboardVerticalOffset}
       enabled
+      style={{
+        flexDirection: 'column',
+        justifyContent: 'center'
+      }}
     >
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <Container>
-            <View>
-              {/* <TouchableOpacity
+          <View
+            style={{
+              backgroundColor: 'white',
+              alignItems: 'center',
+              height: constants.height * 1.3
+            }}
+          >
+            {/* <TouchableOpacity
                 onPress={() => navigation.navigate('PhotoNavigation')}
               >
                 <Image source={photo} style={{ height: 80, width: 80 }} />
               </TouchableOpacity> */}
 
-              <CardItem
-                button
-                onPress={() => navigation.navigate('PhotoNavigation')}
-                style={{ width: constants.width / 1.5 }}
+            <CardItem
+              button
+              onPress={openImagePickerAsync}
+              style={{ width: constants.width / 1.5 }}
+            >
+              <Left>
+                <Thumbnail
+                  source={selectedImage}
+                  style={{
+                    height: 80,
+                    width: 80
+                  }}
+                />
+                <Body>
+                  <Text>이미지를 선택하세요</Text>
+                  <Text note>미선택시 기본이미지로 지정됩니다.</Text>
+                </Body>
+              </Left>
+            </CardItem>
+
+            {/* <View style={{ marginBottom: 10 }}>
+              <Item
+                style={{
+                  width: constants.width / 1.5
+                }}
+                floatingLabel
+                success={focus}
               >
-                <Left>
-                  <Thumbnail
-                    source={photo}
-                    style={{
-                      height: 80,
-                      width: 80
-                    }}
-                  />
-                  <Body>
-                    <Text>이미지를 선택하세요</Text>
-                    <Text note>미선택시 기본이미지로 지정됩니다.</Text>
-                  </Body>
-                </Left>
-              </CardItem>
-              <AuthInput
-                {...nameInput}
-                placeholder="이름 / Full Name"
-                autoCorrect={false}
-                returnKeyType="next"
-              />
-              <AuthInput
-                {...emailInput}
-                placeholder="이메일 / Email"
-                keyboardType="email-address"
-                returnKeyType="next"
-                autoCorrect={false}
-              />
-              {/* <AuthInput
-              {...birthInput}
-              placeholder="생년월일 / Birth Day"
+                <Label>{placeholder}</Label>
+                <Input
+                  onFocus={() => setFocus(true)}
+                  onBlur={() => setFocus(false)}
+                  onChangeText={onChange}
+                  keyboardType={keyboardType}
+                  returnKeyType={returnKeyType}
+                  value={value}
+                  onSubmitEditing={onSubmitEditing}
+                  autoCorrect={autoCorrect}
+                  autoCapitalize={autoCapitalize}
+                />
+              </Item>
+            </View> */}
+
+            <AuthInput
+              {...nameInput}
+              placeholder="이름 / Full Name"
+              autoCorrect={false}
+              returnKeyType="next"
+            />
+            <AuthInput
+              {...emailInput}
+              placeholder="이메일 / Email"
+              keyboardType="email-address"
               returnKeyType="next"
               autoCorrect={false}
-            /> */}
-              <>
-                <Item
+            />
+
+            <Item
+              style={{
+                width: constants.width / 1.5,
+                paddingTop: 10
+              }}
+            >
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  flex: 1
+                }}
+                onPress={showDatePicker}
+              >
+                <Text
                   style={{
-                    width: constants.width / 1.5,
-                    paddingTop: 10
+                    width: constants.width / 1.7,
+                    fontSize: 18,
+                    color: '#bfc6ea'
                   }}
                 >
-                  <TouchableOpacity
-                    style={{ flexDirection: 'row' }}
-                    onPress={showDatePicker}
-                  >
-                    <Text
-                      style={{
-                        width: constants.width / 1.7,
-                        fontSize: 18,
-                        color: '#bfc6ea'
-                      }}
-                    >
-                      {birth}
-                    </Text>
-                    <Icon active name="arrow-down" />
-                  </TouchableOpacity>
-                </Item>
-              </>
+                  {birth}
+                </Text>
+                <Icon active name="arrow-down" />
+              </TouchableOpacity>
+            </Item>
+            <DateTimePickerModal
+              cancelTextIOS="취소"
+              confirmTextIOS="선택"
+              headerTextIOS="출생년도를 선택하세요"
+              isVisible={isDatePickerVisible}
+              date={
+                birth !== '출생년도를 선택하세요' ? new Date(birth) : new Date()
+              }
+              mode="date"
+              onConfirm={handleConfirm}
+              onCancel={hideDatePicker}
+            />
 
-              <DateTimePickerModal
-                cancelTextIOS="취소"
-                confirmTextIOS="선택"
-                headerTextIOS="출생년도를 선택하세요"
-                isVisible={isDatePickerVisible}
-                mode="date"
-                locale="ko-KR"
-                onConfirm={handleConfirm}
-                onCancel={hideDatePicker}
-              />
-              <AuthInput
-                {...cellPhoneInput}
-                placeholder="010-xxxx-xxxx"
-                keyboardType={
-                  Platform.OS === 'ios' ? 'numbers-and-punctuation' : 'numeric'
-                }
-                returnKeyType="next"
-                autoCorrect={false}
-              />
-              <AuthInput
-                {...companyInput}
-                placeholder="회사명 / Company Name"
-                returnKeyType="next"
-                autoCorrect={false}
-              />
-              <AuthInput
-                {...workAddressInput}
-                placeholder="사업장 / Work Address"
-                returnKeyType="next"
-                autoCorrect={false}
-              />
-              <AuthInput
-                {...companyCatInput}
-                placeholder="직종 / Company Category"
-                returnKeyType="next"
-                autoCorrect={false}
-              />
-              <AuthInput
-                {...teamInput}
-                placeholder="부서 / Team"
-                returnKeyType="next"
-                autoCorrect={false}
-              />
-              <AuthInput
-                {...positionInput}
-                placeholder="직책 / Position"
-                returnKeyType="next"
-                autoCorrect={false}
-              />
-              <AuthInput
-                {...workPhoneInput}
-                placeholder="회사전화 / Work Phone"
-                keyboardType={
-                  Platform.OS === 'ios' ? 'numbers-and-punctuation' : 'numeric'
-                }
-                returnKeyType="next"
-                autoCorrect={false}
-              />
-              {/* <AuthInput
+            {/* <Modal
+                animationType="fade"
+                transparent
+                visible={showTimeOfDayPicker}
+                presentationStyle="overFullScreen"
+              >
+                */}
+            <AuthInput
+              {...cellPhoneInput}
+              placeholder="010-xxxx-xxxx"
+              keyboardType={
+                Platform.OS === 'ios' ? 'numbers-and-punctuation' : 'numeric'
+              }
+              returnKeyType="next"
+              autoCorrect={false}
+            />
+            <AuthInput
+              {...companyInput}
+              placeholder="회사명 / Company Name"
+              returnKeyType="next"
+              autoCorrect={false}
+            />
+            <AuthInput
+              {...workAddressInput}
+              placeholder="사업장 / Work Address"
+              returnKeyType="next"
+              autoCorrect={false}
+            />
+            <AuthInput
+              {...companyCatInput}
+              placeholder="직종 / Company Category"
+              returnKeyType="next"
+              autoCorrect={false}
+            />
+            <AuthInput
+              {...teamInput}
+              placeholder="부서 / Team"
+              returnKeyType="next"
+              autoCorrect={false}
+            />
+            <AuthInput
+              {...positionInput}
+              placeholder="직책 / Position"
+              returnKeyType="next"
+              autoCorrect={false}
+            />
+            <AuthInput
+              {...workPhoneInput}
+              placeholder="회사전화 / Work Phone"
+              keyboardType={
+                Platform.OS === 'ios' ? 'numbers-and-punctuation' : 'numeric'
+              }
+              returnKeyType="next"
+              autoCorrect={false}
+            />
+            {/* <AuthInput
               {...majorInput}
               placeholder="대학원 전공 / Major"
               returnKeyType="next"
               autoCorrect={false}
             /> */}
-              <Item style={{ marginBottom: 5 }} picker>
-                <Picker
-                  mode="dropdown"
-                  iosIcon={<Icon name="arrow-down" />}
-                  style={{ width: constants.width / 1.5 }}
-                  placeholder="대학원 전공"
-                  placeholderStyle={{ color: '#bfc6ea' }}
-                  placeholderIconColor="#007aff"
-                  selectedValue={major}
-                  onValueChange={newMajor => setMajor(newMajor)}
-                >
-                  <Picker.Item label="부동산자산관리" value="부동산자산관리" />
-                  <Picker.Item label="도시부동산개발" value="도시부동산개발" />
-                  <Picker.Item label="부동산투자금융" value="부동산투자금융" />
-                </Picker>
-              </Item>
-              <AuthInput
-                {...generationInput}
-                placeholder="기수 / Generation"
-                returnKeyType="send"
-                autoCorrect={false}
-              />
-
-              <AuthButton
-                loading={loading}
-                onPress={handleSignUp}
-                text="Sign Up"
-              />
-            </View>
-          </Container>
+            <Item
+              style={{ marginBottom: 5, width: constants.width / 1.5 }}
+              picker
+            >
+              <Picker
+                mode="dropdown"
+                iosIcon={<Icon name="arrow-down" />}
+                style={{ width: constants.width / 1.5 }}
+                placeholder="대학원 전공"
+                placeholderStyle={{ color: '#bfc6ea' }}
+                placeholderIconColor="#007aff"
+                selectedValue={major}
+                onValueChange={newMajor => setMajor(newMajor)}
+              >
+                <Picker.Item label="부동산자산관리" value="부동산자산관리" />
+                <Picker.Item label="도시부동산개발" value="도시부동산개발" />
+                <Picker.Item label="부동산투자금융" value="부동산투자금융" />
+              </Picker>
+            </Item>
+            <AuthInput
+              {...generationInput}
+              placeholder="기수 / Generation"
+              returnKeyType="send"
+              autoCorrect={false}
+            />
+            <AuthButton
+              loading={loading}
+              onPress={handleSignUp}
+              text="Sign Up"
+            />
+          </View>
         </TouchableWithoutFeedback>
       </ScrollView>
     </KeyboardAvoidingView>

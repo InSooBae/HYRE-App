@@ -1,22 +1,30 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { TouchableWithoutFeedback, Keyboard, Alert, Image } from 'react-native';
+import {
+  TouchableWithoutFeedback,
+  Keyboard,
+  Alert,
+  Image,
+  KeyboardAvoidingView
+} from 'react-native';
 import { useMutation } from '@apollo/react-hooks';
 import AuthButton from '../../components/AuthButton';
 import { LOG_IN } from './AuthQueries';
 import AuthInput from '../../components/AuthInput';
 import useInput from '../../hooks/useInput';
 import constants from '../../constants';
-import { Toast } from 'native-base';
+import { Toast, Container } from 'native-base';
 
 const View = styled.View`
   justify-content: space-evenly;
   align-items: center;
+  flex-direction: column;
   flex: 1;
   background-color: white;
 `;
 
 export default ({ navigation }) => {
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? 10 : 0;
   const emailInput = useInput(navigation.getParam('email', ''));
   const [loading, setLoading] = useState(false);
   const [requestSecretMutation] = useMutation(LOG_IN, {
@@ -75,23 +83,30 @@ export default ({ navigation }) => {
       <View>
         <Image
           style={{
+            marginTop: 50,
             width: constants.width / 2,
-            height: constants.height / 5
+            height: constants.height / 5,
+            marginBottom: constants.height / 7
           }}
           resizeMode={'contain'}
           source={require('../../assets/HYU1.png')}
         />
+        <Container
+          style={{
+            alignItems: 'center'
+          }}
+        >
+          <AuthInput
+            {...emailInput}
+            placeholder="이메일"
+            keyboardType="email-address"
+            returnKeyType="send"
+            onSubmitEditing={handleLogin}
+            autoCorrect={false}
+          />
 
-        <AuthInput
-          {...emailInput}
-          placeholder="이메일"
-          keyboardType="email-address"
-          returnKeyType="send"
-          onSubmitEditing={handleLogin}
-          autoCorrect={false}
-        />
-
-        <AuthButton loading={loading} onPress={handleLogin} text={'Log In'} />
+          <AuthButton loading={loading} onPress={handleLogin} text={'Log In'} />
+        </Container>
       </View>
     </TouchableWithoutFeedback>
   );

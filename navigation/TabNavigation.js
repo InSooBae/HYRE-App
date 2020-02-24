@@ -1,27 +1,41 @@
-import { View } from 'react-native';
+import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import Contacts from '../screens/Contacts';
 import Notice from '../screens/Notice';
 import Search from '../screens/Search';
 import Prof from '../screens/Prof';
 import Setting from '../screens/Setting';
+import { Image, View } from 'react-native';
+import styles from '../styles';
+import { stackStyles } from './config';
+import { Button, Icon, Text } from 'native-base';
 
 //TabNavigator에 각 탭마다 StackNavigator효과를 주는일 customconfig에는설정들
 const stackFactory = (initialRoute, customConfig) =>
-  createStackNavigator({
-    InitialRoute: {
-      screen: initialRoute,
-      navigationOptions: { ...customConfig }
-    }
-  });
+  createStackNavigator(
+    {
+      InitialRoute: {
+        screen: initialRoute,
+        navigationOptions: { ...customConfig }
+      }
+    },
+    { headerLayoutPreset: 'center' | 'left' }
+  );
 
-const TabNavigation = createBottomTabNavigator(
+const TabNavigation = createMaterialTopTabNavigator(
   {
     Notice: {
       screen: stackFactory(Notice, {
-        title: '공지사항'
+        headerLayoutPreset: 'center'
+        // headerTitle: () => (
+        //   <Image
+        //     style={{}}
+        //     resizeMode="contain"
+        //     source={require('../assets/HYU_logo1.png')}
+        //   />
+        // )
       })
     },
     Search: {
@@ -31,8 +45,26 @@ const TabNavigation = createBottomTabNavigator(
     },
     Contacts: {
       screen: stackFactory(Contacts, {
-        title: '연락처'
-      })
+        headerTitle: () => (
+          <View>
+            <Image
+              style={{
+                height: 50
+              }}
+              resizeMode="contain"
+              source={require('../assets/HYU_logo1.png')}
+            />
+          </View>
+        )
+      }),
+      navigationOptions: {
+        tabBarIcon: () => (
+          <Button vertical>
+            <Icon name="person" />
+            <Text>Contact</Text>
+          </Button>
+        )
+      }
     },
     Prof: {
       screen: stackFactory(Prof, {
@@ -41,11 +73,36 @@ const TabNavigation = createBottomTabNavigator(
     },
     Profile: {
       screen: stackFactory(Setting, {
-        title: '설정'
+        title: '설정',
+        headerTitle: () => (
+          <Image
+            style={{ height: 50 }}
+            resizeMode="contain"
+            source={require('../assets/HYU_logo1.png')}
+          />
+        )
       })
     }
   },
-  { initialRouteName: 'Contacts' }
+  {
+    tabBarPosition: 'bottom',
+    tabBarOptions: {
+      indicatorStyle: {
+        backgroundColor: styles.blackColor,
+        marginBottom: 20
+      },
+      labelStyle: {
+        color: styles.blackColor,
+        fontWeight: '600'
+      },
+      style: {
+        paddingBottom: 20,
+        ...stackStyles
+      },
+      showIcon: true,
+      showLabel: false
+    }
+  }
 );
 
 export default createAppContainer(TabNavigation);

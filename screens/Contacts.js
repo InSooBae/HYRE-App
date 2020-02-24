@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, RefreshControl } from 'react-native';
-import { Container } from 'native-base';
-import Contact from '../components/Contact';
+import { FlatList, RefreshControl, StyleSheet } from 'react-native';
+import {
+  Container,
+  Header,
+  Content,
+  Button,
+  Text,
+  ActionSheet,
+  Item,
+  View,
+  Row
+} from 'native-base';
 import { useApolloClient } from '@apollo/react-hooks';
+import RNPickerSelect from 'react-native-picker-select';
 import { gql } from 'apollo-boost';
+import Contact from '../components/Contact';
 import Loader from '../components/Loader';
+import constants from '../constants';
 
 const SEE_ALL_USER = gql`
   query seeAllUser(
@@ -42,6 +54,14 @@ const SEE_ALL_USER = gql`
       }
     }
     howManyUser
+    seeAllGradYear {
+      id
+      generation
+    }
+    seeAllMajor {
+      id
+      name
+    }
   }
 `;
 
@@ -50,10 +70,102 @@ export default () => {
   const [refreshing, setRefreshing] = useState(false);
   const [page, setPage] = useState(1);
   let user = page * 5;
+  const [majorQuery, setMajorQuery] = useState(null);
+  const [generationQuery, setGenerationQuery] = useState(null);
   const [onloading, setOnLoading] = useState(true);
   const [users, setUsers] = useState();
   const client = useApolloClient();
+  const [generation, setGeneration] = useState([]);
+  const [major, setMajor] = useState([]);
   const [addData, setAddData] = useState();
+
+  const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+      fontSize: 18,
+      paddingVertical: 12,
+      paddingHorizontal: 10,
+      borderWidth: 1,
+      borderColor: 'gray',
+      borderRadius: 4,
+      color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+      textAlign: 'center'
+    },
+    inputAndroid: {
+      fontSize: 18,
+      paddingHorizontal: 10,
+      paddingVertical: 8,
+      borderWidth: 0.5,
+      borderColor: 'purple',
+      borderRadius: 8,
+      color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+      textAlign: 'center'
+    }
+  });
+
+  const queryOptions =
+    !majorQuery && !generationQuery
+      ? {
+          query: SEE_ALL_USER,
+          variables: { limit: 5, page: page + 1 },
+
+          fetchPolicy: 'network-only'
+        }
+      : majorQuery === null
+      ? {
+          query: SEE_ALL_USER,
+          variables: { limit: 5, page: page + 1, generation: generationQuery },
+
+          fetchPolicy: 'network-only'
+        }
+      : generationQuery === null
+      ? {
+          query: SEE_ALL_USER,
+          variables: { limit: 5, page: page + 1, major: majorQuery },
+          fetchPolicy: 'network-only'
+        }
+      : {
+          query: SEE_ALL_USER,
+          variables: {
+            limit: 5,
+            page: page + 1,
+            major: majorQuery,
+            generation: generationQuery
+          },
+          fetchPolicy: 'network-only'
+        };
+  const initQueryOptions =
+    !majorQuery && !generationQuery
+      ? {
+          query: SEE_ALL_USER,
+          variables: { limit: 5, page: 1 },
+
+          fetchPolicy: 'network-only'
+        }
+      : majorQuery === null
+      ? {
+          query: SEE_ALL_USER,
+          variables: { limit: 5, page: 1, generation: generationQuery },
+
+          fetchPolicy: 'network-only'
+        }
+      : generationQuery === null
+      ? {
+          query: SEE_ALL_USER,
+          variables: { limit: 5, page: 1, major: majorQuery },
+          fetchPolicy: 'network-only'
+        }
+      : {
+          query: SEE_ALL_USER,
+          variables: {
+            limit: 5,
+            page: 1,
+            major: majorQuery,
+            generation: generationQuery
+          },
+          fetchPolicy: 'network-only'
+        };
 
   const refresh = async () => {
     try {
@@ -72,25 +184,37 @@ export default () => {
   const moreData = async () => {
     console.log('aaaaa');
 
-    const { data } = await client.query({
-      query: SEE_ALL_USER,
-      variables: { limit: 5, page: page + 1 },
-      fetchPolicy: 'network-only'
-    });
+    const { data } = await client.query(queryOptions);
     setPage(page + 1);
 
     setAddData(addData.concat(data.seeAllUser));
   };
 
   const getInitialData = async () => {
-    const { data } = await client.query({
-      query: SEE_ALL_USER,
-      variables: { limit: 5, page: 1 },
-      fetchPolicy: 'network-only'
-    });
+    const { data } = await client.query(initQueryOptions);
     if (!data) return;
+    console.log(data, '-----------data-------------------');
     setUsers(data.howManyUser);
     setAddData([...data.seeAllUser]);
+    setGeneration(
+      data.seeAllGradYear.map(e => {
+        return {
+          key: e.id,
+          label: `${e.generation}기`,
+          value: e.generation
+        };
+      })
+    );
+    console.log(generation, '----------------g------------------');
+    setMajor(
+      data.seeAllMajor.map(e => {
+        return {
+          key: e.id,
+          label: e.name,
+          value: e.name
+        };
+      })
+    );
 
     setOnLoading(false);
   };
@@ -101,12 +225,67 @@ export default () => {
     };
   }, []);
 
+  useEffect(() => {
+    refresh();
+  }, [majorQuery, generationQuery]);
+
   if (onloading || addData === undefined) {
     return <Loader />;
   }
   if (addData) {
     return (
       <Container>
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <Text
+            style={{
+              fontSize: 20,
+              paddingVertical: 12,
+              paddingHorizontal: 10,
+              fontWeight: '600'
+            }}
+          >
+            기수:
+          </Text>
+          <RNPickerSelect
+            placeholder={{
+              label: '선택없음',
+              value: null
+            }}
+            placeholderTextColor={'black'}
+            style={{ ...pickerSelectStyles }}
+            onValueChange={generation => {
+              setGenerationQuery(generation);
+            }}
+            items={generation}
+            doneText={'확인'}
+            useNativeAndroidPickerStyle={false}
+          />
+          <Text
+            style={{
+              fontSize: 20,
+              paddingVertical: 12,
+              paddingHorizontal: 10,
+              fontWeight: '600'
+            }}
+          >
+            전공:
+          </Text>
+
+          <RNPickerSelect
+            placeholder={{
+              label: '선택없음',
+              value: null
+            }}
+            style={{ ...pickerSelectStyles }}
+            placeholderTextColor={'black'}
+            onValueChange={major => {
+              setMajorQuery(major);
+            }}
+            items={major}
+            doneText={'확인'}
+            useNativeAndroidPickerStyle={false}
+          />
+        </View>
         <FlatList
           data={addData}
           keyExtractor={(item, index) => index.toString()}
@@ -133,7 +312,7 @@ export default () => {
             );
           }}
           onEndReached={users / user >= 1 ? moreData : () => null}
-          onEndReachedThreshold={0.5}
+          onEndReachedThreshold={1}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={refresh} />
           }

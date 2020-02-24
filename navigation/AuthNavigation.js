@@ -1,9 +1,11 @@
+import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import SignUp from '../screens/Auth/SignUp';
 import Confirm from '../screens/Auth/Confirm';
 import Login from '../screens/Auth/Login';
 import AuthHome from '../screens/Auth/AuthHome';
+import { View, Text } from 'react-native';
 
 //When the User is logged out
 // Navigator를 react component처럼 render하고싶으면 createAppContainer가 필수
@@ -18,28 +20,37 @@ SignMeUp: {
 }
 */
 
-const AuthNavigation = createStackNavigator({
-  AuthHome: {
-    screen: AuthHome,
-    navigationOptions: {
-      headerShown: false
+const AuthNavigation = createStackNavigator(
+  {
+    AuthHome: {
+      screen: AuthHome,
+      navigationOptions: {
+        headerShown: false
+      }
+    },
+    Login: {
+      screen: Login,
+      navigationOptions: {
+        title: '로그인',
+        headerBackTitleVisible: false
+      }
+    },
+    SignUp: {
+      screen: SignUp,
+      navigationOptions: {
+        title: '회원가입',
+        headerBackTitleVisible: false
+      }
+    },
+    Confirm: {
+      screen: Confirm,
+      navigationOptions: {
+        title: '이메일 인증',
+        headerBackTitleVisible: false
+      }
     }
   },
-  Login: {
-    screen: Login,
-    navigationOptions: {
-      title: '로그인',
-      headerBackTitleVisible: false
-    }
-  },
-  SignUp: {
-    screen: SignUp,
-    navigationOptions: {
-      title: '회원가입',
-      headerBackTitleVisible: false
-    }
-  },
-  Confirm
-});
+  { headerTitleAlign: 'center' | 'left' }
+);
 
 export default createAppContainer(AuthNavigation);

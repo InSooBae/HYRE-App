@@ -20,6 +20,7 @@ const AuthInput = ({
   autoCapitalize = 'none',
   onChange,
   returnKeyType = 'done',
+
   onSubmitEditing = () => null,
   autoCorrect = true
 }) => {

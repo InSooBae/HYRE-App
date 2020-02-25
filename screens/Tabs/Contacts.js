@@ -10,7 +10,8 @@ import {
   Item,
   View,
   Row,
-  Fab
+  Fab,
+  Spinner
 } from 'native-base';
 import { useApolloClient } from '@apollo/react-hooks';
 import RNPickerSelect from 'react-native-picker-select';
@@ -71,8 +72,7 @@ export default () => {
   const [generation, setGeneration] = useState([]);
   const [major, setMajor] = useState([]);
   const [addData, setAddData] = useState();
-  const [active, setActive] = useState(false);
-
+  const [footerLoading, setFooterLoading] = useState(false);
   const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
       fontSize: 18,
@@ -176,10 +176,12 @@ export default () => {
     }
   };
   const moreData = async () => {
+    setFooterLoading(true);
     const { data } = await client.query(queryOptions);
     setPage(page + 1);
 
     setAddData(addData.concat(data.seeAllUser));
+    setFooterLoading(false);
   };
 
   const getInitialData = async () => {
@@ -300,6 +302,7 @@ export default () => {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={refresh} />
           }
+          ListFooterComponent={footerLoading ? <Spinner color="blue" /> : null}
         />
       </Container>
     );

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, RefreshControl } from 'react-native';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import { RefreshControl } from 'react-native';
 import PropTypes from 'prop-types';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
@@ -78,6 +77,9 @@ const SearchPresenter = ({ query, shouldFetch }) => {
                 />
               );
             }}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
           />
         )
       )}

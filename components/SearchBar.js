@@ -20,6 +20,7 @@ const SearchBar = ({ onChange, value, onSubmit }) => (
     onChangeText={onChange}
     onEndEditing={onSubmit}
     value={value}
+    autoCorrect={false}
     autoCapitalize="none"
     placeholder={'Search'}
     placeholderTextColor={styles.darkGreyColor}

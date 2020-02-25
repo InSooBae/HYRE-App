@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { gql } from 'apollo-boost';
 import { Container } from 'native-base';
 import { FlatList } from 'react-native-gesture-handler';
-import Contact from '../../components/Contact';
 import { useQuery } from '@apollo/react-hooks';
 import { RefreshControl } from 'react-native';
-import Loader from '../../components/Loader';
+import Contact from '../../../components/Contact';
+import Loader from '../../../components/Loader';
 
 const SEARCH = gql`
   query seeAllProf {
@@ -21,21 +20,14 @@ const SEARCH = gql`
   }
 `;
 
-const View = styled.View`
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-`;
-
-const Text = styled.Text``;
-
-export default () => {
+export default ({ query }) => {
   const [refreshing, setRefreshing] = useState(false);
   const { data, loading, refetch } = useQuery(SEARCH, {
     //언제 쿼리를 조회하지 않고 넘길지 설정
     //검색 결과가 항상 캐시에 저장되지 않도록 fetchPolicy로 설정
     fetchPolicy: 'network-only'
   });
+  console.log(query);
   const refresh = async () => {
     try {
       setRefreshing(true);

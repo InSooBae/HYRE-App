@@ -5,13 +5,13 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import Contacts from '../screens/Tabs/Contacts';
 import Notice from '../screens/Tabs/Notice';
 import Search from '../screens/Tabs/Search';
-import Prof from '../screens/Tabs/Prof';
 import Setting from '../screens/Tabs/Setting';
 import { Image, View, Platform } from 'react-native';
 import styles from '../styles';
 import { stackStyles } from './config';
 import NavIcon from '../components/NavIcon';
 import UserDetail from '../screens/UserDetail';
+import Prof from '../screens/Tabs/Prof';
 
 //TabNavigator에 각 탭마다 StackNavigator효과를 주는일 customconfig에는설정들
 const stackFactory = (initialRoute, customConfig) =>
@@ -27,7 +27,7 @@ const stackFactory = (initialRoute, customConfig) =>
       UserDetail: {
         screen: UserDetail,
         navigationOptions: ({ navigation }) => ({
-          title: navigation.getParam('userName')
+          title: navigation.getParam('id')
         })
       }
     },
@@ -91,9 +91,7 @@ const TabNavigation = createMaterialTopTabNavigator(
       }
     },
     Prof: {
-      screen: stackFactory(Prof, {
-        title: '교수 / 국장'
-      }),
+      screen: stackFactory(Prof, {}),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <NavIcon

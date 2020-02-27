@@ -7,7 +7,7 @@ import { RefreshControl } from 'react-native';
 import Contact from '../../../components/Contact';
 import Loader from '../../../components/Loader';
 
-const SEARCH = gql`
+const SEE_ALL_PROF = gql`
   query seeAllProf {
     seeAllProf {
       id
@@ -22,7 +22,7 @@ const SEARCH = gql`
 
 export default ({ query }) => {
   const [refreshing, setRefreshing] = useState(false);
-  const { data, loading, refetch } = useQuery(SEARCH, {
+  const { data, loading, refetch } = useQuery(SEE_ALL_PROF, {
     //언제 쿼리를 조회하지 않고 넘길지 설정
     //검색 결과가 항상 캐시에 저장되지 않도록 fetchPolicy로 설정
     fetchPolicy: 'network-only'

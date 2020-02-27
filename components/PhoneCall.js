@@ -33,3 +33,17 @@ export const linkEmail = email => {
     })
     .catch(err => console.log(err));
 };
+
+export const linkMessage = phone => {
+  console.log(phone);
+  const url = `sms:${phone}${Platform.OS === 'ios' ? '&' : '?'}body=${''}`;
+  Linking.canOpenURL(url)
+    .then(supported => {
+      if (!supported) {
+        Alert.alert('Phone Number is not available');
+      } else {
+        return Linking.openURL(url);
+      }
+    })
+    .catch(err => console.log(err));
+};

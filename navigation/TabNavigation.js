@@ -27,7 +27,7 @@ const stackFactory = (initialRoute, customConfig) =>
       UserDetail: {
         screen: UserDetail,
         navigationOptions: ({ navigation }) => ({
-          title: navigation.getParam('id')
+          title: navigation.getParam('name')
         })
       }
     },
@@ -123,6 +123,7 @@ const TabNavigation = createMaterialTopTabNavigator(
     }
   },
   {
+    initialRouteName: 'Contacts',
     tabBarPosition: 'bottom',
     tabBarOptions: {
       indicatorStyle: {

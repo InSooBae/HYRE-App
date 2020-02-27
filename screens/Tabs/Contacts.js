@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, RefreshControl, StyleSheet } from 'react-native';
+import { FlatList, RefreshControl, StyleSheet, Platform } from 'react-native';
 import {
   Container,
   Header,
@@ -18,6 +18,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import { gql } from 'apollo-boost';
 import Contact from '../../components/Contact';
 import Loader from '../../components/Loader';
+import styles from '../../styles';
 
 const SEE_ALL_USER = gql`
   query seeAllUser(
@@ -63,9 +64,11 @@ export default () => {
   // const [seeAllUserMutation] = useMutation();
   const [refreshing, setRefreshing] = useState(false);
   const [page, setPage] = useState(1);
-  let user = page * 5;
+  const limit = 11;
+  let user = page * limit;
   const [majorQuery, setMajorQuery] = useState(null);
   const [generationQuery, setGenerationQuery] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [onloading, setOnLoading] = useState(true);
   const [users, setUsers] = useState();
   const client = useApolloClient();
@@ -97,32 +100,31 @@ export default () => {
       textAlign: 'center'
     }
   });
-
   const queryOptions =
     !majorQuery && !generationQuery
       ? {
           query: SEE_ALL_USER,
-          variables: { limit: 5, page: page + 1 },
+          variables: { limit, page: page + 1 },
 
           fetchPolicy: 'network-only'
         }
       : majorQuery === null
       ? {
           query: SEE_ALL_USER,
-          variables: { limit: 5, page: page + 1, generation: generationQuery },
+          variables: { limit, page: page + 1, generation: generationQuery },
 
           fetchPolicy: 'network-only'
         }
       : generationQuery === null
       ? {
           query: SEE_ALL_USER,
-          variables: { limit: 5, page: page + 1, major: majorQuery },
+          variables: { limit, page: page + 1, major: majorQuery },
           fetchPolicy: 'network-only'
         }
       : {
           query: SEE_ALL_USER,
           variables: {
-            limit: 5,
+            limit,
             page: page + 1,
             major: majorQuery,
             generation: generationQuery
@@ -133,38 +135,38 @@ export default () => {
     !majorQuery && !generationQuery
       ? {
           query: SEE_ALL_USER,
-          variables: { limit: 5, page: 1 },
+          variables: { limit, page: 1 },
 
           fetchPolicy: 'network-only'
         }
       : majorQuery === null
       ? {
           query: SEE_ALL_USER,
-          variables: { limit: 5, page: 1, generation: generationQuery },
+          variables: { limit, page: 1, generation: generationQuery },
 
           fetchPolicy: 'network-only'
         }
       : generationQuery === null
       ? {
           query: SEE_ALL_USER,
-          variables: { limit: 5, page: 1, major: majorQuery },
+          variables: { limit, page: 1, major: majorQuery },
           fetchPolicy: 'network-only'
         }
       : {
           query: SEE_ALL_USER,
           variables: {
-            limit: 5,
+            limit,
             page: 1,
             major: majorQuery,
             generation: generationQuery
           },
           fetchPolicy: 'network-only'
         };
+  console.log(users / user);
 
   const refresh = async () => {
     try {
       setRefreshing(true);
-      setOnLoading(true);
 
       getInitialData();
       setPage(1);
@@ -172,10 +174,10 @@ export default () => {
       console.log(e);
     } finally {
       setRefreshing(false);
-      setOnLoading(false);
     }
   };
   const moreData = async () => {
+    console.log('aaaaa');
     setFooterLoading(true);
     const { data } = await client.query(queryOptions);
     setPage(page + 1);
@@ -187,6 +189,7 @@ export default () => {
   const getInitialData = async () => {
     const { data } = await client.query(initQueryOptions);
     if (!data) return;
+    console.log(data, '-----------data-------------------');
     setUsers(data.howManyUser);
     setAddData([...data.seeAllUser]);
     setGeneration(
@@ -198,6 +201,7 @@ export default () => {
         };
       })
     );
+    console.log(generation, '----------------g------------------');
     setMajor(
       data.seeAllMajor.map(e => {
         return {
@@ -207,7 +211,7 @@ export default () => {
         };
       })
     );
-
+    setLoading(false);
     setOnLoading(false);
   };
   useEffect(() => {
@@ -218,6 +222,7 @@ export default () => {
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     refresh();
   }, [majorQuery, generationQuery]);
 
@@ -278,32 +283,38 @@ export default () => {
             useNativeAndroidPickerStyle={false}
           />
         </View>
-        <FlatList
-          data={addData}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => {
-            return (
-              <Contact
-                __typename={item.__typename}
-                cellPhone={item.cellPhone}
-                company={item.company}
-                id={item.id}
-                major={item.major.name}
-                name={item.name}
-                photo={item.photo === null ? '' : item.photo}
-                position={item.position}
-                team={item.team}
-                generation={item.graduatedYear.generation}
-              />
-            );
-          }}
-          onEndReached={users / user >= 1 ? moreData : () => null}
-          onEndReachedThreshold={1}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={refresh} />
-          }
-          ListFooterComponent={footerLoading ? <Spinner color="blue" /> : null}
-        />
+        {loading ? (
+          <Loader />
+        ) : (
+          <FlatList
+            data={addData}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => {
+              return (
+                <Contact
+                  __typename={item.__typename}
+                  cellPhone={item.cellPhone}
+                  company={item.company}
+                  id={item.id}
+                  major={item.major.name}
+                  name={item.name}
+                  photo={item.photo === null ? '' : item.photo}
+                  position={item.position}
+                  team={item.team}
+                  generation={item.graduatedYear.generation}
+                />
+              );
+            }}
+            onEndReached={users / user > 1 ? moreData : () => null}
+            onEndReachedThreshold={Platform.OS === 'ios' ? 1 : 50}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={refresh} />
+            }
+            ListFooterComponent={
+              footerLoading ? <Spinner color={styles.hanyangColor} /> : null
+            }
+          />
+        )}
       </Container>
     );
   }

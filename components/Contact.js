@@ -33,7 +33,13 @@ const Contact = ({
   return (
     <Card style={{ height: constants.height / 8 }}>
       <TouchableOpacity
-        onPress={() => navigation.navigate('UserDetail', { id: id })}
+        onPress={() =>
+          navigation.navigate('UserDetail', {
+            id: id,
+            name: name,
+            __typename: __typename
+          })
+        }
       >
         <CardItem cardBody>
           <Left style={{ height: constants.height / 8 }}>

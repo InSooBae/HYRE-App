@@ -1,7 +1,7 @@
 import React from 'react';
 import ProfPresenter from './ProfPresenter';
 import HeaderButton from '../../../components/HeaderButton';
-import { Segment, Button, Text } from 'native-base';
+import { Segment, Button, Text, View } from 'native-base';
 
 //쿼리는 hook 써야해서 파일 나눔
 /* 
@@ -17,13 +17,15 @@ export default class extends React.Component {
   //함수로 만들고 객체형태로 리턴하고싶으면 () 감싸야함
   static navigationOptions = ({ navigation }) => ({
     headerTitle: () => (
-      <HeaderButton
-        value1={navigation.getParam('value1', '교수')}
-        value2={navigation.getParam('value2', '국장')}
-        query={navigation.getParam('query', '교수')}
-        onPress1={navigation.getParam('onPress1', () => null)}
-        onPress2={navigation.getParam('onPress2', () => null)}
-      />
+      <View>
+        <HeaderButton
+          value1={navigation.getParam('value1', '교수')}
+          value2={navigation.getParam('value2', '국장')}
+          query={navigation.getParam('query', '교수')}
+          onPress1={navigation.getParam('onPress1', () => null)}
+          onPress2={navigation.getParam('onPress2', () => null)}
+        />
+      </View>
       //     <Segment>
       //   <Button first active={this.isValue1} onPress={onPress1}>
       //     <Text>{value1}</Text>

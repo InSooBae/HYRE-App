@@ -35,7 +35,6 @@ const SEE_ALL_USER = gql`
     ) {
       id
       name
-      birthday
       cellPhone
       company
       team
@@ -162,7 +161,6 @@ export default () => {
           },
           fetchPolicy: 'network-only'
         };
-  console.log(users / user);
 
   const refresh = async () => {
     try {
@@ -177,7 +175,6 @@ export default () => {
     }
   };
   const moreData = async () => {
-    console.log('aaaaa');
     setFooterLoading(true);
     const { data } = await client.query(queryOptions);
     setPage(page + 1);
@@ -189,7 +186,6 @@ export default () => {
   const getInitialData = async () => {
     const { data } = await client.query(initQueryOptions);
     if (!data) return;
-    console.log(data, '-----------data-------------------');
     setUsers(data.howManyUser);
     setAddData([...data.seeAllUser]);
     setGeneration(
@@ -201,7 +197,6 @@ export default () => {
         };
       })
     );
-    console.log(generation, '----------------g------------------');
     setMajor(
       data.seeAllMajor.map(e => {
         return {

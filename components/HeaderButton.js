@@ -1,7 +1,7 @@
 import { Segment, Button, Text } from 'native-base';
 import React from 'react';
 import styles from '../styles';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 const HeaderButton = ({ value1, value2, onPress1, onPress2, query }) => {
   const buttonStyle = StyleSheet.create({
@@ -25,7 +25,15 @@ const HeaderButton = ({ value1, value2, onPress1, onPress2, query }) => {
   });
   return (
     <Segment
-      style={Platform.OS === 'ios' ? null : { backgroundColor: 'white' }}
+      style={
+        Platform.OS === 'ios'
+          ? {
+              backgroundColor: 'white',
+              borderBottomWidth: 0.5,
+              borderBottomColor: styles.lightGreyColor
+            }
+          : { backgroundColor: 'white' }
+      }
     >
       <Button
         style={

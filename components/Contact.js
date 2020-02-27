@@ -28,6 +28,8 @@ const Contact = ({
   position,
   major,
   generation,
+  directorGen = '',
+  directorTitle = '',
   navigation
 }) => {
   return (
@@ -90,6 +92,9 @@ const Contact = ({
                 alignItems: 'flex-end'
               }}
             >
+              {directorTitle === '' ? null : (
+                <Text>{`${directorGen}기 ${directorTitle}`}</Text>
+              )}
               <Text>{`${generation}기`}</Text>
               <Text>{`${major}과`}</Text>
             </View>

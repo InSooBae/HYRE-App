@@ -61,7 +61,6 @@ const SearchPresenter = ({ query, shouldFetch }) => {
             data={data.searchUser}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => {
-              console.log(item.name);
               return (
                 <Contact
                   __typename={item.__typename}

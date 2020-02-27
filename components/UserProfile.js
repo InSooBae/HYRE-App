@@ -10,7 +10,8 @@ import {
   Thumbnail,
   Right,
   ListItem,
-  List
+  List,
+  View
 } from 'native-base';
 import { FontAwesome } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -41,7 +42,7 @@ export default ({
   //envelope-o envelope phone
   // commenting-o commenting
   return (
-    <Container>
+    <View style={{ backgroundColor: 'white' }}>
       <Content padder>
         <Card>
           <CardItem header bordered>
@@ -69,7 +70,7 @@ export default ({
               )}
             </Left>
             <Right
-              style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}
+              style={{ flexDirection: 'row', justifyContent: 'space-between' }}
             >
               <TouchableOpacity onPress={() => linkEmail(email)}>
                 <FontAwesome
@@ -183,6 +184,6 @@ export default ({
           </CardItem>
         </Card>
       </Content>
-    </Container>
+    </View>
   );
 };

@@ -104,26 +104,20 @@ const TabNavigation = createMaterialTopTabNavigator(
     Profile: {
       screen: stackFactory(Setting, {
         title: '설정',
-        headerTitle: () => (
-          <Image
-            style={{ height: 50 }}
-            resizeMode="contain"
-            source={require('../assets/HYU_logo1.png')}
-          />
-        )
+        headerTitle: '내 정보'
       }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <NavIcon
             focused={focused}
-            name={Platform.OS === 'ios' ? 'gear' : 'gear'}
+            name={Platform.OS === 'ios' ? 'user' : 'user'}
           />
         )
       }
     }
   },
   {
-    initialRouteName: 'Contacts',
+    initialRouteName: 'Profile',
     tabBarPosition: 'bottom',
     tabBarOptions: {
       indicatorStyle: {

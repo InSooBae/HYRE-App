@@ -66,7 +66,7 @@ const Contact = ({
                 >
                   {name}
                 </Text>
-                <Text style={{ marginLeft: 20, marginTop: 5 }}>
+                <Text style={{ marginLeft: 5, marginTop: 5 }}>
                   {position && team
                     ? `${position}/${team}`
                     : position
@@ -89,7 +89,8 @@ const Contact = ({
           {__typename === 'User' ? (
             <View
               style={{
-                alignItems: 'flex-end'
+                alignItems: 'flex-end',
+                marginTop: 23
               }}
             >
               {directorTitle === '' ? null : (

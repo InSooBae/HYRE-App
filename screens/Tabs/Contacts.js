@@ -219,6 +219,10 @@ export default () => {
   useEffect(() => {
     setLoading(true);
     refresh();
+    return () => {
+      setLoading(true);
+      refresh();
+    };
   }, [majorQuery, generationQuery]);
 
   if (onloading || addData === undefined) {

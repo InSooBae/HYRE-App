@@ -66,6 +66,15 @@ export default ({ navigation }) => {
         setA(data.seeProf);
       }
     }
+    return () => {
+      if (!loading) {
+        if (type === 'User') {
+          setA(...data.seeUser);
+        } else {
+          setA(data.seeProf);
+        }
+      }
+    };
   }, [data]);
   console.log(a, '-=-=-=-=-=-=-=-=');
   const refresh = async () => {

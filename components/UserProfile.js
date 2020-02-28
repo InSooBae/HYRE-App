@@ -11,13 +11,13 @@ import {
   Right,
   ListItem,
   List,
-  View
+  View,
+  Icon
 } from 'native-base';
 import { FontAwesome } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { callNumber, linkEmail, linkMessage } from './PhoneCall';
-import { number } from 'prop-types';
-import constants from '../constants';
+import ResponsiveImage from 'react-native-responsive-image';
 export default ({
   id,
   name,
@@ -48,22 +48,31 @@ export default ({
           <CardItem header bordered>
             <Left>
               {photo === '' ? (
-                <Thumbnail
+                <ResponsiveImage
                   source={require('../assets/HYU1.png')}
-                  style={{
-                    width: constants.width / 3.8,
-                    height: constants.height / 8
-                  }}
-                  large
+                  initWidth="138"
+                  initHeight="138"
                 />
               ) : (
+                // <Thumbnail
+                //   source={require('../assets/HYU1.png')}
+                //   style={{
+                //     width: constants.width / 3.8,
+                //     height: constants.height / 8
+                //   }}
+                //   large
+                // />
+                // <ResponsiveImage
+                //   source={{ uri: photo }}
+                //   initWidth="138"
+                //   initHeight="138"
+                // />
                 <Thumbnail
                   source={{ uri: photo }}
                   style={{
-                    width: constants.width / 3.5,
-                    height: constants.height / 7,
-                    borderRadius:
-                      (constants.width / 3.5 + constants.height / 7) / 2
+                    width: 138,
+                    height: 138,
+                    borderRadius: (138 + 138) / 2
                   }}
                   large
                 />
@@ -75,6 +84,7 @@ export default ({
               <TouchableOpacity onPress={() => linkEmail(email)}>
                 <FontAwesome
                   size={30}
+                  style={{ color: '#333333' }}
                   name={Platform.OS === 'ios' ? 'envelope-o' : 'envelope-o'}
                 />
               </TouchableOpacity>
@@ -82,12 +92,14 @@ export default ({
               <TouchableOpacity onPress={() => linkMessage(cellPhone)}>
                 <FontAwesome
                   size={30}
+                  style={{ color: '#333333' }}
                   name={Platform.OS === 'ios' ? 'commenting-o' : 'commenting-o'}
                 />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => callNumber(cellPhone)}>
                 <FontAwesome
-                  size={30}
+                  size={28}
+                  style={{ color: '#333333' }}
                   name={Platform.OS === 'ios' ? 'phone' : 'phone'}
                 />
               </TouchableOpacity>
@@ -98,7 +110,10 @@ export default ({
               <List>
                 <ListItem thumbnail>
                   <Left>
-                    <Text>이름</Text>
+                    <Icon name="person" style={{ color: '#5592ff' }} />
+                    <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                      이름
+                    </Text>
                   </Left>
                   <Body>
                     <Text>{name}</Text>
@@ -106,7 +121,15 @@ export default ({
                 </ListItem>
                 <ListItem thumbnail>
                   <Left>
-                    <Text>생일</Text>
+                    <Icon
+                      type="MaterialIcons"
+                      name="cake"
+                      style={{ color: '#5592ff' }}
+                    />
+
+                    <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                      생일
+                    </Text>
                   </Left>
                   <Body>
                     <Text>{new Date(birth).format('yyyy-MM-dd')}</Text>
@@ -114,7 +137,14 @@ export default ({
                 </ListItem>
                 <ListItem thumbnail>
                   <Left>
-                    <Text>회사명</Text>
+                    <Icon
+                      type="FontAwesome"
+                      name="building-o"
+                      style={{ color: '#5592ff' }}
+                    />
+                    <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                      회사명
+                    </Text>
                   </Left>
                   <Body>
                     <Text>{company}</Text>
@@ -122,7 +152,14 @@ export default ({
                 </ListItem>
                 <ListItem thumbnail>
                   <Left>
-                    <Text>사업장</Text>
+                    <Icon
+                      type="FontAwesome"
+                      name="building"
+                      style={{ color: '#5592ff' }}
+                    />
+                    <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                      사업장
+                    </Text>
                   </Left>
                   <Body>
                     <Text>{workAddress}</Text>
@@ -130,7 +167,14 @@ export default ({
                 </ListItem>
                 <ListItem thumbnail>
                   <Left>
-                    <Text>부서</Text>
+                    <Icon
+                      type="Entypo"
+                      name="archive"
+                      style={{ color: '#5592ff' }}
+                    />
+                    <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                      부서
+                    </Text>
                   </Left>
                   <Body>
                     <Text>{team}</Text>
@@ -138,7 +182,14 @@ export default ({
                 </ListItem>
                 <ListItem thumbnail>
                   <Left>
-                    <Text>직책</Text>
+                    <Icon
+                      type="Entypo"
+                      name="medal"
+                      style={{ color: '#5592ff' }}
+                    />
+                    <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                      직책
+                    </Text>
                   </Left>
                   <Body>
                     <Text>{position}</Text>
@@ -146,7 +197,14 @@ export default ({
                 </ListItem>
                 <ListItem thumbnail>
                   <Left>
-                    <Text>회사전화</Text>
+                    <Icon
+                      type="Entypo"
+                      name="landline"
+                      style={{ color: '#5592ff' }}
+                    />
+                    <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                      회사전화
+                    </Text>
                   </Left>
                   <Body>
                     <Text>{workPhone}</Text>
@@ -154,7 +212,14 @@ export default ({
                 </ListItem>
                 <ListItem thumbnail>
                   <Left>
-                    <Text>대학원 전공</Text>
+                    <Icon
+                      type="Entypo"
+                      name="star"
+                      style={{ color: '#5592ff' }}
+                    />
+                    <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                      전공
+                    </Text>
                   </Left>
                   <Body>
                     <Text>{major}</Text>
@@ -162,7 +227,21 @@ export default ({
                 </ListItem>
                 <ListItem thumbnail>
                   <Left>
-                    <Text>기수</Text>
+                    <Icon
+                      ios="ios-menu"
+                      android="md-menu"
+                      style={{ fontSize: 20, color: '#5592ff' }}
+                    />
+
+                    <Text
+                      style={{
+                        fontWeight: '700',
+                        marginLeft: 5,
+                        marginLeft: 5
+                      }}
+                    >
+                      기수
+                    </Text>
                   </Left>
                   <Body>
                     <Text>{generation !== '' ? `${generation}기` : null}</Text>
@@ -170,7 +249,14 @@ export default ({
                 </ListItem>
                 <ListItem thumbnail>
                   <Left>
-                    <Text>설명</Text>
+                    <Icon
+                      type="Entypo"
+                      name="suitcase"
+                      style={{ color: '#5592ff' }}
+                    />
+                    <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                      설명
+                    </Text>
                   </Left>
                   <Body>
                     <Text>{companyDesc}</Text>

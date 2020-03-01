@@ -54,7 +54,6 @@ export default ({ query }) => {
     //검색 결과가 항상 캐시에 저장되지 않도록 fetchPolicy로 설정
     fetchPolicy: 'network-only'
   });
-  console.log(a);
   useEffect(() => {
     if (!loading) {
       if (query === '교수') {

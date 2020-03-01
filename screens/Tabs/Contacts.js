@@ -103,27 +103,31 @@ export default () => {
     !majorQuery && !generationQuery
       ? {
           query: SEE_ALL_USER,
-          variables: { limit, page: page + 1 },
+          variables: { limit: limit, page: page + 1 },
 
           fetchPolicy: 'network-only'
         }
       : majorQuery === null
       ? {
           query: SEE_ALL_USER,
-          variables: { limit, page: page + 1, generation: generationQuery },
+          variables: {
+            limit: limit,
+            page: page + 1,
+            generation: generationQuery
+          },
 
           fetchPolicy: 'network-only'
         }
       : generationQuery === null
       ? {
           query: SEE_ALL_USER,
-          variables: { limit, page: page + 1, major: majorQuery },
+          variables: { limit: limit, page: page + 1, major: majorQuery },
           fetchPolicy: 'network-only'
         }
       : {
           query: SEE_ALL_USER,
           variables: {
-            limit,
+            limit: limit,
             page: page + 1,
             major: majorQuery,
             generation: generationQuery
@@ -134,27 +138,27 @@ export default () => {
     !majorQuery && !generationQuery
       ? {
           query: SEE_ALL_USER,
-          variables: { limit, page: 1 },
+          variables: { limit: limit, page: 1 },
 
           fetchPolicy: 'network-only'
         }
       : majorQuery === null
       ? {
           query: SEE_ALL_USER,
-          variables: { limit, page: 1, generation: generationQuery },
+          variables: { limit: limit, page: 1, generation: generationQuery },
 
           fetchPolicy: 'network-only'
         }
       : generationQuery === null
       ? {
           query: SEE_ALL_USER,
-          variables: { limit, page: 1, major: majorQuery },
+          variables: { llimit: limit, page: 1, major: majorQuery },
           fetchPolicy: 'network-only'
         }
       : {
           query: SEE_ALL_USER,
           variables: {
-            limit,
+            limit: limit,
             page: 1,
             major: majorQuery,
             generation: generationQuery
@@ -220,8 +224,7 @@ export default () => {
     setLoading(true);
     refresh();
     return () => {
-      setLoading(true);
-      refresh();
+      setLoading(false);
     };
   }, [majorQuery, generationQuery]);
 
@@ -231,7 +234,13 @@ export default () => {
   if (addData) {
     return (
       <Container>
-        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
           <Text
             style={{
               fontSize: 20,

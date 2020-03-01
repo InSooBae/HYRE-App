@@ -15,7 +15,7 @@ import {
   Icon
 } from 'native-base';
 import { FontAwesome } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { callNumber, linkEmail, linkMessage } from './PhoneCall';
 import ResponsiveImage from 'react-native-responsive-image';
 export default ({
@@ -42,7 +42,7 @@ export default ({
   //envelope-o envelope phone
   // commenting-o commenting
   return (
-    <View style={{ backgroundColor: 'white' }}>
+    <Container style={{ backgroundColor: 'white' }}>
       <Content padder>
         <Card>
           <CardItem header bordered>
@@ -62,11 +62,7 @@ export default ({
                 //   }}
                 //   large
                 // />
-                // <ResponsiveImage
-                //   source={{ uri: photo }}
-                //   initWidth="138"
-                //   initHeight="138"
-                // />
+
                 <Thumbnail
                   source={{ uri: photo }}
                   style={{
@@ -79,7 +75,10 @@ export default ({
               )}
             </Left>
             <Right
-              style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between'
+              }}
             >
               <TouchableOpacity onPress={() => linkEmail(email)}>
                 <FontAwesome
@@ -139,6 +138,36 @@ export default ({
                   <Left>
                     <Icon
                       type="FontAwesome"
+                      name="phone"
+                      style={{ color: '#5592ff' }}
+                    />
+                    <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                      휴대전화
+                    </Text>
+                  </Left>
+                  <Body>
+                    <Text>{cellPhone}</Text>
+                  </Body>
+                </ListItem>
+                <ListItem thumbnail>
+                  <Left>
+                    <Icon
+                      type="FontAwesome"
+                      name="envelope"
+                      style={{ color: '#5592ff' }}
+                    />
+                    <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                      이메일
+                    </Text>
+                  </Left>
+                  <Body>
+                    <Text>{email}</Text>
+                  </Body>
+                </ListItem>
+                <ListItem thumbnail>
+                  <Left>
+                    <Icon
+                      type="FontAwesome"
                       name="building-o"
                       style={{ color: '#5592ff' }}
                     />
@@ -158,11 +187,26 @@ export default ({
                       style={{ color: '#5592ff' }}
                     />
                     <Text style={{ fontWeight: '700', marginLeft: 5 }}>
-                      사업장
+                      회사주소
                     </Text>
                   </Left>
                   <Body>
                     <Text>{workAddress}</Text>
+                  </Body>
+                </ListItem>
+                <ListItem thumbnail>
+                  <Left>
+                    <Icon
+                      type="Entypo"
+                      name="landline"
+                      style={{ color: '#5592ff' }}
+                    />
+                    <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                      회사전화
+                    </Text>
+                  </Left>
+                  <Body>
+                    <Text>{workPhone}</Text>
                   </Body>
                 </ListItem>
                 <ListItem thumbnail>
@@ -195,21 +239,7 @@ export default ({
                     <Text>{position}</Text>
                   </Body>
                 </ListItem>
-                <ListItem thumbnail>
-                  <Left>
-                    <Icon
-                      type="Entypo"
-                      name="landline"
-                      style={{ color: '#5592ff' }}
-                    />
-                    <Text style={{ fontWeight: '700', marginLeft: 5 }}>
-                      회사전화
-                    </Text>
-                  </Left>
-                  <Body>
-                    <Text>{workPhone}</Text>
-                  </Body>
-                </ListItem>
+
                 <ListItem thumbnail>
                   <Left>
                     <Icon
@@ -270,6 +300,6 @@ export default ({
           </CardItem>
         </Card>
       </Content>
-    </View>
+    </Container>
   );
 };

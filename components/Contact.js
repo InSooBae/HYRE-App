@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Image } from 'react-native';
+import ResponsiveImage from 'react-native-responsive-image';
 import {
   Container,
   Content,
@@ -16,6 +17,7 @@ import constants from '../constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { callNumber, linkEmail } from '../components/PhoneCall';
 import { withNavigation } from 'react-navigation';
+import styles from '../styles';
 
 const Contact = ({
   id,
@@ -33,7 +35,12 @@ const Contact = ({
   navigation
 }) => {
   return (
-    <Card style={{ height: constants.height / 8 }}>
+    <Card
+      style={{
+        borderColor: styles.greyColor,
+        borderWidth: 1
+      }}
+    >
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('UserDetail', {
@@ -45,16 +52,14 @@ const Contact = ({
       >
         <CardItem cardBody>
           <Left style={{ height: constants.height / 8 }}>
-            <Image
+            <ResponsiveImage
               source={
                 photo === '' ? require('../assets/HYU1.png') : { uri: photo }
               }
-              resizeMode="contain"
-              style={{
-                height: constants.height / 5,
-                width: constants.width / 6
-              }}
+              initWidth="80"
+              initHeight="80"
             />
+
             <Body style={{ width: constants.width }}>
               <View style={{ flexDirection: 'row' }}>
                 <Text

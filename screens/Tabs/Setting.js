@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
-  Container,
   Content,
   Card,
   CardItem,
@@ -11,14 +10,13 @@ import {
   Right,
   ListItem,
   List,
-  View,
   Icon,
   Button,
   Item,
   Label,
-  Input
+  Input,
+  Toast
 } from 'native-base';
-import { FontAwesome } from '@expo/vector-icons';
 import {
   TouchableOpacity,
   ScrollView,
@@ -29,17 +27,19 @@ import {
   RefreshControl,
   Platform,
   KeyboardAvoidingView,
-  Keyboard
+  Keyboard,
+  View,
+  Alert
 } from 'react-native';
 import ResponsiveImage from 'react-native-responsive-image';
 import { gql } from 'apollo-boost';
 import RNPickerSelect from 'react-native-picker-select';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import * as ImagePicker from 'expo-image-picker';
-import useInput from '../../hooks/useInput';
 import Loader from '../../components/Loader';
-import { useQuery } from '@apollo/react-hooks';
-import { number } from 'prop-types';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import styles from '../../styles';
+import axios from 'axios';
 
 const SEE_ME = gql`
   query seeMe {
@@ -74,12 +74,50 @@ const SEE_ME = gql`
   }
 `;
 
+const EDIT_ME = gql`
+  mutation editMe(
+    $photo: String
+    $name: String!
+    $birthday: String!
+    $email: String!
+    $cellPhone: String!
+    $company: String
+    $companyDesc: String
+    $team: String
+    $position: String
+    $workPhone: String
+    $workAddress: String
+    $majorName: String!
+    $generation: Int!
+  ) {
+    editMe(
+      photo: $photo
+      name: $name
+      birthday: $birthday
+      email: $email
+      cellPhone: $cellPhone
+      company: $company
+      companyDesc: $companyDesc
+      team: $team
+      position: $position
+      workPhone: $workPhone
+      majorName: $majorName
+      workAddress: $workAddress
+      generation: $generation
+    ) {
+      id
+      name
+      photo
+    }
+  }
+`;
+
 export default () => {
-  const keyboardVerticalOffset = Platform.OS === 'ios' ? 85 : 40;
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? 85 : 75;
   const [edit, setEdit] = useState(false);
   const [birth, setBirth] = useState('');
   const [name, setName] = useState('');
-
+  const [email, setEmail] = useState('');
   const [cellPhone, setCellPhone] = useState('');
   const [company, setCompany] = useState('');
   const [workAddress, setWorkAddress] = useState('');
@@ -94,11 +132,149 @@ export default () => {
   const [photo, setPhoto] = useState(null);
   const [selectedImage, setSelectedImage] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [editMeMutation] = useMutation(EDIT_ME);
   const { data, loading, refetch } = useQuery(SEE_ME, {
     //언제 쿼리를 조회하지 않고 넘길지 설정
     //검색 결과가 항상 캐시에 저장되지 않도록 fetchPolicy로 설정
     fetchPolicy: 'network-only'
   });
+  const [isloading, setIsLoading] = useState(false);
+  const handleSignUp = async () => {
+    //이메일 99.99% 유효성 체크
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (name === '') {
+      return Toast.show({
+        text: `이름을 입력해 주세요.`,
+        textStyle: { textAlign: 'center' },
+        buttonText: 'Okay',
+        type: 'warning',
+        position: 'top',
+        duration: 3000,
+        style: { marginTop: 70 }
+      });
+    }
+    if (!emailRegex.test(email)) {
+      return Toast.show({
+        text: `이메일의 형식이 맞지 않습니다.`,
+        textStyle: { textAlign: 'center' },
+        buttonText: 'Okay',
+        type: 'warning',
+        position: 'top',
+        duration: 3000,
+        style: { marginTop: 70 }
+      });
+    }
+    if (birth === '') {
+      return Toast.show({
+        text: `생년월일을 입력해 주세요.`,
+        textStyle: { textAlign: 'center' },
+        buttonText: 'Okay',
+        type: 'warning',
+        position: 'top',
+        duration: 3000,
+        style: { marginTop: 70 }
+      });
+    }
+    if (cellPhone === '') {
+      return Toast.show({
+        text: `전화번호를 입력해 주세요.`,
+        textStyle: { textAlign: 'center' },
+        buttonText: 'Okay',
+        type: 'warning',
+        position: 'top',
+        duration: 3000,
+        style: { marginTop: 70 }
+      });
+    }
+    if (major === '') {
+      return Toast.show({
+        text: `대학원 전공을 입력해 주세요.`,
+        textStyle: { textAlign: 'center' },
+        buttonText: 'Okay',
+        type: 'warning',
+        position: 'top',
+        duration: 3000,
+        style: { marginTop: 70 }
+      });
+    }
+    if (generation === '') {
+      return Toast.show({
+        text: `기수를 입력해 주세요.`,
+        textStyle: { textAlign: 'center' },
+        buttonText: 'Okay',
+        type: 'warning',
+        position: 'top',
+        duration: 3000,
+        style: { marginTop: 70 }
+      });
+    }
+    const formData = new FormData();
+
+    formData.append('photo', {
+      name: selectedImage.filename,
+      type: 'image/jpeg',
+      uri: selectedImage.uri
+    });
+    console.log('dkaadsk');
+    try {
+      setIsLoading(true);
+      let a = null;
+      console.log('------------g------------', selectedImage.filename);
+      if (selectedImage.filename) {
+        console.log('ehla?');
+        const {
+          data: { location }
+        } = await axios.post(
+          'https://hure-backend.herokuapp.com/api/upload',
+          formData,
+          {
+            headers: {
+              'content-type': 'multipart/form-data'
+            }
+          }
+        );
+
+        a = location;
+        console.log('함수안');
+      } else {
+        a = photo;
+      }
+      console.log('요기요', a);
+      const { data } = await editMeMutation({
+        variables: {
+          photo: a,
+          name: name,
+          birthday: birth,
+          email: email,
+          cellPhone: cellPhone,
+          company: company,
+          companyDesc: companyDesc,
+          team: team,
+          position: position,
+          workPhone: workPhone,
+          workAddress: workAddress,
+          majorName: major,
+          generation: parseInt(generation)
+        }
+      });
+      console.log('요기요12', data);
+      if (data) {
+        Toast.show({
+          text: `회원가입요청이 완료되었습니다. 관리자 인증후 로그인 가능합니다.`,
+          textStyle: { textAlign: 'center' },
+          buttonText: 'Okay',
+          type: 'success',
+          position: 'top',
+          duration: 3000,
+          style: { marginTop: 70 }
+        });
+      }
+    } catch (e) {
+      Alert.alert('이미 존재하는 이메일이 있습니다!');
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const setAll = () => {
     if (!loading) {
       setName(data.seeMe.name);
@@ -110,6 +286,7 @@ export default () => {
       setTeam(data.seeMe.team);
       setPosition(data.seeMe.position);
       setWorkPhone(data.seeMe.workPhone);
+      setEmail(data.seeMe.email);
       setGenList(
         data.seeAllGradYear.map(e => {
           return {
@@ -131,6 +308,7 @@ export default () => {
       setPhoto(data.seeMe.photo);
       setMajor(data.seeMe.major.name);
       setGeneration(data.seeMe.graduatedYear.generation);
+      setSelectedImage('');
     }
   };
   useEffect(() => {
@@ -172,24 +350,24 @@ export default () => {
     setPhoto(pickerResult.uri);
     console.log(pickerResult);
   };
-  console.log('-----------------!!', data);
-  console.log(selectedImage);
+
+  const deleteIndex = (index, change) => {
+    companyDesc.splice(index, 1, change);
+    setCompanyDesc(companyDesc);
+  };
+
   if (loading) {
     return <Loader />;
   }
   if (data) {
     return (
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
-        keyboardVerticalOffset={keyboardVerticalOffset}
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
         enabled
-        style={{
-          flexDirection: 'column',
-          justifyContent: 'center'
-        }}
       >
         <ScrollView style={{ backgroundColor: 'white' }}>
-          <View style={{ backgroundColor: 'white' }}>
+          <View>
             <Content padder>
               <Card>
                 <CardItem header bordered>
@@ -265,7 +443,12 @@ export default () => {
                           >
                             <Text style={{ fontWeight: '600' }}>취소</Text>
                           </Button>
-                          <Button bordered rounded>
+                          <Button
+                            disabled={isloading}
+                            onPress={handleSignUp}
+                            bordered
+                            rounded
+                          >
                             <Text style={{ fontWeight: '600' }}>확인</Text>
                           </Button>
                         </View>
@@ -371,6 +554,72 @@ export default () => {
                         <Left>
                           <Icon
                             type="FontAwesome"
+                            name="phone"
+                            style={{ color: '#5592ff' }}
+                          />
+                          <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                            휴대전화
+                          </Text>
+                        </Left>
+                        {/* <Text>{company}</Text> */}
+                        {edit ? (
+                          <Body>
+                            <TextInput
+                              value={cellPhone}
+                              onChangeText={value => {
+                                setCellPhone(value);
+                              }}
+                              style={
+                                Platform.OS === 'ios'
+                                  ? { marginBottom: 0.3 }
+                                  : { flex: 1, marginBottom: -3.9 }
+                              }
+                              placeholder="(휴대전화)*"
+                            />
+                          </Body>
+                        ) : (
+                          <Body>
+                            <Text>{cellPhone}</Text>
+                          </Body>
+                        )}
+                      </ListItem>
+                      <ListItem thumbnail>
+                        <Left>
+                          <Icon
+                            type="FontAwesome"
+                            name="envelope"
+                            style={{ color: '#5592ff' }}
+                          />
+                          <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                            이메일
+                          </Text>
+                        </Left>
+                        {/* <Text>{company}</Text> */}
+                        {edit ? (
+                          <Body>
+                            <TextInput
+                              value={email}
+                              onChangeText={value => {
+                                setEmail(value);
+                              }}
+                              style={
+                                Platform.OS === 'ios'
+                                  ? { marginBottom: 0.3 }
+                                  : { flex: 1, marginBottom: -3.9 }
+                              }
+                              placeholder="(이메일)*"
+                            />
+                          </Body>
+                        ) : (
+                          <Body>
+                            <Text>{email}</Text>
+                          </Body>
+                        )}
+                      </ListItem>
+                      <ListItem thumbnail>
+                        <Left>
+                          <Icon
+                            type="FontAwesome"
                             name="building-o"
                             style={{ color: '#5592ff' }}
                           />
@@ -408,7 +657,7 @@ export default () => {
                             style={{ color: '#5592ff' }}
                           />
                           <Text style={{ fontWeight: '700', marginLeft: 5 }}>
-                            사업장
+                            회사주소
                           </Text>
                         </Left>
                         {/* <Text>{workAddress}</Text> */}
@@ -424,12 +673,45 @@ export default () => {
                                   ? { marginBottom: 0.3 }
                                   : { flex: 1, marginBottom: -3.9 }
                               }
-                              placeholder="(사업장)"
+                              placeholder="(회사주소)"
                             />
                           </Body>
                         ) : (
                           <Body>
                             <Text>{workAddress}</Text>
+                          </Body>
+                        )}
+                      </ListItem>
+                      <ListItem thumbnail>
+                        <Left>
+                          <Icon
+                            type="Entypo"
+                            name="landline"
+                            style={{ color: '#5592ff' }}
+                          />
+                          <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                            회사전화
+                          </Text>
+                        </Left>
+                        {/* <Text>{workPhone}</Text> */}
+                        {edit ? (
+                          <Body>
+                            <TextInput
+                              value={workPhone}
+                              onChangeText={value => {
+                                setWorkPhone(value);
+                              }}
+                              style={
+                                Platform.OS === 'ios'
+                                  ? { marginBottom: 0.3 }
+                                  : { flex: 1, marginBottom: -3.9 }
+                              }
+                              placeholder="(회사 전화)"
+                            />
+                          </Body>
+                        ) : (
+                          <Body>
+                            <Text>{workPhone}</Text>
                           </Body>
                         )}
                       </ListItem>
@@ -499,39 +781,7 @@ export default () => {
                           </Body>
                         )}
                       </ListItem>
-                      <ListItem thumbnail>
-                        <Left>
-                          <Icon
-                            type="Entypo"
-                            name="landline"
-                            style={{ color: '#5592ff' }}
-                          />
-                          <Text style={{ fontWeight: '700', marginLeft: 5 }}>
-                            회사전화
-                          </Text>
-                        </Left>
-                        {/* <Text>{workPhone}</Text> */}
-                        {edit ? (
-                          <Body>
-                            <TextInput
-                              value={workPhone}
-                              onChangeText={value => {
-                                setWorkPhone(value);
-                              }}
-                              style={
-                                Platform.OS === 'ios'
-                                  ? { marginBottom: 0.3 }
-                                  : { flex: 1, marginBottom: -3.9 }
-                              }
-                              placeholder="(회사 전화)"
-                            />
-                          </Body>
-                        ) : (
-                          <Body>
-                            <Text>{workPhone}</Text>
-                          </Body>
-                        )}
-                      </ListItem>
+
                       <ListItem thumbnail>
                         <Left>
                           <Icon
@@ -628,35 +878,133 @@ export default () => {
                           </Body>
                         )}
                       </ListItem>
-                      <ListItem thumbnail>
-                        <Left>
-                          <Icon
-                            type="Entypo"
-                            name="suitcase"
-                            style={{ color: '#5592ff' }}
-                          />
-                          <Text style={{ fontWeight: '700', marginLeft: 5 }}>
-                            설명
-                          </Text>
-                        </Left>
-                        {/* <Text>{companyDesc}</Text> */}
-                        {edit ? (
-                          <Body>
-                            <TextInput
-                              style={
-                                Platform.OS === 'ios'
-                                  ? { marginBottom: 0.3 }
-                                  : { flex: 1, marginBottom: -3.9 }
-                              }
-                              placeholder="(경력 및 소개)"
-                            />
-                          </Body>
-                        ) : (
-                          <Body>
-                            <Text>설명</Text>
-                          </Body>
-                        )}
-                      </ListItem>
+
+                      {edit ? (
+                        <>
+                          <ListItem thumbnail>
+                            <Left>
+                              <Icon
+                                type="Entypo"
+                                name="suitcase"
+                                style={{ color: '#5592ff' }}
+                              />
+                              <Text
+                                style={{ fontWeight: '700', marginLeft: 5 }}
+                              >
+                                설명
+                              </Text>
+                            </Left>
+                            <Body>
+                              <Text>우측 버튼을 눌러 추가하세요</Text>
+                            </Body>
+                            <Right>
+                              <TouchableOpacity
+                                onPress={() =>
+                                  setCompanyDesc(companyDesc.concat(''))
+                                }
+                              >
+                                <Icon
+                                  type="AntDesign"
+                                  name="pluscircle"
+                                  style={{ color: '#32CD32' }}
+                                />
+                              </TouchableOpacity>
+                            </Right>
+                          </ListItem>
+                          {Array.isArray(companyDesc) &&
+                            companyDesc.length !== 0 &&
+                            companyDesc.map((desc, index) => {
+                              return (
+                                <ListItem key={index} thumbnail>
+                                  <Left>
+                                    <Icon
+                                      type="MaterialCommunityIcons"
+                                      name="circle-small"
+                                      style={{ color: '#5592ff' }}
+                                    />
+                                  </Left>
+                                  <Body>
+                                    <TextInput
+                                      value={desc}
+                                      onChangeText={text =>
+                                        setCompanyDesc(
+                                          companyDesc.map((a, fIndex) => {
+                                            if (fIndex === index) {
+                                              return text;
+                                            } else return a;
+                                          })
+                                        )
+                                      }
+                                      style={
+                                        Platform.OS === 'ios'
+                                          ? { marginBottom: 0.3 }
+                                          : { flex: 1, marginBottom: -3.9 }
+                                      }
+                                      placeholder="(경력 및 소개)"
+                                    />
+                                  </Body>
+                                  <Right>
+                                    <TouchableOpacity
+                                      onPress={() =>
+                                        setCompanyDesc(
+                                          companyDesc.filter(
+                                            (_, fIndex) => fIndex !== index
+                                          )
+                                        )
+                                      }
+                                    >
+                                      <Icon
+                                        type="AntDesign"
+                                        name="minuscircle"
+                                        style={{ color: styles.redColor }}
+                                      />
+                                    </TouchableOpacity>
+                                  </Right>
+                                </ListItem>
+                              );
+                            })}
+                        </>
+                      ) : (
+                        <>
+                          <ListItem thumbnail>
+                            <Left>
+                              <Icon
+                                type="Entypo"
+                                name="suitcase"
+                                style={{ color: '#5592ff' }}
+                              />
+                              <Text
+                                style={{ fontWeight: '700', marginLeft: 5 }}
+                              >
+                                설명
+                              </Text>
+                            </Left>
+
+                            <Body>
+                              <Text></Text>
+                            </Body>
+                          </ListItem>
+                          {Array.isArray(companyDesc) &&
+                            companyDesc.length &&
+                            companyDesc.map((desc, index) => {
+                              return (
+                                <ListItem key={index} thumbnail>
+                                  <Left>
+                                    <Icon
+                                      type="MaterialCommunityIcons"
+                                      name="circle-small"
+                                      style={{ color: '#5592ff' }}
+                                    />
+                                  </Left>
+
+                                  <Body>
+                                    <Text>{desc}</Text>
+                                  </Body>
+                                </ListItem>
+                              );
+                            })}
+                        </>
+                      )}
                     </List>
                   </Content>
                 </CardItem>

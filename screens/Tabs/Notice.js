@@ -1,16 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-
-const View = styled.View`
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-`;
-
-const Text = styled.Text``;
+import {
+  Container,
+  Header,
+  Item,
+  Input,
+  Icon,
+  Button,
+  Text
+} from 'native-base';
 
 export default () => (
-  <View>
+  <Container>
     <Text>Notice</Text>
-  </View>
+  </Container>
 );

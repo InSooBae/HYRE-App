@@ -5,7 +5,7 @@ import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 import Loader from '../../../components/Loader';
 import { FlatList } from 'react-native-gesture-handler';
-import { Container } from 'native-base';
+import { Container, Text, View } from 'native-base';
 import Contact from '../../../components/Contact';
 
 export const SEARCH = gql`
@@ -50,9 +50,16 @@ const SearchPresenter = ({ query, shouldFetch }) => {
       setRefreshing(false);
     }
   };
-  console.log(data, loading);
+  console.log(data, loading, query);
   return (
     <Container>
+      {data === undefined && !loading && (
+        <View
+          style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
+        >
+          <Text>검색해주세요</Text>
+        </View>
+      )}
       {loading ? (
         <Loader />
       ) : (

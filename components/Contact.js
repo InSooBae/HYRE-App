@@ -42,9 +42,9 @@ const Contact = ({
 }) => {
   return (
     <Card
+      transparent
       style={{
-        borderColor: styles.greyColor,
-        borderWidth: 1
+        borderColor: styles.hanyangColor
       }}
     >
       <TouchableOpacity
@@ -56,7 +56,17 @@ const Contact = ({
           })
         }
       >
-        <CardItem cardBody>
+        <CardItem
+          cardBody
+          style={{
+            borderColor: styles.hanyangColor,
+            borderTopRightRadius: 7,
+            borderTopLeftRadius: 33,
+            borderBottomRightRadius: 33,
+            borderBottomLeftRadius: 7,
+            borderWidth: 0.5
+          }}
+        >
           <Left style={{ height: constants.height / 8 }}>
             <Thumbnail
               source={
@@ -72,10 +82,10 @@ const Contact = ({
             <Body>
               <Text
                 style={{
-                  fontSize: 22,
+                  fontSize: 21,
                   color: '#0000FF',
                   fontWeight: '500',
-                  marginBottom: 5
+                  marginBottom: 3
                 }}
               >
                 {name}
@@ -107,14 +117,21 @@ const Contact = ({
                   {directorTitle === '' ? null : (
                     <Text
                       style={{
-                        marginBottom: 5,
+                        marginRight: 13,
+                        marginBottom: 3,
                         color: `#${directorGen}C${directorGen}43C`
                       }}
                     >{`${directorGen}기 ${directorTitle}`}</Text>
                   )}
-                  <Text style={{ marginBottom: 5 }}>{`${generation}기`}</Text>
-                  <Text style={{ marginBottom: 5 }}>{`${major}과`}</Text>
-                  <Text style={{ color: styles.hanyangColor }}>{position}</Text>
+                  <Text
+                    style={{ marginBottom: 3, marginRight: 13 }}
+                  >{`${generation}기`}</Text>
+                  <Text
+                    style={{ marginBottom: 3, marginRight: 13 }}
+                  >{`${major}과`}</Text>
+                  <Text style={{ color: styles.hanyangColor, marginRight: 17 }}>
+                    {position}
+                  </Text>
                 </View>
               ) : (
                 <View
@@ -122,10 +139,22 @@ const Contact = ({
                     alignItems: 'flex-end'
                   }}
                 >
-                  <Text style={{ color: styles.hanyangColor, marginBottom: 5 }}>
+                  <Text
+                    style={{
+                      color: styles.hanyangColor,
+                      marginBottom: 5,
+                      marginRight: 5
+                    }}
+                  >
                     {position}
                   </Text>
-                  <Text style={{ color: styles.hanyangColor, marginBottom: 5 }}>
+                  <Text
+                    style={{
+                      color: styles.hanyangColor,
+                      marginBottom: 5,
+                      marginRight: 5
+                    }}
+                  >
                     {team}
                   </Text>
                 </View>

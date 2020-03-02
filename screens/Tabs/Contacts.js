@@ -79,9 +79,8 @@ export default () => {
   const [footerLoading, setFooterLoading] = useState(false);
   const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
-      fontSize: 18,
-      paddingVertical: 12,
-      paddingHorizontal: 10,
+      fontSize: 16,
+      paddingVertical: 8,
       borderWidth: 1,
       borderColor: 'gray',
       borderRadius: 4,
@@ -90,7 +89,7 @@ export default () => {
       textAlign: 'center'
     },
     inputAndroid: {
-      fontSize: 19,
+      fontSize: 16,
       paddingVertical: 8,
       borderWidth: 1,
       borderColor: 'gray',
@@ -167,7 +166,7 @@ export default () => {
           fetchPolicy: 'network-only'
         };
 
-  const refresh = async () => {
+  const refresh = () => {
     try {
       setRefreshing(true);
 
@@ -236,13 +235,13 @@ export default () => {
           style={{
             flexDirection: 'row',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            opacity: 0.5
           }}
         >
           <Text
             style={{
-              fontSize: 20,
-              paddingVertical: 12,
+              fontSize: 16,
               paddingHorizontal: 10,
               fontWeight: '600'
             }}
@@ -274,8 +273,7 @@ export default () => {
           />
           <Text
             style={{
-              fontSize: 20,
-              paddingVertical: 12,
+              fontSize: 16,
               paddingHorizontal: 10,
               fontWeight: '600'
             }}

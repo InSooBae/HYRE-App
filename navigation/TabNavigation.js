@@ -3,7 +3,7 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import Contacts from '../screens/Tabs/Contacts';
-import Notice from '../screens/Tabs/Notice';
+import Notices from '../screens/Tabs/Notices';
 import Search from '../screens/Tabs/Search';
 import Setting from '../screens/Tabs/Setting';
 import { Image, View, Platform } from 'react-native';
@@ -44,7 +44,7 @@ const stackFactory = (initialRoute, customConfig) =>
 const TabNavigation = createMaterialTopTabNavigator(
   {
     Notice: {
-      screen: stackFactory(Notice, {}),
+      screen: stackFactory(Notices, { title: '공지사항' }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <NavIcon
@@ -117,7 +117,7 @@ const TabNavigation = createMaterialTopTabNavigator(
     }
   },
   {
-    initialRouteName: 'Profile',
+    initialRouteName: 'Notice',
     tabBarPosition: 'bottom',
     tabBarOptions: {
       indicatorStyle: {

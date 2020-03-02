@@ -40,6 +40,8 @@ import Loader from '../../components/Loader';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import styles from '../../styles';
 import axios from 'axios';
+import { inputPhoneNumber } from '../../components/PhoneCall';
+import { useLogOut } from '../../AuthContext';
 
 const SEE_ME = gql`
   query seeMe {
@@ -113,7 +115,8 @@ const EDIT_ME = gql`
 `;
 
 export default () => {
-  const keyboardVerticalOffset = Platform.OS === 'ios' ? 85 : 75;
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? 85 : 77;
+  const logOut = useLogOut();
   const [edit, setEdit] = useState(false);
   const [birth, setBirth] = useState('');
   const [name, setName] = useState('');
@@ -363,6 +366,7 @@ export default () => {
     return (
       <KeyboardAvoidingView
         style={{ flex: 1 }}
+        keyboardVerticalOffset={keyboardVerticalOffset}
         behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
         enabled
       >
@@ -409,6 +413,29 @@ export default () => {
                           }}
                           large
                         />
+                        <View
+                          style={{
+                            position: 'absolute',
+                            bottom: 0,
+                            backgroundColor: 'white',
+                            opacity: 0.5,
+                            justifyContent: 'flex-start',
+                            alignItems: 'center',
+                            height: 50,
+                            width: 138
+                          }}
+                        >
+                          <Text
+                            style={{
+                              color: 'black',
+                              textAlign: 'center',
+                              fontWeight: '700',
+                              marginRight: 10
+                            }}
+                          >
+                            Choose Image
+                          </Text>
+                        </View>
                       </TouchableOpacity>
                     )}
                     {edit ? (
@@ -468,7 +495,7 @@ export default () => {
                         >
                           <Text style={{ fontWeight: '600' }}>EDIT</Text>
                         </Button>
-                        <Button bordered rounded danger>
+                        <Button bordered rounded danger onPress={logOut}>
                           <Text style={{ fontWeight: '600' }}>LOGOUT</Text>
                         </Button>
                       </Right>
@@ -494,8 +521,10 @@ export default () => {
                               }}
                               style={
                                 Platform.OS === 'ios'
-                                  ? { marginBottom: 0.3 }
-                                  : { flex: 1, marginBottom: -3.9 }
+                                  ? { fontSize: 16 }
+                                  : {
+                                      fontSize: 16
+                                    }
                               }
                               placeholder="(이름)*"
                             />
@@ -523,7 +552,8 @@ export default () => {
                             <TouchableOpacity onPress={showDatePicker}>
                               <Text
                                 style={{
-                                  color: '#bfc6ea'
+                                  color: '#bfc6ea',
+                                  fontSize: 16
                                 }}
                               >
                                 {birth}
@@ -571,15 +601,17 @@ export default () => {
                               }}
                               style={
                                 Platform.OS === 'ios'
-                                  ? { marginBottom: 0.3 }
-                                  : { flex: 1, marginBottom: -3.9 }
+                                  ? { fontSize: 16 }
+                                  : {
+                                      fontSize: 16
+                                    }
                               }
                               placeholder="(휴대전화)*"
                             />
                           </Body>
                         ) : (
                           <Body>
-                            <Text>{cellPhone}</Text>
+                            <Text>{inputPhoneNumber(cellPhone)}</Text>
                           </Body>
                         )}
                       </ListItem>
@@ -604,8 +636,10 @@ export default () => {
                               }}
                               style={
                                 Platform.OS === 'ios'
-                                  ? { marginBottom: 0.3 }
-                                  : { flex: 1, marginBottom: -3.9 }
+                                  ? { fontSize: 16 }
+                                  : {
+                                      fontSize: 16
+                                    }
                               }
                               placeholder="(이메일)*"
                             />
@@ -637,8 +671,10 @@ export default () => {
                               }}
                               style={
                                 Platform.OS === 'ios'
-                                  ? { marginBottom: 0.3 }
-                                  : { flex: 1, marginBottom: -3.9 }
+                                  ? { fontSize: 16 }
+                                  : {
+                                      fontSize: 16
+                                    }
                               }
                               placeholder="(회사명)"
                             />
@@ -670,8 +706,10 @@ export default () => {
                               }}
                               style={
                                 Platform.OS === 'ios'
-                                  ? { marginBottom: 0.3 }
-                                  : { flex: 1, marginBottom: -3.9 }
+                                  ? { fontSize: 16 }
+                                  : {
+                                      fontSize: 16
+                                    }
                               }
                               placeholder="(회사주소)"
                             />
@@ -703,8 +741,10 @@ export default () => {
                               }}
                               style={
                                 Platform.OS === 'ios'
-                                  ? { marginBottom: 0.3 }
-                                  : { flex: 1, marginBottom: -3.9 }
+                                  ? { fontSize: 16 }
+                                  : {
+                                      fontSize: 16
+                                    }
                               }
                               placeholder="(회사 전화)"
                             />
@@ -736,8 +776,10 @@ export default () => {
                               }}
                               style={
                                 Platform.OS === 'ios'
-                                  ? { marginBottom: 0.3 }
-                                  : { flex: 1, marginBottom: -3.9 }
+                                  ? { fontSize: 16 }
+                                  : {
+                                      fontSize: 16
+                                    }
                               }
                               placeholder="(부서)"
                             />
@@ -769,8 +811,10 @@ export default () => {
                               }}
                               style={
                                 Platform.OS === 'ios'
-                                  ? { marginBottom: 0.3 }
-                                  : { flex: 1, marginBottom: -3.9 }
+                                  ? { fontSize: 16 }
+                                  : {
+                                      fontSize: 16
+                                    }
                               }
                               placeholder="(직책)"
                             />
@@ -811,7 +855,7 @@ export default () => {
                                 <Icon
                                   style={
                                     Platform.OS === 'ios'
-                                      ? { fontSize: 17 }
+                                      ? { fontSize: 16 }
                                       : null
                                   }
                                   type="AntDesign"
@@ -855,6 +899,7 @@ export default () => {
                               onValueChange={generation => {
                                 setGeneration(generation);
                               }}
+                              style={{ fontSize: 16 }}
                               value={generation}
                               items={genList}
                               doneText={'확인'}
@@ -862,7 +907,7 @@ export default () => {
                                 <Icon
                                   style={
                                     Platform.OS === 'ios'
-                                      ? { fontSize: 17 }
+                                      ? { fontSize: 16 }
                                       : null
                                   }
                                   type="AntDesign"
@@ -906,7 +951,7 @@ export default () => {
                                 <Icon
                                   type="AntDesign"
                                   name="pluscircle"
-                                  style={{ color: '#32CD32' }}
+                                  style={{ color: '#32CD32', fontSize: 21 }}
                                 />
                               </TouchableOpacity>
                             </Right>
@@ -937,8 +982,10 @@ export default () => {
                                       }
                                       style={
                                         Platform.OS === 'ios'
-                                          ? { marginBottom: 0.3 }
-                                          : { flex: 1, marginBottom: -3.9 }
+                                          ? { fontSize: 16 }
+                                          : {
+                                              fontSize: 16
+                                            }
                                       }
                                       placeholder="(경력 및 소개)"
                                     />
@@ -956,7 +1003,10 @@ export default () => {
                                       <Icon
                                         type="AntDesign"
                                         name="minuscircle"
-                                        style={{ color: styles.redColor }}
+                                        style={{
+                                          color: styles.redColor,
+                                          fontSize: 20
+                                        }}
                                       />
                                     </TouchableOpacity>
                                   </Right>
@@ -966,7 +1016,7 @@ export default () => {
                         </>
                       ) : (
                         <>
-                          <ListItem thumbnail>
+                          <ListItem style={{ marginTop: 16 }} thumbnail>
                             <Left>
                               <Icon
                                 type="Entypo"
@@ -979,13 +1029,9 @@ export default () => {
                                 설명
                               </Text>
                             </Left>
-
-                            <Body>
-                              <Text></Text>
-                            </Body>
                           </ListItem>
                           {Array.isArray(companyDesc) &&
-                            companyDesc.length &&
+                            companyDesc.length !== 0 &&
                             companyDesc.map((desc, index) => {
                               return (
                                 <ListItem key={index} thumbnail>

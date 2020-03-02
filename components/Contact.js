@@ -11,11 +11,17 @@ import {
   Text,
   Left,
   Body,
-  View
+  View,
+  Thumbnail,
+  Right
 } from 'native-base';
 import constants from '../constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { callNumber, linkEmail } from '../components/PhoneCall';
+import {
+  callNumber,
+  linkEmail,
+  inputPhoneNumber
+} from '../components/PhoneCall';
 import { withNavigation } from 'react-navigation';
 import styles from '../styles';
 
@@ -52,59 +58,80 @@ const Contact = ({
       >
         <CardItem cardBody>
           <Left style={{ height: constants.height / 8 }}>
-            <ResponsiveImage
+            <Thumbnail
               source={
                 photo === '' ? require('../assets/HYU1.png') : { uri: photo }
               }
-              initWidth="80"
-              initHeight="80"
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: (100 + 100) / 2
+              }}
             />
 
-            <Body style={{ width: constants.width }}>
-              <View style={{ flexDirection: 'row' }}>
-                <Text
-                  style={{
-                    fontSize: 25,
-                    color: '#0000FF',
-                    fontWeight: '500'
-                  }}
-                >
-                  {name}
-                </Text>
-                <Text style={{ marginLeft: 5, marginTop: 5 }}>
-                  {position && team
-                    ? `${position}/${team}`
-                    : position
-                    ? position
-                    : team}
-                </Text>
-              </View>
+            <Body>
+              <Text
+                style={{
+                  fontSize: 22,
+                  color: '#0000FF',
+                  fontWeight: '500',
+                  marginBottom: 5
+                }}
+              >
+                {name}
+              </Text>
 
-              <TouchableOpacity onPress={() => callNumber(cellPhone)}>
-                <Text style={{ fontSize: 22, color: '#0099ff' }}>
-                  {cellPhone}
+              <TouchableOpacity
+                style={{}}
+                onPress={() => callNumber(cellPhone)}
+              >
+                <Text
+                  style={{ fontSize: 19, color: '#0099ff', marginBottom: 5 }}
+                >
+                  {inputPhoneNumber(cellPhone)}
                 </Text>
               </TouchableOpacity>
               <View>
-                <Text style={{ color: '#00aFFF' }}>{company}</Text>
+                <Text style={{ color: styles.hanyangColor, marginBottom: 5 }}>
+                  {company}
+                </Text>
               </View>
             </Body>
-          </Left>
-
-          {__typename === 'User' ? (
-            <View
-              style={{
-                alignItems: 'flex-end',
-                marginTop: 23
-              }}
-            >
-              {directorTitle === '' ? null : (
-                <Text>{`${directorGen}기 ${directorTitle}`}</Text>
+            <Right>
+              {__typename === 'User' ? (
+                <View
+                  style={{
+                    alignItems: 'flex-end'
+                  }}
+                >
+                  {directorTitle === '' ? null : (
+                    <Text
+                      style={{
+                        marginBottom: 5,
+                        color: `#${directorGen}C${directorGen}43C`
+                      }}
+                    >{`${directorGen}기 ${directorTitle}`}</Text>
+                  )}
+                  <Text style={{ marginBottom: 5 }}>{`${generation}기`}</Text>
+                  <Text style={{ marginBottom: 5 }}>{`${major}과`}</Text>
+                  <Text style={{ color: styles.hanyangColor }}>{position}</Text>
+                </View>
+              ) : (
+                <View
+                  style={{
+                    alignItems: 'flex-end'
+                  }}
+                >
+                  <Text style={{ color: styles.hanyangColor, marginBottom: 5 }}>
+                    {position}
+                  </Text>
+                  <Text style={{ color: styles.hanyangColor, marginBottom: 5 }}>
+                    {team}
+                  </Text>
+                </View>
               )}
-              <Text>{`${generation}기`}</Text>
-              <Text>{`${major}과`}</Text>
-            </View>
-          ) : null}
+            </Right>
+          </Left>
         </CardItem>
       </TouchableOpacity>
     </Card>

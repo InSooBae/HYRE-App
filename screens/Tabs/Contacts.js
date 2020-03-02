@@ -47,7 +47,7 @@ const SEE_ALL_USER = gql`
         generation
       }
     }
-    howManyUser
+    howManyUser(major: $major, generation: $generation)
     seeAllGradYear {
       id
       generation
@@ -88,12 +88,11 @@ export default () => {
       textAlign: 'center'
     },
     inputAndroid: {
-      fontSize: 18,
-      paddingHorizontal: 10,
+      fontSize: 19,
       paddingVertical: 8,
-      borderWidth: 0.5,
-      borderColor: 'purple',
-      borderRadius: 8,
+      borderWidth: 1,
+      borderColor: 'gray',
+      borderRadius: 4,
       color: 'black',
       paddingRight: 30, // to ensure the text is never behind the icon
       textAlign: 'center'
@@ -152,7 +151,7 @@ export default () => {
       : generationQuery === null
       ? {
           query: SEE_ALL_USER,
-          variables: { llimit: limit, page: 1, major: majorQuery },
+          variables: { limit: limit, page: 1, major: majorQuery },
           fetchPolicy: 'network-only'
         }
       : {
@@ -186,7 +185,6 @@ export default () => {
     setAddData(addData.concat(data.seeAllUser));
     setFooterLoading(false);
   };
-
   const getInitialData = async () => {
     const { data } = await client.query(initQueryOptions);
     if (!data) return;
@@ -215,9 +213,7 @@ export default () => {
   };
   useEffect(() => {
     getInitialData();
-    return () => {
-      getInitialData();
-    };
+    return () => {};
   }, []);
 
   useEffect(() => {
@@ -313,13 +309,15 @@ export default () => {
                 />
               );
             }}
-            onEndReached={users / user > 1 ? moreData : () => null}
+            onEndReached={users / user > 1 ? () => moreData() : () => null}
             onEndReachedThreshold={Platform.OS === 'ios' ? 1 : 50}
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={refresh} />
             }
             ListFooterComponent={
-              footerLoading ? <Spinner color={styles.hanyangColor} /> : null
+              footerLoading && users / user > 1 ? (
+                <Spinner color={styles.hanyangColor} />
+              ) : null
             }
           />
         )}

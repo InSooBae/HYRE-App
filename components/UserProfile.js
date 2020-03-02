@@ -16,7 +16,12 @@ import {
 } from 'native-base';
 import { FontAwesome } from '@expo/vector-icons';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
-import { callNumber, linkEmail, linkMessage } from './PhoneCall';
+import {
+  callNumber,
+  linkEmail,
+  linkMessage,
+  inputPhoneNumber
+} from './PhoneCall';
 import ResponsiveImage from 'react-native-responsive-image';
 export default ({
   id,
@@ -42,7 +47,7 @@ export default ({
   //envelope-o envelope phone
   // commenting-o commenting
   return (
-    <Container style={{ backgroundColor: 'white' }}>
+    <View style={{ backgroundColor: 'white' }}>
       <Content padder>
         <Card>
           <CardItem header bordered>
@@ -146,7 +151,7 @@ export default ({
                     </Text>
                   </Left>
                   <Body>
-                    <Text>{cellPhone}</Text>
+                    <Text>{inputPhoneNumber(cellPhone)}</Text>
                   </Body>
                 </ListItem>
                 <ListItem thumbnail>
@@ -206,7 +211,7 @@ export default ({
                     </Text>
                   </Left>
                   <Body>
-                    <Text>{workPhone}</Text>
+                    <Text>{workPhone && inputPhoneNumber(workPhone)}</Text>
                   </Body>
                 </ListItem>
                 <ListItem thumbnail>
@@ -277,7 +282,7 @@ export default ({
                     <Text>{generation !== '' ? `${generation}기` : null}</Text>
                   </Body>
                 </ListItem>
-                <ListItem thumbnail>
+                <ListItem style={{ marginTop: 15 }} thumbnail>
                   <Left>
                     <Icon
                       type="Entypo"
@@ -288,10 +293,26 @@ export default ({
                       설명
                     </Text>
                   </Left>
-                  <Body>
-                    <Text>{companyDesc}</Text>
-                  </Body>
                 </ListItem>
+                {Array.isArray(companyDesc) &&
+                  companyDesc.length !== 0 &&
+                  companyDesc.map((desc, index) => {
+                    return (
+                      <ListItem key={index} thumbnail>
+                        <Left>
+                          <Icon
+                            type="MaterialCommunityIcons"
+                            name="circle-small"
+                            style={{ color: '#5592ff' }}
+                          />
+                        </Left>
+
+                        <Body>
+                          <Text>{desc}</Text>
+                        </Body>
+                      </ListItem>
+                    );
+                  })}
               </List>
             </Content>
           </CardItem>
@@ -300,6 +321,6 @@ export default ({
           </CardItem>
         </Card>
       </Content>
-    </Container>
+    </View>
   );
 };

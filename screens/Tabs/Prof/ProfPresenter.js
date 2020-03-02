@@ -16,6 +16,7 @@ const SEE_ALL_PROF = gql`
       company
       position
       photo
+      title
     }
   }
 `;
@@ -113,7 +114,7 @@ export default ({ query }) => {
                     : item.user.photo
                 }
                 position={query === '교수' ? item.position : item.user.position}
-                team={query === '교수' ? '' : item.user.team}
+                team={query === '교수' ? item.title : item.user.team}
                 major={query === '교수' ? '' : item.user.major.name}
                 generation={
                   query === '교수' ? null : item.user.graduatedYear.generation

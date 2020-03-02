@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import {
   TouchableWithoutFeedback,
@@ -29,10 +29,13 @@ import {
   Right,
   Button,
   Label,
-  Form
+  Form,
+  List,
+  ListItem
 } from 'native-base';
+import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import AuthButton from '../../components/AuthButton';
 import AuthInput from '../../components/AuthInput';
 import useInput from '../../hooks/useInput';
@@ -40,6 +43,19 @@ import constants from '../../constants';
 import { gql } from 'apollo-boost';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import * as ImagePicker from 'expo-image-picker';
+import { TextInput } from 'react-native-gesture-handler';
+import styles from '../../styles';
+
+const SEE_MAJOR_GRAD = gql`
+  query seeAllMajor {
+    seeAllMajor {
+      name
+    }
+    seeAllGradYear {
+      generation
+    }
+  }
+`;
 
 const REQUEST_CREATE_USER = gql`
   mutation requestCreateUser(
@@ -49,7 +65,7 @@ const REQUEST_CREATE_USER = gql`
     $email: String!
     $cellPhone: String!
     $company: String
-    $companyCategory: String
+    $companyDesc: [String!]!
     $team: String
     $position: String
     $workPhone: String
@@ -64,7 +80,7 @@ const REQUEST_CREATE_USER = gql`
       email: $email
       cellPhone: $cellPhone
       company: $company
-      companyCategory: $companyCategory
+      companyDesc: $companyCategory
       team: $team
       position: $position
       workPhone: $workPhone
@@ -184,22 +200,53 @@ export default ({ navigation }) => {
   //키보드 토글시 위로 패딩되는 offset값
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 85 : 40;
   //회원가입값들
-  const nameInput = useInput('');
+
   const [birth, setBirth] = useState('출생년도를 선택하세요');
-  const cellPhoneInput = useInput('');
-  const companyInput = useInput('');
-  const workAddressInput = useInput('');
-  const companyCatInput = useInput('');
-  const teamInput = useInput('');
-  const positionInput = useInput('');
-  const workPhoneInput = useInput('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [cellPhone, setCellPhone] = useState('');
+  const [company, setCompany] = useState('');
+  const [workAddress, setWorkAddress] = useState('');
+  const [companyDesc, setCompanyDesc] = useState([]);
+  const [team, setTeam] = useState('');
+  const [position, setPosition] = useState('');
+  const [workPhone, setWorkPhone] = useState('');
   const [major, setMajor] = useState('');
-  const generationInput = useInput('');
+  const [generation, setGeneration] = useState('');
+  const [genList, setGenList] = useState([]);
+  const [majList, setMajList] = useState([]);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [requestCreateUserMutation] = useMutation(REQUEST_CREATE_USER);
   const [selectedImage, setSelectedImage] = useState(
     require('../../assets/HYU1.png')
   );
+  const { data, loading, refetch } = useQuery(SEE_MAJOR_GRAD, {
+    //언제 쿼리를 조회하지 않고 넘길지 설정
+    //검색 결과가 항상 캐시에 저장되지 않도록 fetchPolicy로 설정
+    fetchPolicy: 'network-only'
+  });
+  useEffect(() => {
+    if (!loading) {
+      setGenList(
+        data.seeAllGradYear.map(e => {
+          return {
+            key: e.id,
+            label: `${e.generation}기`,
+            value: e.generation
+          };
+        })
+      );
+      setMajList(
+        data.seeAllMajor.map(e => {
+          return {
+            key: e.id,
+            label: e.name,
+            value: e.name
+          };
+        })
+      );
+    }
+  }, [data]);
   const showDatePicker = () => {
     setDatePickerVisibility(true);
     Keyboard.dismiss();
@@ -241,20 +288,10 @@ export default ({ navigation }) => {
   //login에서 보낸 parameter가 있으면 받고 없으면 '' empty String
   const emailInput = useInput(navigation.getParam('email', ''));
 
-  const [loading, setLoading] = useState(false);
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   // 이메일이 유효한지 검증
   const handleSignUp = async () => {
-    const { value: email } = emailInput;
-    const { value: name } = nameInput;
-    const { value: cellPhone } = cellPhoneInput;
-    const { value: company } = companyInput;
-    const { value: workAddress } = workAddressInput;
-    const { value: companyCat } = companyCatInput;
-    const { value: team } = teamInput;
-    const { value: position } = positionInput;
-    const { value: workPhone } = workPhoneInput;
-    const { value: generation } = generationInput;
     //이메일 99.99% 유효성 체크
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (name === '') {
@@ -332,7 +369,7 @@ export default ({ navigation }) => {
     });
     console.log('dkaadsk');
     try {
-      setLoading(true);
+      setButtonLoading(true);
       let a = null;
       console.log('------------g------------', selectedImage.filename);
       if (selectedImage.filename) {
@@ -361,7 +398,7 @@ export default ({ navigation }) => {
           email: email,
           cellPhone: cellPhone,
           company: company,
-          companyCategory: companyCat,
+          companyDesc: companyDesc,
           team: team,
           position: position,
           workPhone: workPhone,
@@ -384,226 +421,521 @@ export default ({ navigation }) => {
         navigation.navigate('AuthHome');
       }
     } catch (e) {
+      console.log(e);
       Alert.alert('이미 존재하는 이메일이 있습니다!', '로그인해주세요');
       navigation.navigate('Login', { email });
     } finally {
-      setLoading(false);
+      setButtonLoading(false);
     }
   };
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
       keyboardVerticalOffset={keyboardVerticalOffset}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
       enabled
-      style={{
-        flexDirection: 'column',
-        justifyContent: 'center'
-      }}
     >
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View
-            style={{
-              backgroundColor: 'white',
-              alignItems: 'center',
-              height: constants.height * 1.3
-            }}
-          >
-            {/* <TouchableOpacity
-                onPress={() => navigation.navigate('PhotoNavigation')}
-              >
-                <Image source={photo} style={{ height: 80, width: 80 }} />
-              </TouchableOpacity> */}
+      <ScrollView style={{ backgroundColor: 'white' }}>
+        <View>
+          <Content padder>
+            <Card>
+              <CardItem header bordered>
+                <Left>
+                  <TouchableOpacity onPress={openImagePickerAsync}>
+                    <Thumbnail
+                      source={selectedImage}
+                      style={{
+                        width: 138,
+                        height: 138,
+                        borderRadius: (138 + 138) / 2
+                      }}
+                      large
+                    />
+                    <View
+                      style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        backgroundColor: 'white',
+                        opacity: 0.5,
+                        justifyContent: 'flex-start',
+                        alignItems: 'center',
+                        height: 50,
+                        width: 138
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: 'black',
+                          textAlign: 'center',
+                          fontWeight: '700',
+                          marginRight: 10
+                        }}
+                      >
+                        Choose Image
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
 
-            <CardItem
-              button
-              onPress={openImagePickerAsync}
-              style={{ width: constants.width / 1.5 }}
-            >
-              <Left>
-                <Thumbnail
-                  source={selectedImage}
-                  style={{
-                    height: 80,
-                    width: 80
-                  }}
-                />
-                <Body>
-                  <Text>이미지를 선택하세요</Text>
-                  <Text note>미선택시 기본이미지로 지정됩니다.</Text>
-                </Body>
-              </Left>
-            </CardItem>
+                  <Body
+                    style={{
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      flex: 1
+                    }}
+                  >
+                    <Text>이미지 클릭시 변경</Text>
+                    <Text note>확인을 눌르셔야 적용됩니다.</Text>
+                  </Body>
+                </Left>
+              </CardItem>
+              <CardItem bordered>
+                <Content>
+                  <List>
+                    <ListItem thumbnail>
+                      <Left>
+                        <Icon name="person" style={{ color: '#5592ff' }} />
+                        <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                          이름
+                        </Text>
+                      </Left>
 
-            {/* <View style={{ marginBottom: 10 }}>
-              <Item
-                style={{
-                  width: constants.width / 1.5
-                }}
-                floatingLabel
-                success={focus}
-              >
-                <Label>{placeholder}</Label>
-                <Input
-                  onFocus={() => setFocus(true)}
-                  onBlur={() => setFocus(false)}
-                  onChangeText={onChange}
-                  keyboardType={keyboardType}
-                  returnKeyType={returnKeyType}
-                  value={value}
-                  onSubmitEditing={onSubmitEditing}
-                  autoCorrect={autoCorrect}
-                  autoCapitalize={autoCapitalize}
-                />
-              </Item>
-            </View> */}
+                      <Body>
+                        <TextInput
+                          value={name}
+                          onChangeText={value => {
+                            setName(value);
+                          }}
+                          style={
+                            Platform.OS === 'ios'
+                              ? { fontSize: 16 }
+                              : {
+                                  fontSize: 16
+                                }
+                          }
+                          placeholder="(이름)*"
+                        />
+                      </Body>
+                    </ListItem>
+                    <ListItem thumbnail>
+                      <Left>
+                        <Icon
+                          type="MaterialIcons"
+                          name="cake"
+                          style={{ color: '#5592ff' }}
+                        />
 
-            <AuthInput
-              {...nameInput}
-              placeholder="이름 / Full Name"
-              autoCorrect={false}
-              returnKeyType="next"
-            />
-            <AuthInput
-              {...emailInput}
-              placeholder="이메일 / Email"
-              keyboardType="email-address"
-              returnKeyType="next"
-              autoCorrect={false}
-            />
+                        <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                          생일
+                        </Text>
+                      </Left>
 
-            <Item
-              style={{
-                width: constants.width / 1.5,
-                paddingTop: 10
-              }}
-            >
-              <TouchableOpacity
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  flex: 1
-                }}
-                onPress={showDatePicker}
-              >
-                <Text
-                  style={{
-                    width: constants.width / 1.7,
-                    fontSize: 18,
-                    color: '#bfc6ea'
-                  }}
-                >
-                  {birth}
-                </Text>
-                <Icon active name="arrow-down" />
-              </TouchableOpacity>
-            </Item>
-            <DateTimePickerModal
-              cancelTextIOS="취소"
-              confirmTextIOS="선택"
-              headerTextIOS="출생년도를 선택하세요"
-              isVisible={isDatePickerVisible}
-              date={
-                birth !== '출생년도를 선택하세요' ? new Date(birth) : new Date()
-              }
-              mode="date"
-              onConfirm={handleConfirm}
-              onCancel={hideDatePicker}
-            />
+                      <Body>
+                        <TouchableOpacity onPress={showDatePicker}>
+                          <Text
+                            style={{
+                              color: '#bfc6ea',
+                              fontSize: 16
+                            }}
+                          >
+                            {birth}
+                          </Text>
+                        </TouchableOpacity>
+                        <DateTimePickerModal
+                          cancelTextIOS="취소"
+                          confirmTextIOS="선택"
+                          headerTextIOS="출생년도를 선택하세요"
+                          isVisible={isDatePickerVisible}
+                          date={
+                            birth !== '출생년도를 선택하세요'
+                              ? new Date(birth)
+                              : new Date()
+                          }
+                          mode="date"
+                          onConfirm={handleConfirm}
+                          onCancel={hideDatePicker}
+                        />
+                      </Body>
+                    </ListItem>
+                    <ListItem thumbnail>
+                      <Left>
+                        <Icon
+                          type="FontAwesome"
+                          name="phone"
+                          style={{ color: '#5592ff' }}
+                        />
+                        <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                          휴대전화
+                        </Text>
+                      </Left>
 
-            {/* <Modal
-                animationType="fade"
-                transparent
-                visible={showTimeOfDayPicker}
-                presentationStyle="overFullScreen"
-              >
-                */}
-            <AuthInput
-              {...cellPhoneInput}
-              placeholder="010-xxxx-xxxx"
-              keyboardType={
-                Platform.OS === 'ios' ? 'numbers-and-punctuation' : 'numeric'
-              }
-              returnKeyType="next"
-              autoCorrect={false}
-            />
-            <AuthInput
-              {...companyInput}
-              placeholder="회사명 / Company Name"
-              returnKeyType="next"
-              autoCorrect={false}
-            />
-            <AuthInput
-              {...workAddressInput}
-              placeholder="사업장 / Work Address"
-              returnKeyType="next"
-              autoCorrect={false}
-            />
-            <AuthInput
-              {...companyCatInput}
-              placeholder="직종 / Company Category"
-              returnKeyType="next"
-              autoCorrect={false}
-            />
-            <AuthInput
-              {...teamInput}
-              placeholder="부서 / Team"
-              returnKeyType="next"
-              autoCorrect={false}
-            />
-            <AuthInput
-              {...positionInput}
-              placeholder="직책 / Position"
-              returnKeyType="next"
-              autoCorrect={false}
-            />
-            <AuthInput
-              {...workPhoneInput}
-              placeholder="회사전화 / Work Phone"
-              keyboardType={
-                Platform.OS === 'ios' ? 'numbers-and-punctuation' : 'numeric'
-              }
-              returnKeyType="next"
-              autoCorrect={false}
-            />
-            {/* <AuthInput
-              {...majorInput}
-              placeholder="대학원 전공 / Major"
-              returnKeyType="next"
-              autoCorrect={false}
-            /> */}
-            <Item
-              style={{ marginBottom: 5, width: constants.width / 1.5 }}
-              picker
-            >
-              <Picker
-                mode="dropdown"
-                iosIcon={<Icon name="arrow-down" />}
-                style={{ width: constants.width / 1.5 }}
-                placeholder="대학원 전공"
-                placeholderStyle={{ color: '#bfc6ea' }}
-                placeholderIconColor="#007aff"
-                selectedValue={major}
-                onValueChange={newMajor => setMajor(newMajor)}
-              >
-                <Picker.Item label="부동산자산관리" value="부동산자산관리" />
-                <Picker.Item label="도시부동산개발" value="도시부동산개발" />
-                <Picker.Item label="부동산투자금융" value="부동산투자금융" />
-              </Picker>
-            </Item>
-            <AuthInput
-              {...generationInput}
-              placeholder="기수 / Generation"
-              returnKeyType="send"
-              autoCorrect={false}
-            />
+                      <Body>
+                        <TextInput
+                          value={cellPhone}
+                          onChangeText={value => {
+                            setCellPhone(value);
+                          }}
+                          style={
+                            Platform.OS === 'ios'
+                              ? { fontSize: 16 }
+                              : {
+                                  fontSize: 16
+                                }
+                          }
+                          placeholder="(휴대전화)*"
+                        />
+                      </Body>
+                    </ListItem>
+                    <ListItem thumbnail>
+                      <Left>
+                        <Icon
+                          type="FontAwesome"
+                          name="envelope"
+                          style={{ color: '#5592ff' }}
+                        />
+                        <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                          이메일
+                        </Text>
+                      </Left>
+
+                      <Body>
+                        <TextInput
+                          value={email}
+                          onChangeText={value => {
+                            setEmail(value);
+                          }}
+                          style={
+                            Platform.OS === 'ios'
+                              ? { fontSize: 16 }
+                              : {
+                                  fontSize: 16
+                                }
+                          }
+                          placeholder="(이메일)*"
+                        />
+                      </Body>
+                    </ListItem>
+                    <ListItem thumbnail>
+                      <Left>
+                        <Icon
+                          type="FontAwesome"
+                          name="building-o"
+                          style={{ color: '#5592ff' }}
+                        />
+                        <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                          회사명
+                        </Text>
+                      </Left>
+
+                      <Body>
+                        <TextInput
+                          value={company}
+                          onChangeText={value => {
+                            setCompany(value);
+                          }}
+                          style={
+                            Platform.OS === 'ios'
+                              ? { fontSize: 16 }
+                              : {
+                                  fontSize: 16
+                                }
+                          }
+                          placeholder="(회사명)"
+                        />
+                      </Body>
+                    </ListItem>
+                    <ListItem thumbnail>
+                      <Left>
+                        <Icon
+                          type="FontAwesome"
+                          name="building"
+                          style={{ color: '#5592ff' }}
+                        />
+                        <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                          회사주소
+                        </Text>
+                      </Left>
+
+                      <Body>
+                        <TextInput
+                          value={workAddress}
+                          onChangeText={value => {
+                            setWorkAddress(value);
+                          }}
+                          style={
+                            Platform.OS === 'ios'
+                              ? { fontSize: 16 }
+                              : {
+                                  fontSize: 16
+                                }
+                          }
+                          placeholder="(회사주소)"
+                        />
+                      </Body>
+                    </ListItem>
+                    <ListItem thumbnail>
+                      <Left>
+                        <Icon
+                          type="Entypo"
+                          name="landline"
+                          style={{ color: '#5592ff' }}
+                        />
+                        <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                          회사전화
+                        </Text>
+                      </Left>
+
+                      <Body>
+                        <TextInput
+                          value={workPhone}
+                          onChangeText={value => {
+                            setWorkPhone(value);
+                          }}
+                          style={
+                            Platform.OS === 'ios'
+                              ? { fontSize: 16 }
+                              : {
+                                  fontSize: 16
+                                }
+                          }
+                          placeholder="(회사 전화)"
+                        />
+                      </Body>
+                    </ListItem>
+                    <ListItem thumbnail>
+                      <Left>
+                        <Icon
+                          type="Entypo"
+                          name="archive"
+                          style={{ color: '#5592ff' }}
+                        />
+                        <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                          부서
+                        </Text>
+                      </Left>
+
+                      <Body>
+                        <TextInput
+                          value={team}
+                          onChangeText={value => {
+                            setTeam(value);
+                          }}
+                          style={
+                            Platform.OS === 'ios'
+                              ? { fontSize: 16 }
+                              : {
+                                  fontSize: 16
+                                }
+                          }
+                          placeholder="(부서)"
+                        />
+                      </Body>
+                    </ListItem>
+                    <ListItem thumbnail>
+                      <Left>
+                        <Icon
+                          type="Entypo"
+                          name="medal"
+                          style={{ color: '#5592ff' }}
+                        />
+                        <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                          직책
+                        </Text>
+                      </Left>
+
+                      <Body>
+                        <TextInput
+                          value={position}
+                          onChangeText={value => {
+                            setPosition(value);
+                          }}
+                          style={
+                            Platform.OS === 'ios'
+                              ? { fontSize: 16 }
+                              : {
+                                  fontSize: 16
+                                }
+                          }
+                          placeholder="(직책)"
+                        />
+                      </Body>
+                    </ListItem>
+
+                    <ListItem thumbnail>
+                      <Left>
+                        <Icon
+                          type="Entypo"
+                          name="star"
+                          style={{ color: '#5592ff' }}
+                        />
+                        <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                          전공
+                        </Text>
+                      </Left>
+
+                      <Body>
+                        <RNPickerSelect
+                          placeholder={{
+                            label: '전공을 선택하세요.',
+                            value: null
+                          }}
+                          value={major}
+                          onValueChange={major => {
+                            setMajor(major);
+                          }}
+                          items={majList}
+                          doneText={'확인'}
+                          Icon={() => (
+                            <Icon
+                              style={
+                                Platform.OS === 'ios' ? { fontSize: 16 } : null
+                              }
+                              type="AntDesign"
+                              name="down"
+                            />
+                          )}
+                          useNativeAndroidPickerStyle={false}
+                        />
+                      </Body>
+                    </ListItem>
+                    <ListItem thumbnail>
+                      <Left>
+                        <Icon
+                          ios="ios-menu"
+                          android="md-menu"
+                          style={{ fontSize: 20, color: '#5592ff' }}
+                        />
+
+                        <Text
+                          style={{
+                            fontWeight: '700',
+                            marginLeft: 5,
+                            marginLeft: 5
+                          }}
+                        >
+                          기수
+                        </Text>
+                      </Left>
+
+                      <Body>
+                        <RNPickerSelect
+                          placeholder={{
+                            label: '기수를 선택하세요.'
+                          }}
+                          onValueChange={generation => {
+                            setGeneration(generation);
+                          }}
+                          style={{ fontSize: 16 }}
+                          value={generation}
+                          items={genList}
+                          doneText={'확인'}
+                          Icon={() => (
+                            <Icon
+                              style={
+                                Platform.OS === 'ios' ? { fontSize: 16 } : null
+                              }
+                              type="AntDesign"
+                              name="down"
+                            />
+                          )}
+                          useNativeAndroidPickerStyle={false}
+                        />
+                      </Body>
+                    </ListItem>
+
+                    <ListItem thumbnail>
+                      <Left>
+                        <Icon
+                          type="Entypo"
+                          name="suitcase"
+                          style={{ color: '#5592ff' }}
+                        />
+                        <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                          설명
+                        </Text>
+                      </Left>
+                      <Body>
+                        <Text>우측 버튼을 눌러 추가하세요</Text>
+                      </Body>
+                      <Right>
+                        <TouchableOpacity
+                          onPress={() => setCompanyDesc(companyDesc.concat(''))}
+                        >
+                          <Icon
+                            type="AntDesign"
+                            name="pluscircle"
+                            style={{ color: '#32CD32', fontSize: 21 }}
+                          />
+                        </TouchableOpacity>
+                      </Right>
+                    </ListItem>
+                    {Array.isArray(companyDesc) &&
+                      companyDesc.length !== 0 &&
+                      companyDesc.map((desc, index) => {
+                        return (
+                          <ListItem key={index} thumbnail>
+                            <Left>
+                              <Icon
+                                type="MaterialCommunityIcons"
+                                name="circle-small"
+                                style={{ color: '#5592ff' }}
+                              />
+                            </Left>
+                            <Body>
+                              <TextInput
+                                value={desc}
+                                onChangeText={text =>
+                                  setCompanyDesc(
+                                    companyDesc.map((a, fIndex) => {
+                                      if (fIndex === index) {
+                                        return text;
+                                      } else return a;
+                                    })
+                                  )
+                                }
+                                style={
+                                  Platform.OS === 'ios'
+                                    ? { fontSize: 16 }
+                                    : {
+                                        fontSize: 16
+                                      }
+                                }
+                                placeholder="(경력 및 소개)"
+                              />
+                            </Body>
+                            <Right>
+                              <TouchableOpacity
+                                onPress={() =>
+                                  setCompanyDesc(
+                                    companyDesc.filter(
+                                      (_, fIndex) => fIndex !== index
+                                    )
+                                  )
+                                }
+                              >
+                                <Icon
+                                  type="AntDesign"
+                                  name="minuscircle"
+                                  style={{
+                                    color: styles.redColor,
+                                    fontSize: 20
+                                  }}
+                                />
+                              </TouchableOpacity>
+                            </Right>
+                          </ListItem>
+                        );
+                      })}
+                  </List>
+                </Content>
+              </CardItem>
+            </Card>
             <AuthButton
-              loading={loading}
+              loading={buttonLoading}
               onPress={handleSignUp}
               text="Sign Up"
             />
-          </View>
-        </TouchableWithoutFeedback>
+          </Content>
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );

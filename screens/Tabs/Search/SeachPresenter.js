@@ -37,7 +37,7 @@ const SearchPresenter = ({ query, shouldFetch }) => {
       query
     },
     //언제 쿼리를 조회하지 않고 넘길지 설정
-    skip: !shouldFetch,
+    skip: !shouldFetch || query == '',
     //검색 결과가 항상 캐시에 저장되지 않도록 fetchPolicy로 설정
     fetchPolicy: 'network-only'
   });

@@ -201,7 +201,7 @@ export default ({ navigation }) => {
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 85 : 40;
   //회원가입값들
 
-  const [birth, setBirth] = useState('출생년도를 선택하세요');
+  const [birth, setBirth] = useState('(출생년도를 선택하세요)*');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [cellPhone, setCellPhone] = useState('');
@@ -775,7 +775,7 @@ export default ({ navigation }) => {
                       <Body>
                         <RNPickerSelect
                           placeholder={{
-                            label: '전공을 선택하세요.',
+                            label: '(전공을 선택하세요)*',
                             value: null
                           }}
                           value={major}
@@ -819,7 +819,7 @@ export default ({ navigation }) => {
                       <Body>
                         <RNPickerSelect
                           placeholder={{
-                            label: '기수를 선택하세요.'
+                            label: '(기수를 선택하세요)*'
                           }}
                           onValueChange={generation => {
                             setGeneration(generation);

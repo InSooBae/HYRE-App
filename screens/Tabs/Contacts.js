@@ -11,7 +11,9 @@ import {
   View,
   Row,
   Fab,
-  Spinner
+  Spinner,
+  Icon,
+  Right
 } from 'native-base';
 import { useApolloClient } from '@apollo/react-hooks';
 import RNPickerSelect from 'react-native-picker-select';
@@ -252,6 +254,15 @@ export default () => {
               label: '선택없음',
               value: null
             }}
+            Icon={() => (
+              <Right>
+                <Icon
+                  style={{ fontSize: 20, marginTop: 12 }}
+                  type="AntDesign"
+                  name="down"
+                />
+              </Right>
+            )}
             placeholderTextColor={'black'}
             style={{ ...pickerSelectStyles }}
             onValueChange={generation => {
@@ -279,6 +290,15 @@ export default () => {
             }}
             style={{ ...pickerSelectStyles }}
             placeholderTextColor={'black'}
+            Icon={() => (
+              <Right>
+                <Icon
+                  style={{ fontSize: 20, marginTop: 12 }}
+                  type="AntDesign"
+                  name="down"
+                />
+              </Right>
+            )}
             onValueChange={major => {
               setMajorQuery(major);
             }}

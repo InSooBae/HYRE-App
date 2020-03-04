@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FlatList, RefreshControl, StyleSheet, Platform } from 'react-native';
 import {
   Container,
@@ -21,6 +21,7 @@ import { gql } from 'apollo-boost';
 import Contact from '../../components/Contact';
 import Loader from '../../components/Loader';
 import styles from '../../styles';
+import { FAB } from 'react-native-paper';
 
 const SEE_ALL_USER = gql`
   query seeAllUser(
@@ -77,6 +78,21 @@ export default () => {
   const [major, setMajor] = useState([]);
   const [addData, setAddData] = useState();
   const [footerLoading, setFooterLoading] = useState(false);
+
+  const scrollTop = useRef();
+  const toTop = () => {
+    scrollTop.current.scrollToOffset({ animated: true, offset: 0 });
+  };
+
+  const style = StyleSheet.create({
+    fab: {
+      position: 'absolute',
+      margin: 16,
+      right: 0,
+      bottom: 0,
+      backgroundColor: styles.hanyangColor
+    }
+  });
   const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
       fontSize: 18,
@@ -293,6 +309,7 @@ export default () => {
           <Text>해당 인원이 없습니다.</Text>
         ) : (
           <FlatList
+            ref={scrollTop}
             data={addData}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => {
@@ -321,6 +338,7 @@ export default () => {
             }
           />
         )}
+        <FAB style={style.fab} small icon="chevron-up" onPress={toTop} />
       </Container>
     );
   }

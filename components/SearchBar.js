@@ -9,12 +9,20 @@ import { Searchbar } from 'react-native-paper';
 
 const SearchBar = ({ onChange, value, onSubmit }) => (
   <Searchbar
-    style={{ width: constants.width, backgroundColor: styles.greyColor }}
+    sel
+    selectionColor={styles.hanyangColor}
+    style={{
+      width: constants.width,
+      backgroundColor: styles.greyColor,
+      borderColor: styles.hanyangColor,
+      borderWidth: 1
+    }}
     theme={{
       colors: {
         primary: styles.redColor,
         text: styles.hanyangColor
-      }
+      },
+      roundness: 30
     }}
     placeholder="Search"
     returnKeyType="search"

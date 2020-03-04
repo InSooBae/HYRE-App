@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import constants from '../constants';
 import { Item, Toast, Label, Input } from 'native-base';
+import { TextInput, HelperText } from 'react-native-paper';
+import styles from '../styles';
+import { View } from 'react-native';
 
 const Container = styled.View`
   margin-bottom: 10px;
@@ -20,35 +23,75 @@ const AuthInput = ({
   autoCapitalize = 'none',
   onChange,
   returnKeyType = 'done',
-
+  disabled,
   onSubmitEditing = () => null,
-  autoCorrect = true
+  autoCorrect = true,
+  style = {
+    backgroundColor: 'white',
+    fontSize: 16
+  },
+  visible = false,
+  errorMessage,
+  infoMessage
 }) => {
-  const [focus, setFocus] = useState(false);
-
   return (
-    <Container>
-      <Item
-        style={{
-          width: constants.width / 1.5
+    // <Container>
+    //   <Item
+    //     style={{
+    //       width: constants.width / 1.5
+    //     }}
+    //     floatingLabel
+    //     success={focus}
+    //   >
+    //     <Label>{placeholder}</Label>
+    //     <Input
+    //       onFocus={() => setFocus(true)}
+    //       onBlur={() => setFocus(false)}
+    //       onChangeText={onChange}
+    //       keyboardType={keyboardType}
+    //       returnKeyType={returnKeyType}
+    //       value={value}
+    //       onSubmitEditing={onSubmitEditing}
+    //       autoCorrect={autoCorrect}
+    //       autoCapitalize={autoCapitalize}
+    //     />
+    //   </Item>
+    // </Container>
+    <View>
+      <TextInput
+        style={style}
+        selectionColor={styles.hanyangColor}
+        mode="outlined"
+        value={value}
+        theme={{
+          roundness: 100,
+          colors: {
+            background: 'white',
+            primary: styles.hanyangColor
+          }
         }}
-        floatingLabel
-        success={focus}
-      >
-        <Label>{placeholder}</Label>
-        <Input
-          onFocus={() => setFocus(true)}
-          onBlur={() => setFocus(false)}
-          onChangeText={onChange}
-          keyboardType={keyboardType}
-          returnKeyType={returnKeyType}
-          value={value}
-          onSubmitEditing={onSubmitEditing}
-          autoCorrect={autoCorrect}
-          autoCapitalize={autoCapitalize}
-        />
-      </Item>
-    </Container>
+        onChangeText={onChange}
+        disabled={disabled}
+        label={placeholder}
+        onSubmitEditing={onSubmitEditing}
+        keyboardType={keyboardType}
+        returnKeyType={returnKeyType}
+        autoCorrect={autoCorrect}
+        autoCapitalize={autoCapitalize}
+        error={(value.length != 0) !== false && visible}
+      />
+
+      {!value && infoMessage && (
+        <HelperText type="info" visible={!value}>
+          {infoMessage}
+        </HelperText>
+      )}
+      {value.length != 0 && visible && (
+        <HelperText type="error" visible={visible}>
+          {errorMessage}
+        </HelperText>
+      )}
+    </View>
   );
 };
 

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import constants from '../constants';
 import { ActivityIndicator } from 'react-native';
+import { Button } from 'react-native-paper';
+import styles from '../styles';
 
 const Touchable = styled.TouchableOpacity``;
 const Container = styled.View`
@@ -15,16 +17,31 @@ const Container = styled.View`
 const Text = styled.Text`
   color: white;
   text-align: center;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 18px;
 `;
 //ActivityIndicator = 로딩
-const AuthButton = ({ text, onPress, loading = false }) => (
-  <Touchable disabled={loading} onPress={onPress}>
-    <Container>
-      {loading ? <ActivityIndicator color={'white'} /> : <Text>{text}</Text>}
-    </Container>
-  </Touchable>
+const AuthButton = ({
+  text,
+  onPress,
+  loading = false,
+  style = { backgroundColor: styles.hanyangColor, padding: 8, marginTop: 20 }
+}) => (
+  <Button
+    style={style}
+    loading={loading}
+    theme={{
+      colors: {
+        background: styles.hanyangColor,
+        onBackground: styles.hanyangColor
+      },
+      roundness: 30
+    }}
+    mode="contained"
+    onPress={onPress}
+  >
+    <Text> {text}</Text>
+  </Button>
 );
 
 AuthButton.propTypes = {

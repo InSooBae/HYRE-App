@@ -7,11 +7,15 @@ import { CONFIRM_SECRET } from './AuthQueries';
 import AuthInput from '../../components/AuthInput';
 import useInput from '../../hooks/useInput';
 import { useLogIn } from '../../AuthContext';
+import constants from '../../constants';
+import styles from '../../styles';
+import { Toast } from 'native-base';
 
 const View = styled.View`
   justify-content: center;
   align-items: center;
   flex: 1;
+  background-color: white;
 `;
 
 const Text = styled.Text``;
@@ -32,7 +36,15 @@ export default ({ navigation }) => {
   const handleConfirm = async () => {
     const { value } = confirmInput;
     if (value === '') {
-      return Alert.alert('Invalid secret');
+      return Toast.show({
+        text: `Secret Key를 입력해주세요.`,
+        textStyle: { textAlign: 'center' },
+        buttonText: 'Okay',
+        type: 'warning',
+        position: 'top',
+        duration: 3000,
+        style: { marginTop: 70 }
+      });
     }
     try {
       setLoading(true);
@@ -42,10 +54,26 @@ export default ({ navigation }) => {
       if (confirmSecret !== '' || confirmSecret !== false) {
         logIn(confirmSecret);
       } else {
-        Alert.alert('Wrong Secret!');
+        return Toast.show({
+          text: `Secret Key가 맞지 않습니다.`,
+          textStyle: { textAlign: 'center' },
+          buttonText: 'Okay',
+          type: 'warning',
+          position: 'top',
+          duration: 3000,
+          style: { marginTop: 70 }
+        });
       }
     } catch (e) {
-      Alert.alert("Can't confirm secret");
+      return Toast.show({
+        text: `Secret Key가 맞지 않습니다.`,
+        textStyle: { textAlign: 'center' },
+        buttonText: 'Okay',
+        type: 'warning',
+        position: 'top',
+        duration: 3000,
+        style: { marginTop: 70 }
+      });
     } finally {
       setLoading(false);
     }
@@ -54,13 +82,30 @@ export default ({ navigation }) => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View>
         <AuthInput
+          style={{
+            backgroundColor: 'white',
+            fontSize: 16,
+            width: constants.width / 1.5
+          }}
           {...confirmInput}
           placeholder="Secret Key"
           returnKeyType="send"
           onSubmitEditing={handleConfirm}
           autoCorrect={false}
+          infoMessage="Secret Key를 입력해주세요"
         />
-        <AuthButton loading={loading} onPress={handleConfirm} text="Confirm" />
+        <AuthButton
+          style={{
+            fontSize: 16,
+            width: constants.width / 1.5,
+            backgroundColor: styles.hanyangColor,
+            padding: 8,
+            marginTop: 20
+          }}
+          loading={loading}
+          onPress={handleConfirm}
+          text="Confirm"
+        />
       </View>
     </TouchableWithoutFeedback>
   );

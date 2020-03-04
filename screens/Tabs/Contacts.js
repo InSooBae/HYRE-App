@@ -79,23 +79,21 @@ export default () => {
   const [footerLoading, setFooterLoading] = useState(false);
   const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
-      fontSize: 16,
-      paddingVertical: 8,
+      fontSize: 18,
       borderWidth: 1,
       borderColor: 'gray',
       borderRadius: 4,
       color: 'black',
-      paddingRight: 30, // to ensure the text is never behind the icon
+      paddingRight: 5, // to ensure the text is never behind the icon
       textAlign: 'center'
     },
     inputAndroid: {
-      fontSize: 16,
-      paddingVertical: 8,
+      fontSize: 18,
       borderWidth: 1,
       borderColor: 'gray',
       borderRadius: 4,
       color: 'black',
-      paddingRight: 30, // to ensure the text is never behind the icon
+      paddingRight: 5,
       textAlign: 'center'
     }
   });
@@ -221,7 +219,7 @@ export default () => {
     setLoading(true);
     refresh();
     return () => {
-      setLoading(false);
+      console.log('안함');
     };
   }, [majorQuery, generationQuery]);
 
@@ -236,7 +234,7 @@ export default () => {
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            opacity: 0.5
+            opacity: 0.8
           }}
         >
           <Text
@@ -253,15 +251,7 @@ export default () => {
               label: '선택없음',
               value: null
             }}
-            Icon={() => (
-              <Right>
-                <Icon
-                  style={{ fontSize: 20, marginTop: 12 }}
-                  type="AntDesign"
-                  name="down"
-                />
-              </Right>
-            )}
+            Icon={() => null}
             placeholderTextColor={'black'}
             style={{ ...pickerSelectStyles }}
             onValueChange={generation => {
@@ -288,15 +278,7 @@ export default () => {
             }}
             style={{ ...pickerSelectStyles }}
             placeholderTextColor={'black'}
-            Icon={() => (
-              <Right>
-                <Icon
-                  style={{ fontSize: 20, marginTop: 12 }}
-                  type="AntDesign"
-                  name="down"
-                />
-              </Right>
-            )}
+            Icon={() => null}
             onValueChange={major => {
               setMajorQuery(major);
             }}
@@ -307,6 +289,8 @@ export default () => {
         </View>
         {loading ? (
           <Loader />
+        ) : users === 0 ? (
+          <Text>해당 인원이 없습니다.</Text>
         ) : (
           <FlatList
             data={addData}
@@ -333,9 +317,7 @@ export default () => {
               <RefreshControl refreshing={refreshing} onRefresh={refresh} />
             }
             ListFooterComponent={
-              footerLoading && users / user > 1 ? (
-                <Spinner color={styles.hanyangColor} />
-              ) : null
+              footerLoading && users / user > 1 ? <Loader /> : null
             }
           />
         )}

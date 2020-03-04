@@ -1,23 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import {
-  TouchableWithoutFeedback,
   Keyboard,
   Alert,
   ScrollView,
   Platform,
-  Image,
   TouchableOpacity,
   KeyboardAvoidingView,
   View,
-  Modal
+  StyleSheet
 } from 'react-native';
 import {
-  Container,
-  Picker,
-  Item,
   Icon,
-  Input,
   Text,
   Toast,
   Card,
@@ -27,25 +20,25 @@ import {
   Body,
   Content,
   Right,
-  Button,
-  Label,
-  Form,
   List,
   ListItem
 } from 'native-base';
+import { Header, useHeaderHeight } from 'react-navigation-stack';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import AuthButton from '../../components/AuthButton';
 import AuthInput from '../../components/AuthInput';
 import useInput from '../../hooks/useInput';
-import constants from '../../constants';
 import { gql } from 'apollo-boost';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import * as ImagePicker from 'expo-image-picker';
-import { TextInput } from 'react-native-gesture-handler';
 import styles from '../../styles';
-
+import Loader from '../../components/Loader';
+import { TextInput, HelperText } from 'react-native-paper';
+import { inputPhoneNumber } from '../../components/PhoneCall';
+import constants from '../../constants';
+import { Button } from 'react-native-paper';
 const SEE_MAJOR_GRAD = gql`
   query seeAllMajor {
     seeAllMajor {
@@ -80,7 +73,7 @@ const REQUEST_CREATE_USER = gql`
       email: $email
       cellPhone: $cellPhone
       company: $company
-      companyDesc: $companyCategory
+      companyDesc: $companyDesc
       team: $team
       position: $position
       workPhone: $workPhone
@@ -95,101 +88,6 @@ const REQUEST_CREATE_USER = gql`
   }
 `;
 
-Date.prototype.format = function(f) {
-  if (!this.valueOf()) return ' ';
-
-  const weekKorName = [
-    '일요일',
-    '월요일',
-    '화요일',
-    '수요일',
-    '목요일',
-    '금요일',
-    '토요일'
-  ];
-
-  const weekKorShortName = ['일', '월', '화', '수', '목', '금', '토'];
-
-  const weekEngName = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday'
-  ];
-
-  const weekEngShortName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-  const d = this;
-
-  return f.replace(/(yyyy|yy|MM|dd|KS|KL|ES|EL|HH|hh|mm|ss|a\/p)/gi, function(
-    $1
-  ) {
-    switch ($1) {
-      case 'yyyy':
-        return d.getFullYear(); // 년 (4자리)
-
-      case 'yy':
-        return (d.getFullYear() % 1000).zf(2); // 년 (2자리)
-
-      case 'MM':
-        return (d.getMonth() + 1).zf(2); // 월 (2자리)
-
-      case 'dd':
-        return d.getDate().zf(2); // 일 (2자리)
-
-      case 'KS':
-        return weekKorShortName[d.getDay()]; // 요일 (짧은 한글)
-
-      case 'KL':
-        return weekKorName[d.getDay()]; // 요일 (긴 한글)
-
-      case 'ES':
-        return weekEngShortName[d.getDay()]; // 요일 (짧은 영어)
-
-      case 'EL':
-        return weekEngName[d.getDay()]; // 요일 (긴 영어)
-
-      case 'HH':
-        return d.getHours().zf(2); // 시간 (24시간 기준, 2자리)
-
-      case 'hh':
-        return ((h = d.getHours() % 12) ? h : 12).zf(2); // 시간 (12시간 기준, 2자리)
-
-      case 'mm':
-        return d.getMinutes().zf(2); // 분 (2자리)
-
-      case 'ss':
-        return d.getSeconds().zf(2); // 초 (2자리)
-
-      case 'a/p':
-        return d.getHours() < 12 ? '오전' : '오후'; // 오전/오후 구분
-
-      default:
-        return $1;
-    }
-  });
-};
-
-String.prototype.string = function(len) {
-  var s = '',
-    i = 0;
-  while (i++ < len) {
-    s += this;
-  }
-  return s;
-};
-
-String.prototype.zf = function(len) {
-  return '0'.string(len - this.length) + this;
-};
-
-Number.prototype.zf = function(len) {
-  return this.toString().zf(len);
-};
-
 // const Text = styled.Text`
 //   width: ${constants.width / 1.5};
 //   font-size: 17px;
@@ -198,12 +96,13 @@ Number.prototype.zf = function(len) {
 
 export default ({ navigation }) => {
   //키보드 토글시 위로 패딩되는 offset값
-  const keyboardVerticalOffset = Platform.OS === 'ios' ? 85 : 40;
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? 0 : 75;
   //회원가입값들
+  const headerHeight = useHeaderHeight();
 
   const [birth, setBirth] = useState('(출생년도를 선택하세요)*');
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(navigation.getParam('email', ''));
   const [cellPhone, setCellPhone] = useState('');
   const [company, setCompany] = useState('');
   const [workAddress, setWorkAddress] = useState('');
@@ -220,11 +119,14 @@ export default ({ navigation }) => {
   const [selectedImage, setSelectedImage] = useState(
     require('../../assets/HYU1.png')
   );
+  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   const { data, loading, refetch } = useQuery(SEE_MAJOR_GRAD, {
     //언제 쿼리를 조회하지 않고 넘길지 설정
     //검색 결과가 항상 캐시에 저장되지 않도록 fetchPolicy로 설정
     fetchPolicy: 'network-only'
   });
+
   useEffect(() => {
     if (!loading) {
       setGenList(
@@ -246,6 +148,9 @@ export default ({ navigation }) => {
         })
       );
     }
+    return () => {
+      console.log('끝');
+    };
   }, [data]);
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -258,7 +163,7 @@ export default ({ navigation }) => {
 
   const handleConfirm = date => {
     hideDatePicker();
-    setBirth(date.format('yyyy-MM-dd'));
+    setBirth(new Date(date).format('yyyy-MM-dd'));
   };
 
   const openImagePickerAsync = async () => {
@@ -281,19 +186,25 @@ export default ({ navigation }) => {
     console.log(pickerResult);
   };
 
+  const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+      fontSize: 18
+    },
+    inputAndroid: {
+      fontSize: 18
+    }
+  });
   // const handleConfirm = date => {
   //   setBirth(date.format('yyyy-MM-dd'));
   //   hideDatePicker();
   // };
   //login에서 보낸 parameter가 있으면 받고 없으면 '' empty String
-  const emailInput = useInput(navigation.getParam('email', ''));
 
   const [buttonLoading, setButtonLoading] = useState(false);
 
   // 이메일이 유효한지 검증
   const handleSignUp = async () => {
     //이메일 99.99% 유효성 체크
-    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (name === '') {
       return Toast.show({
         text: `이름을 입력해 주세요.`,
@@ -396,7 +307,7 @@ export default ({ navigation }) => {
           name: name,
           birthday: birth,
           email: email,
-          cellPhone: cellPhone,
+          cellPhone: cellPhone.replace(/-/g, ''),
           company: company,
           companyDesc: companyDesc,
           team: team,
@@ -415,7 +326,7 @@ export default ({ navigation }) => {
           buttonText: 'Okay',
           type: 'success',
           position: 'top',
-          duration: 3000,
+          duration: 10000,
           style: { marginTop: 70 }
         });
         navigation.navigate('AuthHome');
@@ -428,17 +339,41 @@ export default ({ navigation }) => {
       setButtonLoading(false);
     }
   };
-  return (
-    <KeyboardAvoidingView
-      keyboardVerticalOffset={keyboardVerticalOffset}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
-      enabled
-    >
-      <ScrollView style={{ backgroundColor: 'white' }}>
-        <View>
+  if (loading) {
+    return <Loader />;
+  }
+  if (data) {
+    return (
+      <KeyboardAvoidingView
+        keyboardVerticalOffset={keyboardVerticalOffset}
+        behavior={'padding'}
+        enabled
+      >
+        <ScrollView
+          stickyHeaderIndices={[0]}
+          style={{ backgroundColor: 'white', paddingBottom: -80 }}
+        >
+          <View
+            style={{
+              width: constants.width / 2,
+              left: constants.width / 3.6
+            }}
+          >
+            <Button
+              style={{ backgroundColor: styles.hanyangColor, marginTop: 10 }}
+              loading={buttonLoading}
+              theme={{
+                roundness: 100
+              }}
+              mode="contained"
+              onPress={handleSignUp}
+            >
+              <Text style={{ color: 'white' }}>Sign Up</Text>
+            </Button>
+          </View>
           <Content padder>
             <Card>
-              <CardItem header bordered>
+              <CardItem bordered>
                 <Left>
                   <TouchableOpacity onPress={openImagePickerAsync}>
                     <Thumbnail
@@ -484,7 +419,7 @@ export default ({ navigation }) => {
                     }}
                   >
                     <Text>이미지 클릭시 변경</Text>
-                    <Text note>확인을 눌르셔야 적용됩니다.</Text>
+                    <Text note>왼쪽이 기본이미지 입니다.</Text>
                   </Body>
                 </Left>
               </CardItem>
@@ -500,19 +435,13 @@ export default ({ navigation }) => {
                       </Left>
 
                       <Body>
-                        <TextInput
+                        <AuthInput
                           value={name}
-                          onChangeText={value => {
-                            setName(value);
-                          }}
-                          style={
-                            Platform.OS === 'ios'
-                              ? { fontSize: 16 }
-                              : {
-                                  fontSize: 16
-                                }
-                          }
+                          onChange={value => setName(value)}
                           placeholder="(이름)*"
+                          autoCorrect={false}
+                          returnKeyType="next"
+                          infoMessage="이름은 필수입니다."
                         />
                       </Body>
                     </ListItem>
@@ -530,15 +459,34 @@ export default ({ navigation }) => {
                       </Left>
 
                       <Body>
-                        <TouchableOpacity onPress={showDatePicker}>
-                          <Text
-                            style={{
-                              color: '#bfc6ea',
-                              fontSize: 16
+                        <TouchableOpacity
+                          disabled={false}
+                          onPress={showDatePicker}
+                          onPressIn={showDatePicker}
+                        >
+                          <TextInput
+                            style={{ backgroundColor: 'white' }}
+                            selectionColor={styles.hanyangColor}
+                            mode="outlined"
+                            value={birth}
+                            theme={{
+                              roundness: 100,
+                              colors: {
+                                background: 'white',
+                                primary: styles.hanyangColor
+                              }
                             }}
-                          >
-                            {birth}
-                          </Text>
+                            disabled
+                            label="(생일)*"
+                          />
+                          {birth === '(출생년도를 선택하세요)*' && (
+                            <HelperText
+                              type="info"
+                              visible={birth === '(출생년도를 선택하세요)*'}
+                            >
+                              생일은 필수입니다.
+                            </HelperText>
+                          )}
                         </TouchableOpacity>
                         <DateTimePickerModal
                           cancelTextIOS="취소"
@@ -546,7 +494,7 @@ export default ({ navigation }) => {
                           headerTextIOS="출생년도를 선택하세요"
                           isVisible={isDatePickerVisible}
                           date={
-                            birth !== '출생년도를 선택하세요'
+                            birth !== '(출생년도를 선택하세요)*'
                               ? new Date(birth)
                               : new Date()
                           }
@@ -569,19 +517,14 @@ export default ({ navigation }) => {
                       </Left>
 
                       <Body>
-                        <TextInput
-                          value={cellPhone}
-                          onChangeText={value => {
-                            setCellPhone(value);
-                          }}
-                          style={
-                            Platform.OS === 'ios'
-                              ? { fontSize: 16 }
-                              : {
-                                  fontSize: 16
-                                }
-                          }
+                        <AuthInput
+                          value={inputPhoneNumber(cellPhone)}
+                          onChange={value => setCellPhone(value)}
                           placeholder="(휴대전화)*"
+                          keyboardType={'numeric'}
+                          returnKeyType="next"
+                          autoCorrect={false}
+                          infoMessage="휴대전화는 필수입니다."
                         />
                       </Body>
                     </ListItem>
@@ -598,19 +541,16 @@ export default ({ navigation }) => {
                       </Left>
 
                       <Body>
-                        <TextInput
+                        <AuthInput
                           value={email}
-                          onChangeText={value => {
-                            setEmail(value);
-                          }}
-                          style={
-                            Platform.OS === 'ios'
-                              ? { fontSize: 16 }
-                              : {
-                                  fontSize: 16
-                                }
-                          }
+                          onChange={value => setEmail(value)}
                           placeholder="(이메일)*"
+                          keyboardType="email-address"
+                          returnKeyType="next"
+                          autoCorrect={false}
+                          infoMessage="이메일은 필수입니다."
+                          errorMessage="이메일 형식이 맞지 않습니다."
+                          visible={!emailRegex.test(email)}
                         />
                       </Body>
                     </ListItem>
@@ -627,19 +567,12 @@ export default ({ navigation }) => {
                       </Left>
 
                       <Body>
-                        <TextInput
+                        <AuthInput
                           value={company}
-                          onChangeText={value => {
-                            setCompany(value);
-                          }}
-                          style={
-                            Platform.OS === 'ios'
-                              ? { fontSize: 16 }
-                              : {
-                                  fontSize: 16
-                                }
-                          }
+                          onChange={value => setCompany(value)}
                           placeholder="(회사명)"
+                          returnKeyType="next"
+                          autoCorrect={false}
                         />
                       </Body>
                     </ListItem>
@@ -656,19 +589,12 @@ export default ({ navigation }) => {
                       </Left>
 
                       <Body>
-                        <TextInput
+                        <AuthInput
                           value={workAddress}
-                          onChangeText={value => {
-                            setWorkAddress(value);
-                          }}
-                          style={
-                            Platform.OS === 'ios'
-                              ? { fontSize: 16 }
-                              : {
-                                  fontSize: 16
-                                }
-                          }
+                          onChange={value => setWorkAddress(value)}
                           placeholder="(회사주소)"
+                          returnKeyType="next"
+                          autoCorrect={false}
                         />
                       </Body>
                     </ListItem>
@@ -685,19 +611,13 @@ export default ({ navigation }) => {
                       </Left>
 
                       <Body>
-                        <TextInput
-                          value={workPhone}
-                          onChangeText={value => {
-                            setWorkPhone(value);
-                          }}
-                          style={
-                            Platform.OS === 'ios'
-                              ? { fontSize: 16 }
-                              : {
-                                  fontSize: 16
-                                }
-                          }
+                        <AuthInput
+                          value={inputPhoneNumber(workPhone)}
+                          onChange={value => setWorkPhone(value)}
                           placeholder="(회사 전화)"
+                          keyboardType={'numeric'}
+                          returnKeyType="next"
+                          autoCorrect={false}
                         />
                       </Body>
                     </ListItem>
@@ -714,19 +634,12 @@ export default ({ navigation }) => {
                       </Left>
 
                       <Body>
-                        <TextInput
+                        <AuthInput
                           value={team}
-                          onChangeText={value => {
-                            setTeam(value);
-                          }}
-                          style={
-                            Platform.OS === 'ios'
-                              ? { fontSize: 16 }
-                              : {
-                                  fontSize: 16
-                                }
-                          }
+                          onChange={value => setTeam(value)}
                           placeholder="(부서)"
+                          returnKeyType="next"
+                          autoCorrect={false}
                         />
                       </Body>
                     </ListItem>
@@ -743,19 +656,12 @@ export default ({ navigation }) => {
                       </Left>
 
                       <Body>
-                        <TextInput
+                        <AuthInput
                           value={position}
-                          onChangeText={value => {
-                            setPosition(value);
-                          }}
-                          style={
-                            Platform.OS === 'ios'
-                              ? { fontSize: 16 }
-                              : {
-                                  fontSize: 16
-                                }
-                          }
+                          onChange={value => setPosition(value)}
                           placeholder="(직책)"
+                          returnKeyType="next"
+                          autoCorrect={false}
                         />
                       </Body>
                     </ListItem>
@@ -784,6 +690,7 @@ export default ({ navigation }) => {
                           }}
                           items={majList}
                           doneText={'확인'}
+                          style={{ ...pickerSelectStyles }}
                           Icon={() => (
                             <Icon
                               style={
@@ -795,6 +702,11 @@ export default ({ navigation }) => {
                           )}
                           useNativeAndroidPickerStyle={false}
                         />
+                        {major === '' && (
+                          <HelperText type="info" visible={major === ''}>
+                            전공은 필수입니다.
+                          </HelperText>
+                        )}
                       </Body>
                     </ListItem>
                     <ListItem thumbnail>
@@ -824,7 +736,7 @@ export default ({ navigation }) => {
                           onValueChange={generation => {
                             setGeneration(generation);
                           }}
-                          style={{ fontSize: 16 }}
+                          style={{ ...pickerSelectStyles }}
                           value={generation}
                           items={genList}
                           doneText={'확인'}
@@ -839,6 +751,11 @@ export default ({ navigation }) => {
                           )}
                           useNativeAndroidPickerStyle={false}
                         />
+                        {generation === '' && (
+                          <HelperText type="info" visible={generation === ''}>
+                            기수는 필수입니다.
+                          </HelperText>
+                        )}
                       </Body>
                     </ListItem>
 
@@ -863,7 +780,7 @@ export default ({ navigation }) => {
                           <Icon
                             type="AntDesign"
                             name="pluscircle"
-                            style={{ color: '#32CD32', fontSize: 21 }}
+                            style={{ color: '#32CD32', fontSize: 23 }}
                           />
                         </TouchableOpacity>
                       </Right>
@@ -881,9 +798,9 @@ export default ({ navigation }) => {
                               />
                             </Left>
                             <Body>
-                              <TextInput
+                              <AuthInput
                                 value={desc}
-                                onChangeText={text =>
+                                onChange={text =>
                                   setCompanyDesc(
                                     companyDesc.map((a, fIndex) => {
                                       if (fIndex === index) {
@@ -892,17 +809,12 @@ export default ({ navigation }) => {
                                     })
                                   )
                                 }
-                                style={
-                                  Platform.OS === 'ios'
-                                    ? { fontSize: 16 }
-                                    : {
-                                        fontSize: 16
-                                      }
-                                }
+                                returnKeyType="next"
+                                autoCorrect={false}
                                 placeholder="(경력 및 소개)"
                               />
                             </Body>
-                            <Right>
+                            <Right style={{ marginLeft: 10 }}>
                               <TouchableOpacity
                                 onPress={() =>
                                   setCompanyDesc(
@@ -917,7 +829,7 @@ export default ({ navigation }) => {
                                   name="minuscircle"
                                   style={{
                                     color: styles.redColor,
-                                    fontSize: 20
+                                    fontSize: 22
                                   }}
                                 />
                               </TouchableOpacity>
@@ -929,14 +841,9 @@ export default ({ navigation }) => {
                 </Content>
               </CardItem>
             </Card>
-            <AuthButton
-              loading={buttonLoading}
-              onPress={handleSignUp}
-              text="Sign Up"
-            />
           </Content>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
-  );
+        </ScrollView>
+      </KeyboardAvoidingView>
+    );
+  }
 };

@@ -11,17 +11,10 @@ import {
   ListItem,
   List,
   Icon,
-  Button,
-  Item,
-  Label,
-  Input,
   Toast
 } from 'native-base';
-import {
-  TouchableOpacity,
-  ScrollView,
-  TextInput
-} from 'react-native-gesture-handler';
+import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
+import { TextInput, Button, HelperText } from 'react-native-paper';
 import constants from '../../constants';
 import {
   RefreshControl,
@@ -31,7 +24,7 @@ import {
   View,
   Alert
 } from 'react-native';
-import ResponsiveImage from 'react-native-responsive-image';
+
 import { gql } from 'apollo-boost';
 import RNPickerSelect from 'react-native-picker-select';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -42,6 +35,7 @@ import styles from '../../styles';
 import axios from 'axios';
 import { inputPhoneNumber } from '../../components/PhoneCall';
 import { useLogOut } from '../../AuthContext';
+import AuthInput from '../../components/AuthInput';
 
 const SEE_ME = gql`
   query seeMe {
@@ -84,7 +78,7 @@ const EDIT_ME = gql`
     $email: String!
     $cellPhone: String!
     $company: String
-    $companyDesc: String
+    $companyDesc: [String!]!
     $team: String
     $position: String
     $workPhone: String
@@ -141,10 +135,11 @@ export default () => {
     //검색 결과가 항상 캐시에 저장되지 않도록 fetchPolicy로 설정
     fetchPolicy: 'network-only'
   });
+  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   const [isloading, setIsLoading] = useState(false);
   const handleSignUp = async () => {
     //이메일 99.99% 유효성 체크
-    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (name === '') {
       return Toast.show({
         text: `이름을 입력해 주세요.`,
@@ -249,7 +244,7 @@ export default () => {
           name: name,
           birthday: birth,
           email: email,
-          cellPhone: cellPhone,
+          cellPhone: cellPhone.replace(/-/g, ''),
           company: company,
           companyDesc: companyDesc,
           team: team,
@@ -263,7 +258,7 @@ export default () => {
       console.log('요기요12', data);
       if (data) {
         Toast.show({
-          text: `회원가입요청이 완료되었습니다. 관리자 인증후 로그인 가능합니다.`,
+          text: `${name}님의 정보를 수정 했습니다.`,
           textStyle: { textAlign: 'center' },
           buttonText: 'Okay',
           type: 'success',
@@ -271,9 +266,10 @@ export default () => {
           duration: 3000,
           style: { marginTop: 70 }
         });
+        await refetch();
       }
     } catch (e) {
-      Alert.alert('이미 존재하는 이메일이 있습니다!');
+      Alert.alert('수정 오류!');
     } finally {
       setIsLoading(false);
     }
@@ -314,10 +310,11 @@ export default () => {
       setSelectedImage('');
     }
   };
+
   useEffect(() => {
     setAll();
     return () => {
-      setAll();
+      console.log('Profile');
     };
   }, [data]);
   const showDatePicker = () => {
@@ -352,11 +349,6 @@ export default () => {
     setSelectedImage(pickerResult);
     setPhoto(pickerResult.uri);
     console.log(pickerResult);
-  };
-
-  const deleteIndex = (index, change) => {
-    companyDesc.splice(index, 1, change);
-    setCompanyDesc(companyDesc);
   };
 
   if (loading) {
@@ -460,9 +452,6 @@ export default () => {
                         >
                           <Button
                             style={{ marginBottom: 10 }}
-                            bordered
-                            rounded
-                            danger
                             onPress={() => {
                               setAll();
                               setEdit(!edit);
@@ -472,9 +461,8 @@ export default () => {
                           </Button>
                           <Button
                             disabled={isloading}
+                            loading={isloading}
                             onPress={handleSignUp}
-                            bordered
-                            rounded
                           >
                             <Text style={{ fontWeight: '600' }}>확인</Text>
                           </Button>
@@ -512,28 +500,17 @@ export default () => {
                             이름
                           </Text>
                         </Left>
-                        {edit ? (
-                          <Body>
-                            <TextInput
-                              value={name}
-                              onChangeText={value => {
-                                setName(value);
-                              }}
-                              style={
-                                Platform.OS === 'ios'
-                                  ? { fontSize: 16 }
-                                  : {
-                                      fontSize: 16
-                                    }
-                              }
-                              placeholder="(이름)*"
-                            />
-                          </Body>
-                        ) : (
-                          <Body>
-                            <Text>{name}</Text>
-                          </Body>
-                        )}
+                        <Body>
+                          <AuthInput
+                            value={name}
+                            onChange={value => setName(value)}
+                            disabled={!edit}
+                            placeholder="(이름)*"
+                            autoCorrect={false}
+                            returnKeyType="next"
+                            infoMessage="이름은 필수입니다."
+                          />
+                        </Body>
                       </ListItem>
                       <ListItem thumbnail>
                         <Left>
@@ -547,38 +524,51 @@ export default () => {
                             생일
                           </Text>
                         </Left>
-                        {edit ? (
-                          <Body>
-                            <TouchableOpacity onPress={showDatePicker}>
-                              <Text
-                                style={{
-                                  color: '#bfc6ea',
-                                  fontSize: 16
-                                }}
-                              >
-                                {birth}
-                              </Text>
-                            </TouchableOpacity>
-                            <DateTimePickerModal
-                              cancelTextIOS="취소"
-                              confirmTextIOS="선택"
-                              headerTextIOS="출생년도를 선택하세요"
-                              isVisible={isDatePickerVisible}
-                              date={
-                                birth !== '출생년도를 선택하세요'
-                                  ? new Date(birth)
-                                  : new Date()
-                              }
-                              mode="date"
-                              onConfirm={handleConfirm}
-                              onCancel={hideDatePicker}
+                        <Body>
+                          <TouchableOpacity
+                            disabled={!edit}
+                            onPress={showDatePicker}
+                            onPressIn={showDatePicker}
+                          >
+                            <TextInput
+                              style={{ backgroundColor: 'white' }}
+                              selectionColor={styles.hanyangColor}
+                              mode="outlined"
+                              value={birth}
+                              theme={{
+                                roundness: 100,
+                                colors: {
+                                  background: 'white',
+                                  primary: styles.hanyangColor
+                                }
+                              }}
+                              disabled
+                              label="(생일)*"
                             />
-                          </Body>
-                        ) : (
-                          <Body>
-                            <Text>{birth}</Text>
-                          </Body>
-                        )}
+                            {birth === '(출생년도를 선택하세요)*' && (
+                              <HelperText
+                                type="info"
+                                visible={birth === '(출생년도를 선택하세요)*'}
+                              >
+                                생일은 필수입니다.
+                              </HelperText>
+                            )}
+                          </TouchableOpacity>
+                          <DateTimePickerModal
+                            cancelTextIOS="취소"
+                            confirmTextIOS="선택"
+                            headerTextIOS="출생년도를 선택하세요"
+                            isVisible={isDatePickerVisible}
+                            date={
+                              birth !== '출생년도를 선택하세요'
+                                ? new Date(birth)
+                                : new Date()
+                            }
+                            mode="date"
+                            onConfirm={handleConfirm}
+                            onCancel={hideDatePicker}
+                          />
+                        </Body>
                       </ListItem>
                       <ListItem thumbnail>
                         <Left>
@@ -591,29 +581,19 @@ export default () => {
                             휴대전화
                           </Text>
                         </Left>
-                        {/* <Text>{company}</Text> */}
-                        {edit ? (
-                          <Body>
-                            <TextInput
-                              value={cellPhone}
-                              onChangeText={value => {
-                                setCellPhone(value);
-                              }}
-                              style={
-                                Platform.OS === 'ios'
-                                  ? { fontSize: 16 }
-                                  : {
-                                      fontSize: 16
-                                    }
-                              }
-                              placeholder="(휴대전화)*"
-                            />
-                          </Body>
-                        ) : (
-                          <Body>
-                            <Text>{inputPhoneNumber(cellPhone)}</Text>
-                          </Body>
-                        )}
+
+                        <Body>
+                          <AuthInput
+                            value={inputPhoneNumber(cellPhone)}
+                            onChange={value => setCellPhone(value)}
+                            disabled={!edit}
+                            placeholder="(휴대전화)*"
+                            keyboardType={'numeric'}
+                            returnKeyType="next"
+                            autoCorrect={false}
+                            infoMessage="휴대전화는 필수입니다."
+                          />
+                        </Body>
                       </ListItem>
                       <ListItem thumbnail>
                         <Left>
@@ -626,29 +606,21 @@ export default () => {
                             이메일
                           </Text>
                         </Left>
-                        {/* <Text>{company}</Text> */}
-                        {edit ? (
-                          <Body>
-                            <TextInput
-                              value={email}
-                              onChangeText={value => {
-                                setEmail(value);
-                              }}
-                              style={
-                                Platform.OS === 'ios'
-                                  ? { fontSize: 16 }
-                                  : {
-                                      fontSize: 16
-                                    }
-                              }
-                              placeholder="(이메일)*"
-                            />
-                          </Body>
-                        ) : (
-                          <Body>
-                            <Text>{email}</Text>
-                          </Body>
-                        )}
+
+                        <Body>
+                          <AuthInput
+                            value={email}
+                            onChange={value => setEmail(value)}
+                            disabled={!edit}
+                            placeholder="(이메일)*"
+                            keyboardType="email-address"
+                            returnKeyType="next"
+                            autoCorrect={false}
+                            infoMessage="이메일은 필수입니다."
+                            errorMessage="이메일 형식이 맞지 않습니다."
+                            visible={!emailRegex.test(email)}
+                          />
+                        </Body>
                       </ListItem>
                       <ListItem thumbnail>
                         <Left>
@@ -661,29 +633,17 @@ export default () => {
                             회사명
                           </Text>
                         </Left>
-                        {/* <Text>{company}</Text> */}
-                        {edit ? (
-                          <Body>
-                            <TextInput
-                              value={company}
-                              onChangeText={value => {
-                                setCompany(value);
-                              }}
-                              style={
-                                Platform.OS === 'ios'
-                                  ? { fontSize: 16 }
-                                  : {
-                                      fontSize: 16
-                                    }
-                              }
-                              placeholder="(회사명)"
-                            />
-                          </Body>
-                        ) : (
-                          <Body>
-                            <Text>{company}</Text>
-                          </Body>
-                        )}
+
+                        <Body>
+                          <AuthInput
+                            value={company}
+                            onChange={value => setCompany(value)}
+                            disabled={!edit}
+                            placeholder="(회사명)"
+                            returnKeyType="next"
+                            autoCorrect={false}
+                          />
+                        </Body>
                       </ListItem>
                       <ListItem thumbnail>
                         <Left>
@@ -696,29 +656,16 @@ export default () => {
                             회사주소
                           </Text>
                         </Left>
-                        {/* <Text>{workAddress}</Text> */}
-                        {edit ? (
-                          <Body>
-                            <TextInput
-                              value={workAddress}
-                              onChangeText={value => {
-                                setWorkAddress(value);
-                              }}
-                              style={
-                                Platform.OS === 'ios'
-                                  ? { fontSize: 16 }
-                                  : {
-                                      fontSize: 16
-                                    }
-                              }
-                              placeholder="(회사주소)"
-                            />
-                          </Body>
-                        ) : (
-                          <Body>
-                            <Text>{workAddress}</Text>
-                          </Body>
-                        )}
+                        <Body>
+                          <AuthInput
+                            value={workAddress}
+                            onChange={value => setWorkAddress(value)}
+                            disabled={!edit}
+                            placeholder="(회사주소)"
+                            returnKeyType="next"
+                            autoCorrect={false}
+                          />
+                        </Body>
                       </ListItem>
                       <ListItem thumbnail>
                         <Left>
@@ -731,29 +678,17 @@ export default () => {
                             회사전화
                           </Text>
                         </Left>
-                        {/* <Text>{workPhone}</Text> */}
-                        {edit ? (
-                          <Body>
-                            <TextInput
-                              value={workPhone}
-                              onChangeText={value => {
-                                setWorkPhone(value);
-                              }}
-                              style={
-                                Platform.OS === 'ios'
-                                  ? { fontSize: 16 }
-                                  : {
-                                      fontSize: 16
-                                    }
-                              }
-                              placeholder="(회사 전화)"
-                            />
-                          </Body>
-                        ) : (
-                          <Body>
-                            <Text>{workPhone}</Text>
-                          </Body>
-                        )}
+                        <Body>
+                          <AuthInput
+                            value={inputPhoneNumber(workPhone)}
+                            onChange={value => setWorkPhone(value)}
+                            disabled={!edit}
+                            placeholder="(회사 전화)"
+                            keyboardType={'numeric'}
+                            returnKeyType="next"
+                            autoCorrect={false}
+                          />
+                        </Body>
                       </ListItem>
                       <ListItem thumbnail>
                         <Left>
@@ -766,29 +701,16 @@ export default () => {
                             부서
                           </Text>
                         </Left>
-                        {/* <Text>{team}</Text> */}
-                        {edit ? (
-                          <Body>
-                            <TextInput
-                              value={team}
-                              onChangeText={value => {
-                                setTeam(value);
-                              }}
-                              style={
-                                Platform.OS === 'ios'
-                                  ? { fontSize: 16 }
-                                  : {
-                                      fontSize: 16
-                                    }
-                              }
-                              placeholder="(부서)"
-                            />
-                          </Body>
-                        ) : (
-                          <Body>
-                            <Text>{team}</Text>
-                          </Body>
-                        )}
+                        <Body>
+                          <AuthInput
+                            value={team}
+                            onChange={value => setTeam(value)}
+                            disabled={!edit}
+                            placeholder="(부서)"
+                            returnKeyType="next"
+                            autoCorrect={false}
+                          />
+                        </Body>
                       </ListItem>
                       <ListItem thumbnail>
                         <Left>
@@ -801,29 +723,16 @@ export default () => {
                             직책
                           </Text>
                         </Left>
-                        {/* <Text>{position}</Text> */}
-                        {edit ? (
-                          <Body>
-                            <TextInput
-                              value={position}
-                              onChangeText={value => {
-                                setPosition(value);
-                              }}
-                              style={
-                                Platform.OS === 'ios'
-                                  ? { fontSize: 16 }
-                                  : {
-                                      fontSize: 16
-                                    }
-                              }
-                              placeholder="(직책)"
-                            />
-                          </Body>
-                        ) : (
-                          <Body>
-                            <Text>{position}</Text>
-                          </Body>
-                        )}
+                        <Body>
+                          <AuthInput
+                            value={position}
+                            onChange={value => setPosition(value)}
+                            disabled={!edit}
+                            placeholder="(직책)"
+                            returnKeyType="next"
+                            autoCorrect={false}
+                          />
+                        </Body>
                       </ListItem>
 
                       <ListItem thumbnail>
@@ -837,39 +746,39 @@ export default () => {
                             전공
                           </Text>
                         </Left>
-                        {/* <Text>{major}</Text> */}
-                        {edit ? (
-                          <Body>
-                            <RNPickerSelect
-                              placeholder={{
-                                label: '전공을 선택하세요.',
-                                value: null
-                              }}
-                              value={major}
-                              onValueChange={major => {
-                                setMajor(major);
-                              }}
-                              items={majList}
-                              doneText={'확인'}
-                              Icon={() => (
-                                <Icon
-                                  style={
-                                    Platform.OS === 'ios'
-                                      ? { fontSize: 16 }
-                                      : null
-                                  }
-                                  type="AntDesign"
-                                  name="down"
-                                />
-                              )}
-                              useNativeAndroidPickerStyle={false}
-                            />
-                          </Body>
-                        ) : (
-                          <Body>
-                            <Text>{major}</Text>
-                          </Body>
-                        )}
+
+                        <Body>
+                          <RNPickerSelect
+                            placeholder={{
+                              label: '전공을 선택하세요.',
+                              value: null
+                            }}
+                            value={major}
+                            onValueChange={major => {
+                              setMajor(major);
+                            }}
+                            items={majList}
+                            doneText={'확인'}
+                            Icon={() => (
+                              <Icon
+                                style={
+                                  Platform.OS === 'ios'
+                                    ? { fontSize: 16 }
+                                    : null
+                                }
+                                type="AntDesign"
+                                name="down"
+                              />
+                            )}
+                            useNativeAndroidPickerStyle={false}
+                            disabled={!edit}
+                          />
+                          {major === '' && (
+                            <HelperText type="info" visible={major === ''}>
+                              전공은 필수입니다.
+                            </HelperText>
+                          )}
+                        </Body>
                       </ListItem>
                       <ListItem thumbnail>
                         <Left>
@@ -889,38 +798,38 @@ export default () => {
                             기수
                           </Text>
                         </Left>
-                        {/* <Text>{generation !== '' ? `${generation}기` : null}</Text> */}
-                        {edit ? (
-                          <Body>
-                            <RNPickerSelect
-                              placeholder={{
-                                label: '기수를 선택하세요.'
-                              }}
-                              onValueChange={generation => {
-                                setGeneration(generation);
-                              }}
-                              style={{ fontSize: 16 }}
-                              value={generation}
-                              items={genList}
-                              doneText={'확인'}
-                              Icon={() => (
-                                <Icon
-                                  style={
-                                    Platform.OS === 'ios'
-                                      ? { fontSize: 16 }
-                                      : null
-                                  }
-                                  type="AntDesign"
-                                  name="down"
-                                />
-                              )}
-                              useNativeAndroidPickerStyle={false}
-                            />
-                          </Body>
-                        ) : (
-                          <Body>
-                            <Text>{`${generation}기`}</Text>
-                          </Body>
+
+                        <Body>
+                          <RNPickerSelect
+                            placeholder={{
+                              label: '기수를 선택하세요.'
+                            }}
+                            onValueChange={generation => {
+                              setGeneration(generation);
+                            }}
+                            style={{ fontSize: 16 }}
+                            value={generation}
+                            items={genList}
+                            doneText={'확인'}
+                            Icon={() => (
+                              <Icon
+                                style={
+                                  Platform.OS === 'ios'
+                                    ? { fontSize: 16 }
+                                    : null
+                                }
+                                type="AntDesign"
+                                name="down"
+                              />
+                            )}
+                            useNativeAndroidPickerStyle={false}
+                            disabled={!edit}
+                          />
+                        </Body>
+                        {generation === '' && (
+                          <HelperText type="info" visible={generation === ''}>
+                            기수는 필수입니다.
+                          </HelperText>
                         )}
                       </ListItem>
 
@@ -951,7 +860,7 @@ export default () => {
                                 <Icon
                                   type="AntDesign"
                                   name="pluscircle"
-                                  style={{ color: '#32CD32', fontSize: 21 }}
+                                  style={{ color: '#32CD32', fontSize: 23 }}
                                 />
                               </TouchableOpacity>
                             </Right>
@@ -969,9 +878,9 @@ export default () => {
                                     />
                                   </Left>
                                   <Body>
-                                    <TextInput
+                                    <AuthInput
                                       value={desc}
-                                      onChangeText={text =>
+                                      onChange={text =>
                                         setCompanyDesc(
                                           companyDesc.map((a, fIndex) => {
                                             if (fIndex === index) {
@@ -980,17 +889,13 @@ export default () => {
                                           })
                                         )
                                       }
-                                      style={
-                                        Platform.OS === 'ios'
-                                          ? { fontSize: 16 }
-                                          : {
-                                              fontSize: 16
-                                            }
-                                      }
+                                      returnKeyType="next"
+                                      autoCorrect={false}
+                                      disabled={!edit}
                                       placeholder="(경력 및 소개)"
                                     />
                                   </Body>
-                                  <Right>
+                                  <Right style={{ marginLeft: 10 }}>
                                     <TouchableOpacity
                                       onPress={() =>
                                         setCompanyDesc(
@@ -1005,7 +910,7 @@ export default () => {
                                         name="minuscircle"
                                         style={{
                                           color: styles.redColor,
-                                          fontSize: 20
+                                          fontSize: 22
                                         }}
                                       />
                                     </TouchableOpacity>

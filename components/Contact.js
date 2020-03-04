@@ -1,11 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Image } from 'react-native';
-import ResponsiveImage from 'react-native-responsive-image';
 import {
-  Container,
-  Content,
   Card,
   CardItem,
   Text,

@@ -8,6 +8,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { persistCache } from 'apollo-cache-persist';
 import ApolloClient from 'apollo-boost';
 import { ThemeProvider } from 'styled-components';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { ApolloProvider } from '@apollo/react-hooks';
 import apolloClientOptions from './apollo';
 import styles from './styles';
@@ -97,9 +98,11 @@ export default function App() {
     <Root>
       <ApolloProvider client={client}>
         <ThemeProvider theme={styles}>
-          <AuthProvider isLoggedIn={isLoggedIn}>
-            <NavController />
-          </AuthProvider>
+          <PaperProvider>
+            <AuthProvider isLoggedIn={isLoggedIn}>
+              <NavController />
+            </AuthProvider>
+          </PaperProvider>
         </ThemeProvider>
       </ApolloProvider>
     </Root>

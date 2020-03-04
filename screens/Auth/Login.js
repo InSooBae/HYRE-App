@@ -13,15 +13,7 @@ import { LOG_IN } from './AuthQueries';
 import AuthInput from '../../components/AuthInput';
 import useInput from '../../hooks/useInput';
 import constants from '../../constants';
-import { Toast, Container } from 'native-base';
-
-const View = styled.View`
-  justify-content: space-evenly;
-  align-items: center;
-  flex-direction: column;
-  flex: 1;
-  background-color: white;
-`;
+import { Toast, Container, View } from 'native-base';
 
 export default ({ navigation }) => {
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 10 : 0;
@@ -32,11 +24,12 @@ export default ({ navigation }) => {
       email: emailInput.value
     }
   });
+  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   // 이메일이 유효한지 검증
   const handleLogin = async () => {
     const { value } = emailInput;
     //이메일 99.99% 유효성 체크
-    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (value === '') {
       return Toast.show({
         text: `이메일을 입력해 주세요.`,
@@ -64,13 +57,28 @@ export default ({ navigation }) => {
         data: { requestSecret }
       } = await requestSecretMutation();
       if (requestSecret) {
-        Alert.alert('Check Your Email');
         //navigate에 parameter보낼수있음 (email state보냄)
         navigation.navigate('Confirm', { email: value });
-        return;
+        return Toast.show({
+          text: `이메일을 확인해 주세요.`,
+          textStyle: { textAlign: 'center' },
+          buttonText: 'Okay',
+          type: 'success',
+          position: 'top',
+          duration: 3000,
+          style: { marginTop: 70 }
+        });
       } else {
-        Alert.alert('Account not Found');
         navigation.navigate('SignUp', { email: value });
+        return Toast.show({
+          text: `계정이 없거나 관리자 승인되지 않은 계정입니다.`,
+          textStyle: { textAlign: 'center' },
+          buttonText: 'Okay',
+          type: 'danger',
+          position: 'top',
+          duration: 5000,
+          style: { marginTop: 70 }
+        });
       }
     } catch (e) {
       Alert.alert("Can't Log In Now!");
@@ -80,7 +88,7 @@ export default ({ navigation }) => {
   };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View>
+      <View style={{ alignItems: 'center', backgroundColor: 'white', flex: 1 }}>
         <Image
           style={{
             marginTop: 50,
@@ -91,22 +99,20 @@ export default ({ navigation }) => {
           resizeMode={'contain'}
           source={require('../../assets/HYU1.png')}
         />
-        <Container
-          style={{
-            alignItems: 'center'
-          }}
-        >
+        <View style={{ width: constants.width / 1.5 }}>
           <AuthInput
             {...emailInput}
-            placeholder="이메일"
+            placeholder="(이메일)*"
             keyboardType="email-address"
             returnKeyType="send"
             onSubmitEditing={handleLogin}
             autoCorrect={false}
+            visible={!emailRegex.test(emailInput.value)}
+            errorMessage="이메일 형식이 맞지 않습니다"
+            infoMessage="이메일을 입력해주세요"
           />
-
           <AuthButton loading={loading} onPress={handleLogin} text={'Log In'} />
-        </Container>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );

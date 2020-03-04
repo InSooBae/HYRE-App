@@ -63,6 +63,9 @@ export default ({ query }) => {
         setB(data.seeAllExecutive);
       }
     }
+    return () => {
+      console.log('교수');
+    };
   }, [data]);
   const refresh = async () => {
     try {

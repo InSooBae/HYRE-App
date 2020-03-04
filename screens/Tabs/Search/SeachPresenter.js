@@ -62,31 +62,37 @@ const SearchPresenter = ({ query, shouldFetch }) => {
       )}
       {loading ? (
         <Loader />
+      ) : data && data.searchUser.length !== 0 ? (
+        <FlatList
+          data={data.searchUser}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => {
+            return (
+              <Contact
+                __typename={item.__typename}
+                cellPhone={item.cellPhone}
+                company={item.company}
+                id={item.id}
+                major={item.major.name}
+                name={item.name}
+                photo={item.photo === null ? '' : item.photo}
+                position={item.position}
+                team={item.team}
+                generation={item.graduatedYear.generation}
+              />
+            );
+          }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        />
       ) : (
-        data && (
-          <FlatList
-            data={data.searchUser}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => {
-              return (
-                <Contact
-                  __typename={item.__typename}
-                  cellPhone={item.cellPhone}
-                  company={item.company}
-                  id={item.id}
-                  major={item.major.name}
-                  name={item.name}
-                  photo={item.photo === null ? '' : item.photo}
-                  position={item.position}
-                  team={item.team}
-                  generation={item.graduatedYear.generation}
-                />
-              );
-            }}
-            refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }
-          />
+        data !== undefined && (
+          <View
+            style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
+          >
+            <Text>해당 인원이 없습니다.</Text>
+          </View>
         )
       )}
     </Container>

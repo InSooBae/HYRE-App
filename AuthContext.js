@@ -34,9 +34,65 @@ export const AuthProvider = ({ isLoggedIn: isLoggedInProp, children }) => {
       console.log(e);
     }
   };
+
+  const laterPopUp = async () => {
+    let data = {};
+    const now = new Date();
+    let expireTime = new Date(now);
+    expireTime.setHours(now.getHours() + 168);
+    try {
+      console.log('돼냐?');
+      const a = await AsyncStorage.getItem('isPopUp', async (err, value) => {
+        data.result = false;
+        data.expireAt = expireTime;
+        AsyncStorage.mergeItem('isPopUp', JSON.stringify(data));
+      });
+      console.log(a);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const popUp = async () => {
+    let data = null;
+    try {
+      await AsyncStorage.getItem('isPopUp', async (err, value) => {
+        data = JSON.parse(value);
+        // there is data in cache && cache is expired
+        if (
+          data !== null &&
+          data['expireAt'] &&
+          new Date(data.expireAt) < new Date()
+        ) {
+          //clear cache
+          AsyncStorage.removeItem('isPopUp');
+          //update res to be null
+          data = null;
+        } else {
+          console.log('read data from cache  ');
+        }
+      });
+    } catch (e) {
+      console.log(e);
+    }
+    //처음 setItem할때
+    if (data === null) {
+      //fetch data
+      try {
+        await AsyncStorage.setItem(
+          'isPopUp',
+          '{"result":true,"expireAt":null}'
+        );
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
   //객체로 한방에 넘기고 isLoggedIn은 NavController logUserIn,logUserOut은 나중에 스크린에서
   return (
-    <AuthContext.Provider value={{ isLoggedIn, logUserIn, logUserOut }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn, logUserIn, logUserOut, popUp, laterPopUp }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -56,4 +112,14 @@ export const useLogIn = () => {
 export const useLogOut = () => {
   const { logUserOut } = useContext(AuthContext);
   return logUserOut;
+};
+
+export const usePopUp = () => {
+  const { popUp } = useContext(AuthContext);
+  return popUp;
+};
+
+export const useLaterPopUp = () => {
+  const { laterPopUp } = useContext(AuthContext);
+  return laterPopUp;
 };

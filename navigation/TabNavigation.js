@@ -117,7 +117,7 @@ const TabNavigation = createMaterialTopTabNavigator(
     }
   },
   {
-    initialRouteName: 'Profile',
+    initialRouteName: 'Notice',
     tabBarPosition: 'bottom',
     tabBarOptions: {
       indicatorStyle: {

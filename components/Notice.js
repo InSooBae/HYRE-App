@@ -15,6 +15,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { withNavigation } from 'react-navigation';
 import styles from '../styles';
+
 const Notice = ({ id, title, desc, createdAt, navigation }) => {
   return (
     <Card>

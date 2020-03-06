@@ -235,7 +235,7 @@ export default () => {
     setLoading(true);
     refresh();
     return () => {
-      console.log('안함');
+      console.log('Contacts');
     };
   }, [majorQuery, generationQuery]);
 

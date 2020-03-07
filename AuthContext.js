@@ -35,17 +35,16 @@ export const AuthProvider = ({ isLoggedIn: isLoggedInProp, children }) => {
     }
   };
 
-  const laterPopUp = async () => {
+  const laterPopUp = async createdAt => {
     let data = {};
-    const now = new Date();
-    let expireTime = new Date(now);
-    expireTime.setHours(now.getHours() + 168);
+    const now = new Date(createdAt);
+    // let expireTime = new Date(now);
+    // expireTime.setHours(now.getHours() + 168);
     try {
-      console.log('돼냐?');
       const a = await AsyncStorage.getItem('isPopUp', async (err, value) => {
         data.result = false;
-        data.expireAt = expireTime;
-        AsyncStorage.mergeItem('isPopUp', JSON.stringify(data));
+        data.expireAt = now;
+        await AsyncStorage.mergeItem('isPopUp', JSON.stringify(data));
       });
       console.log(a);
     } catch (e) {
@@ -53,7 +52,7 @@ export const AuthProvider = ({ isLoggedIn: isLoggedInProp, children }) => {
     }
   };
 
-  const popUp = async () => {
+  const popUp = async createdAt => {
     let data = null;
     try {
       await AsyncStorage.getItem('isPopUp', async (err, value) => {
@@ -62,7 +61,7 @@ export const AuthProvider = ({ isLoggedIn: isLoggedInProp, children }) => {
         if (
           data !== null &&
           data['expireAt'] &&
-          new Date(data.expireAt) < new Date()
+          new Date(data.expireAt) < new Date(createdAt)
         ) {
           //clear cache
           AsyncStorage.removeItem('isPopUp');

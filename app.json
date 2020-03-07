@@ -9,16 +9,36 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "image": "./assets/B.png",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
-    "ios": {
-      "supportsTablet": true
+    "assetBundlePatterns": ["**/*"]
+  },
+  "ios": {
+    "splash": {
+      "backgroundColor": "#ffffff",
+      "resizeMode": "contain",
+      "image": "./assets/B.png",
+      "tabletImage": "./assets/B.png",
+      "hideExponentText": true
+    },
+    "supportsTablet": true
+  },
+  "android": {
+    "splash": {
+      "backgroundColor": "#ffffff",
+      "resizeMode": "contain",
+      "ldpi": "./assets/B.png",
+      "mdpi": "./assets/B.png",
+      "hdpi": "./assets/B.png",
+      "xhdpi": "./assets/B.png",
+      "xxhdpi": "./assets/B.png",
+      "xxxhdpi": "./assets/B.png",
+      "hideExponentText": true
     }
   }
 }

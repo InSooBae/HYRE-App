@@ -67,13 +67,7 @@ export default ({ navigation }) => {
       }
     }
     return () => {
-      if (!loading) {
-        if (type === 'User') {
-          setA(...data.seeUser);
-        } else {
-          setA(data.seeProf);
-        }
-      }
+      null;
     };
   }, [data]);
   console.log(a, '-=-=-=-=-=-=-=-=');

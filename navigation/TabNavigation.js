@@ -11,6 +11,7 @@ import styles from '../styles';
 import { stackStyles } from './config';
 import NavIcon from '../components/NavIcon';
 import UserDetail from '../screens/UserDetail';
+import NoticeDetail from '../screens/NoticeDetail';
 import Prof from '../screens/Tabs/Prof';
 
 //TabNavigator에 각 탭마다 StackNavigator효과를 주는일 customconfig에는설정들
@@ -27,7 +28,15 @@ const stackFactory = (initialRoute, customConfig) =>
       UserDetail: {
         screen: UserDetail,
         navigationOptions: ({ navigation }) => ({
-          title: navigation.getParam('name')
+          title: navigation.getParam('name'),
+          headerTitleAlign: 'center' | 'left'
+        })
+      },
+      NoticeDetail: {
+        screen: NoticeDetail,
+        navigationOptions: ({ navigation }) => ({
+          title: navigation.getParam('title'),
+          headerTitleAlign: 'center' | 'left'
         })
       }
     },

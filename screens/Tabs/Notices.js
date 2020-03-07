@@ -36,20 +36,19 @@ export default () => {
   const [page, setPage] = useState(1);
   const limit = 11;
   const [lastData, setLastData] = useState();
-  const [isOpen, setIsOpen] = useState();
+  const [isOpen, setIsOpen] = useState(false);
   let user = page * limit;
   const [howNotice, setHowNotice] = useState();
   const [loading, setLoading] = useState(true);
   const client = useApolloClient();
   const [addData, setAddData] = useState();
   const [footerLoading, setFooterLoading] = useState(false);
-
-  console.log(lastData);
+  console.log(isOpen);
   const refresh = () => {
     try {
       setRefreshing(true);
 
-      getInitialData();
+      reFetchData();
       setPage(1);
     } catch (e) {
       console.log(e);
@@ -57,7 +56,6 @@ export default () => {
       setRefreshing(false);
     }
   };
-  console.log('-----', isOpen);
   const moreData = async () => {
     setFooterLoading(true);
     const { data } = await client.query({
@@ -81,20 +79,37 @@ export default () => {
       fetchPolicy: 'network-only'
     });
     if (!data) return;
+    popUp(data.seeLatestNotice[0].createdAt);
+    setIsOpen(JSON.parse(await AsyncStorage.getItem('isPopUp')).result);
     setHowNotice(data.howManyNotice);
     setAddData([...data.seeAllNotice]);
     setLastData(...data.seeLatestNotice);
     setLoading(false);
     setIsOpen(JSON.parse(await AsyncStorage.getItem('isPopUp')).result);
   };
-  useEffect(() => {
-    popUp();
 
+  const reFetchData = async () => {
+    const { data } = await client.query({
+      query: SEE_ALL_NOTICE,
+      variables: {
+        limit: limit,
+        page: 1
+      },
+      fetchPolicy: 'network-only'
+    });
+    if (!data) return;
+    popUp(data.seeLatestNotice[0].createdAt);
+    setHowNotice(data.howManyNotice);
+    setAddData([...data.seeAllNotice]);
+    setLastData(...data.seeLatestNotice);
+    setLoading(false);
+  };
+  useEffect(() => {
     getInitialData();
   }, []);
   useEffect(() => {
     if (dSee) {
-      laterPopUp();
+      laterPopUp(lastData.createdAt);
     }
     return () => {
       null;
@@ -118,52 +133,46 @@ export default () => {
                 <View
                   style={{
                     backgroundColor: '#ffffff',
-                    margin: 40,
-                    marginTop: 60,
-                    padding: 30,
-                    borderRadius: 10
+                    marginRight: 20,
+                    marginBottom: 90,
+                    marginLeft: 20,
+                    marginTop: 90,
+                    padding: 20,
+                    borderRadius: 10,
+                    flex: 1
                   }}
                 >
+                  <View>
+                    <View>
+                      <Text
+                        style={{
+                          fontSize: 32
+                        }}
+                      >
+                        {lastData.title.length > 20
+                          ? lastData.title.substring(0, 20 - 3) + '...'
+                          : lastData.title}
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        borderBottomColor: styles.lightGreyColor,
+                        borderBottomWidth: 1,
+                        marginBottom: 10
+                      }}
+                    >
+                      <Text style={{ fontSize: 25 }}>최근 공지사항</Text>
+                      <Text style={{ fontSize: 18 }}>
+                        {new Date(lastData.createdAt).format('yyyy-MM-dd')}
+                      </Text>
+                    </View>
+                  </View>
+
                   <ScrollView>
-                    <Text style={{ fontSize: 40 }}>최근 공지사항</Text>
-                    <Text style={{ fontSize: 30 }}>{lastData.title}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>{lastData.desc}</Text>
-                    <Text>
-                      {new Date(lastData.createdAt).format('yyyy-MM-dd')}
-                    </Text>
+                    <Text style={{ fontSize: 19 }}>{lastData.desc}</Text>
                   </ScrollView>
                   <View
                     style={{
@@ -189,7 +198,7 @@ export default () => {
                         setDSee(true);
                       }}
                     >
-                      일주일 동안 안보기
+                      새 공지까지 안보기
                     </Button>
                   </View>
                 </View>

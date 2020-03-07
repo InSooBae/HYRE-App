@@ -213,11 +213,9 @@ export default () => {
       type: 'image/jpeg',
       uri: selectedImage.uri
     });
-    console.log('dkaadsk');
     try {
       setIsLoading(true);
       let a = null;
-      console.log('------------g------------', selectedImage.filename);
       if (selectedImage.filename) {
         console.log('ehla?');
         const {
@@ -441,7 +439,7 @@ export default () => {
                           }}
                         >
                           <Text>이미지 클릭시 변경</Text>
-                          <Text note>확인을 눌르셔야 적용됩니다.</Text>
+                          <Text note>확인시 변경사항 적용</Text>
                         </Body>
                         <View
                           style={{
@@ -462,7 +460,10 @@ export default () => {
                           <Button
                             disabled={isloading}
                             loading={isloading}
-                            onPress={handleSignUp}
+                            onPress={() => {
+                              handleSignUp();
+                              setEdit(!edit);
+                            }}
                           >
                             <Text style={{ fontWeight: '600' }}>확인</Text>
                           </Button>

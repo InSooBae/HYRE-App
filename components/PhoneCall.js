@@ -49,7 +49,6 @@ export const linkMessage = phone => {
 };
 
 export const inputPhoneNumber = obj => {
-  console.log(obj);
   let number = obj.replace(/[^0-9]/g, '');
   let phone = '';
 

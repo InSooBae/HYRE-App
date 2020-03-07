@@ -1,21 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  Keyboard,
-  Alert,
-  ScrollView,
-  Platform,
-  KeyboardAvoidingView,
-  View,
-  StyleSheet
-} from 'react-native';
+import { Keyboard, Alert, Platform, View, StyleSheet } from 'react-native';
 import { Icon, Text, Toast, Thumbnail, Right, Body, Left } from 'native-base';
 import { Header, useHeaderHeight } from 'react-navigation-stack';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import AuthButton from '../../components/AuthButton';
-import AuthInput from '../../components/AuthInput';
-import useInput from '../../hooks/useInput';
 import { gql } from 'apollo-boost';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import * as ImagePicker from 'expo-image-picker';
@@ -24,7 +14,7 @@ import Loader from '../../components/Loader';
 import { TextInput, HelperText } from 'react-native-paper';
 import { inputPhoneNumber } from '../../components/PhoneCall';
 import constants from '../../constants';
-import { Button, Card } from 'react-native-paper';
+import { Card } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import InputScrollView from 'react-native-input-scroll-view';
 const SEE_MAJOR_GRAD = gql`

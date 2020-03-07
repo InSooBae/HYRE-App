@@ -19,7 +19,9 @@ import styles from '../styles';
 const Notice = ({ id, title, desc, createdAt, navigation }) => {
   return (
     <Card>
-      <TouchableOpacity onPress={() => null}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('NoticeDetail', { id, title })}
+      >
         <CardItem style={{ backgroundColor: styles.greyColor }}>
           <View
             style={{
@@ -36,7 +38,7 @@ const Notice = ({ id, title, desc, createdAt, navigation }) => {
                 marginBottom: 3
               }}
             >
-              {title}
+              {title.length > 20 ? title.substring(0, 20 - 3) + '...' : title}
             </Text>
             <Text style={{ fontSize: 19, color: '#0099ff', marginBottom: 5 }}>
               {desc.length > 20 ? desc.substring(0, 20 - 3) + '...' : desc}
@@ -53,4 +55,4 @@ const Notice = ({ id, title, desc, createdAt, navigation }) => {
   );
 };
 
-export default Notice;
+export default withNavigation(Notice);

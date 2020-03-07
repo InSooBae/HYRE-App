@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
-import { AppLoading } from 'expo';
+import { AppLoading, SplashScreen } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import { AsyncStorage } from 'react-native';
@@ -28,6 +28,10 @@ export default function App() {
   const [client, setClient] = useState(null);
   //유저가 로그아웃했는지 알려고 null은 로그아웃했는지 체크 x false는 로그아웃 true는 로그인
   const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const _cacheSplashResourcesAsync = async () => {
+    const gif = require('./assets/HYU2.png');
+    return Asset.fromModule(gif).downloadAsync();
+  };
   const preLoad = async () => {
     //preload때 AsyncStorage 비우기 -> 로그아웃
     try {
@@ -79,6 +83,7 @@ export default function App() {
       //위 작업들을 위해 동기화 작업 필요 모든게 다되면 loaded false->true client null-> client
       setLoaded(true);
       setClient(client);
+      SplashScreen.hide();
     } catch (e) {
       console.log(e);
     }
@@ -108,6 +113,10 @@ export default function App() {
     </Root>
   ) : (
     //Apploading은 render를 하면 app의 splash screen을 render를 멈출때 까지 upfront해주는 component
-    <AppLoading />
+    <AppLoading
+      startAsync={_cacheSplashResourcesAsync}
+      onFinish={() => null}
+      autoHideSplash={false}
+    />
   );
 }

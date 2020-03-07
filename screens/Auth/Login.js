@@ -105,7 +105,7 @@ export default ({ navigation }) => {
       >
         <Image
           style={{
-            marginTop: 50,
+            marginTop: 70,
             width: constants.width / 1.5,
             height: constants.height / 5,
             marginBottom: constants.height / 5

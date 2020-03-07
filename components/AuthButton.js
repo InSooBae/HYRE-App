@@ -25,11 +25,12 @@ const AuthButton = ({
   text,
   onPress,
   loading = false,
-  style = { backgroundColor: styles.hanyangColor, padding: 8, marginTop: 20 }
+  style = { backgroundColor: styles.hanyangColor, padding: 3, marginTop: 20 }
 }) => (
   <Button
     style={style}
     loading={loading}
+    color="white"
     theme={{
       colors: {
         background: styles.hanyangColor,
@@ -37,6 +38,7 @@ const AuthButton = ({
       },
       roundness: 30
     }}
+    disabled={loading}
     mode="contained"
     onPress={onPress}
   >

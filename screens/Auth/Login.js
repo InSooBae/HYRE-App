@@ -5,7 +5,8 @@ import {
   Keyboard,
   Alert,
   Image,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Modal
 } from 'react-native';
 import { useMutation } from '@apollo/react-hooks';
 import AuthButton from '../../components/AuthButton';
@@ -88,13 +89,26 @@ export default ({ navigation }) => {
   };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={{ alignItems: 'center', backgroundColor: 'white', flex: 1 }}>
+      <KeyboardAvoidingView
+        behavior="position"
+        style={{
+          width: constants.width,
+          backgroundColor: 'white',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          alignSelf: 'center',
+          alignItems: 'center',
+
+          flex: 1
+        }}
+        enabled
+      >
         <Image
           style={{
             marginTop: 50,
-            width: constants.width / 2,
+            width: constants.width / 1.5,
             height: constants.height / 5,
-            marginBottom: constants.height / 7
+            marginBottom: constants.height / 5
           }}
           resizeMode={'contain'}
           source={require('../../assets/HYU1.png')}
@@ -113,7 +127,7 @@ export default ({ navigation }) => {
           />
           <AuthButton loading={loading} onPress={handleLogin} text={'Log In'} />
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 };

@@ -49,27 +49,34 @@ export const linkMessage = phone => {
 };
 
 export const inputPhoneNumber = obj => {
+  console.log(obj);
   let number = obj.replace(/[^0-9]/g, '');
   let phone = '';
 
-  if (number.length < 4) {
+  let seoul = 0;
+
+  if (number.substring(0, 2).indexOf('02') == 0) {
+    seoul = 1;
+  }
+
+  if (number.length < 4 - seoul) {
     return number;
-  } else if (number.length < 7) {
-    phone += number.substr(0, 3);
+  } else if (number.length < 7 - seoul) {
+    phone += number.substr(0, 3 - seoul);
     phone += '-';
-    phone += number.substr(3);
-  } else if (number.length < 11) {
-    phone += number.substr(0, 3);
+    phone += number.substr(3 - seoul);
+  } else if (number.length < 11 - seoul) {
+    phone += number.substr(0, 3 - seoul);
     phone += '-';
-    phone += number.substr(3, 3);
+    phone += number.substr(3 - seoul, 3);
     phone += '-';
-    phone += number.substr(6);
+    phone += number.substr(6 - seoul);
   } else {
-    phone += number.substr(0, 3);
+    phone += number.substr(0, 3 - seoul);
     phone += '-';
-    phone += number.substr(3, 4);
+    phone += number.substr(3 - seoul, 4);
     phone += '-';
-    phone += number.substr(7);
+    phone += number.substr(7 - seoul);
   }
   return phone;
 };

@@ -22,7 +22,7 @@ import Contact from '../../components/Contact';
 import Loader from '../../components/Loader';
 import styles from '../../styles';
 import { FAB } from 'react-native-paper';
-
+import { LinearGradient } from 'expo-linear-gradient';
 const SEE_ALL_USER = gql`
   query seeAllUser(
     $limit: Int!
@@ -95,6 +95,7 @@ export default () => {
   });
   const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
+      backgroundColor: 'white',
       fontSize: 18,
       borderWidth: 1,
       borderColor: 'gray',
@@ -249,8 +250,7 @@ export default () => {
           style={{
             flexDirection: 'row',
             justifyContent: 'center',
-            alignItems: 'center',
-            opacity: 0.8
+            alignItems: 'center'
           }}
         >
           <Text
@@ -303,6 +303,7 @@ export default () => {
             useNativeAndroidPickerStyle={false}
           />
         </View>
+
         {loading ? (
           <Loader />
         ) : users === 0 ? (

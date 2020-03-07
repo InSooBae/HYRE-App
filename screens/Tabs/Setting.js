@@ -483,7 +483,23 @@ export default () => {
                         >
                           <Text style={{ fontWeight: '600' }}>EDIT</Text>
                         </Button>
-                        <Button bordered rounded danger onPress={logOut}>
+                        <Button
+                          bordered
+                          rounded
+                          danger
+                          onPress={() => {
+                            Toast.show({
+                              text: `로그아웃 하셨습니다.`,
+                              textStyle: { textAlign: 'center' },
+                              buttonText: 'Okay',
+                              type: 'success',
+                              position: 'top',
+                              duration: 3000,
+                              style: { marginTop: 70 }
+                            });
+                            logOut();
+                          }}
+                        >
                           <Text style={{ fontWeight: '600' }}>LOGOUT</Text>
                         </Button>
                       </Right>
@@ -567,6 +583,7 @@ export default () => {
                             mode="date"
                             onConfirm={handleConfirm}
                             onCancel={hideDatePicker}
+                            isDarkModeEnabled={true}
                           />
                         </Body>
                       </ListItem>
@@ -584,7 +601,11 @@ export default () => {
 
                         <Body>
                           <AuthInput
-                            value={inputPhoneNumber(cellPhone)}
+                            value={
+                              cellPhone !== null
+                                ? inputPhoneNumber(cellPhone)
+                                : cellPhone
+                            }
                             onChange={value => setCellPhone(value)}
                             disabled={!edit}
                             placeholder="(휴대전화)*"
@@ -658,7 +679,7 @@ export default () => {
                         </Left>
                         <Body>
                           <AuthInput
-                            value={workAddress}
+                            value={workAddress === null ? '' : workAddress}
                             onChange={value => setWorkAddress(value)}
                             disabled={!edit}
                             placeholder="(회사주소)"
@@ -680,7 +701,11 @@ export default () => {
                         </Left>
                         <Body>
                           <AuthInput
-                            value={inputPhoneNumber(workPhone)}
+                            value={
+                              workPhone !== null
+                                ? inputPhoneNumber(workPhone)
+                                : ''
+                            }
                             onChange={value => setWorkPhone(value)}
                             disabled={!edit}
                             placeholder="(회사 전화)"

@@ -119,6 +119,7 @@ export default () => {
                   style={{
                     backgroundColor: '#ffffff',
                     margin: 40,
+                    marginTop: 60,
                     padding: 30,
                     borderRadius: 10
                   }}
@@ -126,6 +127,39 @@ export default () => {
                   <ScrollView>
                     <Text style={{ fontSize: 40 }}>최근 공지사항</Text>
                     <Text style={{ fontSize: 30 }}>{lastData.title}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
+                    <Text>{lastData.desc}</Text>
                     <Text>{lastData.desc}</Text>
                     <Text>
                       {new Date(lastData.createdAt).format('yyyy-MM-dd')}

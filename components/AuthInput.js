@@ -7,10 +7,6 @@ import { TextInput, HelperText } from 'react-native-paper';
 import styles from '../styles';
 import { View } from 'react-native';
 
-const Container = styled.View`
-  margin-bottom: 10px;
-`;
-
 //onChangeText는 callback은 input이 변경될때 호출된다.
 //onEndEditing는 textInput이 끝나면 콜백함수로 실행된다
 //autoCorrect 는 자동수정기능이다.
@@ -18,7 +14,7 @@ const Container = styled.View`
 // send는 onEndEditing 의 계기가 되지만 input의 바깥에서도 실행되도록 세팅되있음 -> onSubmitEditing 쓸거
 const AuthInput = ({
   placeholder,
-  value,
+  value = '',
   keyboardType = 'default',
   autoCapitalize = 'none',
   onChange,

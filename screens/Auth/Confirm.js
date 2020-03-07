@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import {
+  TouchableWithoutFeedback,
+  Keyboard,
+  Alert,
+  KeyboardAvoidingView
+} from 'react-native';
 import { useMutation } from '@apollo/react-hooks';
 import AuthButton from '../../components/AuthButton';
 import { CONFIRM_SECRET } from './AuthQueries';
@@ -80,7 +85,16 @@ export default ({ navigation }) => {
   };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View>
+      <KeyboardAvoidingView
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          flex: 1,
+          backgroundColor: 'white'
+        }}
+        behavior="padding"
+        enabled
+      >
         <AuthInput
           style={{
             backgroundColor: 'white',
@@ -99,14 +113,14 @@ export default ({ navigation }) => {
             fontSize: 16,
             width: constants.width / 1.5,
             backgroundColor: styles.hanyangColor,
-            padding: 8,
+            padding: 3,
             marginTop: 20
           }}
           loading={loading}
           onPress={handleConfirm}
           text="Confirm"
         />
-      </View>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 };

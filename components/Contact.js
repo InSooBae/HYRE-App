@@ -87,11 +87,17 @@ const Contact = ({
               </Text>
 
               <TouchableOpacity
-                style={{}}
+                style={{ flexDirection: 'row' }}
                 onPress={() => callNumber(cellPhone)}
               >
                 <Text
-                  style={{ fontSize: 19, color: '#0099ff', marginBottom: 5 }}
+                  style={{
+                    fontSize: 19,
+                    color: '#0099ff',
+                    marginBottom: 5,
+                    flex: 1,
+                    flexWrap: 'wrap'
+                  }}
                 >
                   {inputPhoneNumber(cellPhone)}
                 </Text>

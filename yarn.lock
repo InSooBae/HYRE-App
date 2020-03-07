@@ -4749,6 +4749,13 @@ react-native-gesture-handler@^1.5.6:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-input-scroll-view@^1.9.5:
+  version "1.9.5"
+  resolved "https://registry.yarnpkg.com/react-native-input-scroll-view/-/react-native-input-scroll-view-1.9.5.tgz#5e71d4483c5754146f25072aebf47d147a106ca6"
+  integrity sha512-HXhrLPqjHkXjw6e47gr4Jnicxa5/QqTtlMNAdWPnW3t70nA0jnYW4m35paxUUjTw7IZGHD0mef3drmn3XzTuFw==
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-iphone-x-helper@^1.0.3, react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"

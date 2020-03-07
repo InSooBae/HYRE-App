@@ -166,7 +166,15 @@ export default ({ navigation }) => {
     let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
 
     if (permissionResult.granted === false) {
-      alert('Permission to access camera roll is required!');
+      Toast.show({
+        text: `사진 권한설정을 해주세요!`,
+        textStyle: { textAlign: 'center' },
+        buttonText: 'Okay',
+        type: 'danger',
+        position: 'top',
+        duration: 3000,
+        style: { marginTop: 70 }
+      });
       return;
     }
 
@@ -308,7 +316,7 @@ export default ({ navigation }) => {
           companyDesc: companyDesc,
           team: team,
           position: position,
-          workPhone: workPhone,
+          workPhone: workPhone.replace(/-/g, ''),
           workAddress: workAddress,
           majorName: major,
           generation: parseInt(generation)

@@ -247,7 +247,7 @@ export default () => {
           companyDesc: companyDesc,
           team: team,
           position: position,
-          workPhone: workPhone,
+          workPhone: workPhone.replace(/-/g, ''),
           workAddress: workAddress,
           majorName: major,
           generation: parseInt(generation)
@@ -947,7 +947,10 @@ export default () => {
                         </>
                       ) : (
                         <>
-                          <ListItem style={{ marginTop: 16 }} thumbnail>
+                          <ListItem
+                            style={{ marginTop: 16, marginBottom: 10 }}
+                            thumbnail
+                          >
                             <Left>
                               <Icon
                                 type="Entypo"

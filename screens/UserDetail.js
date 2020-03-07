@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { gql } from 'apollo-boost';
-
+import * as Contacts from 'expo-contacts';
 import { useQuery } from '@apollo/react-hooks';
 import UserProfile from '../components/UserProfile';
 import { ScrollView } from 'react-native-gesture-handler';
 import { RefreshControl } from 'react-native';
 import Loader from '../components/Loader';
-import { View, Container } from 'native-base';
+import { View, Container, Toast } from 'native-base';
+import constants from '../constants';
+import AuthButton from '../components/AuthButton';
 const SEE_USER = gql`
   query seeUser($id: ID!) {
     seeUser(id: $id) {
@@ -57,6 +59,75 @@ export default ({ navigation }) => {
     variables: { id: navigation.getParam('id') },
     fetchPolicy: 'network-only'
   });
+  const [buttonLoading, setButtonLoading] = useState(false);
+  const saveContact = async () => {
+    setButtonLoading(true);
+    const { status } = await Contacts.requestPermissionsAsync();
+    if (status === 'granted') {
+      const contact = {
+        [Contacts.Fields.FirstName]: a.name,
+        [Contacts.Fields.PhoneNumbers]: [
+          { label: '휴대폰', number: a.cellPhone }
+        ],
+        [Contacts.Fields.Emails]: [
+          {
+            email: a.email,
+            isPrimary: true,
+            id: '2',
+            label: '이메일'
+          }
+        ],
+        [Contacts.Fields.Company]: a.company
+      };
+      try {
+        const contactId = await Contacts.addContactAsync(contact);
+        console.log('contact-ID:', contactId);
+        if (contactId) {
+          Toast.show({
+            text: `연락처가 저장되었습니다.`,
+            textStyle: { textAlign: 'center' },
+            buttonText: 'Okay',
+            type: 'success',
+            position: 'top',
+            duration: 3000,
+            style: { marginTop: 70 }
+          });
+        } else {
+          Toast.show({
+            text: `연락처가 저장실패 하였습니다.`,
+            textStyle: { textAlign: 'center' },
+            buttonText: 'Okay',
+            type: 'danger',
+            position: 'top',
+            duration: 3000,
+            style: { marginTop: 70 }
+          });
+        }
+      } catch (err) {
+        Toast.show({
+          text: `연락처가 저장실패 하였습니다.`,
+          textStyle: { textAlign: 'center' },
+          buttonText: 'Okay',
+          type: 'danger',
+          position: 'top',
+          duration: 3000,
+          style: { marginTop: 70 }
+        });
+      } finally {
+      }
+    } else {
+      Toast.show({
+        text: `연락처 권한설정을 해주세요!`,
+        textStyle: { textAlign: 'center' },
+        buttonText: 'Okay',
+        type: 'danger',
+        position: 'top',
+        duration: 3000,
+        style: { marginTop: 70 }
+      });
+    }
+    setButtonLoading(false);
+  };
 
   useEffect(() => {
     if (!loading) {
@@ -70,7 +141,6 @@ export default ({ navigation }) => {
       null;
     };
   }, [data]);
-  console.log(a, '-=-=-=-=-=-=-=-=');
   const refresh = async () => {
     try {
       setRefreshing(true);
@@ -85,10 +155,21 @@ export default ({ navigation }) => {
   if (a !== undefined)
     return (
       <ScrollView
+        style={{ backgroundColor: 'white' }}
+        stickyHeaderIndices={[0]}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={refresh} />
         }
       >
+        <View
+          style={{ width: constants.width / 1.5, alignSelf: 'center', flex: 1 }}
+        >
+          <AuthButton
+            loading={buttonLoading}
+            text="연락처 저장"
+            onPress={saveContact}
+          />
+        </View>
         <UserProfile
           name={a.name}
           birth={a.birthday}

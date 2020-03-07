@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Container,
   Content,
   Card,
   CardItem,
@@ -15,7 +14,7 @@ import {
   Icon
 } from 'native-base';
 import { FontAwesome } from '@expo/vector-icons';
-import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
   callNumber,
   linkEmail,
@@ -23,6 +22,7 @@ import {
   inputPhoneNumber
 } from './PhoneCall';
 import ResponsiveImage from 'react-native-responsive-image';
+
 export default ({
   id,
   name,
@@ -39,13 +39,6 @@ export default ({
   generation,
   major
 }) => {
-  // const { data, loading, refetch } = useQuery(SEE_ALL_USER, {
-  //   //언제 쿼리를 조회하지 않고 넘길지 설정
-  //   //검색 결과가 항상 캐시에 저장되지 않도록 fetchPolicy로 설정
-  //   fetchPolicy: 'network-only'
-  // });
-  //envelope-o envelope phone
-  // commenting-o commenting
   return (
     <View style={{ backgroundColor: 'white' }}>
       <Content padder>
@@ -282,7 +275,7 @@ export default ({
                     <Text>{generation !== '' ? `${generation}기` : null}</Text>
                   </Body>
                 </ListItem>
-                <ListItem style={{ marginTop: 15 }} thumbnail>
+                <ListItem style={{ marginTop: 15, marginBottom: 10 }} thumbnail>
                   <Left>
                     <Icon
                       type="Entypo"
@@ -315,9 +308,6 @@ export default ({
                   })}
               </List>
             </Content>
-          </CardItem>
-          <CardItem footer bordered style={{ justifyContent: 'center' }}>
-            <Text>Save Contact</Text>
           </CardItem>
         </Card>
       </Content>

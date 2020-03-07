@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Container, Text, Spinner, View } from 'native-base';
 import { gql } from 'apollo-boost';
 import { useApolloClient } from '@apollo/react-hooks';
 import Loader from '../../components/Loader';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
-import { RefreshControl, AsyncStorage, Modal } from 'react-native';
+import { RefreshControl, AsyncStorage, Modal, StyleSheet } from 'react-native';
 import Notice from '../../components/Notice';
 import { usePopUp, useLaterPopUp } from '../../AuthContext';
-import { Button } from 'react-native-paper';
+import { Button, FAB } from 'react-native-paper';
 import styles from '../../styles';
 const SEE_ALL_NOTICE = gql`
   query seeAllNotice($limit: Int!, $page: Int!) {
@@ -43,7 +43,20 @@ export default () => {
   const client = useApolloClient();
   const [addData, setAddData] = useState();
   const [footerLoading, setFooterLoading] = useState(false);
-  console.log(isOpen);
+
+  const scrollTop = useRef();
+  const toTop = () => {
+    scrollTop.current.scrollToOffset({ animated: true, offset: 0 });
+  };
+  const style = StyleSheet.create({
+    fab: {
+      position: 'absolute',
+      margin: 16,
+      right: 0,
+      bottom: 0,
+      backgroundColor: styles.hanyangColor
+    }
+  });
   const refresh = () => {
     try {
       setRefreshing(true);
@@ -56,6 +69,7 @@ export default () => {
       setRefreshing(false);
     }
   };
+
   const moreData = async () => {
     setFooterLoading(true);
     const { data } = await client.query({
@@ -64,9 +78,10 @@ export default () => {
 
       fetchPolicy: 'network-only'
     });
+
     setPage(page + 1);
 
-    setAddData(addData.concat(data.seeAllUser));
+    setAddData(addData.concat(data.seeAllNotice));
     setFooterLoading(false);
   };
   const getInitialData = async () => {
@@ -206,6 +221,7 @@ export default () => {
             </Modal>
           ) : null}
           <FlatList
+            ref={scrollTop}
             data={addData}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => {
@@ -224,13 +240,12 @@ export default () => {
               <RefreshControl refreshing={refreshing} onRefresh={refresh} />
             }
             ListFooterComponent={
-              footerLoading && howNotice / user > 1 ? (
-                <Spinner color={styles.hanyangColor} />
-              ) : null
+              footerLoading && howNotice / user > 1 ? <Loader /> : null
             }
           />
         </>
       )}
+      <FAB style={style.fab} small icon="chevron-up" onPress={toTop} />
     </Container>
   );
 };

@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import constants from '../constants';
-import { ActivityIndicator } from 'react-native';
 import { Button } from 'react-native-paper';
 import styles from '../styles';
 

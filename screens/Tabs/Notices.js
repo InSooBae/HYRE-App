@@ -1,14 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { Container, Text, Spinner, View } from 'native-base';
 import { gql } from 'apollo-boost';
 import { useApolloClient } from '@apollo/react-hooks';
 import Loader from '../../components/Loader';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
-import { RefreshControl, AsyncStorage, Modal, StyleSheet } from 'react-native';
+import {
+  RefreshControl,
+  AsyncStorage,
+  Modal,
+  StyleSheet,
+  View
+} from 'react-native';
 import Notice from '../../components/Notice';
 import { usePopUp, useLaterPopUp } from '../../AuthContext';
-import { Button, FAB } from 'react-native-paper';
+import { Button, FAB, Text } from 'react-native-paper';
 import styles from '../../styles';
 const SEE_ALL_NOTICE = gql`
   query seeAllNotice($limit: Int!, $page: Int!) {
@@ -95,6 +100,7 @@ export default () => {
     });
     if (!data) return;
     popUp(data.seeLatestNotice[0].createdAt);
+
     setIsOpen(JSON.parse(await AsyncStorage.getItem('isPopUp')).result);
     setHowNotice(data.howManyNotice);
     setAddData([...data.seeAllNotice]);
@@ -113,7 +119,6 @@ export default () => {
       fetchPolicy: 'network-only'
     });
     if (!data) return;
-    popUp(data.seeLatestNotice[0].createdAt);
     setHowNotice(data.howManyNotice);
     setAddData([...data.seeAllNotice]);
     setLastData(...data.seeLatestNotice);
@@ -131,7 +136,7 @@ export default () => {
     };
   }, [dSee]);
   return (
-    <Container>
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
       {loading ? (
         <Loader />
       ) : (
@@ -149,9 +154,9 @@ export default () => {
                   style={{
                     backgroundColor: '#ffffff',
                     marginRight: 20,
-                    marginBottom: 90,
+                    marginBottom: 80,
                     marginLeft: 20,
-                    marginTop: 90,
+                    marginTop: 80,
                     padding: 20,
                     borderRadius: 10,
                     flex: 1
@@ -161,12 +166,11 @@ export default () => {
                     <View>
                       <Text
                         style={{
-                          fontSize: 32
+                          fontSize: 32,
+                          fontWeight: '500'
                         }}
                       >
-                        {lastData.title.length > 20
-                          ? lastData.title.substring(0, 20 - 3) + '...'
-                          : lastData.title}
+                        {lastData.title}
                       </Text>
                     </View>
                     <View
@@ -176,17 +180,20 @@ export default () => {
                         alignItems: 'center',
                         borderBottomColor: styles.lightGreyColor,
                         borderBottomWidth: 1,
-                        marginBottom: 10
+                        marginBottom: 20,
+                        marginTop: 10
                       }}
                     >
-                      <Text style={{ fontSize: 25 }}>최근 공지사항</Text>
-                      <Text style={{ fontSize: 18 }}>
+                      <Text style={{ fontSize: 23, color: '#595959' }}>
+                        최근 공지사항
+                      </Text>
+                      <Text style={{ fontSize: 18, color: '#A9A9A9' }}>
                         {new Date(lastData.createdAt).format('yyyy-MM-dd')}
                       </Text>
                     </View>
                   </View>
 
-                  <ScrollView>
+                  <ScrollView style={{ flex: 1 }}>
                     <Text style={{ fontSize: 19 }}>{lastData.desc}</Text>
                   </ScrollView>
                   <View
@@ -246,6 +253,6 @@ export default () => {
         </>
       )}
       <FAB style={style.fab} small icon="chevron-up" onPress={toTop} />
-    </Container>
+    </View>
   );
 };

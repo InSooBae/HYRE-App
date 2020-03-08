@@ -2,7 +2,6 @@ import { Alert, Platform } from 'react-native';
 import { Linking } from 'expo';
 
 export const callNumber = phone => {
-  console.log('callNumber ----> ', phone);
   let phoneNumber = phone;
   if (Platform.OS === 'ios') {
     phoneNumber = `telprompt:${phone}`;
@@ -35,7 +34,6 @@ export const linkEmail = email => {
 };
 
 export const linkMessage = phone => {
-  console.log(phone);
   const url = `sms:${phone}${Platform.OS === 'ios' ? '&' : '?'}body=${''}`;
   Linking.canOpenURL(url)
     .then(supported => {

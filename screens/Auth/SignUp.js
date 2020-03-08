@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Keyboard, Alert, Platform, View, StyleSheet } from 'react-native';
-import { Icon, Text, Toast, Thumbnail, Right, Body, Left } from 'native-base';
-import { Header, useHeaderHeight } from 'react-navigation-stack';
+import { Icon, Toast } from 'native-base';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
 import { useMutation, useQuery } from '@apollo/react-hooks';
@@ -11,10 +10,9 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import * as ImagePicker from 'expo-image-picker';
 import styles from '../../styles';
 import Loader from '../../components/Loader';
-import { TextInput, HelperText } from 'react-native-paper';
+import { TextInput, HelperText, Avatar, Text, Card } from 'react-native-paper';
 import { inputPhoneNumber } from '../../components/PhoneCall';
 import constants from '../../constants';
-import { Card } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import InputScrollView from 'react-native-input-scroll-view';
 const SEE_MAJOR_GRAD = gql`
@@ -74,9 +72,7 @@ const REQUEST_CREATE_USER = gql`
 
 export default ({ navigation }) => {
   //키보드 토글시 위로 패딩되는 offset값
-  const keyboardVerticalOffset = Platform.OS === 'ios' ? 0 : 75;
   //회원가입값들
-  const headerHeight = useHeaderHeight();
   const ref_input2 = useRef();
   const ref_input3 = useRef();
   const ref_input4 = useRef();
@@ -94,8 +90,8 @@ export default ({ navigation }) => {
   const [team, setTeam] = useState('');
   const [position, setPosition] = useState('');
   const [workPhone, setWorkPhone] = useState('');
-  const [major, setMajor] = useState('');
-  const [generation, setGeneration] = useState('');
+  const [major, setMajor] = useState(null);
+  const [generation, setGeneration] = useState(null);
   const [genList, setGenList] = useState([]);
   const [majList, setMajList] = useState([]);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -104,7 +100,6 @@ export default ({ navigation }) => {
     require('../../assets/HYU1.png')
   );
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  console.log(cellPhone, 'cellphone');
   const { data, loading, refetch } = useQuery(SEE_MAJOR_GRAD, {
     //언제 쿼리를 조회하지 않고 넘길지 설정
     //검색 결과가 항상 캐시에 저장되지 않도록 fetchPolicy로 설정
@@ -187,15 +182,14 @@ export default ({ navigation }) => {
     pickerResult.filename =
       'IMG_' + Math.floor(Math.random(4000) * 100000) + '.JPG';
     setSelectedImage(pickerResult);
-    console.log(pickerResult);
   };
 
   const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
-      fontSize: 18
+      fontSize: 16
     },
     inputAndroid: {
-      fontSize: 18
+      fontSize: 16
     }
   });
   // const handleConfirm = date => {
@@ -253,7 +247,7 @@ export default ({ navigation }) => {
         style: { marginTop: 70 }
       });
     }
-    if (major === '') {
+    if (!major) {
       return Toast.show({
         text: `대학원 전공을 입력해 주세요.`,
         textStyle: { textAlign: 'center' },
@@ -264,7 +258,7 @@ export default ({ navigation }) => {
         style: { marginTop: 70 }
       });
     }
-    if (generation === '') {
+    if (!generation) {
       return Toast.show({
         text: `기수를 입력해 주세요.`,
         textStyle: { textAlign: 'center' },
@@ -282,13 +276,10 @@ export default ({ navigation }) => {
       type: 'image/jpeg',
       uri: selectedImage.uri
     });
-    console.log('dkaadsk');
     try {
       setButtonLoading(true);
       let a = null;
-      console.log('------------g------------', selectedImage.filename);
       if (selectedImage.filename) {
-        console.log('ehla?');
         const {
           data: { location }
         } = await axios.post(
@@ -302,9 +293,7 @@ export default ({ navigation }) => {
         );
 
         a = location;
-        console.log('함수안');
       }
-      console.log('요기요', a);
       const { data } = await requestCreateUserMutation({
         variables: {
           photo: a,
@@ -322,7 +311,6 @@ export default ({ navigation }) => {
           generation: parseInt(generation)
         }
       });
-      console.log('요기요12', data);
       if (data) {
         Toast.show({
           text: `회원가입요청이 완료되었습니다. 관리자 인증후 로그인 가능합니다.`,
@@ -355,29 +343,10 @@ export default ({ navigation }) => {
           style: styleBack.container
         }}
       >
-        {/* <View
-            style={{
-              width: constants.width / 2,
-              left: constants.width / 3.6
-            }}
-          >
-            <Button
-              style={{ backgroundColor: styles.hanyangColor, marginTop: 10 }}
-              loading={buttonLoading}
-              theme={{
-                roundness: 100
-              }}
-              mode="contained"
-              onPress={handleSignUp}
-            >
-              <Text style={{ color: 'white' }}>Sign Up</Text>
-            </Button>
-          </View> */}
-
         <Card
           elevation={6}
-          style={{ marginBottom: 5 }}
-          theme={{ roundness: 30 }}
+          style={{ marginBottom: 2 }}
+          theme={{ roundness: 15 }}
         >
           <Card.Content>
             <View
@@ -396,14 +365,10 @@ export default ({ navigation }) => {
                 }}
               >
                 <TouchableOpacity onPress={openImagePickerAsync}>
-                  <Thumbnail
+                  <Avatar.Image
                     source={selectedImage}
-                    style={{
-                      width: 138,
-                      height: 138,
-                      borderRadius: (138 + 138) / 2
-                    }}
-                    large
+                    size={138}
+                    theme={{ colors: { primary: '#ffffff' } }}
                   />
                   <View
                     style={{
@@ -441,8 +406,8 @@ export default ({ navigation }) => {
         </Card>
         <Card
           elevation={6}
-          style={{ marginBottom: 5 }}
-          theme={{ roundness: 30 }}
+          style={{ marginBottom: 2 }}
+          theme={{ roundness: 15 }}
         >
           <Card.Content>
             <View
@@ -457,7 +422,12 @@ export default ({ navigation }) => {
                 <Icon name="person" style={{ color: '#5592ff' }} />
                 <Text style={{ fontWeight: '700', marginLeft: 5 }}>이름</Text>
               </View>
-              <View>
+              <View
+                style={{
+                  flexDirection: 'column',
+                  justifyContent: 'center'
+                }}
+              >
                 <TextInput
                   style={{ width: constants.width / 1.5 }}
                   mode="outlined"
@@ -487,8 +457,8 @@ export default ({ navigation }) => {
         </Card>
         <Card
           elevation={6}
-          style={{ marginBottom: 5 }}
-          theme={{ roundness: 30 }}
+          style={{ marginBottom: 2 }}
+          theme={{ roundness: 15 }}
         >
           <Card.Content>
             <View
@@ -508,7 +478,9 @@ export default ({ navigation }) => {
 
                 <Text style={{ fontWeight: '700', marginLeft: 5 }}>생일</Text>
               </View>
-              <View>
+              <View
+                style={{ flexDirection: 'column', justifyContent: 'center' }}
+              >
                 <TouchableOpacity
                   disabled={false}
                   onPress={showDatePicker}
@@ -562,8 +534,8 @@ export default ({ navigation }) => {
         </Card>
         <Card
           elevation={6}
-          style={{ marginBottom: 5 }}
-          theme={{ roundness: 30 }}
+          style={{ marginBottom: 2 }}
+          theme={{ roundness: 15 }}
         >
           <Card.Content>
             <View
@@ -584,7 +556,9 @@ export default ({ navigation }) => {
                   휴대전화
                 </Text>
               </View>
-              <View>
+              <View
+                style={{ flexDirection: 'column', justifyContent: 'center' }}
+              >
                 <TextInput
                   style={{ width: constants.width / 1.5 }}
                   mode="outlined"
@@ -617,8 +591,8 @@ export default ({ navigation }) => {
         </Card>
         <Card
           elevation={6}
-          style={{ marginBottom: 5 }}
-          theme={{ roundness: 30 }}
+          style={{ marginBottom: 2 }}
+          theme={{ roundness: 15 }}
         >
           <Card.Content>
             <View
@@ -637,7 +611,9 @@ export default ({ navigation }) => {
                 />
                 <Text style={{ fontWeight: '700', marginLeft: 5 }}>이메일</Text>
               </View>
-              <View>
+              <View
+                style={{ flexDirection: 'column', justifyContent: 'center' }}
+              >
                 <TextInput
                   style={{ width: constants.width / 1.5 }}
                   ref={ref_input2}
@@ -652,7 +628,7 @@ export default ({ navigation }) => {
                   value={email}
                   onSubmitEditing={() => ref_input3.current.focus()}
                   onChangeText={value => setEmail(value)}
-                  placeholder="(이메일)*"
+                  label="(이메일)*"
                   keyboardType="email-address"
                   returnKeyType="next"
                   autoCapitalize={'none'}
@@ -677,8 +653,8 @@ export default ({ navigation }) => {
         </Card>
         <Card
           elevation={6}
-          style={{ marginBottom: 5 }}
-          theme={{ roundness: 30 }}
+          style={{ marginBottom: 2 }}
+          theme={{ roundness: 15 }}
         >
           <Card.Content>
             <View
@@ -723,8 +699,8 @@ export default ({ navigation }) => {
         </Card>
         <Card
           elevation={6}
-          style={{ marginBottom: 5 }}
-          theme={{ roundness: 30 }}
+          style={{ marginBottom: 2 }}
+          theme={{ roundness: 15 }}
         >
           <Card.Content>
             <View
@@ -771,8 +747,8 @@ export default ({ navigation }) => {
         </Card>
         <Card
           elevation={6}
-          style={{ marginBottom: 5 }}
-          theme={{ roundness: 30 }}
+          style={{ marginBottom: 2 }}
+          theme={{ roundness: 15 }}
         >
           <Card.Content>
             <View
@@ -820,8 +796,8 @@ export default ({ navigation }) => {
         </Card>
         <Card
           elevation={6}
-          style={{ marginBottom: 5 }}
-          theme={{ roundness: 30 }}
+          style={{ marginBottom: 2 }}
+          theme={{ roundness: 15 }}
         >
           <Card.Content>
             <View
@@ -866,8 +842,8 @@ export default ({ navigation }) => {
         </Card>
         <Card
           elevation={6}
-          style={{ marginBottom: 5 }}
-          theme={{ roundness: 30 }}
+          style={{ marginBottom: 2 }}
+          theme={{ roundness: 15 }}
         >
           <Card.Content>
             <View
@@ -907,8 +883,8 @@ export default ({ navigation }) => {
         </Card>
         <Card
           elevation={6}
-          style={{ marginBottom: 5 }}
-          theme={{ roundness: 30 }}
+          style={{ marginBottom: 2 }}
+          theme={{ roundness: 15 }}
         >
           <Card.Content>
             <View
@@ -945,8 +921,8 @@ export default ({ navigation }) => {
                   )}
                   useNativeAndroidPickerStyle={false}
                 />
-                {major === '' && (
-                  <HelperText type="info" visible={major === ''}>
+                {!major && (
+                  <HelperText type="info" visible={!major}>
                     전공은 필수입니다.
                   </HelperText>
                 )}
@@ -956,8 +932,8 @@ export default ({ navigation }) => {
         </Card>
         <Card
           elevation={6}
-          style={{ marginBottom: 5 }}
-          theme={{ roundness: 30 }}
+          style={{ marginBottom: 2 }}
+          theme={{ roundness: 15 }}
         >
           <Card.Content>
             <View
@@ -972,12 +948,11 @@ export default ({ navigation }) => {
                 <Icon
                   ios="ios-menu"
                   android="md-menu"
-                  style={{ fontSize: 20, color: '#5592ff' }}
+                  style={{ color: '#5592ff' }}
                 />
                 <Text
                   style={{
                     fontWeight: '700',
-                    marginLeft: 5,
                     marginLeft: 5
                   }}
                 >
@@ -1005,8 +980,8 @@ export default ({ navigation }) => {
                   )}
                   useNativeAndroidPickerStyle={false}
                 />
-                {generation === '' && (
-                  <HelperText type="info" visible={generation === ''}>
+                {!generation && (
+                  <HelperText type="info" visible={!generation}>
                     기수는 필수입니다.
                   </HelperText>
                 )}
@@ -1016,8 +991,8 @@ export default ({ navigation }) => {
         </Card>
         <Card
           elevation={6}
-          style={{ marginBottom: 5 }}
-          theme={{ roundness: 30 }}
+          style={{ marginBottom: 2 }}
+          theme={{ roundness: 15 }}
         >
           <Card.Content>
             <View
@@ -1025,7 +1000,8 @@ export default ({ navigation }) => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-around',
+                flex: 1
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -1040,8 +1016,8 @@ export default ({ navigation }) => {
                 style={{
                   width: constants.width / 1.5,
                   flexDirection: 'row',
-                  justifyContent: 'space-evenly',
-                  flex: 1
+                  justifyContent: 'space-between',
+                  alignItems: 'center'
                 }}
               >
                 <Text>우측 버튼을 눌러 추가하세요</Text>
@@ -1065,9 +1041,9 @@ export default ({ navigation }) => {
             return (
               <Card
                 elevation={6}
-                style={{ marginBottom: 5 }}
+                style={{ marginBottom: 2 }}
                 key={index}
-                theme={{ roundness: 30 }}
+                theme={{ roundness: 15 }}
               >
                 <Card.Content>
                   <View
@@ -1075,7 +1051,8 @@ export default ({ navigation }) => {
                       flexDirection: 'row',
 
                       alignItems: 'center',
-                      justifyContent: 'space-evenly'
+                      justifyContent: 'space-around',
+                      flex: 1
                     }}
                   >
                     <Icon
@@ -1086,8 +1063,8 @@ export default ({ navigation }) => {
                     <View
                       style={{
                         flexDirection: 'row',
-                        justifyContent: 'space-evenly',
                         alignItems: 'center',
+                        justifyContent: 'space-around',
                         flex: 1
                       }}
                     >
@@ -1113,7 +1090,8 @@ export default ({ navigation }) => {
                         }
                         returnKeyType="next"
                         autoCorrect={false}
-                        placeholder="(경력 및 소개)"
+                        label="(경력 및 소개)"
+                        autoFocus
                       />
 
                       <TouchableOpacity
@@ -1128,7 +1106,7 @@ export default ({ navigation }) => {
                           name="minuscircle"
                           style={{
                             color: styles.redColor,
-                            fontSize: 22
+                            fontSize: 23
                           }}
                         />
                       </TouchableOpacity>

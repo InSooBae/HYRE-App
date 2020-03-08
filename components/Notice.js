@@ -1,56 +1,84 @@
-import React from 'react';
-import PropTypes, { number } from 'prop-types';
-import {
-  Card,
-  CardItem,
-  Text,
-  Left,
-  Body,
-  View,
-  Thumbnail,
-  Right
-} from 'native-base';
-import constants from '../constants';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import React, { useState } from 'react';
 
 import { withNavigation } from 'react-navigation';
 import styles from '../styles';
-
+import { Text, Card, Avatar } from 'react-native-paper';
+import { View, Platform } from 'react-native';
 const Notice = ({ id, title, desc, createdAt, navigation }) => {
-  return (
-    <Card>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('NoticeDetail', { id, title })}
-      >
-        <CardItem style={{ backgroundColor: styles.greyColor }}>
-          <View
-            style={{
-              width: constants.width,
-              alignItems: 'flex-start',
-              flex: 1
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 21,
-                color: '#0000FF',
-                fontWeight: '500',
-                marginBottom: 3
-              }}
-            >
-              {title.length > 20 ? title.substring(0, 20 - 3) + '...' : title}
-            </Text>
-            <Text style={{ fontSize: 19, color: '#0099ff', marginBottom: 5 }}>
-              {desc.length > 20 ? desc.substring(0, 20 - 3) + '...' : desc}
-            </Text>
-          </View>
+  const [visible, setVisible] = useState(false);
 
-          <TouchableOpacity style={{ flex: 1 }}></TouchableOpacity>
-          <Text style={{ color: styles.hanyangColor, marginBottom: 5 }}>
+  return (
+    <Card
+      onPress={() => navigation.navigate('NoticeDetail', { id, title })}
+      onLongPress={() => setVisible(true)}
+      style={{
+        marginTop: 1,
+        marginBottom: 1
+      }}
+      theme={{ roundness: 10 }}
+    >
+      <Card.Content
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}
+      >
+        <View>
+          <Text
+            style={
+              Platform.OS === 'ios'
+                ? {
+                    fontSize: 21,
+                    color: '#000000',
+                    fontWeight: '400',
+                    marginBottom: 3
+                  }
+                : {
+                    fontSize: 18,
+                    color: '#000000',
+                    fontWeight: '600',
+                    marginBottom: 3
+                  }
+            }
+          >
+            {title.length > 20 ? title.substring(0, 20 - 3) + '...' : title}
+          </Text>
+          <Text
+            theme={{
+              fonts: {
+                light: { fontWeight: 'normal', fontFamily: 'sans-serif-thin' }
+              }
+            }}
+            style={
+              Platform.OS === 'ios'
+                ? { fontSize: 16, color: '#666666', marginBottom: 5 }
+                : { fontSize: 14, color: '#666666', marginBottom: 5 }
+            }
+          >
+            {desc.length > 27 ? desc.substring(0, 27 - 3) + '...' : desc}
+          </Text>
+          <Text
+            theme={{
+              fonts: {
+                light: { fontWeight: 'normal', fontFamily: 'sans-serif-thin' }
+              }
+            }}
+            style={{ color: '#bfbfbf' }}
+          >
             {new Date(createdAt).format('yyyy-MM-dd')}
           </Text>
-        </CardItem>
-      </TouchableOpacity>
+        </View>
+        <View style={{ alignItems: 'flex-end', flex: 1 }}>
+          <Avatar.Icon
+            icon="chevron-right"
+            size={50}
+            theme={{ colors: { primary: '#ffffff' } }}
+            color={styles.lightGreyColor}
+          />
+        </View>
+      </Card.Content>
     </Card>
   );
 };

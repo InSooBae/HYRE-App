@@ -275,18 +275,23 @@ export default ({
                     <Text>{generation !== '' ? `${generation}기` : null}</Text>
                   </Body>
                 </ListItem>
-                <ListItem style={{ marginTop: 15, marginBottom: 10 }} thumbnail>
-                  <Left>
-                    <Icon
-                      type="Entypo"
-                      name="suitcase"
-                      style={{ color: '#5592ff' }}
-                    />
-                    <Text style={{ fontWeight: '700', marginLeft: 5 }}>
-                      설명
-                    </Text>
-                  </Left>
-                </ListItem>
+                {Array.isArray(companyDesc) && companyDesc.length !== 0 && (
+                  <ListItem
+                    style={{ marginTop: 15, marginBottom: 10 }}
+                    thumbnail
+                  >
+                    <Left>
+                      <Icon
+                        type="Entypo"
+                        name="suitcase"
+                        style={{ color: '#5592ff' }}
+                      />
+                      <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                        경력
+                      </Text>
+                    </Left>
+                  </ListItem>
+                )}
                 {Array.isArray(companyDesc) &&
                   companyDesc.length !== 0 &&
                   companyDesc.map((desc, index) => {

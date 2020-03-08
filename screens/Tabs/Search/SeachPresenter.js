@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { RefreshControl } from 'react-native';
+import { RefreshControl, View, Keyboard } from 'react-native';
 import PropTypes from 'prop-types';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 import Loader from '../../../components/Loader';
-import { FlatList } from 'react-native-gesture-handler';
-import { Container, Text, View } from 'native-base';
+import {
+  FlatList,
+  TouchableWithoutFeedback
+} from 'react-native-gesture-handler';
 import Contact from '../../../components/Contact';
+import { Text } from 'react-native-paper';
 
 export const SEARCH = gql`
   query searchUser($query: String!) {
@@ -50,9 +53,11 @@ const SearchPresenter = ({ query, shouldFetch }) => {
       setRefreshing(false);
     }
   };
-  console.log(data, loading, query);
   return (
-    <Container>
+    <View
+      style={{ flex: 1, backgroundColor: 'white' }}
+      onTouchStart={Keyboard.dismiss}
+    >
       {data === undefined && !loading && (
         <View
           style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
@@ -89,13 +94,17 @@ const SearchPresenter = ({ query, shouldFetch }) => {
       ) : (
         data !== undefined && (
           <View
-            style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              flex: 1
+            }}
           >
             <Text>해당 인원이 없습니다.</Text>
           </View>
         )
       )}
-    </Container>
+    </View>
   );
 };
 

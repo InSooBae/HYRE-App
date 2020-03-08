@@ -35,7 +35,10 @@ const stackFactory = (initialRoute, customConfig) =>
       NoticeDetail: {
         screen: NoticeDetail,
         navigationOptions: ({ navigation }) => ({
-          title: navigation.getParam('title'),
+          title:
+            navigation.getParam('title').length > 15
+              ? navigation.getParam('title').substring(0, 15 - 3) + '...'
+              : navigation.getParam('title'),
           headerTitleAlign: 'center' | 'left'
         })
       }
@@ -85,7 +88,7 @@ const TabNavigation = createMaterialTopTabNavigator(
                 height: 50
               }}
               resizeMode="contain"
-              source={require('../assets/HYU_logo1.png')}
+              source={require('../assets/HYU2.png')}
             />
           </View>
         )

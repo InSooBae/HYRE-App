@@ -14,11 +14,11 @@ export const AuthProvider = ({ isLoggedIn: isLoggedInProp, children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(isLoggedInProp);
   //로그인 성공
   const logUserIn = async token => {
-    console.log(token);
     try {
       //string으로 보내야 오류안남 걍 true하면 튕김
       await AsyncStorage.setItem('isLoggedIn', 'true');
       await AsyncStorage.setItem('jwt', token);
+      await AsyncStorage.setItem('isPopUp', '{"result":true,"expireAt":null}');
       setIsLoggedIn(true);
     } catch (e) {
       console.log(e);
@@ -29,6 +29,7 @@ export const AuthProvider = ({ isLoggedIn: isLoggedInProp, children }) => {
   const logUserOut = async () => {
     try {
       await AsyncStorage.setItem('isLoggedIn', 'false');
+      await AsyncStorage.setItem('isPopUp', '{"result":true,"expireAt":null}');
       setIsLoggedIn(false);
     } catch (e) {
       console.log(e);

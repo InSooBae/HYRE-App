@@ -5,11 +5,12 @@ import * as Contacts from 'expo-contacts';
 import { useQuery } from '@apollo/react-hooks';
 import UserProfile from '../components/UserProfile';
 import { ScrollView } from 'react-native-gesture-handler';
-import { RefreshControl } from 'react-native';
+import { RefreshControl, Platform, PermissionsAndroid } from 'react-native';
 import Loader from '../components/Loader';
 import { View, Container, Toast } from 'native-base';
 import constants from '../constants';
 import AuthButton from '../components/AuthButton';
+import { inputPhoneNumber } from '../components/PhoneCall';
 const SEE_USER = gql`
   query seeUser($id: ID!) {
     seeUser(id: $id) {
@@ -62,12 +63,43 @@ export default ({ navigation }) => {
   const [buttonLoading, setButtonLoading] = useState(false);
   const saveContact = async () => {
     setButtonLoading(true);
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS,
+          {
+            title: '연락처 권한 허락',
+            message:
+              'Cool Photo App needs access to your camera ' +
+              'so you can take awesome pictures.',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK'
+          }
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          console.log('You can use the camera');
+        } else {
+          console.log('Camera permission denied');
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    }
+
     const { status } = await Contacts.requestPermissionsAsync();
     if (status === 'granted') {
+      const cellPhoneA =
+        a.__typename === 'User'
+          ? inputPhoneNumber(a.cellPhone)
+          : inputPhoneNumber(a.workPhone);
       const contact = {
         [Contacts.Fields.FirstName]: a.name,
         [Contacts.Fields.PhoneNumbers]: [
-          { label: '휴대폰', number: a.cellPhone }
+          {
+            label: '휴대폰',
+            number: cellPhoneA
+          }
         ],
         [Contacts.Fields.Emails]: [
           {
@@ -77,7 +109,7 @@ export default ({ navigation }) => {
             label: '이메일'
           }
         ],
-        [Contacts.Fields.Company]: a.company
+        [Contacts.Fields.Company]: a.company === null ? '' : a.company
       };
       try {
         const contactId = await Contacts.addContactAsync(contact);
@@ -104,6 +136,8 @@ export default ({ navigation }) => {
           });
         }
       } catch (err) {
+        console.log(err);
+
         Toast.show({
           text: `연락처가 저장실패 하였습니다.`,
           textStyle: { textAlign: 'center' },
@@ -128,7 +162,6 @@ export default ({ navigation }) => {
     }
     setButtonLoading(false);
   };
-
   useEffect(() => {
     if (!loading) {
       if (type === 'User') {

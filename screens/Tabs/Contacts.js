@@ -1,27 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FlatList, RefreshControl, StyleSheet, Platform } from 'react-native';
 import {
-  Container,
-  Header,
-  Content,
-  Button,
-  Text,
-  ActionSheet,
-  Item,
-  View,
-  Row,
-  Fab,
-  Spinner,
-  Icon,
-  Right
-} from 'native-base';
+  FlatList,
+  RefreshControl,
+  StyleSheet,
+  Platform,
+  View
+} from 'react-native';
+
 import { useApolloClient } from '@apollo/react-hooks';
 import RNPickerSelect from 'react-native-picker-select';
 import { gql } from 'apollo-boost';
 import Contact from '../../components/Contact';
 import Loader from '../../components/Loader';
 import styles from '../../styles';
-import { FAB } from 'react-native-paper';
+import {
+  FAB,
+  Dialog,
+  Paragraph,
+  Text,
+  Portal,
+  Button
+} from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 const SEE_ALL_USER = gql`
   query seeAllUser(
@@ -79,6 +78,7 @@ export default () => {
   const [addData, setAddData] = useState();
   const [footerLoading, setFooterLoading] = useState(false);
 
+  const [visible, setVisible] = useState(false);
   const scrollTop = useRef();
   const toTop = () => {
     scrollTop.current.scrollToOffset({ animated: true, offset: 0 });
@@ -245,7 +245,7 @@ export default () => {
   }
   if (addData) {
     return (
-      <Container>
+      <View style={{ backgroundColor: 'white', flex: 1 }}>
         <View
           style={{
             flexDirection: 'row',
@@ -340,7 +340,7 @@ export default () => {
           />
         )}
         <FAB style={style.fab} small icon="chevron-up" onPress={toTop} />
-      </Container>
+      </View>
     );
   }
 };

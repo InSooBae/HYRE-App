@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Text, Avatar, IconButton, Switch } from 'react-native-paper';
+import { Card, Text, Avatar, Switch, Title } from 'react-native-paper';
 import { View, Platform } from 'react-native';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
@@ -24,7 +24,6 @@ export default ({ navigation }) => {
   });
   const [notice, setNotice] = useState();
   const [copyMode, setCopyMode] = useState(false);
-  console.log(notice);
   useEffect(() => {
     if (!loading) {
       setNotice(data.seeNotice);
@@ -44,16 +43,19 @@ export default ({ navigation }) => {
             <Avatar.Icon
               style={{ backgroundColor: styles.hanyangColor }}
               {...props}
-              icon={require('../assets/HYU1.png')}
+              icon="account"
             />
           )}
           title={
-            <Text style={{ fontSize: 23, fontWeight: '600' }}>
-              {notice.title}
+            <Text
+              adjustsFontSizeToFit={true}
+              style={{ fontSize: 23, fontWeight: '600' }}
+            >
+              관리자
             </Text>
           }
           subtitle={
-            <Text style={{ marginRight: 15, fontSize: 16 }}>
+            <Text style={{ marginRight: 15, fontSize: 16, color: 'gray' }}>
               {new Date(notice.createdAt).format('yyyy-MM-dd')}
             </Text>
           }
@@ -71,12 +73,26 @@ export default ({ navigation }) => {
                 )
           }
         />
-        <ScrollView style={{ flex: 1 }}>
-          <Card.Content style={{}}>
+        <Card.Content style={{ flex: 1 }}>
+          <View
+            style={{
+              marginTop: 10
+            }}
+          >
+            <Title
+              style={{
+                fontSize: 25,
+                fontWeight: '600'
+              }}
+            >
+              {notice.title}
+            </Title>
+          </View>
+          <ScrollView style={{ flex: 1 }}>
             {Platform.OS === 'ios' ? (
               // iOS requires a textinput for word selections
               <TextInput
-                style={{ fontSize: 20 }}
+                style={{ fontSize: 18, color: '#404040', marginTop: 10 }}
                 value={notice.desc}
                 editable={false}
                 multiline
@@ -84,12 +100,23 @@ export default ({ navigation }) => {
               />
             ) : (
               // Android can do word selections just with <Text>
-              <Text selectable={copyMode} style={{ fontSize: 20 }}>
+              <Text
+                selectable={copyMode}
+                theme={{
+                  fonts: {
+                    light: {
+                      fontWeight: 'normal',
+                      fontFamily: 'sans-serif-thin'
+                    }
+                  }
+                }}
+                style={{ fontSize: 17, color: '#595959', marginTop: 10 }}
+              >
                 {notice.desc}
               </Text>
             )}
-          </Card.Content>
-        </ScrollView>
+          </ScrollView>
+        </Card.Content>
       </Card>
     );
   }

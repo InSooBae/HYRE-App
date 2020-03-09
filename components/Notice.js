@@ -13,7 +13,8 @@ const Notice = ({ id, title, desc, createdAt, navigation }) => {
       onLongPress={() => setVisible(true)}
       style={{
         marginTop: 1,
-        marginBottom: 1
+        marginBottom: 1,
+        backgroundColor: '#fefffc'
       }}
       theme={{ roundness: 10 }}
     >
@@ -74,7 +75,7 @@ const Notice = ({ id, title, desc, createdAt, navigation }) => {
           <Avatar.Icon
             icon="chevron-right"
             size={50}
-            theme={{ colors: { primary: '#ffffff' } }}
+            theme={{ colors: { primary: '#fefffc' } }}
             color={styles.lightGreyColor}
           />
         </View>

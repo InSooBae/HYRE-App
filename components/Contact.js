@@ -194,7 +194,7 @@ const Contact = ({
           </Text>
 
           <TouchableOpacity
-            style={{ flexWrap: 'wrap' }}
+            style={{ flexWrap: 'wrap', flex: 1 }}
             onPress={() => callNumber(cellPhone)}
           >
             <Text

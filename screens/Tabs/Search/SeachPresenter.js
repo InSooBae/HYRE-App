@@ -63,6 +63,7 @@ const SearchPresenter = ({ query, shouldFetch }) => {
           style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
         >
           <Text>검색해주세요</Text>
+          <Text>검색조건:이름 or 휴대전화 or 이메일 or 회사</Text>
         </View>
       )}
       {loading ? (

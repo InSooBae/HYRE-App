@@ -42,6 +42,7 @@ const SEE_ALL_USER = gql`
       team
       position
       photo
+      email
       major {
         name
       }
@@ -320,6 +321,7 @@ export default () => {
                   cellPhone={item.cellPhone}
                   company={item.company}
                   id={item.id}
+                  email={item.email}
                   major={item.major.name}
                   name={item.name}
                   photo={item.photo === null ? '' : item.photo}

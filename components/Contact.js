@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import constants from '../constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import {
-  callNumber,
-  linkEmail,
-  inputPhoneNumber
-} from '../components/PhoneCall';
+import { callNumber, inputPhoneNumber } from '../components/PhoneCall';
+import * as Contacts from 'expo-contacts';
 import { withNavigation } from 'react-navigation';
 import styles from '../styles';
-import { Card, Text, Avatar } from 'react-native-paper';
+import {
+  Card,
+  Text,
+  Avatar,
+  Portal,
+  Dialog,
+  Paragraph,
+  Button
+} from 'react-native-paper';
 import { View, Platform } from 'react-native';
+import { Toast } from 'native-base';
 
 const Contact = ({
   id,
@@ -26,8 +31,86 @@ const Contact = ({
   generation,
   directorGen = '',
   directorTitle = '',
+  email,
   navigation
 }) => {
+  const [visible, setVisible] = useState(false);
+  const [buttonLoading, setButtonLoading] = useState(false);
+  const saveContact = async () => {
+    setButtonLoading(true);
+
+    const { status } = await Contacts.requestPermissionsAsync();
+    if (status === 'granted') {
+      const contact = {
+        [Contacts.Fields.FirstName]: name,
+        [Contacts.Fields.PhoneNumbers]: [
+          {
+            label: '전화번호',
+            number: inputPhoneNumber(cellPhone)
+          }
+        ],
+        [Contacts.Fields.Emails]: [
+          {
+            email: email,
+            isPrimary: true,
+            id: '2',
+            label: '이메일'
+          }
+        ],
+        [Contacts.Fields.Company]: company === null ? '' : company
+      };
+      try {
+        const contactId = await Contacts.addContactAsync(contact);
+        console.log('contact-ID:', contactId);
+        if (contactId) {
+          Toast.show({
+            text: `연락처가 저장되었습니다.`,
+            textStyle: { textAlign: 'center' },
+            buttonText: 'Okay',
+            type: 'success',
+            position: 'top',
+            duration: 3000,
+            style: { marginTop: 70 }
+          });
+        } else {
+          Toast.show({
+            text: `연락처가 저장실패 하였습니다.`,
+            textStyle: { textAlign: 'center' },
+            buttonText: 'Okay',
+            type: 'danger',
+            position: 'top',
+            duration: 3000,
+            style: { marginTop: 70 }
+          });
+        }
+      } catch (err) {
+        console.log(err);
+
+        Toast.show({
+          text: `연락처가 저장실패 하였습니다.`,
+          textStyle: { textAlign: 'center' },
+          buttonText: 'Okay',
+          type: 'danger',
+          position: 'top',
+          duration: 3000,
+          style: { marginTop: 70 }
+        });
+      } finally {
+      }
+    } else {
+      Toast.show({
+        text: `연락처 권한설정을 해주세요!`,
+        textStyle: { textAlign: 'center' },
+        buttonText: 'Okay',
+        type: 'danger',
+        position: 'top',
+        duration: 3000,
+        style: { marginTop: 70 }
+      });
+    }
+    setButtonLoading(false);
+    setVisible(false);
+  };
   return (
     <Card
       onPress={() =>
@@ -37,6 +120,7 @@ const Contact = ({
           __typename: __typename
         })
       }
+      onLongPress={() => setVisible(true)}
       elevation={2}
       style={{
         marginTop: 3,
@@ -51,6 +135,30 @@ const Contact = ({
       }}
       theme={{}}
     >
+      <Portal>
+        <Dialog visible={visible} onDismiss={() => setVisible(false)}>
+          <Dialog.Title>{`${name} 연락처 저장`}</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>{`${name}님의 연락처를 저장하시겠습니까?`}</Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button
+              color={styles.hanyangColor}
+              onPress={() => setVisible(false)}
+            >
+              취소
+            </Button>
+            <Button
+              loading={buttonLoading}
+              disabled={buttonLoading}
+              color={styles.hanyangColor}
+              onPress={saveContact}
+            >
+              확인
+            </Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
       <View
         style={{
           flexDirection: 'row',

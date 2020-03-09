@@ -2,12 +2,15 @@
 
 ## Screen:
 
-- [ ] Auth (It would be separate ios/android app to login(login by google,facebook))
-- [ ] Contacts
-- [ ] Search
-- [ ] Upload(?)
+- [x] Auth (Login/SignUp/Confirm)
+- [x] Contacts
+- [x] Contact(User,Professor) detail
+- [x] Save Contact(Need Android Write Permission in contact -> it needs expo eject)
+- [x] Search
 - [ ] Notiifications (C)
-- [ ] Profile
-- [ ] Edit Profile
-- [ ] Notice
-- [ ] Professor & executives
+- [x] Profile
+- [x] Edit Profile
+- [x] Notice
+- [x] Notice detail
+- [x] Last Notice PopUp
+- [x] Professor & executives

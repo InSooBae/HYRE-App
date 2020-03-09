@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import { gql } from 'apollo-boost';
 import * as Contacts from 'expo-contacts';
 import { useQuery } from '@apollo/react-hooks';
 import UserProfile from '../components/UserProfile';
 import { ScrollView } from 'react-native-gesture-handler';
-import { RefreshControl, Platform, PermissionsAndroid } from 'react-native';
+import { RefreshControl } from 'react-native';
 import Loader from '../components/Loader';
 import { View, Container, Toast } from 'native-base';
 import constants from '../constants';
@@ -63,29 +62,6 @@ export default ({ navigation }) => {
   const [buttonLoading, setButtonLoading] = useState(false);
   const saveContact = async () => {
     setButtonLoading(true);
-    if (Platform.OS === 'android') {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS,
-          {
-            title: '연락처 권한 허락',
-            message:
-              'Cool Photo App needs access to your camera ' +
-              'so you can take awesome pictures.',
-            buttonNeutral: 'Ask Me Later',
-            buttonNegative: 'Cancel',
-            buttonPositive: 'OK'
-          }
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          console.log('You can use the camera');
-        } else {
-          console.log('Camera permission denied');
-        }
-      } catch (err) {
-        console.warn(err);
-      }
-    }
 
     const { status } = await Contacts.requestPermissionsAsync();
     if (status === 'granted') {

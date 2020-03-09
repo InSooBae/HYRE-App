@@ -21,7 +21,6 @@ import {
   linkMessage,
   inputPhoneNumber
 } from './PhoneCall';
-import ResponsiveImage from 'react-native-responsive-image';
 
 export default ({
   id,
@@ -46,10 +45,14 @@ export default ({
           <CardItem header bordered>
             <Left>
               {photo === '' ? (
-                <ResponsiveImage
+                <Thumbnail
                   source={require('../assets/HYU1.png')}
-                  initWidth="138"
-                  initHeight="138"
+                  style={{
+                    width: 138,
+                    height: 138,
+                    borderRadius: (138 + 138) / 2
+                  }}
+                  large
                 />
               ) : (
                 // <Thumbnail

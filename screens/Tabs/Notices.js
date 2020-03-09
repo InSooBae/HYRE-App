@@ -166,7 +166,7 @@ export default () => {
                     <View>
                       <Text
                         style={{
-                          fontSize: 32,
+                          fontSize: 25,
                           fontWeight: '500'
                         }}
                       >
@@ -184,17 +184,17 @@ export default () => {
                         marginTop: 10
                       }}
                     >
-                      <Text style={{ fontSize: 23, color: '#595959' }}>
+                      <Text style={{ fontSize: 21, color: '#595959' }}>
                         최근 공지사항
                       </Text>
-                      <Text style={{ fontSize: 18, color: '#A9A9A9' }}>
+                      <Text style={{ fontSize: 17, color: '#A9A9A9' }}>
                         {new Date(lastData.createdAt).format('yyyy-MM-dd')}
                       </Text>
                     </View>
                   </View>
 
                   <ScrollView style={{ flex: 1 }}>
-                    <Text style={{ fontSize: 19 }}>{lastData.desc}</Text>
+                    <Text style={{ fontSize: 18 }}>{lastData.desc}</Text>
                   </ScrollView>
                   <View
                     style={{

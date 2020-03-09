@@ -384,7 +384,7 @@ export default () => {
         }}
       >
         <Card
-          elevation={6}
+          elevation={3}
           style={{ marginBottom: 2 }}
           theme={{ roundness: 15 }}
         >
@@ -538,7 +538,7 @@ export default () => {
           </Card.Content>
         </Card>
         <Card
-          elevation={6}
+          elevation={3}
           style={{ marginBottom: 2 }}
           theme={{ roundness: 2 }}
         >
@@ -590,7 +590,7 @@ export default () => {
           </Card.Content>
         </Card>
         <Card
-          elevation={6}
+          elevation={3}
           style={{ marginBottom: 2 }}
           theme={{ roundness: 2 }}
         >
@@ -668,7 +668,7 @@ export default () => {
         </Card>
 
         <Card
-          elevation={6}
+          elevation={3}
           style={{ marginBottom: 2 }}
           theme={{ roundness: 2 }}
         >
@@ -726,7 +726,7 @@ export default () => {
           </Card.Content>
         </Card>
         <Card
-          elevation={6}
+          elevation={3}
           style={{ marginBottom: 2 }}
           theme={{ roundness: 2 }}
         >
@@ -789,7 +789,7 @@ export default () => {
           </Card.Content>
         </Card>
         <Card
-          elevation={6}
+          elevation={3}
           style={{ marginBottom: 2 }}
           theme={{ roundness: 2 }}
         >
@@ -836,7 +836,7 @@ export default () => {
           </Card.Content>
         </Card>
         <Card
-          elevation={6}
+          elevation={3}
           style={{ marginBottom: 2 }}
           theme={{ roundness: 2 }}
         >
@@ -885,7 +885,7 @@ export default () => {
           </Card.Content>
         </Card>
         <Card
-          elevation={6}
+          elevation={3}
           style={{ marginBottom: 2 }}
           theme={{ roundness: 2 }}
         >
@@ -935,7 +935,7 @@ export default () => {
           </Card.Content>
         </Card>
         <Card
-          elevation={6}
+          elevation={3}
           style={{ marginBottom: 2 }}
           theme={{ roundness: 2 }}
         >
@@ -982,7 +982,7 @@ export default () => {
           </Card.Content>
         </Card>
         <Card
-          elevation={6}
+          elevation={3}
           style={{ marginBottom: 2 }}
           theme={{ roundness: 2 }}
         >
@@ -1024,7 +1024,7 @@ export default () => {
           </Card.Content>
         </Card>
         <Card
-          elevation={6}
+          elevation={3}
           style={{ marginBottom: 2 }}
           theme={{ roundness: 2 }}
         >
@@ -1074,7 +1074,7 @@ export default () => {
           </Card.Content>
         </Card>
         <Card
-          elevation={6}
+          elevation={3}
           style={{ marginBottom: 2 }}
           theme={{ roundness: 2 }}
         >
@@ -1136,11 +1136,7 @@ export default () => {
 
         {edit ? (
           <>
-            <Card
-              elevation={6}
-              style={{ marginBottom: 2 }}
-              theme={{ roundness: 2 }}
-            >
+            <Card theme={{ roundness: 2 }}>
               <Card.Content>
                 <View
                   style={{
@@ -1188,7 +1184,7 @@ export default () => {
               companyDesc.map((desc, index) => {
                 return (
                   <Card
-                    elevation={6}
+                    elevation={3}
                     style={{ marginBottom: 2 }}
                     key={index}
                     theme={{ roundness: 2 }}
@@ -1269,11 +1265,7 @@ export default () => {
           </>
         ) : (
           <>
-            <Card
-              elevation={6}
-              style={{ marginBottom: 2 }}
-              theme={{ roundness: 2 }}
-            >
+            <Card style={{}} theme={{ roundness: 2 }}>
               <Card.Content>
                 <View
                   style={{
@@ -1310,7 +1302,6 @@ export default () => {
               companyDesc.map((desc, index) => {
                 return (
                   <Card
-                    elevation={6}
                     style={{ marginBottom: 2, flex: 1 }}
                     key={index}
                     theme={{ roundness: 2 }}

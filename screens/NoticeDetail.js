@@ -81,7 +81,7 @@ export default ({ navigation }) => {
           >
             <Title
               style={{
-                fontSize: 25,
+                fontSize: 22,
                 fontWeight: '600'
               }}
             >

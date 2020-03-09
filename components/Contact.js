@@ -78,28 +78,28 @@ const Contact = ({
                 : {
                     fontSize: 19,
                     color: '#0000FF',
-                    fontWeight: '500'
+                    fontWeight: '600'
                   }
             }
           >
             {name}
           </Text>
 
-          <TouchableOpacity onPress={() => callNumber(cellPhone)}>
+          <TouchableOpacity
+            style={{ flexWrap: 'wrap' }}
+            onPress={() => callNumber(cellPhone)}
+          >
             <Text
               style={
                 Platform.OS === 'ios'
                   ? {
                       fontSize: 21,
                       color: '#0099ff',
-                      marginBottom: 5,
-                      flex: 1,
-                      flexWrap: 'wrap'
+                      marginBottom: 5
                     }
                   : {
                       fontSize: 17,
-                      color: '#0099ff',
-                      flex: 1
+                      color: '#0099ff'
                     }
               }
             >

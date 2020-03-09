@@ -704,9 +704,9 @@ export default () => {
                       primary: styles.hanyangColor
                     }
                   }}
-                  value={cellPhone}
+                  value={inputPhoneNumber(cellPhone)}
                   onChangeText={value => {
-                    setCellPhone(inputPhoneNumber(value));
+                    setCellPhone(value);
                   }}
                   label="(휴대전화)*"
                   keyboardType={'numeric'}
@@ -920,8 +920,8 @@ export default () => {
                       primary: styles.hanyangColor
                     }
                   }}
-                  value={workPhone}
-                  onChangeText={value => setWorkPhone(inputPhoneNumber(value))}
+                  value={inputPhoneNumber(workPhone)}
+                  onChangeText={value => setWorkPhone(value)}
                   label="(회사 전화)"
                   onSubmitEditing={() => ref_input6.current.focus()}
                   keyboardType={'numeric'}

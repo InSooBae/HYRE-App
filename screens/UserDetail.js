@@ -6,7 +6,7 @@ import UserProfile from '../components/UserProfile';
 import { ScrollView } from 'react-native-gesture-handler';
 import { RefreshControl } from 'react-native';
 import Loader from '../components/Loader';
-import { View, Container, Toast } from 'native-base';
+import { View, Toast } from 'native-base';
 import constants from '../constants';
 import AuthButton from '../components/AuthButton';
 import { inputPhoneNumber } from '../components/PhoneCall';
@@ -46,6 +46,9 @@ const SEE_PROF = gql`
       title
       company
       photo
+      major {
+        name
+      }
     }
   }
 `;
@@ -67,7 +70,11 @@ export default ({ navigation }) => {
     if (status === 'granted') {
       const cellPhoneA =
         a.__typename === 'User'
-          ? inputPhoneNumber(a.cellPhone)
+          ? !a.cellPhone
+            ? ''
+            : inputPhoneNumber(a.cellPhone)
+          : !a.workPhone
+          ? ''
           : inputPhoneNumber(a.workPhone);
       const contact = {
         [Contacts.Fields.FirstName]: a.name,
@@ -79,7 +86,7 @@ export default ({ navigation }) => {
         ],
         [Contacts.Fields.Emails]: [
           {
-            email: a.email,
+            email: a.email === null ? '' : a.email,
             isPrimary: true,
             id: '2',
             label: '이메일'
@@ -146,9 +153,6 @@ export default ({ navigation }) => {
         setA(data.seeProf);
       }
     }
-    return () => {
-      null;
-    };
   }, [data]);
   const refresh = async () => {
     try {
@@ -192,7 +196,7 @@ export default ({ navigation }) => {
           workPhone={a.workPhone}
           photo={a.photo === null ? '' : a.photo}
           generation={type === 'User' ? a.graduatedYear.generation : ''}
-          major={type === 'User' ? a.major.name : ''}
+          major={a.major.name}
         />
       </ScrollView>
     );

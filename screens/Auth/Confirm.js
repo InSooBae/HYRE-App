@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import {
   TouchableWithoutFeedback,
   Keyboard,
-  Alert,
   KeyboardAvoidingView
 } from 'react-native';
 import { useMutation } from '@apollo/react-hooks';
@@ -15,15 +13,6 @@ import { useLogIn } from '../../AuthContext';
 import constants from '../../constants';
 import styles from '../../styles';
 import { Toast } from 'native-base';
-
-const View = styled.View`
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  background-color: white;
-`;
-
-const Text = styled.Text``;
 
 //navigation을 가지고있고
 export default ({ navigation }) => {
@@ -42,7 +31,7 @@ export default ({ navigation }) => {
     const { value } = confirmInput;
     if (value === '') {
       return Toast.show({
-        text: `Secret Key를 입력해주세요.`,
+        text: `Verification code를 입력해주세요.`,
         textStyle: { textAlign: 'center' },
         buttonText: 'Okay',
         type: 'warning',
@@ -60,7 +49,7 @@ export default ({ navigation }) => {
         logIn(confirmSecret);
       } else {
         return Toast.show({
-          text: `Secret Key가 맞지 않습니다.`,
+          text: `Verification code가 맞지 않습니다.`,
           textStyle: { textAlign: 'center' },
           buttonText: 'Okay',
           type: 'warning',
@@ -71,7 +60,7 @@ export default ({ navigation }) => {
       }
     } catch (e) {
       return Toast.show({
-        text: `Secret Key가 맞지 않습니다.`,
+        text: `Verification code가 맞지 않습니다.`,
         textStyle: { textAlign: 'center' },
         buttonText: 'Okay',
         type: 'warning',
@@ -99,14 +88,14 @@ export default ({ navigation }) => {
           style={{
             backgroundColor: 'white',
             fontSize: 16,
-            width: constants.width / 1.5
+            width: constants.width / 1.4
           }}
           {...confirmInput}
-          placeholder="Secret Key"
+          placeholder="Verification code"
           returnKeyType="send"
           onSubmitEditing={handleConfirm}
           autoCorrect={false}
-          infoMessage="Secret Key를 입력해주세요"
+          infoMessage="이메일로 발송된 Verification code를 입력해주세요"
         />
         <AuthButton
           style={{

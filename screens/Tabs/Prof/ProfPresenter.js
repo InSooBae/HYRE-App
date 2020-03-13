@@ -15,6 +15,10 @@ const SEE_ALL_PROF = gql`
       workPhone
       company
       position
+      major {
+        name
+      }
+      email
       photo
       title
     }
@@ -34,6 +38,7 @@ const SEE_ALL_EXE = gql`
         team
         position
         photo
+        email
         major {
           name
         }
@@ -53,7 +58,7 @@ export default ({ query }) => {
   const { data, loading, refetch } = useQuery(isProfUser, {
     //언제 쿼리를 조회하지 않고 넘길지 설정
     //검색 결과가 항상 캐시에 저장되지 않도록 fetchPolicy로 설정
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'cache-and-network'
   });
   useEffect(() => {
     if (!loading) {
@@ -63,9 +68,7 @@ export default ({ query }) => {
         setB(data.seeAllExecutive);
       }
     }
-    return () => {
-      console.log('교수');
-    };
+    return () => {};
   }, [data]);
   const refresh = async () => {
     try {
@@ -78,11 +81,7 @@ export default ({ query }) => {
     }
   };
 
-  if (
-    query === '교수'
-      ? loading || a === undefined || !data
-      : loading || b === undefined || !data
-  ) {
+  if (query === '교수' ? loading || !a || !data : loading || !b || !data) {
     return (
       <Container>
         <Loader />
@@ -102,11 +101,16 @@ export default ({ query }) => {
                   query === '교수' ? item.__typename : item.user.__typename
                 }
                 cellPhone={
-                  query === '교수' ? item.workPhone : item.user.cellPhone
+                  query === '교수'
+                    ? !item.workPhone
+                      ? null
+                      : item.workPhone
+                    : item.user.cellPhone
                 }
                 company={query === '교수' ? item.company : item.user.company}
                 id={query === '교수' ? item.id : item.user.id}
                 name={query === '교수' ? item.name : item.user.name}
+                email={query === '교수' ? item.email : item.user.email}
                 photo={
                   query === '교수'
                     ? item.photo === null
@@ -118,7 +122,9 @@ export default ({ query }) => {
                 }
                 position={query === '교수' ? item.position : item.user.position}
                 team={query === '교수' ? item.title : item.user.team}
-                major={query === '교수' ? '' : item.user.major.name}
+                major={
+                  query === '교수' ? item.major.name : item.user.major.name
+                }
                 generation={
                   query === '교수' ? null : item.user.graduatedYear.generation
                 }

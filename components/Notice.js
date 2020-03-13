@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
-
+import React from 'react';
+import styled from 'styled-components';
 import { withNavigation } from 'react-navigation';
 import styles from '../styles';
-import { Text, Card, Avatar } from 'react-native-paper';
-import { View, Platform } from 'react-native';
-const Notice = ({ id, title, desc, createdAt, navigation }) => {
-  const [visible, setVisible] = useState(false);
+import { Card, Avatar } from 'react-native-paper';
+import { View } from 'react-native';
 
+const Text = styled.Text`
+  font-family: lotte-bold;
+`;
+
+const Notice = ({ id, title, desc, createdAt, navigation }) => {
   return (
     <Card
-      onPress={() => navigation.navigate('NoticeDetail', { id, title })}
-      onLongPress={() => setVisible(true)}
+      onPress={() =>
+        navigation.navigate('NoticeDetail', { id, title, desc, createdAt })
+      }
       style={{
         marginTop: 1,
         marginBottom: 1,
         backgroundColor: '#fefffc'
       }}
-      theme={{ roundness: 10 }}
     >
       <Card.Content
         style={{
@@ -31,42 +34,30 @@ const Notice = ({ id, title, desc, createdAt, navigation }) => {
             style={
               Platform.OS === 'ios'
                 ? {
-                    fontSize: 21,
-                    color: '#000000',
-                    fontWeight: '400',
-                    marginBottom: 3
-                  }
-                : {
-                    fontSize: 18,
+                    fontSize: 17,
                     color: '#000000',
                     fontWeight: '600',
-                    marginBottom: 3
+                    marginBottom: 8
+                  }
+                : {
+                    fontSize: 13,
+                    fontWeight: '600',
+                    color: '#000000',
+                    marginBottom: 7
                   }
             }
           >
-            {title.length > 20 ? title.substring(0, 20 - 3) + '...' : title}
+            {title.length > 20
+              ? `[공지] ${title.substring(0, 20 - 3)}...`
+              : `[공지] ${title}`}
           </Text>
+
           <Text
-            theme={{
-              fonts: {
-                light: { fontWeight: 'normal', fontFamily: 'sans-serif-thin' }
-              }
-            }}
             style={
               Platform.OS === 'ios'
-                ? { fontSize: 16, color: '#666666', marginBottom: 5 }
-                : { fontSize: 14, color: '#666666', marginBottom: 5 }
+                ? { color: '#bfbfbf', fontSize: 16 }
+                : { color: '#bfbfbf', fontSize: 11 }
             }
-          >
-            {desc.length > 27 ? desc.substring(0, 27 - 3) + '...' : desc}
-          </Text>
-          <Text
-            theme={{
-              fonts: {
-                light: { fontWeight: 'normal', fontFamily: 'sans-serif-thin' }
-              }
-            }}
-            style={{ color: '#bfbfbf' }}
           >
             {new Date(createdAt).format('yyyy-MM-dd')}
           </Text>
@@ -83,5 +74,4 @@ const Notice = ({ id, title, desc, createdAt, navigation }) => {
     </Card>
   );
 };
-
 export default withNavigation(Notice);

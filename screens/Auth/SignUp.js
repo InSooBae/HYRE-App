@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Keyboard, Alert, Platform, View, StyleSheet } from 'react-native';
-import { Icon, Toast } from 'native-base';
+import { Keyboard, View, StyleSheet } from 'react-native';
+import { Toast } from 'native-base';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
 import { useMutation, useQuery } from '@apollo/react-hooks';
@@ -140,7 +140,26 @@ export default ({ navigation }) => {
       );
     }
     return () => {
-      () => null;
+      if (!loading) {
+        setGenList(
+          data.seeAllGradYear.map(e => {
+            return {
+              key: e.id,
+              label: `${e.generation}기`,
+              value: e.generation
+            };
+          })
+        );
+        setMajList(
+          data.seeAllMajor.map(e => {
+            return {
+              key: e.id,
+              label: e.name,
+              value: e.name
+            };
+          })
+        );
+      }
     };
   }, [data]);
   const showDatePicker = () => {
@@ -161,16 +180,15 @@ export default ({ navigation }) => {
     let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
 
     if (permissionResult.granted === false) {
-      Toast.show({
-        text: `사진 권한설정을 해주세요!`,
+      return Toast.show({
+        text: `사진 권한을 설정해 주세요.`,
         textStyle: { textAlign: 'center' },
         buttonText: 'Okay',
         type: 'danger',
         position: 'top',
-        duration: 3000,
+        duration: 4000,
         style: { marginTop: 70 }
       });
-      return;
     }
 
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
@@ -210,7 +228,7 @@ export default ({ navigation }) => {
         buttonText: 'Okay',
         type: 'warning',
         position: 'top',
-        duration: 3000,
+        duration: 7000,
         style: { marginTop: 70 }
       });
     }
@@ -221,7 +239,7 @@ export default ({ navigation }) => {
         buttonText: 'Okay',
         type: 'warning',
         position: 'top',
-        duration: 3000,
+        duration: 7000,
         style: { marginTop: 70 }
       });
     }
@@ -232,7 +250,7 @@ export default ({ navigation }) => {
         buttonText: 'Okay',
         type: 'warning',
         position: 'top',
-        duration: 3000,
+        duration: 7000,
         style: { marginTop: 70 }
       });
     }
@@ -243,7 +261,7 @@ export default ({ navigation }) => {
         buttonText: 'Okay',
         type: 'warning',
         position: 'top',
-        duration: 3000,
+        duration: 7000,
         style: { marginTop: 70 }
       });
     }
@@ -254,7 +272,7 @@ export default ({ navigation }) => {
         buttonText: 'Okay',
         type: 'warning',
         position: 'top',
-        duration: 3000,
+        duration: 7000,
         style: { marginTop: 70 }
       });
     }
@@ -265,7 +283,7 @@ export default ({ navigation }) => {
         buttonText: 'Okay',
         type: 'warning',
         position: 'top',
-        duration: 3000,
+        duration: 7000,
         style: { marginTop: 70 }
       });
     }
@@ -324,8 +342,15 @@ export default ({ navigation }) => {
         navigation.navigate('AuthHome');
       }
     } catch (e) {
-      console.log(e);
-      Alert.alert('이미 존재하는 이메일이 있습니다!', '로그인해주세요');
+      Toast.show({
+        text: '이미 존재하는 아이디 입니다. 로그인 해주세요',
+        textStyle: { textAlign: 'center' },
+        buttonText: 'Okay',
+        type: 'success',
+        position: 'top',
+        duration: 7000,
+        style: { marginTop: 70 }
+      });
       navigation.navigate('Login', { email });
     } finally {
       setButtonLoading(false);
@@ -419,7 +444,12 @@ export default ({ navigation }) => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon name="person" style={{ color: '#5592ff' }} />
+                <Avatar.Icon
+                  icon="account"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
+                />
                 <Text style={{ fontWeight: '700', marginLeft: 5 }}>이름</Text>
               </View>
               <View
@@ -470,10 +500,11 @@ export default ({ navigation }) => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  type="MaterialIcons"
-                  name="cake"
-                  style={{ color: '#5592ff' }}
+                <Avatar.Icon
+                  icon="cake"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
                 />
 
                 <Text style={{ fontWeight: '700', marginLeft: 5 }}>생일</Text>
@@ -547,10 +578,11 @@ export default ({ navigation }) => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  type="FontAwesome"
-                  name="phone"
-                  style={{ color: '#5592ff' }}
+                <Avatar.Icon
+                  icon="phone"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
                 />
                 <Text style={{ fontWeight: '700', marginLeft: 5 }}>
                   휴대전화
@@ -604,10 +636,11 @@ export default ({ navigation }) => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  type="FontAwesome"
-                  name="envelope"
-                  style={{ color: '#5592ff' }}
+                <Avatar.Icon
+                  icon="email"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
                 />
                 <Text style={{ fontWeight: '700', marginLeft: 5 }}>이메일</Text>
               </View>
@@ -666,10 +699,11 @@ export default ({ navigation }) => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  type="FontAwesome"
-                  name="building-o"
-                  style={{ color: '#5592ff' }}
+                <Avatar.Icon
+                  icon="office-building"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
                 />
                 <Text style={{ fontWeight: '700', marginLeft: 5 }}>회사명</Text>
               </View>
@@ -712,10 +746,11 @@ export default ({ navigation }) => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  type="FontAwesome"
-                  name="building"
-                  style={{ color: '#5592ff' }}
+                <Avatar.Icon
+                  icon="domain"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
                 />
                 <Text style={{ fontWeight: '700', marginLeft: 5 }}>
                   회사주소
@@ -760,10 +795,11 @@ export default ({ navigation }) => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  type="Entypo"
-                  name="landline"
-                  style={{ color: '#5592ff' }}
+                <Avatar.Icon
+                  icon="deskphone"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
                 />
                 <Text style={{ fontWeight: '700', marginLeft: 5 }}>
                   회사전화
@@ -809,10 +845,11 @@ export default ({ navigation }) => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  type="Entypo"
-                  name="archive"
-                  style={{ color: '#5592ff' }}
+                <Avatar.Icon
+                  icon="briefcase-account"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
                 />
                 <Text style={{ fontWeight: '700', marginLeft: 5 }}>부서</Text>
               </View>
@@ -855,7 +892,12 @@ export default ({ navigation }) => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon type="Entypo" name="medal" style={{ color: '#5592ff' }} />
+                <Avatar.Icon
+                  icon="medal"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
+                />
                 <Text style={{ fontWeight: '700', marginLeft: 5 }}>직책</Text>
               </View>
               <View>
@@ -896,7 +938,12 @@ export default ({ navigation }) => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon type="Entypo" name="star" style={{ color: '#5592ff' }} />
+                <Avatar.Icon
+                  icon="star"
+                  color="#ffffff"
+                  size={30}
+                  theme={{ colors: { primary: '#5592ff' } }}
+                />
                 <Text style={{ fontWeight: '700', marginLeft: 5 }}>전공</Text>
               </View>
               <View style={{ width: constants.width / 1.5 }}>
@@ -913,10 +960,11 @@ export default ({ navigation }) => {
                   doneText={'확인'}
                   style={{ ...pickerSelectStyles }}
                   Icon={() => (
-                    <Icon
-                      style={Platform.OS === 'ios' ? { fontSize: 16 } : null}
-                      type="AntDesign"
-                      name="down"
+                    <Avatar.Icon
+                      icon="chevron-down"
+                      size={30}
+                      color="gray"
+                      theme={{ colors: { primary: '#ffffff' } }}
                     />
                   )}
                   useNativeAndroidPickerStyle={false}
@@ -945,10 +993,11 @@ export default ({ navigation }) => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  ios="ios-menu"
-                  android="md-menu"
-                  style={{ color: '#5592ff' }}
+                <Avatar.Icon
+                  icon="altimeter"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
                 />
                 <Text
                   style={{
@@ -972,10 +1021,11 @@ export default ({ navigation }) => {
                   items={genList}
                   doneText={'확인'}
                   Icon={() => (
-                    <Icon
-                      style={Platform.OS === 'ios' ? { fontSize: 16 } : null}
-                      type="AntDesign"
-                      name="down"
+                    <Avatar.Icon
+                      icon="chevron-down"
+                      size={30}
+                      color="gray"
+                      theme={{ colors: { primary: '#ffffff' } }}
                     />
                   )}
                   useNativeAndroidPickerStyle={false}
@@ -1005,10 +1055,11 @@ export default ({ navigation }) => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  type="Entypo"
-                  name="suitcase"
-                  style={{ color: '#5592ff' }}
+                <Avatar.Icon
+                  icon="briefcase-edit"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
                 />
                 <Text style={{ fontWeight: '700', marginLeft: 5 }}>설명</Text>
               </View>
@@ -1024,10 +1075,15 @@ export default ({ navigation }) => {
                 <TouchableOpacity
                   onPress={() => setCompanyDesc(companyDesc.concat(''))}
                 >
-                  <Icon
-                    type="AntDesign"
-                    name="pluscircle"
-                    style={{ color: '#32CD32', fontSize: 23 }}
+                  <Avatar.Icon
+                    icon="plus-circle"
+                    color="#32CD32"
+                    size={45}
+                    theme={{
+                      colors: {
+                        primary: '#ffffff'
+                      }
+                    }}
                   />
                 </TouchableOpacity>
               </View>
@@ -1055,16 +1111,17 @@ export default ({ navigation }) => {
                       flex: 1
                     }}
                   >
-                    <Icon
-                      type="MaterialCommunityIcons"
-                      name="circle-small"
-                      style={{ color: '#5592ff' }}
+                    <Avatar.Icon
+                      icon="checkbox-multiple-marked-circle"
+                      color="#5592ff"
+                      size={30}
+                      theme={{ colors: { primary: '#ffffff' } }}
                     />
                     <View
                       style={{
                         flexDirection: 'row',
                         alignItems: 'center',
-                        justifyContent: 'space-around',
+                        justifyContent: 'space-evenly',
                         flex: 1
                       }}
                     >
@@ -1101,12 +1158,14 @@ export default ({ navigation }) => {
                           )
                         }
                       >
-                        <Icon
-                          type="AntDesign"
-                          name="minuscircle"
-                          style={{
-                            color: styles.redColor,
-                            fontSize: 23
+                        <Avatar.Icon
+                          icon="minus-circle"
+                          color={styles.redColor}
+                          size={45}
+                          theme={{
+                            colors: {
+                              primary: '#ffffff'
+                            }
                           }}
                         />
                       </TouchableOpacity>

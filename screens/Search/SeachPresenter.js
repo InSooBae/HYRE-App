@@ -3,13 +3,18 @@ import { RefreshControl, View, Keyboard } from 'react-native';
 import PropTypes from 'prop-types';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
-import Loader from '../../../components/Loader';
+import Loader from '../../components/Loader';
 import {
   FlatList,
   TouchableWithoutFeedback
 } from 'react-native-gesture-handler';
-import Contact from '../../../components/Contact';
-import { Text } from 'react-native-paper';
+import Contact from '../../components/Contact';
+import styled from 'styled-components';
+
+const Text = styled.Text`
+  font-family: bae-min;
+  font-size: 20px;
+`;
 
 export const SEARCH = gql`
   query searchUser($query: String!) {
@@ -60,7 +65,12 @@ const SearchPresenter = ({ query, shouldFetch }) => {
     >
       {data === undefined && !loading && (
         <View
-          style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            flex: 1,
+            backgroundColor: '#F8F8F8'
+          }}
         >
           <Text>검색해주세요</Text>
           <Text>검색조건:이름 or 휴대전화 or 이메일 or 회사</Text>

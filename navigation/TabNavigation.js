@@ -4,7 +4,6 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import Contacts from '../screens/Tabs/Contacts';
 import Notices from '../screens/Tabs/Notices';
-import Search from '../screens/Tabs/Search';
 import Setting from '../screens/Tabs/Setting';
 import { Image, View, Platform } from 'react-native';
 import styles from '../styles';
@@ -13,6 +12,14 @@ import NavIcon from '../components/NavIcon';
 import UserDetail from '../screens/UserDetail';
 import NoticeDetail from '../screens/NoticeDetail';
 import Prof from '../screens/Tabs/Prof';
+import Search from '../screens/Search';
+import SearchLink from '../components/SearchLink';
+import { IconButton } from 'react-native-paper';
+import styled from 'styled-components';
+
+const Text = styled.Text`
+  font-family: lotte-medium;
+`;
 
 //TabNavigator에 각 탭마다 StackNavigator효과를 주는일 customconfig에는설정들
 const stackFactory = (initialRoute, customConfig) =>
@@ -28,21 +35,55 @@ const stackFactory = (initialRoute, customConfig) =>
       UserDetail: {
         screen: UserDetail,
         navigationOptions: ({ navigation }) => ({
-          title: navigation.getParam('name'),
+          title: (
+            <Text
+              style={
+                Platform.OS === 'ios'
+                  ? { fontSize: 17, fontWeight: '700' }
+                  : { fontSize: 14, fontWeight: '700' }
+              }
+            >
+              {navigation.getParam('name')}
+            </Text>
+          ),
           headerTitleAlign: 'center' | 'left'
         })
       },
       NoticeDetail: {
         screen: NoticeDetail,
-        navigationOptions: ({ navigation }) => ({
-          title:
-            navigation.getParam('title').length > 15
-              ? navigation.getParam('title').substring(0, 15 - 3) + '...'
-              : navigation.getParam('title'),
+        navigationOptions: () => ({
+          headerTitle: () => (
+            <Text
+              style={
+                Platform.OS === 'ios'
+                  ? { fontSize: 17, fontWeight: '700' }
+                  : { fontSize: 14, fontWeight: '700' }
+              }
+            >
+              공지사항
+            </Text>
+          ),
           headerTitleAlign: 'center' | 'left'
+        })
+      },
+      Search: {
+        screen: Search,
+        navigationOptions: ({ navigation }) => ({
+          headerLeft: () => (
+            <IconButton
+              icon="chevron-left"
+              color="#E0E0E0"
+              size={40}
+              onPress={() => navigation.goBack(null)}
+            />
+          ),
+          headerStyle: {
+            backgroundColor: '#F0F0F0'
+          }
         })
       }
     },
+
     {
       defaultNavigationOptions: {
         headerBackTitle: null,
@@ -56,50 +97,55 @@ const stackFactory = (initialRoute, customConfig) =>
 const TabNavigation = createMaterialTopTabNavigator(
   {
     Notice: {
-      screen: stackFactory(Notices, { title: '공지사항' }),
+      screen: stackFactory(Notices, {
+        headerTitle: () => (
+          <Text
+            style={
+              Platform.OS === 'ios'
+                ? { fontSize: 17, fontWeight: '700' }
+                : { fontSize: 14, fontWeight: '700' }
+            }
+          >
+            공지사항
+          </Text>
+        )
+      }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <NavIcon
             focused={focused}
             name={Platform.OS === 'ios' ? 'newspaper-o' : 'newspaper-o'}
           />
-        )
+        ),
+        tabBarLabel: '공지사항'
       }
     },
-    Search: {
-      screen: stackFactory(Search, {
-        title: '검색'
-      }),
-      navigationOptions: {
-        tabBarIcon: ({ focused }) => (
-          <NavIcon
-            focused={focused}
-            name={Platform.OS === 'ios' ? 'search' : 'search'}
-          />
-        )
-      }
-    },
+
     Contacts: {
       screen: stackFactory(Contacts, {
         headerTitle: () => (
           <View>
             <Image
               style={{
-                height: 50
+                height: 45
               }}
               resizeMode="contain"
               source={require('../assets/HYU2.png')}
             />
           </View>
-        )
+        ),
+        headerRight: () => <SearchLink />
       }),
+
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <NavIcon
+            size={21}
             focused={focused}
             name={Platform.OS === 'ios' ? 'address-card' : 'address-card'}
           />
-        )
+        ),
+        tabBarLabel: '연락처'
       }
     },
     Prof: {
@@ -110,41 +156,76 @@ const TabNavigation = createMaterialTopTabNavigator(
             focused={focused}
             name={Platform.OS === 'ios' ? 'graduation-cap' : 'graduation-cap'}
           />
-        )
+        ),
+        tabBarLabel: '교수/국장'
       }
     },
     Profile: {
       screen: stackFactory(Setting, {
-        title: '설정',
-        headerTitle: '내 정보'
+        headerTitle: () => (
+          <Text
+            style={
+              Platform.OS === 'ios'
+                ? { fontSize: 17, fontWeight: '700' }
+                : { fontSize: 14, fontWeight: '700' }
+            }
+          >
+            내 정보
+          </Text>
+        )
       }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <NavIcon
+            size={22}
             focused={focused}
-            name={Platform.OS === 'ios' ? 'user' : 'user'}
+            name={Platform.OS === 'ios' ? 'user-circle' : 'user-circle'}
           />
-        )
+        ),
+        tabBarLabel: '내정보'
       }
     }
   },
-  {
-    initialRouteName: 'Notice',
-    tabBarPosition: 'bottom',
-    tabBarOptions: {
-      indicatorStyle: {
-        backgroundColor: styles.blackColor,
-        marginBottom: 20
-      },
-      style: {
-        paddingBottom: 20,
-        ...stackStyles,
-        backgroundColor: styles.hanyangColor
-      },
-      showIcon: true,
-      showLabel: false
-    }
-  }
+  Platform.OS === 'ios'
+    ? {
+        initialRouteName: 'Notice',
+        tabBarPosition: 'bottom',
+        tabBarOptions: {
+          indicatorStyle: {
+            backgroundColor: styles.blackColor,
+            marginBottom: 15
+          },
+          style: {
+            ...stackStyles,
+            backgroundColor: styles.hanyangColor,
+            paddingBottom: 5
+          },
+          showIcon: true,
+          showLabel: true,
+          labelStyle: {
+            fontSize: 13
+          }
+        }
+      }
+    : {
+        initialRouteName: 'Notice',
+        tabBarPosition: 'bottom',
+        tabBarOptions: {
+          indicatorStyle: {
+            backgroundColor: styles.blackColor,
+            marginBottom: 5
+          },
+          style: {
+            ...stackStyles,
+            backgroundColor: styles.hanyangColor
+          },
+          showIcon: true,
+          showLabel: true,
+          labelStyle: {
+            fontSize: 9
+          }
+        }
+      }
 );
 
 export default createAppContainer(TabNavigation);

@@ -13,15 +13,13 @@ import { gql } from 'apollo-boost';
 import Contact from '../../components/Contact';
 import Loader from '../../components/Loader';
 import styles from '../../styles';
-import {
-  FAB,
-  Dialog,
-  Paragraph,
-  Text,
-  Portal,
-  Button
-} from 'react-native-paper';
+import { FAB, Dialog, Paragraph, Portal, Button } from 'react-native-paper';
+import styled from 'styled-components';
 import { LinearGradient } from 'expo-linear-gradient';
+const Text = styled.Text`
+  font-family: bae-min;
+  font-size: 20px;
+`;
 const SEE_ALL_USER = gql`
   query seeAllUser(
     $limit: Int!
@@ -79,7 +77,6 @@ export default () => {
   const [addData, setAddData] = useState();
   const [footerLoading, setFooterLoading] = useState(false);
 
-  const [visible, setVisible] = useState(false);
   const scrollTop = useRef();
   const toTop = () => {
     scrollTop.current.scrollToOffset({ animated: true, offset: 0 });
@@ -97,21 +94,24 @@ export default () => {
   const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
       backgroundColor: 'white',
-      fontSize: 18,
+      fontSize: 20,
+      fontFamily: 'bae-min',
       borderWidth: 1,
-      borderColor: 'gray',
+      borderColor: styles.hanyangColor,
       borderRadius: 4,
       color: 'black',
       paddingRight: 5, // to ensure the text is never behind the icon
       textAlign: 'center'
     },
     inputAndroid: {
-      fontSize: 18,
+      fontSize: 14,
       borderWidth: 1,
-      borderColor: 'gray',
-      borderRadius: 4,
+      borderColor: styles.hanyangColor,
+      fontFamily: 'bae-min',
+      borderRadius: 5,
       color: 'black',
-      paddingRight: 5,
+      paddingLeft: 2,
+      paddingRight: 3,
       textAlign: 'center'
     }
   });
@@ -185,7 +185,6 @@ export default () => {
   const refresh = () => {
     try {
       setRefreshing(true);
-
       getInitialData();
       setPage(1);
     } catch (e) {
@@ -236,9 +235,6 @@ export default () => {
   useEffect(() => {
     setLoading(true);
     refresh();
-    return () => {
-      console.log('Contacts');
-    };
   }, [majorQuery, generationQuery]);
 
   if (onloading || addData === undefined) {
@@ -248,24 +244,41 @@ export default () => {
     return (
       <View style={{ backgroundColor: 'white', flex: 1 }}>
         <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
+          style={
+            Platform.OS === 'ios'
+              ? {
+                  marginTop: 3,
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }
+              : {
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }
+          }
         >
           <Text
-            style={{
-              fontSize: 16,
-              paddingHorizontal: 10,
-              fontWeight: '600'
-            }}
+            style={
+              Platform.OS === 'ios'
+                ? {
+                    fontSize: 18,
+                    paddingHorizontal: 10,
+                    fontWeight: '600'
+                  }
+                : {
+                    fontSize: 13,
+                    paddingHorizontal: 10,
+                    fontWeight: '600'
+                  }
+            }
           >
             기수:
           </Text>
           <RNPickerSelect
             placeholder={{
-              label: '선택없음',
+              label: '전체선택',
               value: null
             }}
             Icon={() => null}
@@ -279,18 +292,26 @@ export default () => {
             useNativeAndroidPickerStyle={false}
           />
           <Text
-            style={{
-              fontSize: 16,
-              paddingHorizontal: 10,
-              fontWeight: '600'
-            }}
+            style={
+              Platform.OS === 'ios'
+                ? {
+                    fontSize: 18,
+                    paddingHorizontal: 10,
+                    fontWeight: '600'
+                  }
+                : {
+                    fontSize: 13,
+                    paddingHorizontal: 10,
+                    fontWeight: '600'
+                  }
+            }
           >
             전공:
           </Text>
 
           <RNPickerSelect
             placeholder={{
-              label: '선택없음',
+              label: '전체선택',
               value: null
             }}
             style={{ ...pickerSelectStyles }}
@@ -308,7 +329,17 @@ export default () => {
         {loading ? (
           <Loader />
         ) : users === 0 ? (
-          <Text>해당 인원이 없습니다.</Text>
+          <View
+            style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
+          >
+            <Text
+              style={
+                Platform.OS === 'ios' ? { fontSize: 20 } : { fontSize: 16 }
+              }
+            >
+              해당 인원이 없습니다.
+            </Text>
+          </View>
         ) : (
           <FlatList
             ref={scrollTop}

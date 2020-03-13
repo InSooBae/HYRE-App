@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
+import * as ContactS from 'expo-contacts';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { callNumber, inputPhoneNumber } from '../components/PhoneCall';
-import * as Contacts from 'expo-contacts';
 import { withNavigation } from 'react-navigation';
 import styles from '../styles';
 import {
   Card,
-  Text,
   Avatar,
   Portal,
   Dialog,
   Paragraph,
   Button
 } from 'react-native-paper';
-import { View, Platform } from 'react-native';
-import { Toast } from 'native-base';
-
+import { View, Platform, PermissionsAndroid } from 'react-native';
+import { Toast, Text } from 'native-base';
+import styled from 'styled-components';
+import Contacts from 'react-native-contacts';
 const Contact = ({
   id,
   __typename,
@@ -37,42 +36,54 @@ const Contact = ({
   const [visible, setVisible] = useState(false);
   const [buttonLoading, setButtonLoading] = useState(false);
   const saveContact = async () => {
-    setButtonLoading(true);
+    if (Platform.OS === 'ios') {
+      const { status } = await ContactS.requestPermissionsAsync();
+      if (status === 'granted') {
+        const contact = {
+          [ContactS.Fields.FirstName]: name,
+          [ContactS.Fields.PhoneNumbers]: [
+            {
+              label: '전화번호',
+              number: !cellPhone ? '' : inputPhoneNumber(cellPhone)
+            }
+          ],
+          [ContactS.Fields.Emails]: [
+            {
+              email: !email ? '' : email,
+              isPrimary: true,
+              id: '2',
+              label: '이메일'
+            }
+          ],
+          [ContactS.Fields.Company]: !company ? '' : company
+        };
+        try {
+          const contactId = await ContactS.addContactAsync(contact);
+          console.log('contact-ID:', contactId);
+          if (contactId) {
+            Toast.show({
+              text: `연락처가 저장되었습니다.`,
+              textStyle: { textAlign: 'center' },
+              buttonText: 'Okay',
+              type: 'success',
+              position: 'top',
+              duration: 3000,
+              style: { marginTop: 70 }
+            });
+          } else {
+            Toast.show({
+              text: `연락처가 저장실패 하였습니다.`,
+              textStyle: { textAlign: 'center' },
+              buttonText: 'Okay',
+              type: 'danger',
+              position: 'top',
+              duration: 3000,
+              style: { marginTop: 70 }
+            });
+          }
+        } catch (err) {
+          console.log(err);
 
-    const { status } = await Contacts.requestPermissionsAsync();
-    if (status === 'granted') {
-      const contact = {
-        [Contacts.Fields.FirstName]: name,
-        [Contacts.Fields.PhoneNumbers]: [
-          {
-            label: '전화번호',
-            number: inputPhoneNumber(cellPhone)
-          }
-        ],
-        [Contacts.Fields.Emails]: [
-          {
-            email: email,
-            isPrimary: true,
-            id: '2',
-            label: '이메일'
-          }
-        ],
-        [Contacts.Fields.Company]: company === null ? '' : company
-      };
-      try {
-        const contactId = await Contacts.addContactAsync(contact);
-        console.log('contact-ID:', contactId);
-        if (contactId) {
-          Toast.show({
-            text: `연락처가 저장되었습니다.`,
-            textStyle: { textAlign: 'center' },
-            buttonText: 'Okay',
-            type: 'success',
-            position: 'top',
-            duration: 3000,
-            style: { marginTop: 70 }
-          });
-        } else {
           Toast.show({
             text: `연락처가 저장실패 하였습니다.`,
             textStyle: { textAlign: 'center' },
@@ -83,11 +94,9 @@ const Contact = ({
             style: { marginTop: 70 }
           });
         }
-      } catch (err) {
-        console.log(err);
-
+      } else {
         Toast.show({
-          text: `연락처가 저장실패 하였습니다.`,
+          text: `연락처 권한설정을 해주세요!`,
           textStyle: { textAlign: 'center' },
           buttonText: 'Okay',
           type: 'danger',
@@ -95,22 +104,87 @@ const Contact = ({
           duration: 3000,
           style: { marginTop: 70 }
         });
-      } finally {
       }
+      setButtonLoading(false);
+      setVisible(false);
     } else {
-      Toast.show({
-        text: `연락처 권한설정을 해주세요!`,
-        textStyle: { textAlign: 'center' },
-        buttonText: 'Okay',
-        type: 'danger',
-        position: 'top',
-        duration: 3000,
-        style: { marginTop: 70 }
-      });
+      const granted = await PermissionsAndroid.requestMultiple(
+        [
+          PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+          PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS
+        ],
+        {
+          title: 'Contacts',
+          message: 'This app would like to view your contacts.',
+          buttonPositive: 'Please accept bare mortal'
+        }
+      );
+      setButtonLoading(true);
+      if (
+        granted['android.permission.READ_CONTACTS'] ===
+          PermissionsAndroid.RESULTS.GRANTED &&
+        granted['android.permission.WRITE_CONTACTS'] ===
+          PermissionsAndroid.RESULTS.GRANTED
+      ) {
+        const contact = {
+          givenName: name,
+          phoneNumbers: [
+            {
+              label: '전화번호',
+              number: !cellPhone ? '' : inputPhoneNumber(cellPhone)
+            }
+          ],
+          emailAddresses: [
+            {
+              label: '이메일',
+              email: email === null ? '' : email
+            }
+          ],
+          company: company === null ? '' : company
+        };
+        setButtonLoading(true);
+        Contacts.addContact(contact, err => {
+          if (err) {
+            Toast.show({
+              text: '연락처가 저장실패 하였습니다.',
+              textStyle: { textAlign: 'center' },
+              buttonText: 'Okay',
+              type: 'danger',
+              position: 'top',
+              duration: 3000,
+              style: { marginTop: 70 }
+            });
+            console.log(err);
+            throw err;
+          }
+          if (!err) {
+            Toast.show({
+              text: '연락처가 저장되었습니다.',
+              textStyle: { textAlign: 'center' },
+              buttonText: 'Okay',
+              type: 'success',
+              position: 'top',
+              duration: 3000,
+              style: { marginTop: 70 }
+            });
+          }
+        });
+      } else {
+        Toast.show({
+          text: '권한 설정을 해주세요.',
+          textStyle: { textAlign: 'center' },
+          buttonText: 'Okay',
+          type: 'danger',
+          position: 'top',
+          duration: 3000,
+          style: { marginTop: 70 }
+        });
+      }
+      setButtonLoading(false);
+      setVisible(false);
     }
-    setButtonLoading(false);
-    setVisible(false);
   };
+
   return (
     <Card
       onPress={() =>
@@ -177,16 +251,15 @@ const Contact = ({
             style={
               Platform.OS === 'ios'
                 ? {
-                    fontSize: 25,
-                    color: '#0000FF',
+                    fontSize: 20,
+                    color: styles.hanyangColor,
                     fontWeight: '500',
                     marginTop: 3,
                     marginBottom: 3
                   }
                 : {
-                    fontSize: 19,
-                    color: '#0000FF',
-                    fontWeight: '600'
+                    fontSize: 17,
+                    color: styles.hanyangColor
                   }
             }
           >
@@ -201,17 +274,14 @@ const Contact = ({
               style={
                 Platform.OS === 'ios'
                   ? {
-                      fontSize: 21,
-                      color: '#0099ff',
                       marginBottom: 5
                     }
                   : {
-                      fontSize: 17,
-                      color: '#0099ff'
+                      fontSize: 16
                     }
               }
             >
-              {inputPhoneNumber(cellPhone)}
+              {!cellPhone ? null : inputPhoneNumber(cellPhone)}
             </Text>
           </TouchableOpacity>
           <View>
@@ -220,10 +290,9 @@ const Contact = ({
                 Platform.OS === 'ios'
                   ? {
                       fontSize: 17,
-                      color: styles.hanyangColor,
                       marginBottom: 5
                     }
-                  : { color: styles.hanyangColor, marginBottom: 5 }
+                  : { fontSize: 14, marginBottom: 5 }
               }
             >
               {company}
@@ -237,7 +306,15 @@ const Contact = ({
                 alignItems: 'flex-end'
               }}
             >
-              {directorTitle === '' ? null : (
+              {!directorTitle ? (
+                <Text
+                  style={
+                    Platform.OS === 'ios'
+                      ? { fontSize: 16, marginBottom: 3, marginRight: 13 }
+                      : { fontSize: 14, marginBottom: 3, marginRight: 13 }
+                  }
+                >{`${generation}기`}</Text>
+              ) : (
                 <Text
                   style={
                     Platform.OS === 'ios'
@@ -250,34 +327,28 @@ const Contact = ({
                       : {
                           marginRight: 13,
                           marginBottom: 3,
+                          fontSize: 14,
                           color: `#${directorGen}C${directorGen}43C`
                         }
                   }
-                >{`${directorGen}기 ${directorTitle}`}</Text>
+                >{`${generation}기 / ${directorGen}대 ${directorTitle}`}</Text>
               )}
+
               <Text
                 style={
                   Platform.OS === 'ios'
                     ? { fontSize: 16, marginBottom: 3, marginRight: 13 }
-                    : { marginBottom: 3, marginRight: 13 }
+                    : { fontSize: 14, marginBottom: 3, marginRight: 13 }
                 }
-              >{`${generation}기`}</Text>
-              <Text
-                style={
-                  Platform.OS === 'ios'
-                    ? { fontSize: 16, marginBottom: 3, marginRight: 13 }
-                    : { marginBottom: 3, marginRight: 13 }
-                }
-              >{`${major}과`}</Text>
+              >{`${major}`}</Text>
               <Text
                 style={
                   Platform.OS === 'ios'
                     ? {
                         fontSize: 16,
-                        color: styles.hanyangColor,
                         marginRight: 17
                       }
-                    : { color: styles.hanyangColor, marginRight: 17 }
+                    : { fontSize: 14, marginRight: 17 }
                 }
               >
                 {position}
@@ -291,157 +362,42 @@ const Contact = ({
             >
               <Text
                 style={{
-                  color: styles.hanyangColor,
+                  fontSize: 14,
                   marginBottom: 5,
-                  marginRight: 5
+                  marginRight: 10
                 }}
               >
                 {position}
               </Text>
+
               <Text
                 style={{
-                  color: styles.hanyangColor,
+                  fontSize: 14,
                   marginBottom: 5,
-                  marginRight: 5
+                  marginRight: 10
                 }}
               >
                 {team}
               </Text>
+              <Text
+                style={
+                  Platform.OS === 'ios'
+                    ? { fontSize: 16, marginBottom: 3, marginRight: 13 }
+                    : { fontSize: 14, marginBottom: 3, marginRight: 13 }
+                }
+              >{`${major}`}</Text>
             </View>
           )}
         </View>
       </View>
     </Card>
-    // <Card
-    //   transparent
-    //   style={{
-    //     borderColor: styles.hanyangColor
-    //   }}
-    // >
-    //   <TouchableOpacity
-
-    //   >
-    //     <CardItem
-    //       cardBody
-    //       style={{
-    //         borderColor: styles.hanyangColor,
-    //         borderTopRightRadius: 7,
-    //         borderTopLeftRadius: 33,
-    //         borderBottomRightRadius: 33,
-    //         borderBottomLeftRadius: 7,
-    //         borderWidth: 0.5
-    //       }}
-    //     >
-    //       <Left style={{ height: constants.height / 8 }}>
-    //         <Thumbnail
-    //           source={
-    //             photo === '' ? require('../assets/HYU1.png') : { uri: photo }
-    //           }
-    //           style={{
-    //             width: 100,
-    //             height: 100,
-    //             borderRadius: (100 + 100) / 2
-    //           }}
-    //         />
-
-    //         <Body>
-    //           <Text
-    //             style={{
-    //               fontSize: 21,
-    //               color: '#0000FF',
-    //               fontWeight: '500',
-    //               marginBottom: 3
-    //             }}
-    //           >
-    //             {name}
-    //           </Text>
-
-    //           <TouchableOpacity
-    //             style={{ flexDirection: 'row' }}
-    //             onPress={() => callNumber(cellPhone)}
-    //           >
-    //             <Text
-    //               style={{
-    //                 fontSize: 19,
-    //                 color: '#0099ff',
-    //                 marginBottom: 5,
-    //                 flex: 1,
-    //                 flexWrap: 'wrap'
-    //               }}
-    //             >
-    //               {inputPhoneNumber(cellPhone)}
-    //             </Text>
-    //           </TouchableOpacity>
-    //           <View>
-    //             <Text style={{ color: styles.hanyangColor, marginBottom: 5 }}>
-    //               {company}
-    //             </Text>
-    //           </View>
-    //         </Body>
-    //         <Right>
-    //           {__typename === 'User' ? (
-    //             <View
-    //               style={{
-    //                 alignItems: 'flex-end'
-    //               }}
-    //             >
-    //               {directorTitle === '' ? null : (
-    //                 <Text
-    //                   style={{
-    //                     marginRight: 13,
-    //                     marginBottom: 3,
-    //                     color: `#${directorGen}C${directorGen}43C`
-    //                   }}
-    //                 >{`${directorGen}기 ${directorTitle}`}</Text>
-    //               )}
-    //               <Text
-    //                 style={{ marginBottom: 3, marginRight: 13 }}
-    //               >{`${generation}기`}</Text>
-    //               <Text
-    //                 style={{ marginBottom: 3, marginRight: 13 }}
-    //               >{`${major}과`}</Text>
-    //               <Text style={{ color: styles.hanyangColor, marginRight: 17 }}>
-    //                 {position}
-    //               </Text>
-    //             </View>
-    //           ) : (
-    //             <View
-    //               style={{
-    //                 alignItems: 'flex-end'
-    //               }}
-    //             >
-    //               <Text
-    //                 style={{
-    //                   color: styles.hanyangColor,
-    //                   marginBottom: 5,
-    //                   marginRight: 5
-    //                 }}
-    //               >
-    //                 {position}
-    //               </Text>
-    //               <Text
-    //                 style={{
-    //                   color: styles.hanyangColor,
-    //                   marginBottom: 5,
-    //                   marginRight: 5
-    //                 }}
-    //               >
-    //                 {team}
-    //               </Text>
-    //             </View>
-    //           )}
-    //         </Right>
-    //       </Left>
-    //     </CardItem>
-    //   </TouchableOpacity>
-    // </Card>
   );
 };
 
 Contact.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  cellPhone: PropTypes.string.isRequired,
+  cellPhone: PropTypes.string,
   company: PropTypes.string,
   team: PropTypes.string,
   position: PropTypes.string,

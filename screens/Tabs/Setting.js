@@ -1,20 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Icon, Toast } from 'native-base';
+import { Toast, Left, Body } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import constants from '../../constants';
-import {
-  Platform,
-  KeyboardAvoidingView,
-  Keyboard,
-  View,
-  Alert,
-  StyleSheet
-} from 'react-native';
+import { Keyboard, View, Alert, StyleSheet, Platform } from 'react-native';
 import {
   TextInput,
   HelperText,
   Avatar,
-  Text,
   Card,
   Button
 } from 'react-native-paper';
@@ -34,7 +26,10 @@ import {
 import { useLogOut } from '../../AuthContext';
 
 import InputScrollView from 'react-native-input-scroll-view';
-
+import styled from 'styled-components';
+const Text = styled.Text`
+  font-family: lotte-medium;
+`;
 const SEE_ME = gql`
   query seeMe {
     seeMe {
@@ -113,6 +108,7 @@ export default () => {
   const ref_input5 = useRef();
   const ref_input6 = useRef();
   const ref_input7 = useRef();
+  const [effect, setEffect] = useState(false);
 
   const logOut = useLogOut();
   const [edit, setEdit] = useState(false);
@@ -296,46 +292,48 @@ export default () => {
     }
   };
   const setAll = () => {
-    if (!loading) {
-      setName(data.seeMe.name);
-      setBirth(new Date(data.seeMe.birthday).format('yyyy-MM-dd'));
-      setCellPhone(data.seeMe.cellPhone);
-      setCompany(data.seeMe.company);
-      setWorkAddress(data.seeMe.workAddress);
-      setCompanyDesc(data.seeMe.companyDesc);
-      setTeam(data.seeMe.team);
-      setPosition(data.seeMe.position);
-      setWorkPhone(data.seeMe.workPhone);
-      setEmail(data.seeMe.email);
-      setGenList(
-        data.seeAllGradYear.map(e => {
-          return {
-            key: e.id,
-            label: `${e.generation}기`,
-            value: e.generation
-          };
-        })
-      );
-      setMajList(
-        data.seeAllMajor.map(e => {
-          return {
-            key: e.id,
-            label: e.name,
-            value: e.name
-          };
-        })
-      );
-      setPhoto(data.seeMe.photo);
-      setMajor(data.seeMe.major.name);
-      setGeneration(data.seeMe.graduatedYear.generation);
-      setSelectedImage('');
-    }
+    setName(data.seeMe.name);
+    setBirth(new Date(data.seeMe.birthday).format('yyyy-MM-dd'));
+    setCellPhone(data.seeMe.cellPhone);
+    setCompany(data.seeMe.company);
+    setWorkAddress(data.seeMe.workAddress);
+    setCompanyDesc(data.seeMe.companyDesc);
+    setTeam(data.seeMe.team);
+    setPosition(data.seeMe.position);
+    setWorkPhone(data.seeMe.workPhone);
+    setEmail(data.seeMe.email);
+    setGenList(
+      data.seeAllGradYear.map(e => {
+        return {
+          key: e.id,
+          label: `${e.generation}기`,
+          value: e.generation
+        };
+      })
+    );
+    setMajList(
+      data.seeAllMajor.map(e => {
+        return {
+          key: e.id,
+          label: e.name,
+          value: e.name
+        };
+      })
+    );
+    setPhoto(data.seeMe.photo);
+    setMajor(data.seeMe.major.name);
+    setGeneration(data.seeMe.graduatedYear.generation);
+    setSelectedImage('');
   };
 
   useEffect(() => {
-    setAll();
+    if (!loading) {
+      setAll();
+    }
     return () => {
-      console.log('Profile');
+      if (!loading) {
+        setAll();
+      }
     };
   }, [data]);
   const showDatePicker = () => {
@@ -446,12 +444,20 @@ export default () => {
                       }}
                     >
                       <Text
-                        style={{
-                          color: 'black',
-                          textAlign: 'center',
-                          fontWeight: '700',
-                          marginRight: 10
-                        }}
+                        style={
+                          Platform.OS === 'ios'
+                            ? {
+                                color: 'black',
+                                textAlign: 'center',
+                                fontWeight: '700',
+                                fontSize: 20
+                              }
+                            : {
+                                color: 'black',
+                                textAlign: 'center',
+                                fontSize: 16
+                              }
+                        }
                       >
                         Choose Image
                       </Text>
@@ -468,8 +474,10 @@ export default () => {
                         flex: 1
                       }}
                     >
-                      <Text>이미지 클릭시 변경</Text>
-                      <Text note>확인시 변경사항 적용</Text>
+                      <Text style={{ marginBottom: 10 }}>
+                        이미지 클릭시 변경
+                      </Text>
+                      <Text>확인시 변경사항 적용</Text>
                     </View>
                     <View
                       style={{
@@ -484,15 +492,33 @@ export default () => {
                           setAll();
                           setEdit(!edit);
                         }}
+                        color={styles.hanyangColor}
                       >
-                        <Text style={{ fontWeight: '600' }}>취소</Text>
+                        <Text
+                          style={
+                            Platform.OS === 'ios'
+                              ? { fontWeight: '700', fontSize: 17 }
+                              : { fontWeight: '700' }
+                          }
+                        >
+                          취소
+                        </Text>
                       </Button>
                       <Button
                         disabled={isloading}
                         loading={isloading}
                         onPress={handleSignUp}
+                        color={styles.hanyangColor}
                       >
-                        <Text style={{ fontWeight: '600' }}>확인</Text>
+                        <Text
+                          style={
+                            Platform.OS === 'ios'
+                              ? { fontWeight: '700', fontSize: 17 }
+                              : { fontWeight: '700' }
+                          }
+                        >
+                          확인
+                        </Text>
                       </Button>
                     </View>
                   </>
@@ -506,30 +532,43 @@ export default () => {
                   >
                     <Button
                       style={{ marginBottom: 10 }}
-                      bordered
-                      rounded
+                      color={styles.hanyangColor}
                       onPress={() => setEdit(!edit)}
                     >
-                      <Text style={{ fontWeight: '600' }}>EDIT</Text>
+                      <Text
+                        style={
+                          Platform.OS === 'ios'
+                            ? { fontWeight: '700', fontSize: 17 }
+                            : { fontWeight: '700' }
+                        }
+                      >
+                        EDIT
+                      </Text>
                     </Button>
                     <Button
-                      bordered
-                      rounded
-                      danger
+                      color={styles.hanyangColor}
                       onPress={() => {
                         Toast.show({
-                          text: `로그아웃 하셨습니다.`,
+                          text: '로그아웃 하셨습니다.',
                           textStyle: { textAlign: 'center' },
                           buttonText: 'Okay',
                           type: 'success',
                           position: 'top',
-                          duration: 3000,
+                          duration: 5000,
                           style: { marginTop: 70 }
                         });
                         logOut();
                       }}
                     >
-                      <Text style={{ fontWeight: '600' }}>LOGOUT</Text>
+                      <Text
+                        style={
+                          Platform.OS === 'ios'
+                            ? { fontWeight: '700', fontSize: 17 }
+                            : { fontWeight: '700' }
+                        }
+                      >
+                        LOGOUT
+                      </Text>
                     </Button>
                   </View>
                 )}
@@ -552,8 +591,23 @@ export default () => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon name="person" style={{ color: '#5592ff' }} />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>이름</Text>
+                <Avatar.Icon
+                  icon="account"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
+                />
+                <Text
+                  style={
+                    Platform.OS === 'ios'
+                      ? Platform.OS === 'ios'
+                        ? { fontWeight: '700', marginLeft: 5, fontSize: 15 }
+                        : { marginLeft: 5 }
+                      : { marginLeft: 5 }
+                  }
+                >
+                  이름
+                </Text>
               </View>
               <View
                 style={{
@@ -604,13 +658,24 @@ export default () => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  type="MaterialIcons"
-                  name="cake"
-                  style={{ color: '#5592ff' }}
+                <Avatar.Icon
+                  icon="cake"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
                 />
 
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>생일</Text>
+                <Text
+                  style={
+                    Platform.OS === 'ios'
+                      ? Platform.OS === 'ios'
+                        ? { fontWeight: '700', marginLeft: 5, fontSize: 15 }
+                        : { marginLeft: 5 }
+                      : { marginLeft: 5 }
+                  }
+                >
+                  생일
+                </Text>
               </View>
               <View
                 style={{ flexDirection: 'column', justifyContent: 'center' }}
@@ -682,12 +747,19 @@ export default () => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  type="FontAwesome"
-                  name="phone"
-                  style={{ color: '#5592ff' }}
+                <Avatar.Icon
+                  icon="phone"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
                 />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                <Text
+                  style={
+                    Platform.OS === 'ios'
+                      ? { fontWeight: '700', marginLeft: 5, fontSize: 15 }
+                      : { marginLeft: 5 }
+                  }
+                >
                   휴대전화
                 </Text>
               </View>
@@ -740,12 +812,21 @@ export default () => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  type="FontAwesome"
-                  name="envelope"
-                  style={{ color: '#5592ff' }}
+                <Avatar.Icon
+                  icon="email"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
                 />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>이메일</Text>
+                <Text
+                  style={
+                    Platform.OS === 'ios'
+                      ? { fontWeight: '700', marginLeft: 5, fontSize: 15 }
+                      : { marginLeft: 5 }
+                  }
+                >
+                  이메일
+                </Text>
               </View>
               <View
                 style={{ flexDirection: 'column', justifyContent: 'center' }}
@@ -803,12 +884,21 @@ export default () => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  type="FontAwesome"
-                  name="building-o"
-                  style={{ color: '#5592ff' }}
+                <Avatar.Icon
+                  icon="office-building"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
                 />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>회사명</Text>
+                <Text
+                  style={
+                    Platform.OS === 'ios'
+                      ? { fontWeight: '700', marginLeft: 5, fontSize: 15 }
+                      : { marginLeft: 5 }
+                  }
+                >
+                  회사명
+                </Text>
               </View>
               <View>
                 <TextInput
@@ -850,12 +940,19 @@ export default () => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  type="FontAwesome"
-                  name="building"
-                  style={{ color: '#5592ff' }}
+                <Avatar.Icon
+                  icon="domain"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
                 />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                <Text
+                  style={
+                    Platform.OS === 'ios'
+                      ? { fontWeight: '700', marginLeft: 5, fontSize: 15 }
+                      : { marginLeft: 5 }
+                  }
+                >
                   회사주소
                 </Text>
               </View>
@@ -899,12 +996,19 @@ export default () => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  type="Entypo"
-                  name="landline"
-                  style={{ color: '#5592ff' }}
+                <Avatar.Icon
+                  icon="deskphone"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
                 />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                <Text
+                  style={
+                    Platform.OS === 'ios'
+                      ? { fontWeight: '700', marginLeft: 5, fontSize: 15 }
+                      : { marginLeft: 5 }
+                  }
+                >
                   회사전화
                 </Text>
               </View>
@@ -949,12 +1053,21 @@ export default () => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  type="Entypo"
-                  name="archive"
-                  style={{ color: '#5592ff' }}
+                <Avatar.Icon
+                  icon="briefcase-account"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
                 />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>부서</Text>
+                <Text
+                  style={
+                    Platform.OS === 'ios'
+                      ? { fontWeight: '700', marginLeft: 5, fontSize: 15 }
+                      : { marginLeft: 5 }
+                  }
+                >
+                  부서
+                </Text>
               </View>
               <View>
                 <TextInput
@@ -996,8 +1109,21 @@ export default () => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon type="Entypo" name="medal" style={{ color: '#5592ff' }} />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>직책</Text>
+                <Avatar.Icon
+                  icon="medal"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
+                />
+                <Text
+                  style={
+                    Platform.OS === 'ios'
+                      ? { fontWeight: '700', marginLeft: 5, fontSize: 15 }
+                      : { marginLeft: 5 }
+                  }
+                >
+                  직책
+                </Text>
               </View>
               <View>
                 <TextInput
@@ -1038,10 +1164,29 @@ export default () => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon type="Entypo" name="star" style={{ color: '#5592ff' }} />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>전공</Text>
+                <Avatar.Icon
+                  icon="star"
+                  color="#ffffff"
+                  size={30}
+                  theme={{ colors: { primary: '#5592ff' } }}
+                />
+                <Text
+                  style={
+                    Platform.OS === 'ios'
+                      ? { fontWeight: '700', marginLeft: 5, fontSize: 15 }
+                      : { marginLeft: 5 }
+                  }
+                >
+                  전공
+                </Text>
               </View>
-              <View style={{ width: constants.width / 1.5 }}>
+              <View
+                style={{
+                  width: constants.width / 1.5,
+                  justifyContent: 'center',
+                  alignItems: 'flex-start'
+                }}
+              >
                 <RNPickerSelect
                   placeholder={{
                     label: '(전공을 선택하세요)*',
@@ -1054,13 +1199,24 @@ export default () => {
                   items={majList}
                   doneText={'확인'}
                   style={{ ...pickerSelectStyles }}
-                  Icon={() => (
-                    <Icon
-                      style={Platform.OS === 'ios' ? { fontSize: 16 } : null}
-                      type="AntDesign"
-                      name="down"
-                    />
-                  )}
+                  Icon={() =>
+                    edit && (
+                      <View
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          flex: 1
+                        }}
+                      >
+                        <Avatar.Icon
+                          icon="chevron-down"
+                          size={30}
+                          color="black"
+                          theme={{ colors: { primary: '#ffffff' } }}
+                        />
+                      </View>
+                    )
+                  }
                   useNativeAndroidPickerStyle={false}
                   disabled={!edit}
                 />
@@ -1082,16 +1238,17 @@ export default () => {
             <View
               style={{
                 flexDirection: 'row',
-
+                flex: 1,
                 alignItems: 'center',
                 justifyContent: 'space-evenly'
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  ios="ios-menu"
-                  android="md-menu"
-                  style={{ color: '#5592ff' }}
+                <Avatar.Icon
+                  icon="altimeter"
+                  size={30}
+                  color="#ffffff"
+                  theme={{ colors: { primary: '#5592ff' } }}
                 />
                 <Text
                   style={{
@@ -1102,7 +1259,13 @@ export default () => {
                   기수
                 </Text>
               </View>
-              <View style={{ width: constants.width / 1.5 }}>
+              <View
+                style={{
+                  width: constants.width / 1.5,
+                  justifyContent: 'center',
+                  alignItems: 'flex-start'
+                }}
+              >
                 <RNPickerSelect
                   placeholder={{
                     label: '(기수를 선택하세요)*'
@@ -1114,13 +1277,24 @@ export default () => {
                   value={generation}
                   items={genList}
                   doneText={'확인'}
-                  Icon={() => (
-                    <Icon
-                      style={Platform.OS === 'ios' ? { fontSize: 16 } : null}
-                      type="AntDesign"
-                      name="down"
-                    />
-                  )}
+                  Icon={() =>
+                    edit && (
+                      <View
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          flex: 1
+                        }}
+                      >
+                        <Avatar.Icon
+                          icon="chevron-down"
+                          size={30}
+                          color="black"
+                          theme={{ colors: { primary: '#ffffff' } }}
+                        />
+                      </View>
+                    )
+                  }
                   useNativeAndroidPickerStyle={false}
                   disabled={!edit}
                 />
@@ -1136,7 +1310,7 @@ export default () => {
 
         {edit ? (
           <>
-            <Card theme={{ roundness: 2 }}>
+            <Card style={{ marginTop: 1 }} theme={{ roundness: 2 }}>
               <Card.Content>
                 <View
                   style={{
@@ -1148,18 +1322,17 @@ export default () => {
                   }}
                 >
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Icon
-                      type="Entypo"
-                      name="suitcase"
-                      style={{ color: '#5592ff' }}
+                    <Avatar.Icon
+                      icon="briefcase-edit"
+                      size={30}
+                      color="#ffffff"
+                      theme={{ colors: { primary: '#5592ff' } }}
                     />
-                    <Text style={{ fontWeight: '700', marginLeft: 5 }}>
-                      설명
-                    </Text>
+                    <Text style={{ marginLeft: 5 }}>설명</Text>
                   </View>
                   <View
                     style={{
-                      width: constants.width / 1.5,
+                      width: constants.width / 1.4,
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                       alignItems: 'center'
@@ -1169,10 +1342,15 @@ export default () => {
                     <TouchableOpacity
                       onPress={() => setCompanyDesc(companyDesc.concat(''))}
                     >
-                      <Icon
-                        type="AntDesign"
-                        name="pluscircle"
-                        style={{ color: '#32CD32', fontSize: 23 }}
+                      <Avatar.Icon
+                        icon="plus-circle"
+                        color="#32CD32"
+                        size={45}
+                        theme={{
+                          colors: {
+                            primary: '#ffffff'
+                          }
+                        }}
                       />
                     </TouchableOpacity>
                   </View>
@@ -1199,10 +1377,11 @@ export default () => {
                           flex: 1
                         }}
                       >
-                        <Icon
-                          type="MaterialCommunityIcons"
-                          name="circle-small"
-                          style={{ color: '#5592ff' }}
+                        <Avatar.Icon
+                          icon="checkbox-multiple-marked-circle"
+                          color="#5592ff"
+                          size={30}
+                          theme={{ colors: { primary: '#ffffff' } }}
                         />
                         <View
                           style={{
@@ -1247,12 +1426,14 @@ export default () => {
                               )
                             }
                           >
-                            <Icon
-                              type="AntDesign"
-                              name="minuscircle"
-                              style={{
-                                color: styles.redColor,
-                                fontSize: 23
+                            <Avatar.Icon
+                              icon="minus-circle"
+                              color={styles.redColor}
+                              size={45}
+                              theme={{
+                                colors: {
+                                  primary: '#ffffff'
+                                }
                               }}
                             />
                           </TouchableOpacity>
@@ -1265,9 +1446,9 @@ export default () => {
           </>
         ) : (
           <>
-            <Card style={{}} theme={{ roundness: 2 }}>
+            <Card style={{ marginTop: 1 }} theme={{ roundness: 2 }}>
               <Card.Content>
-                <View
+                <Left
                   style={{
                     flexDirection: 'row',
 
@@ -1277,24 +1458,23 @@ export default () => {
                   }}
                 >
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Icon
-                      type="Entypo"
-                      name="suitcase"
-                      style={{ color: '#5592ff' }}
+                    <Avatar.Icon
+                      icon="briefcase-edit"
+                      size={30}
+                      color="#ffffff"
+                      theme={{ colors: { primary: '#5592ff' } }}
                     />
-                    <Text style={{ fontWeight: '700', marginLeft: 5 }}>
-                      설명
-                    </Text>
+                    <Text style={{ marginLeft: 5 }}>설명</Text>
                   </View>
-                  <View
+                  <Body
                     style={{
-                      width: constants.width / 1.5,
+                      width: constants.width / 1.4,
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                       alignItems: 'center'
                     }}
-                  ></View>
-                </View>
+                  ></Body>
+                </Left>
               </Card.Content>
             </Card>
             {Array.isArray(companyDesc) &&
@@ -1316,10 +1496,11 @@ export default () => {
                           flex: 1
                         }}
                       >
-                        <Icon
-                          type="MaterialCommunityIcons"
-                          name="circle-small"
-                          style={{ color: '#5592ff' }}
+                        <Avatar.Icon
+                          icon="checkbox-multiple-marked-circle"
+                          color="#5592ff"
+                          size={30}
+                          theme={{ colors: { primary: '#ffffff' } }}
                         />
                         <View
                           style={{
@@ -1362,14 +1543,14 @@ export default () => {
               })}
           </>
         )}
-        <View style={{ alignItems: 'center', marginBottom: 3, marginTop: 5 }}>
+        <View style={{ alignItems: 'center', marginBottom: 3, marginTop: 7 }}>
           <TouchableOpacity onPress={() => callNumber('01057515232')}>
             <Text style={{ color: styles.darkGreyColor, marginBottom: 5 }}>
               developer H.P : 010-5751-5232
             </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => linkEmail('qospwmf@gmail.com')}>
-            <Text style={{ color: styles.darkGreyColor, marginBottom: 5 }}>
+            <Text style={{ color: styles.darkGreyColor, marginBottom: 7 }}>
               email : qospwmf@gmail.com
             </Text>
           </TouchableOpacity>

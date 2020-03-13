@@ -3,35 +3,54 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import constants from '../constants';
 import styles from '../styles';
-import { Header, Item, Icon, Input, Button, Text } from 'native-base';
-import { Platform, View } from 'react-native';
-import { Searchbar } from 'react-native-paper';
+import { TextInput } from 'react-native';
 
 const SearchBar = ({ onChange, value, onSubmit }) => (
-  <Searchbar
-    sel
-    selectionColor={styles.hanyangColor}
+  <TextInput
+    selectionColor={'#696969'}
     style={{
-      width: constants.width,
-      backgroundColor: styles.greyColor,
-      borderColor: styles.hanyangColor,
-      borderWidth: 1
+      marginLeft: 10,
+      width: constants.width - 100,
+      height: 40,
+      backgroundColor: '#F0F0F0',
+      borderRadius: 5,
+      textAlign: 'left',
+      fontSize: 21,
+      color: '#696969'
     }}
-    theme={{
-      colors: {
-        primary: styles.redColor,
-        text: styles.hanyangColor
-      },
-      roundness: 30
-    }}
-    placeholder="Search"
     returnKeyType="search"
     onChangeText={onChange}
-    onSubmitEditing={onSubmit}
+    onEndEditing={onSubmit}
     value={value}
-    autoCorrect={false}
     autoCapitalize="none"
+    autoCorrect={false}
+    placeholder={'이름,회사명 등 검색'}
+    placeholderTextColor={styles.darkGreyColor}
+    autoFocus={true}
   />
+  // <Searchbar
+  //   selectionColor={styles.hanyangColor}
+  //   style={{
+  //     width: constants.width / 1.1,
+  //     backgroundColor: styles.greyColor,
+  //     borderColor: styles.hanyangColor,
+  //     borderWidth: 1
+  //   }}
+  //   theme={{
+  //     colors: {
+  //       primary: styles.redColor,
+  //       text: styles.hanyangColor
+  //     },
+  //     roundness: 30
+  //   }}
+  //   placeholder="Search"
+  //   returnKeyType="search"
+  //   onChangeText={onChange}
+  //   onSubmitEditing={onSubmit}
+  //   value={value}
+  //   autoCorrect={false}
+  //   autoCapitalize="none"
+  // />
 );
 
 SearchBar.propTypes = {

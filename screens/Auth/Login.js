@@ -17,7 +17,6 @@ import constants from '../../constants';
 import { Toast, Container, View } from 'native-base';
 
 export default ({ navigation }) => {
-  const keyboardVerticalOffset = Platform.OS === 'ios' ? 10 : 0;
   const emailInput = useInput(navigation.getParam('email', ''));
   const [loading, setLoading] = useState(false);
   const [requestSecretMutation] = useMutation(LOG_IN, {
@@ -33,7 +32,7 @@ export default ({ navigation }) => {
     //이메일 99.99% 유효성 체크
     if (value === '') {
       return Toast.show({
-        text: `이메일을 입력해 주세요.`,
+        text: '이메일을 입력해 주세요.',
         textStyle: { textAlign: 'center' },
         buttonText: 'Okay',
         type: 'warning',
@@ -43,7 +42,7 @@ export default ({ navigation }) => {
       });
     } else if (!emailRegex.test(value)) {
       return Toast.show({
-        text: `이메일 형식이 맞지 않습니다.`,
+        text: '이메일 형식이 맞지 않습니다.',
         textStyle: { textAlign: 'center' },
         buttonText: 'Okay',
         type: 'warning',
@@ -61,18 +60,18 @@ export default ({ navigation }) => {
         //navigate에 parameter보낼수있음 (email state보냄)
         navigation.navigate('Confirm', { email: value });
         return Toast.show({
-          text: `이메일을 확인해 주세요.`,
+          text: '입력하신 이메일을 확인해 주세요.',
           textStyle: { textAlign: 'center' },
           buttonText: 'Okay',
           type: 'success',
           position: 'top',
-          duration: 3000,
+          duration: 10000,
           style: { marginTop: 70 }
         });
       } else {
         navigation.navigate('SignUp', { email: value });
         return Toast.show({
-          text: `계정이 없거나 관리자 승인되지 않은 계정입니다.`,
+          text: '계정이 없거나 관리자 승인되지 않은 계정입니다.',
           textStyle: { textAlign: 'center' },
           buttonText: 'Okay',
           type: 'danger',
@@ -82,7 +81,15 @@ export default ({ navigation }) => {
         });
       }
     } catch (e) {
-      Alert.alert("Can't Log In Now!");
+      Toast.show({
+        text: '현재 로그인 할수 없습니다.',
+        textStyle: { textAlign: 'center' },
+        buttonText: 'Okay',
+        type: 'danger',
+        position: 'top',
+        duration: 5000,
+        style: { marginTop: 70 }
+      });
     } finally {
       setLoading(false);
     }

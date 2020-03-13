@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
-import { AppLoading, SplashScreen } from 'expo';
+import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, StatusBar, Platform } from 'react-native';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { persistCache } from 'apollo-cache-persist';
 import ApolloClient from 'apollo-boost';
@@ -28,10 +28,7 @@ export default function App() {
   const [client, setClient] = useState(null);
   //유저가 로그아웃했는지 알려고 null은 로그아웃했는지 체크 x false는 로그아웃 true는 로그인
   const [isLoggedIn, setIsLoggedIn] = useState(null);
-  const _cacheSplashResourcesAsync = async () => {
-    const gif = require('./assets/HYU2.png');
-    return Asset.fromModule(gif).downloadAsync();
-  };
+
   const preLoad = async () => {
     //preload때 AsyncStorage 비우기 -> 로그아웃
     try {
@@ -39,7 +36,12 @@ export default function App() {
       await Font.loadAsync({
         Roboto: require('native-base/Fonts/Roboto.ttf'),
         Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-        ...FontAwesome.font
+        ...FontAwesome.font,
+        'bae-min': require('./assets/fonts/BMHANNAAir_ttf.ttf'),
+        'bae-min2': require('./assets/fonts/BMEULJIROTTF.ttf'),
+        'lotte-medium': require('./assets/fonts/LotteMedium.ttf'),
+        'lotte-bold': require('./assets/fonts/LotteBold.ttf'),
+        'happy-medium': require('./assets/fonts/HappyMedium.ttf')
       });
       //다음은 Asset(이미지)으로 loading
       //만약 여러개 해야하면 Asset.loadAsync([require('path'),require('path'),..])
@@ -83,7 +85,6 @@ export default function App() {
       //위 작업들을 위해 동기화 작업 필요 모든게 다되면 loaded false->true client null-> client
       setLoaded(true);
       setClient(client);
-      SplashScreen.hide();
     } catch (e) {
       console.log(e);
     }
@@ -105,6 +106,9 @@ export default function App() {
         <ThemeProvider theme={styles}>
           <PaperProvider>
             <AuthProvider isLoggedIn={isLoggedIn}>
+              {Platform.OS === 'ios' ? (
+                <StatusBar barStyle="dark-content" />
+              ) : null}
               <NavController />
             </AuthProvider>
           </PaperProvider>
@@ -113,10 +117,6 @@ export default function App() {
     </Root>
   ) : (
     //Apploading은 render를 하면 app의 splash screen을 render를 멈출때 까지 upfront해주는 component
-    <AppLoading
-      startAsync={_cacheSplashResourcesAsync}
-      onFinish={() => null}
-      autoHideSplash={false}
-    />
+    <AppLoading />
   );
 }

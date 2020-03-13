@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components';
 import { gql } from 'apollo-boost';
 import { useApolloClient } from '@apollo/react-hooks';
 import Loader from '../../components/Loader';
@@ -9,12 +8,14 @@ import {
   AsyncStorage,
   Modal,
   StyleSheet,
-  View
+  View,
+  Platform
 } from 'react-native';
 import Notice from '../../components/Notice';
 import { usePopUp, useLaterPopUp } from '../../AuthContext';
-import { Button, FAB, Text } from 'react-native-paper';
+import { Button, FAB } from 'react-native-paper';
 import styles from '../../styles';
+import styled from 'styled-components';
 const SEE_ALL_NOTICE = gql`
   query seeAllNotice($limit: Int!, $page: Int!) {
     seeAllNotice(limit: $limit, page: $page) {
@@ -32,7 +33,9 @@ const SEE_ALL_NOTICE = gql`
     }
   }
 `;
-
+const Text = styled.Text`
+  font-family: lotte-medium;
+`;
 export default () => {
   const popUp = usePopUp();
   const laterPopUp = useLaterPopUp();
@@ -132,7 +135,7 @@ export default () => {
       laterPopUp(lastData.createdAt);
     }
     return () => {
-      null;
+      setDSee(false);
     };
   }, [dSee]);
   return (
@@ -165,12 +168,19 @@ export default () => {
                   <View>
                     <View>
                       <Text
-                        style={{
-                          fontSize: 25,
-                          fontWeight: '500'
-                        }}
+                        style={
+                          Platform.OS === 'ios'
+                            ? {
+                                fontSize: 20,
+                                fontWeight: '700'
+                              }
+                            : {
+                                fontSize: 18,
+                                fontWeight: '700'
+                              }
+                        }
                       >
-                        {lastData.title}
+                        {`[공지] ${lastData.title}`}
                       </Text>
                     </View>
                     <View
@@ -184,17 +194,37 @@ export default () => {
                         marginTop: 10
                       }}
                     >
-                      <Text style={{ fontSize: 21, color: '#595959' }}>
+                      <Text
+                        style={
+                          Platform.OS === 'ios'
+                            ? { fontSize: 16, color: '#595959' }
+                            : { fontSize: 15, color: '#595959' }
+                        }
+                      >
                         최근 공지사항
                       </Text>
-                      <Text style={{ fontSize: 17, color: '#A9A9A9' }}>
+                      <Text
+                        style={
+                          Platform.OS === 'ios'
+                            ? { fontSize: 14, color: '#A9A9A9' }
+                            : { fontSize: 13, color: '#A9A9A9' }
+                        }
+                      >
                         {new Date(lastData.createdAt).format('yyyy-MM-dd')}
                       </Text>
                     </View>
                   </View>
 
                   <ScrollView style={{ flex: 1 }}>
-                    <Text style={{ fontSize: 18 }}>{lastData.desc}</Text>
+                    <Text
+                      style={
+                        Platform.OS === 'ios'
+                          ? { fontSize: 18, color: '#383838' }
+                          : { fontSize: 15 }
+                      }
+                    >
+                      {lastData.desc}
+                    </Text>
                   </ScrollView>
                   <View
                     style={{

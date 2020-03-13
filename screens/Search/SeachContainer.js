@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import SearchBar from '../../../components/SearchBar';
+import SearchBar from '../../components/SearchBar';
 import SearchPresenter from './SeachPresenter';
-import constants from '../../../constants';
 
 //쿼리는 hook 써야해서 파일 나눔
 /* 

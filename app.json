@@ -17,10 +17,10 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.contacts.hure",
       "infoPlist": {
-        "NSPhotoLibraryAddUsageDescription": "이 앱이 사진에 접근하기 위한 권한 설정 입니다.",
+        "NSPhotoLibraryUsageDescription": "이 앱이 사진에 접근하기 위한 권한 설정 입니다.",
         "NSContactsUsageDescription": "이 앱이 연락처에 저장하기 위한 권한 설정 입니다."
       },
-      "buildNumber": "1.0.1"
+      "buildNumber": "1.0.2"
     },
     "android": {
       "package": "com.MJU.HURE_APP",

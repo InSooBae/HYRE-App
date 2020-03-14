@@ -1,0 +1,1199 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.MJU.HURE_APP"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="28" />
+9-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml
+10
+11    <permission
+11-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:7:3-9:42
+12        android:name="com.MJU.HURE_APP.permission.C2D_MESSAGE"
+12-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:8:5-59
+13        android:protectionLevel="signature" />
+13-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:9:5-40
+14
+15    <!-- These are required permissions to make the app run -->
+16    <uses-permission android:name="com.MJU.HURE_APP.permission.C2D_MESSAGE" />
+16-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:12:3-77
+16-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:12:20-74
+17    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+17-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:13:3-80
+17-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:13:20-77
+18    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+18-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:14:3-77
+18-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:14:20-74
+19    <uses-permission android:name="android.permission.INTERNET" />
+19-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:15:3-65
+19-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:15:20-62
+20    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+20-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:16:3-76
+20-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:16:20-73
+21    <uses-permission android:name="android.permission.WAKE_LOCK" />
+21-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:17:3-66
+21-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:17:20-63
+22    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+22-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:20:7-83
+22-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:20:24-80
+23    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+23-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:21:1-75
+23-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:21:18-72
+24    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
+24-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:22:1-71
+24-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:22:18-68
+25    <uses-permission android:name="android.permission.READ_CONTACTS" />
+25-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:23:1-68
+25-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:23:18-65
+26    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+26-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:24:1-69
+26-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:24:18-66
+27    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+27-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:25:1-76
+27-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:25:18-73
+28    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+28-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:26:1-71
+28-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:26:18-68
+29    <uses-permission android:name="android.permission.VIBRATE" />
+29-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:27:1-62
+29-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:27:18-59
+30    <uses-permission android:name="android.permission.WAKE_LOCK" />
+30-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:17:3-66
+30-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:17:20-63
+31    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+31-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:29:1-77
+31-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:29:18-74
+32    <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT" />
+32-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:30:1-80
+32-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:30:18-77
+33    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+33-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:31:1-84
+33-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:31:18-81
+34    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+34-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:13:3-80
+34-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:13:20-77
+35    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+35-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:33:1-90
+35-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:33:18-87
+36    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+36-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:34:1-94
+36-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:34:18-91
+37    <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" />
+37-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:35:1-77
+37-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:35:18-74
+38    <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT" />
+38-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:36:1-79
+38-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:36:18-76
+39    <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE" />
+39-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:37:1-79
+39-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:37:18-76
+40    <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
+40-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:38:1-82
+40-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:38:18-79
+41    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
+41-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:39:1-83
+41-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:39:18-80
+42    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" />
+42-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:40:1-84
+42-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:40:18-81
+43
+44    <!-- ADD TEST PERMISSIONS HERE -->
+45
+46    <uses-feature
+46-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:52:3-77
+47        android:glEsVersion="0x00020000"
+47-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:52:17-49
+48        android:required="true" />
+48-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:52:50-74
+49    <uses-feature
+49-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:53:3-85
+50        android:name="android.software.leanback"
+50-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:53:17-57
+51        android:required="false" />
+51-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:53:58-82
+52    <uses-feature
+52-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:54:3-88
+53        android:name="android.hardware.touchscreen"
+53-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:54:17-60
+54        android:required="false" />
+54-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:54:61-85
+55
+56    <!-- WHEN_VERSIONING_REMOVE_FROM_HERE -->
+57    <supports-screens
+57-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:13:5-19:24
+58        android:anyDensity="true"
+58-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:14:9-34
+59        android:largeScreens="true"
+59-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:15:9-36
+60        android:normalScreens="true"
+60-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:16:9-37
+61        android:smallScreens="true"
+61-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:17:9-36
+62        android:xlargeScreens="true" >
+62-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:18:9-37
+63    </supports-screens>
+64
+65    <uses-permission android:name="host.exp.exponent.permission.C2D_MESSAGE" />
+65-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:26:5-80
+65-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:26:22-77
+66    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" /> <!-- Used by react-native-netinfo module -->
+66-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:31:5-80
+66-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:31:22-77
+67    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+67-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:34:5-76
+67-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:34:22-73
+68
+69    <uses-feature
+69-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:47:5-49:36
+70        android:name="android.hardware.camera"
+70-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:48:9-47
+71        android:required="false" />
+71-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:49:9-33
+72    <uses-feature
+72-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:50:5-52:36
+73        android:name="android.hardware.camera.autofocus"
+73-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:51:9-57
+74        android:required="false" />
+74-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:52:9-33
+75    <uses-feature
+75-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:53:5-55:36
+76        android:name="android.hardware.location"
+76-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:54:9-49
+77        android:required="false" />
+77-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:55:9-33
+78    <uses-feature
+78-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:56:5-58:36
+79        android:name="android.hardware.location.gps"
+79-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:57:9-53
+80        android:required="false" />
+80-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:58:9-33
+81    <uses-feature
+81-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:59:5-61:36
+82        android:name="android.hardware.location.network"
+82-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:60:9-57
+83        android:required="false" />
+83-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:61:9-33
+84    <uses-feature
+84-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:62:5-64:36
+85        android:name="android.hardware.wifi"
+85-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:63:9-45
+86        android:required="false" />
+86-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:64:9-33
+87    <uses-feature
+87-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:65:5-67:36
+88        android:name="android.hardware.microphone"
+88-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:66:9-51
+89        android:required="false" />
+89-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:67:9-33
+90    <uses-feature
+90-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:68:5-70:36
+91        android:name="android.hardware.telephony"
+91-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:69:9-50
+92        android:required="false" />
+92-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:70:9-33
+93    <uses-feature
+93-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:71:5-73:36
+94        android:name="android.hardware.bluetooth"
+94-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:72:9-50
+95        android:required="false" />
+95-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:73:9-33
+96
+97    <uses-permission android:name="android.permission.STORAGE" />
+97-->[:expo-file-system] /Users/baeinsu/Documents/HYRE-App/node_modules/expo-file-system/android/build/intermediates/library_manifest/release/AndroidManifest.xml:15:5-66
+97-->[:expo-file-system] /Users/baeinsu/Documents/HYRE-App/node_modules/expo-file-system/android/build/intermediates/library_manifest/release/AndroidManifest.xml:15:22-63
+98    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+98-->[:expo-location] /Users/baeinsu/Documents/HYRE-App/node_modules/expo-location/android/build/intermediates/library_manifest/release/AndroidManifest.xml:13:5-77
+98-->[:expo-location] /Users/baeinsu/Documents/HYRE-App/node_modules/expo-location/android/build/intermediates/library_manifest/release/AndroidManifest.xml:13:22-74
+99    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+99-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:26:5-110
+99-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:26:22-107
+100
+101    <application
+101-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:56:3-368:17
+102        android:name="host.exp.exponent.MainApplication"
+102-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:57:5-36
+103        android:allowBackup="true"
+103-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:58:5-31
+104        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+104-->[androidx.core:core:1.1.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/37791d22cdf73b5c35c92eb9addd3f27/core-1.1.0/AndroidManifest.xml:24:18-86
+105        android:icon="@mipmap/ic_launcher"
+105-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:59:5-39
+106        android:label="@string/app_name"
+106-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:60:5-37
+107        android:largeHeap="true"
+107-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:61:5-29
+108        android:supportsRtl="true"
+108-->[com.facebook.android:facebook-android-sdk:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/36d8e97a0dea5ca0c54825784f11758c/facebook-android-sdk-5.0.1/AndroidManifest.xml:28:18-44
+109        android:usesCleartextTraffic="true" >
+109-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:62:5-40
+110        <activity
+110-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:64:5-69:16
+111            android:name="host.exp.exponent.LauncherActivity"
+111-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:65:7-39
+112            android:exported="true"
+112-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:66:7-30
+113            android:launchMode="singleTask"
+113-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:67:7-38
+114            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+114-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:68:7-66
+115        </activity>
+116        <activity
+116-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:71:5-76:16
+117            android:name="host.exp.exponent.experience.ExperienceActivity"
+117-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:72:7-52
+118            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+118-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:73:7-77
+119            android:theme="@style/Theme.Exponent.Light"
+119-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:74:7-50
+120            android:windowSoftInputMode="adjustResize" >
+120-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:75:7-49
+121        </activity>
+122        <activity
+122-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:78:5-98:16
+123            android:name="host.exp.exponent.MainActivity"
+123-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:79:7-35
+124            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+124-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:81:7-77
+125            android:launchMode="singleTask"
+125-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:80:7-38
+126            android:theme="@style/Theme.Exponent.Splash"
+126-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:82:7-51
+127            android:windowSoftInputMode="adjustResize" >
+127-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:83:7-49
+128            <intent-filter>
+128-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:84:7-91:23
+129                <data android:scheme="exp99aa17ba68ab4b9a8b1f5dda8a4cced4" />
+129-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:85:9-69
+129-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:85:15-67
+130
+131                <action android:name="android.intent.action.VIEW" />
+131-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:87:9-60
+131-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:87:17-58
+132
+133                <category android:name="android.intent.category.DEFAULT" />
+133-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:89:9-67
+133-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:89:19-65
+134                <category android:name="android.intent.category.BROWSABLE" />
+134-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:90:9-69
+134-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:90:19-67
+135            </intent-filter>
+136            <intent-filter>
+136-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:92:7-96:23
+137                <action android:name="android.intent.action.MAIN" />
+137-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:93:9-60
+137-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:93:17-58
+138
+139                <category android:name="android.intent.category.LAUNCHER" />
+139-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:95:9-68
+139-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:95:19-66
+140            </intent-filter>
+141            <!-- ADD DETACH APP SPECIFIC INTENT FILTERS -->
+142        </activity>
+143        <activity
+143-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:100:5-106:16
+144            android:name="host.exp.exponent.experience.HomeActivity"
+144-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:101:7-46
+145            android:label="@string/app_name"
+145-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:102:7-39
+146            android:launchMode="singleTask"
+146-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:103:7-38
+147            android:screenOrientation="portrait"
+147-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:104:7-43
+148            android:theme="@style/Theme.Exponent.Light" >
+148-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:105:7-50
+149        </activity>
+150        <activity
+150-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:108:5-117:15
+151            android:name="host.exp.exponent.experience.TvActivity"
+151-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:109:7-44
+152            android:label="@string/app_name"
+152-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:110:7-39
+153            android:screenOrientation="landscape"
+153-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:112:7-44
+154            android:theme="@style/Theme.Exponent.Light" >
+154-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:111:7-50
+155            <intent-filter>
+155-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:113:6-116:22
+156                <action android:name="android.intent.action.MAIN" />
+156-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:93:9-60
+156-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:93:17-58
+157
+158                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+158-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:115:8-77
+158-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:115:18-74
+159            </intent-filter>
+160        </activity>
+161        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+161-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:121:5-81
+161-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:121:15-79
+162        <!-- WHEN_PREPARING_SHELL_REMOVE_FROM_HERE -->
+163        <!-- ADD DEV SETTINGS HERE -->
+164        <!-- BEGIN_SDK_36 -->
+165        <activity android:name="abi36_0_0.com.facebook.react.devsupport.DevSettingsActivity" />
+165-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:125:5-91
+165-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:125:15-89
+166        <!-- END_SDK_36 -->
+167        <!-- BEGIN_SDK_35 -->
+168        <activity android:name="abi35_0_0.com.facebook.react.devsupport.DevSettingsActivity" />
+168-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:128:5-91
+168-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:128:15-89
+169        <!-- END_SDK_35 -->
+170        <!-- BEGIN_SDK_34 -->
+171        <activity android:name="abi34_0_0.com.facebook.react.devsupport.DevSettingsActivity" />
+171-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:131:5-91
+171-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:131:15-89
+172        <!-- END_SDK_34 -->
+173        <!-- BEGIN_SDK_33 -->
+174        <activity android:name="abi33_0_0.com.facebook.react.devsupport.DevSettingsActivity" />
+174-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:134:5-91
+174-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:134:15-89
+175        <!-- END_SDK_33 -->
+176        <!-- WHEN_PREPARING_SHELL_REMOVE_TO_HERE -->
+177
+178        <activity android:name="net.openid.appauth.RedirectUriReceiverActivity" >
+178-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:138:5-147:16
+178-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:139:9-70
+179            <intent-filter>
+179-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:141:7-146:23
+180                <action android:name="android.intent.action.VIEW" />
+180-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:87:9-60
+180-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:87:17-58
+181
+182                <category android:name="android.intent.category.DEFAULT" />
+182-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:89:9-67
+182-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:89:19-65
+183                <category android:name="android.intent.category.BROWSABLE" />
+183-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:90:9-69
+183-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:90:19-67
+184
+185                <data
+185-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:85:9-69
+186                    android:path="oauthredirect"
+186-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:145:49-77
+187                    android:scheme="com.MJU.HURE_APP" />
+187-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:85:15-67
+188            </intent-filter>
+189        </activity>
+190
+191        <!-- START OF STRIPE SCHEMES -->
+192        <activity
+192-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:150:5-161:16
+193            android:name="expo.modules.payments.stripe.RedirectUriReceiver"
+193-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:153:9-72
+194            android:exported="true"
+194-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:151:9-32
+195            android:launchMode="singleTask"
+195-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:152:9-40
+196            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
+196-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:154:9-79
+197            <intent-filter>
+197-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:155:9-160:25
+198                <action android:name="android.intent.action.VIEW" />
+198-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:87:9-60
+198-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:87:17-58
+199
+200                <category android:name="android.intent.category.DEFAULT" />
+200-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:89:9-67
+200-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:89:19-65
+201                <category android:name="android.intent.category.BROWSABLE" />
+201-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:90:9-69
+201-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:90:19-67
+202
+203                <data android:scheme="expo.modules.payments.stripe.b3834559-69c7-44f6-b789-c0391113d91c" />
+203-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:85:9-69
+203-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:85:15-67
+204            </intent-filter>
+205        </activity>
+206        <!-- Versioned Activity for Stripe -->
+207        <!-- BEGIN_SDK_36 -->
+208        <activity
+208-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:164:5-175:16
+209            android:name="abi36_0_0.expo.modules.payments.stripe.RedirectUriReceiver"
+209-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:167:7-80
+210            android:exported="true"
+210-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:165:7-30
+211            android:launchMode="singleTask"
+211-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:166:7-38
+212            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
+212-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:168:7-77
+213            <intent-filter>
+213-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:169:7-174:23
+214                <action android:name="android.intent.action.VIEW" />
+214-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:87:9-60
+214-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:87:17-58
+215
+216                <category android:name="android.intent.category.DEFAULT" />
+216-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:89:9-67
+216-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:89:19-65
+217                <category android:name="android.intent.category.BROWSABLE" />
+217-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:90:9-69
+217-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:90:19-67
+218
+219                <data android:scheme="abi36_0_0.expo.modules.payments.stripe" />
+219-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:85:9-69
+219-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:85:15-67
+220            </intent-filter>
+221        </activity>
+222        <!-- END_SDK_36 -->
+223        <!-- BEGIN_SDK_35 -->
+224        <activity
+224-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:178:3-189:14
+225            android:name="abi35_0_0.expo.modules.payments.stripe.RedirectUriReceiver"
+225-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:181:4-77
+226            android:exported="true"
+226-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:179:4-27
+227            android:launchMode="singleTask"
+227-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:180:4-35
+228            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
+228-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:182:4-74
+229            <intent-filter>
+229-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:183:4-188:20
+230                <action android:name="android.intent.action.VIEW" />
+230-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:87:9-60
+230-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:87:17-58
+231
+232                <category android:name="android.intent.category.DEFAULT" />
+232-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:89:9-67
+232-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:89:19-65
+233                <category android:name="android.intent.category.BROWSABLE" />
+233-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:90:9-69
+233-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:90:19-67
+234
+235                <data android:scheme="abi35_0_0.expo.modules.payments.stripe" />
+235-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:85:9-69
+235-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:85:15-67
+236            </intent-filter>
+237        </activity>
+238        <!-- END_SDK_35 -->
+239        <!-- BEGIN_SDK_34 -->
+240        <activity
+240-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:192:5-203:16
+241            android:name="abi34_0_0.expo.modules.payments.stripe.RedirectUriReceiver"
+241-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:195:7-80
+242            android:exported="true"
+242-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:193:7-30
+243            android:launchMode="singleTask"
+243-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:194:7-38
+244            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
+244-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:196:7-77
+245            <intent-filter>
+245-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:197:7-202:23
+246                <action android:name="android.intent.action.VIEW" />
+246-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:87:9-60
+246-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:87:17-58
+247
+248                <category android:name="android.intent.category.DEFAULT" />
+248-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:89:9-67
+248-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:89:19-65
+249                <category android:name="android.intent.category.BROWSABLE" />
+249-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:90:9-69
+249-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:90:19-67
+250
+251                <data android:scheme="abi34_0_0.expo.modules.payments.stripe" />
+251-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:85:9-69
+251-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:85:15-67
+252            </intent-filter>
+253        </activity>
+254        <!-- END_SDK_34 -->
+255        <!-- BEGIN_SDK_33 -->
+256        <activity
+256-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:206:5-217:16
+257            android:name="abi33_0_0.expo.modules.payments.stripe.RedirectUriReceiver"
+257-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:209:7-80
+258            android:exported="true"
+258-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:207:7-30
+259            android:launchMode="singleTask"
+259-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:208:7-38
+260            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
+260-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:210:7-77
+261            <intent-filter>
+261-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:211:7-216:23
+262                <action android:name="android.intent.action.VIEW" />
+262-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:87:9-60
+262-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:87:17-58
+263
+264                <category android:name="android.intent.category.DEFAULT" />
+264-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:89:9-67
+264-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:89:19-65
+265                <category android:name="android.intent.category.BROWSABLE" />
+265-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:90:9-69
+265-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:90:19-67
+266
+267                <data android:scheme="abi33_0_0.expo.modules.payments.stripe" />
+267-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:85:9-69
+267-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:85:15-67
+268            </intent-filter>
+269        </activity>
+270        <!-- END_SDK_33 -->
+271        <!-- END OF STRIPE SCHEMES -->
+272
+273        <activity
+273-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:221:5-225:16
+274            android:name="host.exp.exponent.experience.ErrorActivity"
+274-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:222:7-47
+275            android:screenOrientation="portrait"
+275-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:224:7-43
+276            android:theme="@style/Theme.Exponent.Dark" >
+276-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:223:7-49
+277        </activity>
+278        <activity
+278-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:227:5-231:16
+279            android:name="host.exp.exponent.experience.InfoActivity"
+279-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:228:7-46
+280            android:screenOrientation="portrait"
+280-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:229:7-43
+281            android:theme="@style/Theme.Exponent.Light" >
+281-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:230:7-50
+282        </activity>
+283        <activity
+283-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:233:5-238:39
+284            android:name="com.facebook.FacebookActivity"
+284-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:234:7-51
+285            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+285-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:235:7-90
+286            android:label="@string/app_name"
+286-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:236:7-39
+287            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+287-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:237:7-66
+288        <activity
+288-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:240:5-244:69
+289            android:name="com.facebook.ads.InterstitialAdActivity"
+289-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:241:7-61
+290            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+290-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:242:7-90
+291            android:label="@string/app_name"
+291-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:243:7-39
+292            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+292-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:244:7-66
+293
+294        <service
+294-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:246:5-248:34
+295            android:name="host.exp.exponent.ExponentIntentService"
+295-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:247:7-44
+296            android:exported="false" />
+296-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:248:7-31
+297
+298        <!-- Analytics -->
+299        <receiver
+299-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:251:5-257:16
+300            android:name="host.exp.exponent.referrer.InstallReferrerReceiver"
+300-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:252:7-72
+301            android:exported="true" >
+301-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:253:7-30
+302            <intent-filter>
+302-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:254:7-256:23
+303                <action android:name="com.android.vending.INSTALL_REFERRER" />
+303-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:255:9-71
+303-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:255:17-68
+304            </intent-filter>
+305        </receiver>
+306
+307        <!--
+308    This crashes: https://code.google.com/p/analytics-issues/issues/detail?id=667
+309    TODO: turn it back on when it's fixed
+310    <service
+311      android:name="com.google.android.gms.analytics.CampaignTrackingService"
+312      android:enabled="true"
+313      android:exported="false" />
+314        -->
+315
+316        <receiver
+316-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:267:5-272:16
+317            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+317-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:267:15-80
+318            android:enabled="true"
+318-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:268:15-37
+319            android:exported="false" >
+319-->[com.google.android.gms:play-services-analytics:16.0.8] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/dcb3390558c10959f87e2f9d2c8da2f1/jetified-play-services-analytics-16.0.8/AndroidManifest.xml:33:13-37
+320            <intent-filter>
+320-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:269:7-271:23
+321                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
+321-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:270:9-86
+321-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:270:17-83
+322            </intent-filter>
+323        </receiver>
+324
+325        <service
+325-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:274:5-276:40
+326            android:name="com.google.android.gms.analytics.AnalyticsService"
+326-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:274:14-78
+327            android:enabled="true"
+327-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:275:14-36
+328            android:exported="false" />
+328-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:276:14-38
+329
+330        <!-- GCM -->
+331        <receiver
+331-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:279:5-289:16
+332            android:name="com.google.android.gms.gcm.GcmReceiver"
+332-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:280:7-60
+333            android:exported="true"
+333-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:281:7-30
+334            android:permission="com.google.android.c2dm.permission.SEND" >
+334-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:282:7-67
+335            <intent-filter>
+335-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:283:7-288:23
+336                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+336-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:284:9-72
+336-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:284:17-70
+337                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+337-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:285:9-77
+337-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:285:17-75
+338
+339                <category android:name="com.MJU.HURE_APP" />
+339-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:287:9-52
+339-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:287:19-50
+340            </intent-filter>
+341        </receiver>
+342
+343        <service
+343-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:291:5-297:15
+344            android:name="host.exp.exponent.gcm.ExponentGcmListenerService"
+344-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:292:7-53
+345            android:exported="false" >
+345-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:293:7-31
+346            <intent-filter>
+346-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:294:7-296:23
+347                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+347-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:284:9-72
+347-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:284:17-70
+348            </intent-filter>
+349        </service>
+350        <service
+350-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:298:5-304:15
+351            android:name="host.exp.exponent.gcm.ExponentInstanceIDListenerService"
+351-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:299:7-60
+352            android:exported="false" >
+352-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:300:7-31
+353            <intent-filter>
+353-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:301:7-303:23
+354                <action android:name="com.google.android.gms.iid.InstanceID" />
+354-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:302:9-71
+354-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:302:17-69
+355            </intent-filter>
+356        </service>
+357        <service
+357-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:305:5-308:15
+358            android:name="host.exp.exponent.gcm.GcmRegistrationIntentService"
+358-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:306:7-55
+359            android:exported="false" >
+359-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:307:7-31
+360        </service>
+361
+362        <!-- FCM -->
+363        <service android:name="host.exp.exponent.fcm.ExpoFcmMessagingService" >
+363-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:311:5-316:15
+363-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:312:7-50
+364            <intent-filter>
+364-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:313:7-315:23
+365                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+365-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:314:9-69
+365-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:314:17-67
+366            </intent-filter>
+367        </service>
+368
+369        <meta-data
+369-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:317:5-319:62
+370            android:name="com.google.firebase.messaging.default_notification_icon"
+370-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:318:7-77
+371            android:resource="@drawable/shell_notification_icon" />
+371-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:319:7-59
+372        <meta-data
+372-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:320:5-322:47
+373            android:name="com.google.firebase.messaging.default_notification_color"
+373-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:321:7-78
+374            android:resource="@color/colorAccent" />
+374-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:322:7-44
+375
+376        <service
+376-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:323:5-326:15
+377            android:name="host.exp.exponent.fcm.FcmRegistrationIntentService"
+377-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:324:7-55
+378            android:exported="false" >
+378-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:325:7-31
+379        </service>
+380
+381        <!-- ImagePicker native module -->
+382        <activity
+382-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:329:5-332:16
+383            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+383-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:330:7-70
+384            android:theme="@style/Base.Theme.AppCompat" >
+384-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:331:7-50
+385        </activity>
+386
+387        <!-- ADD FABRIC CONFIG HERE -->
+388        <!-- BEGIN FABRIC CONFIG -->
+389        <meta-data
+389-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:337:5-339:65
+390            android:name="io.fabric.ApiKey"
+390-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:338:7-38
+391            android:value="a25fafe9f9edee11a9882b32e0cd7a26df6e2c42" />
+391-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:339:7-63
+392        <!-- END FABRIC CONFIG -->
+393
+394
+395        <!-- ADD GOOGLE MAPS CONFIG HERE -->
+396        <!-- BEGIN GOOGLE MAPS CONFIG -->
+397        <meta-data
+397-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:344:5-346:64
+398            android:name="com.google.android.geo.API_KEY"
+398-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:345:7-52
+399            android:value="AIzaSyDh7eDB9snEFSYtf-k0gfxA45HFoR0L--I" />
+399-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:346:7-62
+400        <!-- END GOOGLE MAPS CONFIG -->
+401
+402
+403        <!-- ADD GOOGLE MOBILE ADS CONFIG HERE -->
+404        <!-- BEGIN GOOGLE MOBILE ADS CONFIG -->
+405        <meta-data
+405-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:351:5-353:63
+406            android:name="com.google.android.gms.ads.APPLICATION_ID"
+406-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:352:7-63
+407            android:value="ca-app-pub-3940256099942544~3347511713" />
+407-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:353:7-61
+408        <meta-data
+408-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:354:5-107
+409            android:name="com.google.android.gms.ads.DELAY_APP_MEASUREMENT_INIT"
+409-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:354:16-84
+410            android:value="true" />
+410-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:354:85-105
+411        <!-- END GOOGLE MOBILE ADS CONFIG -->
+412
+413
+414        <!-- ADD BRANCH CONFIG HERE -->
+415
+416
+417        <!-- ADD FACEBOOK APP ID CONFIG HERE -->
+418        <!-- ADD FACEBOOK APP DISPLAY NAME CONFIG HERE -->
+419        <!-- Tags below need to be in one line with no whitespace after android:value -->
+420        <!-- in order for XDL to be able to replace values in them -->
+421        <meta-data
+421-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:363:5-95
+422            android:name="com.facebook.sdk.AutoLogAppEventsEnabled"
+422-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:363:16-71
+423            android:value="false" />
+423-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:363:72-93
+424        <meta-data
+424-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:364:5-87
+425            android:name="com.facebook.sdk.AutoInitEnabled"
+425-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:364:16-63
+426            android:value="false" />
+426-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:364:64-85
+427        <meta-data
+427-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:365:5-101
+428            android:name="com.facebook.sdk.AdvertiserIDCollectionEnabled"
+428-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:365:16-77
+429            android:value="false" />
+429-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:365:78-99
+430        <meta-data
+430-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:367:5-109
+431            android:name="standaloneStripeScheme"
+431-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:367:16-53
+432            android:value="b3834559-69c7-44f6-b789-c0391113d91c" />
+432-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:367:54-106
+433        <!-- WHEN_VERSIONING_REMOVE_FROM_HERE -->
+434        <!-- Scheduled notifications -->
+435        <receiver
+435-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:79:9-81:40
+436            android:name="host.exp.exponent.notifications.ScheduledNotificationReceiver"
+436-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:80:13-89
+437            android:exported="false" />
+437-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:81:13-37
+438        <receiver
+438-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:82:9-92:20
+439            android:name="host.exp.exponent.notifications.receivers.SchedulingTriggerReceiver"
+439-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:83:13-95
+440            android:exported="true" >
+440-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:84:13-36
+441            <intent-filter>
+441-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:85:13-91:29
+442                <action android:name="android.intent.action.REBOOT" />
+442-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:86:17-71
+442-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:86:25-68
+443                <action android:name="android.intent.action.BOOT_COMPLETED" />
+443-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:87:17-79
+443-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:87:25-76
+444                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+444-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:88:17-81
+444-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:88:25-78
+445                <action android:name="android.intent.action.TIME_CHANGED" />
+445-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:89:17-77
+445-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:89:25-74
+446                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+446-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:90:17-82
+446-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:90:25-79
+447            </intent-filter>
+448        </receiver> <!-- WHEN_VERSIONING_REMOVE_TO_HERE -->
+449        <provider
+449-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:96:9-104:20
+450            android:name="androidx.core.content.FileProvider"
+450-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:97:13-62
+451            android:authorities="com.MJU.HURE_APP.provider"
+451-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:98:13-60
+452            android:exported="false"
+452-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:99:13-37
+453            android:grantUriPermissions="true" >
+453-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:100:13-47
+454            <meta-data
+454-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:101:13-103:58
+455                android:name="android.support.FILE_PROVIDER_PATHS"
+455-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:102:17-67
+456                android:resource="@xml/provider_paths" />
+456-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:103:17-55
+457        </provider>
+458        <provider
+458-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:105:9-113:20
+459            android:name="versioned.host.exp.exponent.modules.api.components.webview.RNCWebViewFileProvider"
+459-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:106:13-109
+460            android:authorities="com.MJU.HURE_APP.fileprovider"
+460-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:107:13-64
+461            android:exported="false"
+461-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:108:13-37
+462            android:grantUriPermissions="true" >
+462-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:109:13-47
+463            <meta-data
+463-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:101:13-103:58
+464                android:name="android.support.FILE_PROVIDER_PATHS"
+464-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:102:17-67
+465                android:resource="@xml/provider_paths" />
+465-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:103:17-55
+466        </provider>
+467        <provider
+467-->[:expo-file-system] /Users/baeinsu/Documents/HYRE-App/node_modules/expo-file-system/android/build/intermediates/library_manifest/release/AndroidManifest.xml:18:9-27:20
+468            android:name="expo.modules.filesystem.FileSystemFileProvider"
+468-->[:expo-file-system] /Users/baeinsu/Documents/HYRE-App/node_modules/expo-file-system/android/build/intermediates/library_manifest/release/AndroidManifest.xml:19:13-74
+469            android:authorities="com.MJU.HURE_APP.FileSystemFileProvider"
+469-->[:expo-file-system] /Users/baeinsu/Documents/HYRE-App/node_modules/expo-file-system/android/build/intermediates/library_manifest/release/AndroidManifest.xml:20:13-74
+470            android:exported="false"
+470-->[:expo-file-system] /Users/baeinsu/Documents/HYRE-App/node_modules/expo-file-system/android/build/intermediates/library_manifest/release/AndroidManifest.xml:21:13-37
+471            android:grantUriPermissions="true" >
+471-->[:expo-file-system] /Users/baeinsu/Documents/HYRE-App/node_modules/expo-file-system/android/build/intermediates/library_manifest/release/AndroidManifest.xml:22:13-47
+472            <meta-data
+472-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:101:13-103:58
+473                android:name="android.support.FILE_PROVIDER_PATHS"
+473-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:102:17-67
+474                android:resource="@xml/file_system_provider_paths" />
+474-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:103:17-55
+475        </provider> <!-- https://developer.android.com/guide/topics/manifest/provider-element.html -->
+476        <provider
+476-->[:expo-image-picker] /Users/baeinsu/Documents/HYRE-App/node_modules/expo-image-picker/android/build/intermediates/library_manifest/release/AndroidManifest.xml:14:9-22:20
+477            android:name="expo.modules.imagepicker.ImagePickerFileProvider"
+477-->[:expo-image-picker] /Users/baeinsu/Documents/HYRE-App/node_modules/expo-image-picker/android/build/intermediates/library_manifest/release/AndroidManifest.xml:15:13-76
+478            android:authorities="com.MJU.HURE_APP.ImagePickerFileProvider"
+478-->[:expo-image-picker] /Users/baeinsu/Documents/HYRE-App/node_modules/expo-image-picker/android/build/intermediates/library_manifest/release/AndroidManifest.xml:16:13-75
+479            android:exported="false"
+479-->[:expo-image-picker] /Users/baeinsu/Documents/HYRE-App/node_modules/expo-image-picker/android/build/intermediates/library_manifest/release/AndroidManifest.xml:17:13-37
+480            android:grantUriPermissions="true" >
+480-->[:expo-image-picker] /Users/baeinsu/Documents/HYRE-App/node_modules/expo-image-picker/android/build/intermediates/library_manifest/release/AndroidManifest.xml:18:13-47
+481            <meta-data
+481-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:101:13-103:58
+482                android:name="android.support.FILE_PROVIDER_PATHS"
+482-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:102:17-67
+483                android:resource="@xml/image_picker_provider_paths" />
+483-->[host.exp.exponent:expoview:36.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/AndroidManifest.xml:103:17-55
+484        </provider>
+485
+486        <service
+486-->[:expo-location] /Users/baeinsu/Documents/HYRE-App/node_modules/expo-location/android/build/intermediates/library_manifest/release/AndroidManifest.xml:16:9-18:40
+487            android:name="expo.modules.location.services.LocationTaskService"
+487-->[:expo-location] /Users/baeinsu/Documents/HYRE-App/node_modules/expo-location/android/build/intermediates/library_manifest/release/AndroidManifest.xml:17:13-78
+488            android:exported="false" />
+488-->[:expo-location] /Users/baeinsu/Documents/HYRE-App/node_modules/expo-location/android/build/intermediates/library_manifest/release/AndroidManifest.xml:18:13-37
+489
+490        <activity android:name="com.facebook.CustomTabMainActivity" />
+490-->[com.facebook.android:facebook-common:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2853523ec73713530a45adf66f132ba2/jetified-facebook-common-5.0.1/AndroidManifest.xml:33:9-71
+490-->[com.facebook.android:facebook-common:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2853523ec73713530a45adf66f132ba2/jetified-facebook-common-5.0.1/AndroidManifest.xml:33:19-68
+491        <activity android:name="com.facebook.CustomTabActivity" />
+491-->[com.facebook.android:facebook-common:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2853523ec73713530a45adf66f132ba2/jetified-facebook-common-5.0.1/AndroidManifest.xml:34:9-67
+491-->[com.facebook.android:facebook-common:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2853523ec73713530a45adf66f132ba2/jetified-facebook-common-5.0.1/AndroidManifest.xml:34:19-64
+492        <activity
+492-->[com.facebook.android:audience-network-sdk:5.1.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6275d6110c11f6c7f2ff155cae982941/jetified-audience-network-sdk-5.1.1/AndroidManifest.xml:15:9-18:40
+493            android:name="com.facebook.ads.AudienceNetworkActivity"
+493-->[com.facebook.android:audience-network-sdk:5.1.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6275d6110c11f6c7f2ff155cae982941/jetified-audience-network-sdk-5.1.1/AndroidManifest.xml:16:13-68
+494            android:configChanges="keyboardHidden|orientation|screenSize"
+494-->[com.facebook.android:audience-network-sdk:5.1.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6275d6110c11f6c7f2ff155cae982941/jetified-audience-network-sdk-5.1.1/AndroidManifest.xml:17:13-74
+495            android:exported="false" />
+495-->[com.facebook.android:audience-network-sdk:5.1.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6275d6110c11f6c7f2ff155cae982941/jetified-audience-network-sdk-5.1.1/AndroidManifest.xml:18:13-37
+496        <activity
+496-->[com.facebook.android:audience-network-sdk:5.1.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6275d6110c11f6c7f2ff155cae982941/jetified-audience-network-sdk-5.1.1/AndroidManifest.xml:19:9-23:39
+497            android:name="com.facebook.ads.internal.ipc.RemoteANActivity"
+497-->[com.facebook.android:audience-network-sdk:5.1.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6275d6110c11f6c7f2ff155cae982941/jetified-audience-network-sdk-5.1.1/AndroidManifest.xml:20:13-74
+498            android:configChanges="keyboardHidden|orientation|screenSize"
+498-->[com.facebook.android:audience-network-sdk:5.1.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6275d6110c11f6c7f2ff155cae982941/jetified-audience-network-sdk-5.1.1/AndroidManifest.xml:21:13-74
+499            android:exported="false"
+499-->[com.facebook.android:audience-network-sdk:5.1.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6275d6110c11f6c7f2ff155cae982941/jetified-audience-network-sdk-5.1.1/AndroidManifest.xml:22:13-37
+500            android:process=":adnw" />
+500-->[com.facebook.android:audience-network-sdk:5.1.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6275d6110c11f6c7f2ff155cae982941/jetified-audience-network-sdk-5.1.1/AndroidManifest.xml:23:13-36
+501
+502        <service
+502-->[com.facebook.android:audience-network-sdk:5.1.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6275d6110c11f6c7f2ff155cae982941/jetified-audience-network-sdk-5.1.1/AndroidManifest.xml:25:9-27:40
+503            android:name="com.facebook.ads.internal.ipc.AdsProcessPriorityService"
+503-->[com.facebook.android:audience-network-sdk:5.1.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6275d6110c11f6c7f2ff155cae982941/jetified-audience-network-sdk-5.1.1/AndroidManifest.xml:26:13-83
+504            android:exported="false" />
+504-->[com.facebook.android:audience-network-sdk:5.1.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6275d6110c11f6c7f2ff155cae982941/jetified-audience-network-sdk-5.1.1/AndroidManifest.xml:27:13-37
+505        <service
+505-->[com.facebook.android:audience-network-sdk:5.1.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6275d6110c11f6c7f2ff155cae982941/jetified-audience-network-sdk-5.1.1/AndroidManifest.xml:28:9-31:39
+506            android:name="com.facebook.ads.internal.ipc.AdsMessengerService"
+506-->[com.facebook.android:audience-network-sdk:5.1.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6275d6110c11f6c7f2ff155cae982941/jetified-audience-network-sdk-5.1.1/AndroidManifest.xml:29:13-77
+507            android:exported="false"
+507-->[com.facebook.android:audience-network-sdk:5.1.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6275d6110c11f6c7f2ff155cae982941/jetified-audience-network-sdk-5.1.1/AndroidManifest.xml:30:13-37
+508            android:process=":adnw" />
+508-->[com.facebook.android:audience-network-sdk:5.1.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6275d6110c11f6c7f2ff155cae982941/jetified-audience-network-sdk-5.1.1/AndroidManifest.xml:31:13-36
+509        <service
+509-->[com.google.android.gms:play-services-analytics:16.0.8] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/dcb3390558c10959f87e2f9d2c8da2f1/jetified-play-services-analytics-16.0.8/AndroidManifest.xml:40:9-44:72
+510            android:name="com.google.android.gms.analytics.AnalyticsJobService"
+510-->[com.google.android.gms:play-services-analytics:16.0.8] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/dcb3390558c10959f87e2f9d2c8da2f1/jetified-play-services-analytics-16.0.8/AndroidManifest.xml:41:13-80
+511            android:enabled="true"
+511-->[com.google.android.gms:play-services-analytics:16.0.8] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/dcb3390558c10959f87e2f9d2c8da2f1/jetified-play-services-analytics-16.0.8/AndroidManifest.xml:42:13-35
+512            android:exported="false"
+512-->[com.google.android.gms:play-services-analytics:16.0.8] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/dcb3390558c10959f87e2f9d2c8da2f1/jetified-play-services-analytics-16.0.8/AndroidManifest.xml:43:13-37
+513            android:permission="android.permission.BIND_JOB_SERVICE" /> <!-- Needs to be explicitly declared on P+ -->
+513-->[com.google.android.gms:play-services-analytics:16.0.8] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/dcb3390558c10959f87e2f9d2c8da2f1/jetified-play-services-analytics-16.0.8/AndroidManifest.xml:44:13-69
+514        <uses-library
+514-->[com.google.android.gms:play-services-maps:16.1.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/ee49e090e09169e559906176775dcf2f/jetified-play-services-maps-16.1.0/AndroidManifest.xml:33:9-35:40
+515            android:name="org.apache.http.legacy"
+515-->[com.google.android.gms:play-services-maps:16.1.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/ee49e090e09169e559906176775dcf2f/jetified-play-services-maps-16.1.0/AndroidManifest.xml:34:13-50
+516            android:required="false" />
+516-->[com.google.android.gms:play-services-maps:16.1.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/ee49e090e09169e559906176775dcf2f/jetified-play-services-maps-16.1.0/AndroidManifest.xml:35:13-37
+517
+518        <activity
+518-->[com.google.android.gms:play-services-auth:16.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2e9ac75bbbef0b8fd8232efc1fd29185/jetified-play-services-auth-16.0.1/AndroidManifest.xml:23:9-27:75
+519            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+519-->[com.google.android.gms:play-services-auth:16.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2e9ac75bbbef0b8fd8232efc1fd29185/jetified-play-services-auth-16.0.1/AndroidManifest.xml:24:13-93
+520            android:excludeFromRecents="true"
+520-->[com.google.android.gms:play-services-auth:16.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2e9ac75bbbef0b8fd8232efc1fd29185/jetified-play-services-auth-16.0.1/AndroidManifest.xml:25:13-46
+521            android:exported="false"
+521-->[com.google.android.gms:play-services-auth:16.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2e9ac75bbbef0b8fd8232efc1fd29185/jetified-play-services-auth-16.0.1/AndroidManifest.xml:26:13-37
+522            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+522-->[com.google.android.gms:play-services-auth:16.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2e9ac75bbbef0b8fd8232efc1fd29185/jetified-play-services-auth-16.0.1/AndroidManifest.xml:27:13-72
+523        <!--
+524            Service handling Google Sign-In user revocation. For apps that do not integrate with
+525            Google Sign-In, this service will never be started.
+526        -->
+527        <service
+527-->[com.google.android.gms:play-services-auth:16.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2e9ac75bbbef0b8fd8232efc1fd29185/jetified-play-services-auth-16.0.1/AndroidManifest.xml:33:9-36:110
+528            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+528-->[com.google.android.gms:play-services-auth:16.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2e9ac75bbbef0b8fd8232efc1fd29185/jetified-play-services-auth-16.0.1/AndroidManifest.xml:34:13-89
+529            android:exported="true"
+529-->[com.google.android.gms:play-services-auth:16.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2e9ac75bbbef0b8fd8232efc1fd29185/jetified-play-services-auth-16.0.1/AndroidManifest.xml:35:13-36
+530            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" />
+530-->[com.google.android.gms:play-services-auth:16.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2e9ac75bbbef0b8fd8232efc1fd29185/jetified-play-services-auth-16.0.1/AndroidManifest.xml:36:13-107
+531
+532        <activity
+532-->[net.openid:appauth:0.7.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/ac65c7a1aca84815d0694a55e3b31649/jetified-appauth-0.7.1/AndroidManifest.xml:27:9-31:75
+533            android:name="net.openid.appauth.AuthorizationManagementActivity"
+533-->[net.openid:appauth:0.7.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/ac65c7a1aca84815d0694a55e3b31649/jetified-appauth-0.7.1/AndroidManifest.xml:28:13-78
+534            android:exported="false"
+534-->[net.openid:appauth:0.7.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/ac65c7a1aca84815d0694a55e3b31649/jetified-appauth-0.7.1/AndroidManifest.xml:29:13-37
+535            android:launchMode="singleTask"
+535-->[net.openid:appauth:0.7.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/ac65c7a1aca84815d0694a55e3b31649/jetified-appauth-0.7.1/AndroidManifest.xml:30:13-44
+536            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+536-->[net.openid:appauth:0.7.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/ac65c7a1aca84815d0694a55e3b31649/jetified-appauth-0.7.1/AndroidManifest.xml:31:13-72
+537
+538        <service
+538-->[io.nlopez.smartlocation:library:3.2.11] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/57f65232c718d9c0986e561f219ae6a1/jetified-library-3.2.11/AndroidManifest.xml:19:9-21:40
+539            android:name="io.nlopez.smartlocation.activity.providers.ActivityGooglePlayServicesProvider$ActivityRecognitionService"
+539-->[io.nlopez.smartlocation:library:3.2.11] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/57f65232c718d9c0986e561f219ae6a1/jetified-library-3.2.11/AndroidManifest.xml:20:13-132
+540            android:exported="false" />
+540-->[io.nlopez.smartlocation:library:3.2.11] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/57f65232c718d9c0986e561f219ae6a1/jetified-library-3.2.11/AndroidManifest.xml:21:13-37
+541        <service
+541-->[io.nlopez.smartlocation:library:3.2.11] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/57f65232c718d9c0986e561f219ae6a1/jetified-library-3.2.11/AndroidManifest.xml:22:9-24:40
+542            android:name="io.nlopez.smartlocation.geofencing.providers.GeofencingGooglePlayServicesProvider$GeofencingService"
+542-->[io.nlopez.smartlocation:library:3.2.11] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/57f65232c718d9c0986e561f219ae6a1/jetified-library-3.2.11/AndroidManifest.xml:23:13-127
+543            android:exported="false" />
+543-->[io.nlopez.smartlocation:library:3.2.11] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/57f65232c718d9c0986e561f219ae6a1/jetified-library-3.2.11/AndroidManifest.xml:24:13-37
+544        <service
+544-->[io.nlopez.smartlocation:library:3.2.11] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/57f65232c718d9c0986e561f219ae6a1/jetified-library-3.2.11/AndroidManifest.xml:25:9-27:40
+545            android:name="io.nlopez.smartlocation.geocoding.providers.AndroidGeocodingProvider$AndroidGeocodingService"
+545-->[io.nlopez.smartlocation:library:3.2.11] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/57f65232c718d9c0986e561f219ae6a1/jetified-library-3.2.11/AndroidManifest.xml:26:13-120
+546            android:exported="false" />
+546-->[io.nlopez.smartlocation:library:3.2.11] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/57f65232c718d9c0986e561f219ae6a1/jetified-library-3.2.11/AndroidManifest.xml:27:13-37
+547        <!--
+548             FirebaseMessagingService performs security checks at runtime,
+549             but set to not exported to explicitly avoid allowing another app to call it.
+550        -->
+551        <service
+551-->[com.google.firebase:firebase-messaging:18.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/ac6db8e68b10abbadc61733864add69c/jetified-firebase-messaging-18.0.0/AndroidManifest.xml:28:9-34:19
+552            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+552-->[com.google.firebase:firebase-messaging:18.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/ac6db8e68b10abbadc61733864add69c/jetified-firebase-messaging-18.0.0/AndroidManifest.xml:29:13-82
+553            android:exported="false" >
+553-->[com.google.firebase:firebase-messaging:18.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/ac6db8e68b10abbadc61733864add69c/jetified-firebase-messaging-18.0.0/AndroidManifest.xml:30:13-37
+554            <intent-filter android:priority="-500" >
+554-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:313:7-315:23
+555                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+555-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:314:9-69
+555-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:314:17-67
+556            </intent-filter>
+557        </service>
+558        <service
+558-->[com.google.android.gms:play-services-measurement-api:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/050ff101fcfc7e3606c352a626f6a5a8/jetified-play-services-measurement-api-16.5.0/AndroidManifest.xml:27:9-33:19
+559            android:name="com.google.firebase.components.ComponentDiscoveryService"
+559-->[com.google.android.gms:play-services-measurement-api:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/050ff101fcfc7e3606c352a626f6a5a8/jetified-play-services-measurement-api-16.5.0/AndroidManifest.xml:28:13-84
+560            android:exported="false" >
+560-->[com.google.android.gms:play-services-measurement-api:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/050ff101fcfc7e3606c352a626f6a5a8/jetified-play-services-measurement-api-16.5.0/AndroidManifest.xml:29:13-37
+561            <meta-data
+561-->[com.google.android.gms:play-services-measurement-api:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/050ff101fcfc7e3606c352a626f6a5a8/jetified-play-services-measurement-api-16.5.0/AndroidManifest.xml:30:13-32:85
+562                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+562-->[com.google.android.gms:play-services-measurement-api:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/050ff101fcfc7e3606c352a626f6a5a8/jetified-play-services-measurement-api-16.5.0/AndroidManifest.xml:31:17-139
+563                android:value="com.google.firebase.components.ComponentRegistrar" />
+563-->[com.google.android.gms:play-services-measurement-api:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/050ff101fcfc7e3606c352a626f6a5a8/jetified-play-services-measurement-api-16.5.0/AndroidManifest.xml:32:17-82
+564            <meta-data
+564-->[com.google.firebase:firebase-iid:18.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/a4d81d96c07d3a7213188c47cef87e92/jetified-firebase-iid-18.0.0/AndroidManifest.xml:32:13-34:85
+565                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+565-->[com.google.firebase:firebase-iid:18.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/a4d81d96c07d3a7213188c47cef87e92/jetified-firebase-iid-18.0.0/AndroidManifest.xml:33:17-96
+566                android:value="com.google.firebase.components.ComponentRegistrar" />
+566-->[com.google.firebase:firebase-iid:18.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/a4d81d96c07d3a7213188c47cef87e92/jetified-firebase-iid-18.0.0/AndroidManifest.xml:34:17-82
+567        </service>
+568
+569        <receiver
+569-->[com.google.firebase:firebase-iid:18.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/a4d81d96c07d3a7213188c47cef87e92/jetified-firebase-iid-18.0.0/AndroidManifest.xml:37:9-44:20
+570            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+570-->[com.google.firebase:firebase-iid:18.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/a4d81d96c07d3a7213188c47cef87e92/jetified-firebase-iid-18.0.0/AndroidManifest.xml:38:13-78
+571            android:exported="true"
+571-->[com.google.firebase:firebase-iid:18.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/a4d81d96c07d3a7213188c47cef87e92/jetified-firebase-iid-18.0.0/AndroidManifest.xml:39:13-36
+572            android:permission="com.google.android.c2dm.permission.SEND" >
+572-->[com.google.firebase:firebase-iid:18.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/a4d81d96c07d3a7213188c47cef87e92/jetified-firebase-iid-18.0.0/AndroidManifest.xml:40:13-73
+573            <intent-filter>
+573-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:294:7-296:23
+574                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+574-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:284:9-72
+574-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:284:17-70
+575            </intent-filter>
+576        </receiver>
+577
+578        <activity
+578-->[com.google.android.gms:play-services-base:16.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/a5b7d4aeed11bc69737833ec4cfa6779/jetified-play-services-base-16.0.1/AndroidManifest.xml:23:9-26:75
+579            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+579-->[com.google.android.gms:play-services-base:16.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/a5b7d4aeed11bc69737833ec4cfa6779/jetified-play-services-base-16.0.1/AndroidManifest.xml:24:13-79
+580            android:exported="false"
+580-->[com.google.android.gms:play-services-base:16.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/a5b7d4aeed11bc69737833ec4cfa6779/jetified-play-services-base-16.0.1/AndroidManifest.xml:25:13-37
+581            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+581-->[com.google.android.gms:play-services-base:16.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/a5b7d4aeed11bc69737833ec4cfa6779/jetified-play-services-base-16.0.1/AndroidManifest.xml:26:13-72
+582
+583        <provider
+583-->[com.google.firebase:firebase-common:17.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2bded9d42a7790d2e6bb76a445fe04a3/jetified-firebase-common-17.0.0/AndroidManifest.xml:12:9-16:39
+584            android:name="com.google.firebase.provider.FirebaseInitProvider"
+584-->[com.google.firebase:firebase-common:17.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2bded9d42a7790d2e6bb76a445fe04a3/jetified-firebase-common-17.0.0/AndroidManifest.xml:13:13-77
+585            android:authorities="com.MJU.HURE_APP.firebaseinitprovider"
+585-->[com.google.firebase:firebase-common:17.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2bded9d42a7790d2e6bb76a445fe04a3/jetified-firebase-common-17.0.0/AndroidManifest.xml:14:13-72
+586            android:exported="false"
+586-->[com.google.firebase:firebase-common:17.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2bded9d42a7790d2e6bb76a445fe04a3/jetified-firebase-common-17.0.0/AndroidManifest.xml:15:13-37
+587            android:initOrder="100" />
+587-->[com.google.firebase:firebase-common:17.0.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2bded9d42a7790d2e6bb76a445fe04a3/jetified-firebase-common-17.0.0/AndroidManifest.xml:16:13-36
+588
+589        <receiver
+589-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:29:9-33:20
+590            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+590-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:30:13-85
+591            android:enabled="true"
+591-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:31:13-35
+592            android:exported="false" >
+592-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:32:13-37
+593        </receiver>
+594        <receiver
+594-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:34:9-42:20
+595            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
+595-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:35:13-100
+596            android:enabled="true"
+596-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:36:13-35
+597            android:exported="true"
+597-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:37:13-36
+598            android:permission="android.permission.INSTALL_PACKAGES" >
+598-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:38:13-69
+599            <intent-filter>
+599-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:254:7-256:23
+600                <action android:name="com.android.vending.INSTALL_REFERRER" />
+600-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:255:9-71
+600-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:255:17-68
+601            </intent-filter>
+602        </receiver>
+603
+604        <service
+604-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:44:9-47:40
+605            android:name="com.google.android.gms.measurement.AppMeasurementService"
+605-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:45:13-84
+606            android:enabled="true"
+606-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:46:13-35
+607            android:exported="false" />
+607-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:47:13-37
+608        <service
+608-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:48:9-52:72
+609            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+609-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:49:13-87
+610            android:enabled="true"
+610-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:50:13-35
+611            android:exported="false"
+611-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:51:13-37
+612            android:permission="android.permission.BIND_JOB_SERVICE" />
+612-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/14419b6a3b4f122ec47650f1f22998c3/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:52:13-69
+613
+614        <meta-data
+614-->[com.google.android.gms:play-services-basement:16.2.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/4aa5bae2695ffa2788683f1db3cfdd29/jetified-play-services-basement-16.2.0/AndroidManifest.xml:23:9-25:69
+615            android:name="com.google.android.gms.version"
+615-->[com.google.android.gms:play-services-basement:16.2.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/4aa5bae2695ffa2788683f1db3cfdd29/jetified-play-services-basement-16.2.0/AndroidManifest.xml:24:13-58
+616            android:value="@integer/google_play_services_version" />
+616-->[com.google.android.gms:play-services-basement:16.2.0] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/4aa5bae2695ffa2788683f1db3cfdd29/jetified-play-services-basement-16.2.0/AndroidManifest.xml:25:13-66
+617        <!--
+618         The initialization ContentProvider will call FacebookSdk.sdkInitialize automatically
+619         with the application context. This config is merged in with the host app's manifest,
+620         but there can only be one provider with the same authority activated at any given
+621         point; so if the end user has two or more different apps that use Facebook SDK, only the
+622         first one will be able to use the provider. To work around this problem, we use the
+623         following placeholder in the authority to identify each host application as if it was
+624         a completely different provider.
+625        -->
+626        <provider
+626-->[com.facebook.android:facebook-core:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/5e9f9900b819c8c8b85ee90854df9bcd/jetified-facebook-core-5.0.1/AndroidManifest.xml:39:9-42:40
+627            android:name="com.facebook.internal.FacebookInitProvider"
+627-->[com.facebook.android:facebook-core:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/5e9f9900b819c8c8b85ee90854df9bcd/jetified-facebook-core-5.0.1/AndroidManifest.xml:40:13-70
+628            android:authorities="com.MJU.HURE_APP.FacebookInitProvider"
+628-->[com.facebook.android:facebook-core:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/5e9f9900b819c8c8b85ee90854df9bcd/jetified-facebook-core-5.0.1/AndroidManifest.xml:41:13-72
+629            android:exported="false" />
+629-->[com.facebook.android:facebook-core:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/5e9f9900b819c8c8b85ee90854df9bcd/jetified-facebook-core-5.0.1/AndroidManifest.xml:42:13-37
+630
+631        <receiver
+631-->[com.facebook.android:facebook-core:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/5e9f9900b819c8c8b85ee90854df9bcd/jetified-facebook-core-5.0.1/AndroidManifest.xml:44:9-50:20
+632            android:name="com.facebook.CurrentAccessTokenExpirationBroadcastReceiver"
+632-->[com.facebook.android:facebook-core:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/5e9f9900b819c8c8b85ee90854df9bcd/jetified-facebook-core-5.0.1/AndroidManifest.xml:45:13-86
+633            android:exported="false" >
+633-->[com.facebook.android:facebook-core:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/5e9f9900b819c8c8b85ee90854df9bcd/jetified-facebook-core-5.0.1/AndroidManifest.xml:46:13-37
+634            <intent-filter>
+634-->[com.facebook.android:facebook-core:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/5e9f9900b819c8c8b85ee90854df9bcd/jetified-facebook-core-5.0.1/AndroidManifest.xml:47:13-49:29
+635                <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED" />
+635-->[com.facebook.android:facebook-core:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/5e9f9900b819c8c8b85ee90854df9bcd/jetified-facebook-core-5.0.1/AndroidManifest.xml:48:17-95
+635-->[com.facebook.android:facebook-core:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/5e9f9900b819c8c8b85ee90854df9bcd/jetified-facebook-core-5.0.1/AndroidManifest.xml:48:25-92
+636            </intent-filter>
+637        </receiver>
+638        <receiver
+638-->[com.facebook.android:facebook-core:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/5e9f9900b819c8c8b85ee90854df9bcd/jetified-facebook-core-5.0.1/AndroidManifest.xml:51:9-58:20
+639            android:name="com.facebook.CampaignTrackingReceiver"
+639-->[com.facebook.android:facebook-core:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/5e9f9900b819c8c8b85ee90854df9bcd/jetified-facebook-core-5.0.1/AndroidManifest.xml:52:13-65
+640            android:exported="true"
+640-->[com.facebook.android:facebook-core:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/5e9f9900b819c8c8b85ee90854df9bcd/jetified-facebook-core-5.0.1/AndroidManifest.xml:53:13-36
+641            android:permission="android.permission.INSTALL_PACKAGES" >
+641-->[com.facebook.android:facebook-core:5.0.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/5e9f9900b819c8c8b85ee90854df9bcd/jetified-facebook-core-5.0.1/AndroidManifest.xml:54:13-69
+642            <intent-filter>
+642-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:254:7-256:23
+643                <action android:name="com.android.vending.INSTALL_REFERRER" />
+643-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:255:9-71
+643-->/Users/baeinsu/Documents/HYRE-App/android/app/src/main/AndroidManifest.xml:255:17-68
+644            </intent-filter>
+645        </receiver>
+646
+647        <provider
+647-->[com.crashlytics.sdk.android:crashlytics:2.10.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/637344e8d90824bae01403d20507640e/jetified-crashlytics-2.10.1/AndroidManifest.xml:19:9-23:38
+648            android:name="com.crashlytics.android.CrashlyticsInitProvider"
+648-->[com.crashlytics.sdk.android:crashlytics:2.10.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/637344e8d90824bae01403d20507640e/jetified-crashlytics-2.10.1/AndroidManifest.xml:20:13-75
+649            android:authorities="com.MJU.HURE_APP.crashlyticsinitprovider"
+649-->[com.crashlytics.sdk.android:crashlytics:2.10.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/637344e8d90824bae01403d20507640e/jetified-crashlytics-2.10.1/AndroidManifest.xml:21:13-75
+650            android:exported="false"
+650-->[com.crashlytics.sdk.android:crashlytics:2.10.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/637344e8d90824bae01403d20507640e/jetified-crashlytics-2.10.1/AndroidManifest.xml:22:13-37
+651            android:initOrder="90" />
+651-->[com.crashlytics.sdk.android:crashlytics:2.10.1] /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/637344e8d90824bae01403d20507640e/jetified-crashlytics-2.10.1/AndroidManifest.xml:23:13-35
+652    </application>
+653
+654</manifest>

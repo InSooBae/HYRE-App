@@ -1,0 +1,7 @@
+#Sat Mar 14 16:05:17 KST 2020
+base.0=/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/transforms/r8/release/0/classes.dex
+path.1=classes2.dex
+renamed.1=classes2.dex
+path.0=classes.dex
+renamed.0=classes.dex
+base.1=/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/transforms/r8/release/0/classes2.dex

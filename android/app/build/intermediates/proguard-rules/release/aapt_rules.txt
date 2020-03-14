@@ -1,0 +1,252 @@
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:174
+-keep class abi33_0_0.com.facebook.react.devsupport.DevSettingsActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:256
+-keep class abi33_0_0.expo.modules.payments.stripe.RedirectUriReceiver { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:171
+-keep class abi34_0_0.com.facebook.react.devsupport.DevSettingsActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:240
+-keep class abi34_0_0.expo.modules.payments.stripe.RedirectUriReceiver { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:168
+-keep class abi35_0_0.com.facebook.react.devsupport.DevSettingsActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:224
+-keep class abi35_0_0.expo.modules.payments.stripe.RedirectUriReceiver { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:165
+-keep class abi36_0_0.com.facebook.react.devsupport.DevSettingsActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:208
+-keep class abi36_0_0.expo.modules.payments.stripe.RedirectUriReceiver { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:101
+-keep class androidx.core.app.CoreComponentFactory { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:449
+-keep class androidx.core.content.FileProvider { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:647
+-keep class com.crashlytics.android.CrashlyticsInitProvider { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:638
+-keep class com.facebook.CampaignTrackingReceiver { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:631
+-keep class com.facebook.CurrentAccessTokenExpirationBroadcastReceiver { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:491
+-keep class com.facebook.CustomTabActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:490
+-keep class com.facebook.CustomTabMainActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:283
+-keep class com.facebook.FacebookActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:492
+-keep class com.facebook.ads.AudienceNetworkActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:288
+-keep class com.facebook.ads.InterstitialAdActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:505
+-keep class com.facebook.ads.internal.ipc.AdsMessengerService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:502
+-keep class com.facebook.ads.internal.ipc.AdsProcessPriorityService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:496
+-keep class com.facebook.ads.internal.ipc.RemoteANActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:626
+-keep class com.facebook.internal.FacebookInitProvider { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:161
+-keep class com.facebook.react.devsupport.DevSettingsActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:509
+-keep class com.google.android.gms.analytics.AnalyticsJobService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:316
+-keep class com.google.android.gms.analytics.AnalyticsReceiver { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:325
+-keep class com.google.android.gms.analytics.AnalyticsService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:527
+-keep class com.google.android.gms.auth.api.signin.RevocationBoundService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:518
+-keep class com.google.android.gms.auth.api.signin.internal.SignInHubActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:578
+-keep class com.google.android.gms.common.api.GoogleApiActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:331
+-keep class com.google.android.gms.gcm.GcmReceiver { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:594
+-keep class com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:608
+-keep class com.google.android.gms.measurement.AppMeasurementJobService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:589
+-keep class com.google.android.gms.measurement.AppMeasurementReceiver { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:604
+-keep class com.google.android.gms.measurement.AppMeasurementService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:558
+-keep class com.google.firebase.components.ComponentDiscoveryService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:569
+-keep class com.google.firebase.iid.FirebaseInstanceIdReceiver { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:551
+-keep class com.google.firebase.messaging.FirebaseMessagingService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:583
+-keep class com.google.firebase.provider.FirebaseInitProvider { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:382
+-keep class com.theartofdev.edmodo.cropper.CropImageActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:467
+-keep class expo.modules.filesystem.FileSystemFileProvider { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:476
+-keep class expo.modules.imagepicker.ImagePickerFileProvider { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:486
+-keep class expo.modules.location.services.LocationTaskService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:192
+-keep class expo.modules.payments.stripe.RedirectUriReceiver { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:294
+-keep class host.exp.exponent.ExponentIntentService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:110
+-keep class host.exp.exponent.LauncherActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:122
+-keep class host.exp.exponent.MainActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:101
+-keep class host.exp.exponent.MainApplication { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:273
+-keep class host.exp.exponent.experience.ErrorActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:116
+-keep class host.exp.exponent.experience.ExperienceActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:143
+-keep class host.exp.exponent.experience.HomeActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:278
+-keep class host.exp.exponent.experience.InfoActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:150
+-keep class host.exp.exponent.experience.TvActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:363
+-keep class host.exp.exponent.fcm.ExpoFcmMessagingService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:376
+-keep class host.exp.exponent.fcm.FcmRegistrationIntentService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:343
+-keep class host.exp.exponent.gcm.ExponentGcmListenerService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:350
+-keep class host.exp.exponent.gcm.ExponentInstanceIDListenerService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:357
+-keep class host.exp.exponent.gcm.GcmRegistrationIntentService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:435
+-keep class host.exp.exponent.notifications.ScheduledNotificationReceiver { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:438
+-keep class host.exp.exponent.notifications.receivers.SchedulingTriggerReceiver { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:299
+-keep class host.exp.exponent.referrer.InstallReferrerReceiver { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:538
+-keep class io.nlopez.smartlocation.activity.providers.ActivityGooglePlayServicesProvider$ActivityRecognitionService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:544
+-keep class io.nlopez.smartlocation.geocoding.providers.AndroidGeocodingProvider$AndroidGeocodingService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:541
+-keep class io.nlopez.smartlocation.geofencing.providers.GeofencingGooglePlayServicesProvider$GeofencingService { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:532
+-keep class net.openid.appauth.AuthorizationManagementActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:178
+-keep class net.openid.appauth.RedirectUriReceiverActivity { <init>(); }
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:458
+-keep class versioned.host.exp.exponent.modules.api.components.webview.RNCWebViewFileProvider { <init>(); }
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_alert_dialog_title_material.xml:57
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_alert_dialog_material.xml:52
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_alert_dialog_button_bar_material.xml:43
+-keep class android.widget.Space { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_select_dialog_material.xml:23
+-keep class androidx.appcompat.app.AlertController$RecycleListView { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_action_menu_item_layout.xml:17
+-keep class androidx.appcompat.view.menu.ActionMenuItemView { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_expanded_menu_layout.xml:17
+-keep class androidx.appcompat.view.menu.ExpandedMenuView { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_popup_menu_item_layout.xml:17
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_list_menu_item_layout.xml:17
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_cascading_menu_item_layout.xml:20
+-keep class androidx.appcompat.view.menu.ListMenuItemView { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_screen_toolbar.xml:27
+-keep class androidx.appcompat.widget.ActionBarContainer { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_screen_toolbar.xml:43
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_action_mode_bar.xml:19
+-keep class androidx.appcompat.widget.ActionBarContextView { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_screen_toolbar.xml:17
+-keep class androidx.appcompat.widget.ActionBarOverlayLayout { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_action_menu_layout.xml:17
+-keep class androidx.appcompat.widget.ActionMenuView { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_activity_chooser_view.xml:19
+-keep class androidx.appcompat.widget.ActivityChooserView$InnerLayout { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_alert_dialog_material.xml:18
+-keep class androidx.appcompat.widget.AlertDialogLayout { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2853523ec73713530a45adf66f132ba2/jetified-facebook-common-5.0.1/res/layout/com_facebook_smart_device_dialog_fragment.xml:47
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2853523ec73713530a45adf66f132ba2/jetified-facebook-common-5.0.1/res/layout/com_facebook_device_auth_dialog_fragment.xml:45
+-keep class androidx.appcompat.widget.AppCompatImageView { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_alert_dialog_button_bar_material.xml:26
+-keep class androidx.appcompat.widget.ButtonBarLayout { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_screen_content_include.xml:19
+-keep class androidx.appcompat.widget.ContentFrameLayout { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_alert_dialog_title_material.xml:45
+-keep class androidx.appcompat.widget.DialogTitle { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_screen_simple_overlay_action_mode.xml:23
+-keep class androidx.appcompat.widget.FitWindowsFrameLayout { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_screen_simple.xml:17
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_dialog_title_material.xml:22
+-keep class androidx.appcompat.widget.FitWindowsLinearLayout { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_search_view.xml:75
+-keep class androidx.appcompat.widget.SearchView$SearchAutoComplete { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout-v26/abc_screen_toolbar.xml:37
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/res/layout/oauth_webview_activity.xml:5
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/6fcbc246a29c77a89d7e23de7fa64893/expoview-36.0.0/res/layout/info_activity.xml:14
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_screen_toolbar.xml:36
+-keep class androidx.appcompat.widget.Toolbar { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_screen_simple_overlay_action_mode.xml:32
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_screen_simple.xml:25
+-keep class androidx.appcompat.widget.ViewStubCompat { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/8ba03d5d4c56ada5718d9f0d3957895a/browser-1.0.0/res/layout/browser_actions_context_menu_page.xml:5
+-keep class androidx.browser.browseractions.BrowserActionsFallbackMenuView { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2853523ec73713530a45adf66f132ba2/jetified-facebook-common-5.0.1/res/layout/com_facebook_smart_device_dialog_fragment.xml:22
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2853523ec73713530a45adf66f132ba2/jetified-facebook-common-5.0.1/res/layout/com_facebook_device_auth_dialog_fragment.xml:22
+-keep class androidx.cardview.widget.CardView { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/layout/design_bottom_sheet_dialog.xml:26
+-keep class androidx.coordinatorlayout.widget.CoordinatorLayout { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_alert_dialog_material.xml:41
+-keep class androidx.core.widget.NestedScrollView { <init>(...); }
+
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/src/main/res/layout/error_activity_new.xml:2
+-keep class androidx.viewpager.widget.ViewPager { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/layout/design_bottom_navigation_item.xml:27
+-keep class com.google.android.material.internal.BaselineLayout { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/layout/design_text_input_password_icon.xml:18
+-keep class com.google.android.material.internal.CheckableImageButton { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/layout/design_navigation_item.xml:17
+-keep class com.google.android.material.internal.NavigationMenuItemView { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/layout/design_navigation_menu.xml:17
+-keep class com.google.android.material.internal.NavigationMenuView { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/layout/mtrl_layout_snackbar.xml:18
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/layout/design_layout_snackbar.xml:18
+-keep class com.google.android.material.snackbar.Snackbar$SnackbarLayout { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/layout/mtrl_layout_snackbar_include.xml:18
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/layout/design_layout_snackbar_include.xml:18
+-keep class com.google.android.material.snackbar.SnackbarContentLayout { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/97fa1be93467c973dc1d8ee76f090bf4/jetified-android-maps-utils-0.5/res/layout/amu_text_bubble.xml:7
+-keep class com.google.maps.android.ui.RotationLayout { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/462bc9c3daddcb86702fbb8dee3adea7/jetified-android-image-cropper-2.7.0/res/layout/crop_image_activity.xml:2
+-keep class com.theartofdev.edmodo.cropper.CropImageView { <init>(...); }
+
+# Referenced at /Users/baeinsu/.gradle/caches/transforms-2/files-2.1/462bc9c3daddcb86702fbb8dee3adea7/jetified-android-image-cropper-2.7.0/res/layout/crop_image_view.xml:13
+-keep class com.theartofdev.edmodo.cropper.CropOverlayView { <init>(...); }
+
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/src/main/res/layout/error_fragment.xml:57
+# Referenced at /Users/baeinsu/Documents/HYRE-App/android/app/src/main/res/layout/error_console_fragment.xml:25
+-keep class host.exp.exponent.views.ExponentImageButton { <init>(...); }
+

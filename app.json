@@ -17,10 +17,12 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.contacts.hure",
       "infoPlist": {
-        "NSPhotoLibraryAddUsageDescription": "이 앱이 사진에 접근하기 위한 권한 설정 입니다.",
+        "NSPhotoLibraryUsageDescription": "이 앱이 사진에 접근하기 위한 권한 설정 입니다.",
         "NSContactsUsageDescription": "이 앱이 연락처에 저장하기 위한 권한 설정 입니다."
       },
-      "buildNumber": "1.0.1"
+      "buildNumber": "1.0.1",
+      "publishBundlePath": "ios/-------/Supporting/shell-app.bundle",
+      "publishManifestPath": "ios/-------/Supporting/shell-app-manifest.json"
     },
     "android": {
       "package": "com.MJU.HURE_APP",
@@ -46,11 +48,19 @@
         "com.sec.android.provider.badge.permission.READ",
         "com.sec.android.provider.badge.permission.WRITE",
         "com.sonyericsson.home.permission.BROADCAST_BADGE"
-      ]
+      ],
+      "publishBundlePath": "android/app/src/main/assets/shell-app.bundle",
+      "publishManifestPath": "android/app/src/main/assets/shell-app-manifest.json"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"]
+    "assetBundlePatterns": ["**/*"],
+    "isDetached": true,
+    "detach": {
+      "iosExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/ios-v2.14.6-sdk36.0.0-8ea388d1-463b-4e91-bbf7-2d95d0174c96.tar.gz",
+      "androidExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/android-v2.14.2-sdk36.0.0-ce7e16db-fd5d-4fdd-bdeb-701ba94a04d1.tar.gz"
+    },
+    "scheme": "exp99aa17ba68ab4b9a8b1f5dda8a4cced4"
   }
 }

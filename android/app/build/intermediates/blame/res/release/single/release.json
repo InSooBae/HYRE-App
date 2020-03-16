@@ -24,12 +24,12 @@
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable/abc_ic_voice_search_api_material.xml"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-mdpi-v4_abc_btn_radio_to_on_mtrl_000.png.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-mdpi-v4/abc_btn_radio_to_on_mtrl_000.png"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xxhdpi-v4_abc_ic_menu_share_mtrl_alpha.png.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-xxhdpi-v4/abc_ic_menu_share_mtrl_alpha.png"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-mdpi-v4_abc_btn_radio_to_on_mtrl_000.png.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-mdpi-v4/abc_btn_radio_to_on_mtrl_000.png"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable_design_snackbar_background.xml.flat",
@@ -68,28 +68,28 @@
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/257696dd06704e912cce05cc1e156c5d/facebook-messenger-5.0.1/res/layout/messenger_button_send_white_round.xml"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-mdpi-v4_abc_scrubber_primary_mtrl_alpha.9.png.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-mdpi-v4/abc_scrubber_primary_mtrl_alpha.9.png"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable_com_facebook_auth_dialog_background.xml.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/2853523ec73713530a45adf66f132ba2/jetified-facebook-common-5.0.1/res/drawable/com_facebook_auth_dialog_background.xml"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-mdpi-v4_abc_scrubber_primary_mtrl_alpha.9.png.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-mdpi-v4/abc_scrubber_primary_mtrl_alpha.9.png"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/raw_amu_multigeometry_placemarks.kml.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/97fa1be93467c973dc1d8ee76f090bf4/jetified-android-maps-utils-0.5/res/raw/amu_multigeometry_placemarks.kml"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable_abc_ratingbar_indicator_material.xml.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable/abc_ratingbar_indicator_material.xml"
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/anim_abc_tooltip_exit.xml.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/anim/abc_tooltip_exit.xml"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xxhdpi-v4_abc_switch_track_mtrl_alpha.9.png.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-xxhdpi-v4/abc_switch_track_mtrl_alpha.9.png"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/anim_abc_tooltip_exit.xml.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/anim/abc_tooltip_exit.xml"
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable_abc_ratingbar_indicator_material.xml.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable/abc_ratingbar_indicator_material.xml"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/animator_mtrl_fab_hide_motion_spec.xml.flat",
@@ -136,12 +136,12 @@
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/anim/btn_radio_to_on_mtrl_dot_group_animation.xml"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/color_abc_primary_text_disable_only_material_dark.xml.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/color/abc_primary_text_disable_only_material_dark.xml"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xxxhdpi_ic_home_white_36dp.png.flat",
         "source": "/Users/baeinsu/Documents/HYRE-App/android/app/src/main/res/drawable-xxxhdpi/ic_home_white_36dp.png"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/color_abc_primary_text_disable_only_material_dark.xml.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/color/abc_primary_text_disable_only_material_dark.xml"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/layout_notification_template_big_media_custom.xml.flat",
@@ -172,16 +172,16 @@
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable/tooltip_frame_light.xml"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-hdpi-v4_abc_ic_menu_share_mtrl_alpha.png.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-hdpi-v4/abc_ic_menu_share_mtrl_alpha.png"
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable_design_fab_background.xml.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/drawable/design_fab_background.xml"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xhdpi-v4_common_google_signin_btn_icon_light_normal_background.9.png.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/a5b7d4aeed11bc69737833ec4cfa6779/jetified-play-services-base-16.0.1/res/drawable-xhdpi-v4/common_google_signin_btn_icon_light_normal_background.9.png"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable_design_fab_background.xml.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/drawable/design_fab_background.xml"
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-hdpi-v4_abc_ic_menu_share_mtrl_alpha.png.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-hdpi-v4/abc_ic_menu_share_mtrl_alpha.png"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-mdpi-v4_abc_cab_background_top_mtrl_alpha.9.png.flat",
@@ -280,12 +280,12 @@
         "source": "/Users/baeinsu/Documents/HYRE-App/android/app/src/main/res/drawable-xxxhdpi/notification_icon.png"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-hdpi-v4_abc_list_pressed_holo_light.9.png.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-hdpi-v4/abc_list_pressed_holo_light.9.png"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/anim-v21_design_bottom_sheet_slide_out.xml.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/anim-v21/design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-hdpi-v4_abc_list_pressed_holo_light.9.png.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-hdpi-v4/abc_list_pressed_holo_light.9.png"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/mipmap-hdpi_ic_launcher.png.flat",
@@ -396,12 +396,12 @@
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/257696dd06704e912cce05cc1e156c5d/facebook-messenger-5.0.1/res/drawable-xxhdpi-v4/messenger_bubble_large_blue.png"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable_ic_mtrl_chip_checked_black.xml.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/drawable/ic_mtrl_chip_checked_black.xml"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xxhdpi_ic_arrow_back_white_36dp.png.flat",
         "source": "/Users/baeinsu/Documents/HYRE-App/android/app/src/main/res/drawable-xxhdpi/ic_arrow_back_white_36dp.png"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable_ic_mtrl_chip_checked_black.xml.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/drawable/ic_mtrl_chip_checked_black.xml"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/anim_abc_slide_in_bottom.xml.flat",
@@ -464,12 +464,12 @@
         "source": "/Users/baeinsu/Documents/HYRE-App/android/app/src/main/res/drawable-xxhdpi/ic_logo_white_32dp.png"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/layout_abc_screen_simple.xml.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_screen_simple.xml"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xxxhdpi-v4_abc_ic_star_black_36dp.png.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-xxxhdpi-v4/abc_ic_star_black_36dp.png"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/layout_abc_screen_simple.xml.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_screen_simple.xml"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable_abc_ic_arrow_drop_right_black_24dp.xml.flat",
@@ -504,12 +504,12 @@
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/color/mtrl_text_btn_text_color_selector.xml"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/anim_btn_radio_to_off_mtrl_dot_group_animation.xml.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/anim/btn_radio_to_off_mtrl_dot_group_animation.xml"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/layout_abc_search_view.xml.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_search_view.xml"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/anim_btn_radio_to_off_mtrl_dot_group_animation.xml.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/anim/btn_radio_to_off_mtrl_dot_group_animation.xml"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xhdpi-v4_abc_ic_menu_cut_mtrl_alpha.png.flat",
@@ -568,20 +568,20 @@
         "source": "/Users/baeinsu/Documents/HYRE-App/android/app/src/main/res/layout/error_console_fragment.xml"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-ldrtl-hdpi-v17_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-ldrtl-hdpi-v17/abc_ic_menu_copy_mtrl_am_alpha.png"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xhdpi-v4_com_facebook_tooltip_black_bottomnub.png.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/b920839df45302c32e4ca2cde1e5d94c/jetified-facebook-login-5.0.1/res/drawable-xhdpi-v4/com_facebook_tooltip_black_bottomnub.png"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-anydpi-v21_design_ic_visibility_off.xml.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/drawable-anydpi-v21/design_ic_visibility_off.xml"
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-ldrtl-hdpi-v17_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-ldrtl-hdpi-v17/abc_ic_menu_copy_mtrl_am_alpha.png"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xhdpi-v4_abc_text_select_handle_right_mtrl_dark.png.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-xhdpi-v4/abc_text_select_handle_right_mtrl_dark.png"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-anydpi-v21_design_ic_visibility_off.xml.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/drawable-anydpi-v21/design_ic_visibility_off.xml"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xhdpi-v4_com_facebook_button_icon_white.png.flat",
@@ -604,24 +604,24 @@
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-mdpi-v4/abc_btn_check_to_on_mtrl_000.png"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/interpolator_btn_checkbox_unchecked_mtrl_animation_interpolator_0.xml.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/interpolator/btn_checkbox_unchecked_mtrl_animation_interpolator_0.xml"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-hdpi-v4_common_google_signin_btn_text_light_normal_background.9.png.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/a5b7d4aeed11bc69737833ec4cfa6779/jetified-play-services-base-16.0.1/res/drawable-hdpi-v4/common_google_signin_btn_text_light_normal_background.9.png"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/interpolator_btn_checkbox_unchecked_mtrl_animation_interpolator_0.xml.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/interpolator/btn_checkbox_unchecked_mtrl_animation_interpolator_0.xml"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/anim_btn_checkbox_to_unchecked_box_inner_merged_animation.xml.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/anim/btn_checkbox_to_unchecked_box_inner_merged_animation.xml"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-hdpi-v4_messenger_bubble_large_white.png.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/257696dd06704e912cce05cc1e156c5d/facebook-messenger-5.0.1/res/drawable-hdpi-v4/messenger_bubble_large_white.png"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/anim_reactandroid_catalyst_push_up_out.xml.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/afd6c0f23c7cce2004f32c4d905e7423/jetified-react-native-36.0.0/res/anim/reactandroid_catalyst_push_up_out.xml"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-hdpi-v4_messenger_bubble_large_white.png.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/257696dd06704e912cce05cc1e156c5d/facebook-messenger-5.0.1/res/drawable-hdpi-v4/messenger_bubble_large_white.png"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xxhdpi-v4_abc_ic_star_black_36dp.png.flat",
@@ -652,12 +652,12 @@
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/b920839df45302c32e4ca2cde1e5d94c/jetified-facebook-login-5.0.1/res/drawable-xhdpi-v4/com_facebook_tooltip_blue_bottomnub.png"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/layout_notification_template_lines_media.xml.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/bcf1730d162a1190df5f084358b38288/media-1.0.0/res/layout/notification_template_lines_media.xml"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable_btn_radio_off_mtrl.xml.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable/btn_radio_off_mtrl.xml"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/layout_notification_template_lines_media.xml.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/bcf1730d162a1190df5f084358b38288/media-1.0.0/res/layout/notification_template_lines_media.xml"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/interpolator_btn_checkbox_unchecked_mtrl_animation_interpolator_1.xml.flat",
@@ -720,12 +720,12 @@
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_cascading_menu_item_layout.xml"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xxhdpi-v4_abc_list_selector_disabled_holo_dark.9.png.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-xxhdpi-v4/abc_list_selector_disabled_holo_dark.9.png"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-hdpi-v4_abc_ic_menu_paste_mtrl_am_alpha.png.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-hdpi-v4/abc_ic_menu_paste_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xxhdpi-v4_abc_list_selector_disabled_holo_dark.9.png.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-xxhdpi-v4/abc_list_selector_disabled_holo_dark.9.png"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-hdpi_ic_share_white_36dp.png.flat",
@@ -748,16 +748,16 @@
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-xxxhdpi-v4/abc_ic_menu_paste_mtrl_am_alpha.png"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/color_mtrl_chip_text_color.xml.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/color/mtrl_chip_text_color.xml"
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-mdpi-v4_common_google_signin_btn_icon_dark_normal_background.9.png.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/a5b7d4aeed11bc69737833ec4cfa6779/jetified-play-services-base-16.0.1/res/drawable-mdpi-v4/common_google_signin_btn_icon_dark_normal_background.9.png"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xhdpi-v4_crop_image_menu_flip.png.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/462bc9c3daddcb86702fbb8dee3adea7/jetified-android-image-cropper-2.7.0/res/drawable-xhdpi-v4/crop_image_menu_flip.png"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-mdpi-v4_common_google_signin_btn_icon_dark_normal_background.9.png.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/a5b7d4aeed11bc69737833ec4cfa6779/jetified-play-services-base-16.0.1/res/drawable-mdpi-v4/common_google_signin_btn_icon_dark_normal_background.9.png"
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/color_mtrl_chip_text_color.xml.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/color/mtrl_chip_text_color.xml"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-ldrtl-xxhdpi-v17_abc_ic_menu_cut_mtrl_alpha.png.flat",
@@ -876,12 +876,12 @@
         "source": "/Users/baeinsu/Documents/HYRE-App/android/app/src/main/res/drawable/splash_background.xml"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/layout_abc_list_menu_item_radio.xml.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_list_menu_item_radio.xml"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xhdpi-v4_abc_scrubber_primary_mtrl_alpha.9.png.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-xhdpi-v4/abc_scrubber_primary_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/layout_abc_list_menu_item_radio.xml.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/layout/abc_list_menu_item_radio.xml"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xhdpi-v4_abc_list_divider_mtrl_alpha.9.png.flat",
@@ -916,16 +916,16 @@
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-xxhdpi-v4/abc_btn_radio_to_on_mtrl_015.png"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-hdpi-v4_com_facebook_tooltip_black_topnub.png.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/b920839df45302c32e4ca2cde1e5d94c/jetified-facebook-login-5.0.1/res/drawable-hdpi-v4/com_facebook_tooltip_black_topnub.png"
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/layout_design_navigation_menu_item.xml.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/layout/design_navigation_menu_item.xml"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xhdpi-v4_abc_list_longpressed_holo.9.png.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-xhdpi-v4/abc_list_longpressed_holo.9.png"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/layout_design_navigation_menu_item.xml.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/layout/design_navigation_menu_item.xml"
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-hdpi-v4_com_facebook_tooltip_black_topnub.png.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/b920839df45302c32e4ca2cde1e5d94c/jetified-facebook-login-5.0.1/res/drawable-hdpi-v4/com_facebook_tooltip_black_topnub.png"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/layout_design_bottom_sheet_dialog.xml.flat",
@@ -940,12 +940,12 @@
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-xxhdpi-v4/abc_scrubber_primary_mtrl_alpha.9.png"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xxhdpi-v4_googleg_standard_color_18.png.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/a5b7d4aeed11bc69737833ec4cfa6779/jetified-play-services-base-16.0.1/res/drawable-xxhdpi-v4/googleg_standard_color_18.png"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xhdpi-v4_abc_switch_track_mtrl_alpha.9.png.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-xhdpi-v4/abc_switch_track_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xxhdpi-v4_googleg_standard_color_18.png.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/a5b7d4aeed11bc69737833ec4cfa6779/jetified-play-services-base-16.0.1/res/drawable-xxhdpi-v4/googleg_standard_color_18.png"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-v21_avd_show_password.xml.flat",
@@ -1008,12 +1008,12 @@
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/9fc68f33a5794239bdcdef08988583e5/jetified-facebook-share-5.0.1/res/drawable-mdpi-v4/com_facebook_button_send_icon_white.png"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/color_abc_background_cache_hint_selector_material_light.xml.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/color/abc_background_cache_hint_selector_material_light.xml"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/raw_amu_basic_placemark.kml.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/97fa1be93467c973dc1d8ee76f090bf4/jetified-android-maps-utils-0.5/res/raw/amu_basic_placemark.kml"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/color_abc_background_cache_hint_selector_material_light.xml.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/color/abc_background_cache_hint_selector_material_light.xml"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xhdpi-v4_common_full_open_on_phone.png.flat",
@@ -1208,12 +1208,12 @@
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/71f878751c312e5a1ce316523e39be12/material-1.0.0/res/drawable-mdpi-v4/design_ic_visibility.png"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-hdpi-v4_com_facebook_tooltip_blue_topnub.png.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/b920839df45302c32e4ca2cde1e5d94c/jetified-facebook-login-5.0.1/res/drawable-hdpi-v4/com_facebook_tooltip_blue_topnub.png"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable_abc_seekbar_tick_mark_material.xml.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable/abc_seekbar_tick_mark_material.xml"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-hdpi-v4_com_facebook_tooltip_blue_topnub.png.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/b920839df45302c32e4ca2cde1e5d94c/jetified-facebook-login-5.0.1/res/drawable-hdpi-v4/com_facebook_tooltip_blue_topnub.png"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xhdpi-v4_abc_textfield_search_default_mtrl_alpha.9.png.flat",
@@ -1232,12 +1232,12 @@
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-xxxhdpi-v4/abc_btn_radio_to_on_mtrl_000.png"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xhdpi-v4_abc_text_select_handle_left_mtrl_dark.png.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-xhdpi-v4/abc_text_select_handle_left_mtrl_dark.png"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/layout_messenger_button_send_blue_small.xml.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/257696dd06704e912cce05cc1e156c5d/facebook-messenger-5.0.1/res/layout/messenger_button_send_blue_small.xml"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-xhdpi-v4_abc_text_select_handle_left_mtrl_dark.png.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-xhdpi-v4/abc_text_select_handle_left_mtrl_dark.png"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-hdpi-v4_abc_ic_star_half_black_48dp.png.flat",
@@ -1488,12 +1488,12 @@
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable/abc_list_selector_holo_dark.xml"
     },
     {
-        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/color-v23_abc_tint_default.xml.flat",
-        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/color-v23/abc_tint_default.xml"
-    },
-    {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-hdpi-v4_abc_spinner_mtrl_am_alpha.9.png.flat",
         "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/drawable-hdpi-v4/abc_spinner_mtrl_am_alpha.9.png"
+    },
+    {
+        "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/color-v23_abc_tint_default.xml.flat",
+        "source": "/Users/baeinsu/.gradle/caches/transforms-2/files-2.1/08d5dcb2ad36c8c391956f8e4b207bda/appcompat-1.1.0/res/color-v23/abc_tint_default.xml"
     },
     {
         "merged": "/Users/baeinsu/Documents/HYRE-App/android/app/build/intermediates/res/merged/release/drawable-mdpi-v4_com_facebook_tooltip_black_background.9.png.flat",

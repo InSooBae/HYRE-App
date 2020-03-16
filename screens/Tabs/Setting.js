@@ -1182,9 +1182,7 @@ export default () => {
               </View>
               <View
                 style={{
-                  width: constants.width / 1.5,
-                  justifyContent: 'center',
-                  alignItems: 'flex-start'
+                  width: constants.width / 1.5
                 }}
               >
                 <RNPickerSelect
@@ -1201,20 +1199,12 @@ export default () => {
                   style={{ ...pickerSelectStyles }}
                   Icon={() =>
                     edit && (
-                      <View
-                        style={{
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          flex: 1
-                        }}
-                      >
-                        <Avatar.Icon
-                          icon="chevron-down"
-                          size={30}
-                          color="black"
-                          theme={{ colors: { primary: '#ffffff' } }}
-                        />
-                      </View>
+                      <Avatar.Icon
+                        icon="chevron-down"
+                        size={30}
+                        color="black"
+                        theme={{ colors: { primary: '#ffffff' } }}
+                      />
                     )
                   }
                   useNativeAndroidPickerStyle={false}
@@ -1261,9 +1251,7 @@ export default () => {
               </View>
               <View
                 style={{
-                  width: constants.width / 1.5,
-                  justifyContent: 'center',
-                  alignItems: 'flex-start'
+                  width: constants.width / 1.5
                 }}
               >
                 <RNPickerSelect
@@ -1279,20 +1267,12 @@ export default () => {
                   doneText={'확인'}
                   Icon={() =>
                     edit && (
-                      <View
-                        style={{
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          flex: 1
-                        }}
-                      >
-                        <Avatar.Icon
-                          icon="chevron-down"
-                          size={30}
-                          color="black"
-                          theme={{ colors: { primary: '#ffffff' } }}
-                        />
-                      </View>
+                      <Avatar.Icon
+                        icon="chevron-down"
+                        size={30}
+                        color="black"
+                        theme={{ colors: { primary: '#ffffff' } }}
+                      />
                     )
                   }
                   useNativeAndroidPickerStyle={false}
@@ -1545,12 +1525,32 @@ export default () => {
         )}
         <View style={{ alignItems: 'center', marginBottom: 3, marginTop: 7 }}>
           <TouchableOpacity onPress={() => callNumber('01057515232')}>
-            <Text style={{ color: styles.darkGreyColor, marginBottom: 5 }}>
+            <Text
+              style={
+                Platform.OS === 'ios'
+                  ? {
+                      color: styles.darkGreyColor,
+                      marginBottom: 10,
+                      fontSize: 17
+                    }
+                  : { color: styles.darkGreyColor, marginBottom: 7 }
+              }
+            >
               developer H.P : 010-5751-5232
             </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => linkEmail('qospwmf@gmail.com')}>
-            <Text style={{ color: styles.darkGreyColor, marginBottom: 7 }}>
+            <Text
+              style={
+                Platform.OS === 'ios'
+                  ? {
+                      color: styles.darkGreyColor,
+                      marginBottom: 12,
+                      fontSize: 17
+                    }
+                  : { color: styles.darkGreyColor, marginBottom: 7 }
+              }
+            >
               email : qospwmf@gmail.com
             </Text>
           </TouchableOpacity>

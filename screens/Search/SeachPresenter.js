@@ -25,6 +25,7 @@ export const SEARCH = gql`
       cellPhone
       company
       team
+      email
       position
       photo
       major {
@@ -90,6 +91,7 @@ const SearchPresenter = ({ query, shouldFetch }) => {
                 company={item.company}
                 id={item.id}
                 major={item.major.name}
+                email={item.email}
                 name={item.name}
                 photo={item.photo === null ? '' : item.photo}
                 position={item.position}

@@ -5,7 +5,7 @@
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": ["ios", "android", "web"],
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "splash": {
@@ -20,10 +20,11 @@
         "NSPhotoLibraryUsageDescription": "이 앱이 사진에 접근하기 위한 권한 설정 입니다.",
         "NSContactsUsageDescription": "이 앱이 연락처에 저장하기 위한 권한 설정 입니다."
       },
-      "buildNumber": "1.0.2"
+      "buildNumber": "1.0.3"
     },
     "android": {
       "package": "com.MJU.HURE_APP",
+      "versionCode": 3,
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",

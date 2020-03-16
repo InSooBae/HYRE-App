@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { gql } from 'apollo-boost';
-import * as Contacts from 'expo-contacts';
 import { useQuery } from '@apollo/react-hooks';
 import UserProfile from '../components/UserProfile';
 import { ScrollView } from 'react-native-gesture-handler';
-import { RefreshControl } from 'react-native';
+import { RefreshControl, Platform, PermissionsAndroid } from 'react-native';
 import Loader from '../components/Loader';
 import { View, Toast } from 'native-base';
 import constants from '../constants';
 import AuthButton from '../components/AuthButton';
 import { inputPhoneNumber } from '../components/PhoneCall';
+import Contacts from 'react-native-contacts';
+import * as ContactS from 'expo-contacts';
+
 const SEE_USER = gql`
   query seeUser($id: ID!) {
     seeUser(id: $id) {
@@ -64,50 +66,62 @@ export default ({ navigation }) => {
   });
   const [buttonLoading, setButtonLoading] = useState(false);
   const saveContact = async () => {
-    setButtonLoading(true);
-
-    const { status } = await Contacts.requestPermissionsAsync();
-    if (status === 'granted') {
-      const cellPhoneA =
-        a.__typename === 'User'
-          ? !a.cellPhone
+    if (Platform.OS === 'ios') {
+      const { status } = await ContactS.requestPermissionsAsync();
+      if (status === 'granted') {
+        const cellPhoneA =
+          a.__typename === 'User'
+            ? !a.cellPhone
+              ? ''
+              : inputPhoneNumber(a.cellPhone)
+            : !a.workPhone
             ? ''
-            : inputPhoneNumber(a.cellPhone)
-          : !a.workPhone
-          ? ''
-          : inputPhoneNumber(a.workPhone);
-      const contact = {
-        [Contacts.Fields.FirstName]: a.name,
-        [Contacts.Fields.PhoneNumbers]: [
-          {
-            label: '휴대폰',
-            number: cellPhoneA
+            : inputPhoneNumber(a.workPhone);
+        const contact = {
+          [ContactS.Fields.FirstName]: a.name,
+          [ContactS.Fields.PhoneNumbers]: [
+            {
+              label: '휴대폰',
+              number: cellPhoneA
+            }
+          ],
+          [ContactS.Fields.Emails]: [
+            {
+              email: a.email === null ? '' : a.email,
+              isPrimary: true,
+              id: '2',
+              label: '이메일'
+            }
+          ],
+          [ContactS.Fields.Company]: a.company === null ? '' : a.company
+        };
+        try {
+          const contactId = await ContactS.addContactAsync(contact);
+          console.log('contact-ID:', contactId);
+          if (contactId) {
+            Toast.show({
+              text: `연락처가 저장되었습니다.`,
+              textStyle: { textAlign: 'center' },
+              buttonText: 'Okay',
+              type: 'success',
+              position: 'top',
+              duration: 3000,
+              style: { marginTop: 70 }
+            });
+          } else {
+            Toast.show({
+              text: `연락처가 저장실패 하였습니다.`,
+              textStyle: { textAlign: 'center' },
+              buttonText: 'Okay',
+              type: 'danger',
+              position: 'top',
+              duration: 3000,
+              style: { marginTop: 70 }
+            });
           }
-        ],
-        [Contacts.Fields.Emails]: [
-          {
-            email: a.email === null ? '' : a.email,
-            isPrimary: true,
-            id: '2',
-            label: '이메일'
-          }
-        ],
-        [Contacts.Fields.Company]: a.company === null ? '' : a.company
-      };
-      try {
-        const contactId = await Contacts.addContactAsync(contact);
-        console.log('contact-ID:', contactId);
-        if (contactId) {
-          Toast.show({
-            text: `연락처가 저장되었습니다.`,
-            textStyle: { textAlign: 'center' },
-            buttonText: 'Okay',
-            type: 'success',
-            position: 'top',
-            duration: 3000,
-            style: { marginTop: 70 }
-          });
-        } else {
+        } catch (err) {
+          console.log(err);
+
           Toast.show({
             text: `연락처가 저장실패 하였습니다.`,
             textStyle: { textAlign: 'center' },
@@ -118,11 +132,9 @@ export default ({ navigation }) => {
             style: { marginTop: 70 }
           });
         }
-      } catch (err) {
-        console.log(err);
-
+      } else {
         Toast.show({
-          text: `연락처가 저장실패 하였습니다.`,
+          text: `연락처 권한설정을 해주세요!`,
           textStyle: { textAlign: 'center' },
           buttonText: 'Okay',
           type: 'danger',
@@ -130,21 +142,93 @@ export default ({ navigation }) => {
           duration: 3000,
           style: { marginTop: 70 }
         });
-      } finally {
       }
+      setButtonLoading(false);
     } else {
-      Toast.show({
-        text: `연락처 권한설정을 해주세요!`,
-        textStyle: { textAlign: 'center' },
-        buttonText: 'Okay',
-        type: 'danger',
-        position: 'top',
-        duration: 3000,
-        style: { marginTop: 70 }
-      });
+      const granted = await PermissionsAndroid.requestMultiple(
+        [
+          PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+          PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS
+        ],
+        {
+          title: 'Contacts',
+          message: 'This app would like to view your contacts.',
+          buttonPositive: 'Please accept bare mortal'
+        }
+      );
+      setButtonLoading(true);
+      if (
+        granted['android.permission.READ_CONTACTS'] ===
+          PermissionsAndroid.RESULTS.GRANTED &&
+        granted['android.permission.WRITE_CONTACTS'] ===
+          PermissionsAndroid.RESULTS.GRANTED
+      ) {
+        const cellPhoneA =
+          a.__typename === 'User'
+            ? !a.cellPhone
+              ? ''
+              : inputPhoneNumber(a.cellPhone)
+            : !a.workPhone
+            ? ''
+            : inputPhoneNumber(a.workPhone);
+        const contact = {
+          givenName: a.name,
+          phoneNumbers: [
+            {
+              label: '전화번호',
+              number: cellPhoneA
+            }
+          ],
+          emailAddresses: [
+            {
+              label: '이메일',
+              email: a.email === null ? '' : a.email
+            }
+          ],
+          company: a.company === null ? '' : a.company
+        };
+        setButtonLoading(true);
+        Contacts.addContact(contact, err => {
+          if (err) {
+            Toast.show({
+              text: '연락처가 저장실패 하였습니다.',
+              textStyle: { textAlign: 'center' },
+              buttonText: 'Okay',
+              type: 'danger',
+              position: 'top',
+              duration: 3000,
+              style: { marginTop: 70 }
+            });
+            console.log(err);
+            throw err;
+          }
+          if (!err) {
+            Toast.show({
+              text: '연락처가 저장되었습니다.',
+              textStyle: { textAlign: 'center' },
+              buttonText: 'Okay',
+              type: 'success',
+              position: 'top',
+              duration: 3000,
+              style: { marginTop: 70 }
+            });
+          }
+        });
+      } else {
+        Toast.show({
+          text: '권한 설정을 해주세요.',
+          textStyle: { textAlign: 'center' },
+          buttonText: 'Okay',
+          type: 'danger',
+          position: 'top',
+          duration: 3000,
+          style: { marginTop: 70 }
+        });
+      }
+      setButtonLoading(false);
     }
-    setButtonLoading(false);
   };
+
   useEffect(() => {
     if (!loading) {
       if (type === 'User') {

@@ -3,7 +3,13 @@ import { FontAwesome } from '@expo/vector-icons';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
-import { AsyncStorage, StatusBar, Platform } from 'react-native';
+import {
+  AsyncStorage,
+  StatusBar,
+  Platform,
+  BackHandler,
+  Alert
+} from 'react-native';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { persistCache } from 'apollo-cache-persist';
 import ApolloClient from 'apollo-boost';
@@ -13,6 +19,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import apolloClientOptions from './apollo';
 import styles from './styles';
 import { Root } from 'native-base';
+import NetInfo, { useNetInfo } from '@react-native-community/netinfo';
 
 import NavController from './components/NavController';
 import { AuthProvider } from './AuthContext';
@@ -28,7 +35,10 @@ export default function App() {
   const [client, setClient] = useState(null);
   //유저가 로그아웃했는지 알려고 null은 로그아웃했는지 체크 x false는 로그아웃 true는 로그인
   const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const [network, setNetwork] = useState(true);
+  const netinfo = useNetInfo();
 
+  // To unsubscribe to these update, just use:
   const preLoad = async () => {
     //preload때 AsyncStorage 비우기 -> 로그아웃
     try {
@@ -91,6 +101,19 @@ export default function App() {
   };
   //1.mount가 될때 useEffect 함수를 사용하는건데 이함수는 preload(){비동기적함수}를 가지고있고
   useEffect(() => {
+    NetInfo.fetch().then(state => {
+      console.log('Connection type', state.type);
+      console.log('Is connected?', state.isConnected);
+      setNetwork(state.isConnected);
+      if (!state.isConnected) {
+        Alert.alert(
+          '인터넷 연결 문제',
+          '인터넷 연결이 필요합니다!',
+          [{ text: 'OK', onPress: () => BackHandler.exitApp() }],
+          { cancelable: false }
+        );
+      }
+    });
     preLoad();
   }, []);
   // 처음 component가 mount 되면 loaded는 false,client는 null이됨 -> <AppLoading>
@@ -98,7 +121,7 @@ export default function App() {
 
   // 아직은 뭔지 모르겠는데 context는 위 두함수를 모든곳에서 사용할수있게해줌
 
-  return loaded && client && isLoggedIn !== null ? (
+  return loaded && client && isLoggedIn !== null && netinfo.isConnected ? (
     //loaded,client가 둘다 true or exist 면 client를 ApolloProvider에게 pass
     //AuthProvider가 감싸야 context이용가능 AuthContext에 설명
     <Root>
@@ -109,6 +132,7 @@ export default function App() {
               {Platform.OS === 'ios' ? (
                 <StatusBar barStyle="dark-content" />
               ) : null}
+
               <NavController />
             </AuthProvider>
           </PaperProvider>

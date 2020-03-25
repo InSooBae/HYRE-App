@@ -30,9 +30,9 @@ const REQUEST_CREATE_USER = gql`
   mutation requestCreateUser(
     $photo: String
     $name: String!
-    $birthday: String!
+    $birthday: String
     $email: String!
-    $cellPhone: String!
+    $cellPhone: String
     $company: String
     $companyDesc: [String!]!
     $team: String
@@ -80,7 +80,7 @@ export default ({ navigation }) => {
   const ref_input6 = useRef();
   const ref_input7 = useRef();
 
-  const [birth, setBirth] = useState('(출생년도를 선택하세요)*');
+  const [birth, setBirth] = useState(null);
   const [name, setName] = useState('');
   const [email, setEmail] = useState(navigation.getParam('email', ''));
   const [cellPhone, setCellPhone] = useState('');
@@ -243,28 +243,6 @@ export default ({ navigation }) => {
         style: { marginTop: 70 }
       });
     }
-    if (birth === '') {
-      return Toast.show({
-        text: `생년월일을 입력해 주세요.`,
-        textStyle: { textAlign: 'center' },
-        buttonText: 'Okay',
-        type: 'warning',
-        position: 'top',
-        duration: 7000,
-        style: { marginTop: 70 }
-      });
-    }
-    if (cellPhone === '') {
-      return Toast.show({
-        text: `전화번호를 입력해 주세요.`,
-        textStyle: { textAlign: 'center' },
-        buttonText: 'Okay',
-        type: 'warning',
-        position: 'top',
-        duration: 7000,
-        style: { marginTop: 70 }
-      });
-    }
     if (!major) {
       return Toast.show({
         text: `대학원 전공을 입력해 주세요.`,
@@ -343,15 +321,14 @@ export default ({ navigation }) => {
       }
     } catch (e) {
       Toast.show({
-        text: '이미 존재하는 아이디 입니다. 로그인 해주세요',
+        text: '이미 존재하는 이메일 혹은 전화번호 입니다. 다시 확인 해주세요',
         textStyle: { textAlign: 'center' },
         buttonText: 'Okay',
-        type: 'success',
+        type: 'danger',
         position: 'top',
         duration: 7000,
         style: { marginTop: 70 }
       });
-      navigation.navigate('Login', { email });
     } finally {
       setButtonLoading(false);
     }
@@ -455,11 +432,12 @@ export default ({ navigation }) => {
               <View
                 style={{
                   flexDirection: 'column',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  width: constants.width / 1.5
                 }}
               >
                 <TextInput
-                  style={{ width: constants.width / 1.5 }}
+                  style={{}}
                   mode="outlined"
                   theme={{
                     roundness: 100,
@@ -533,31 +511,18 @@ export default ({ navigation }) => {
                       }
                     }}
                     disabled
-                    label="(출생년도를 선택하세요)*"
+                    label="(출생년도를 선택하세요)"
                   />
-                  {birth === '(출생년도를 선택하세요)*' && (
-                    <HelperText
-                      type="info"
-                      visible={birth === '(출생년도를 선택하세요)*'}
-                    >
-                      생일은 필수입니다.
-                    </HelperText>
-                  )}
                 </TouchableOpacity>
                 <DateTimePickerModal
                   cancelTextIOS="취소"
                   confirmTextIOS="선택"
                   headerTextIOS="출생년도를 선택하세요"
                   isVisible={isDatePickerVisible}
-                  date={
-                    birth !== '(출생년도를 선택하세요)*'
-                      ? new Date(birth)
-                      : new Date()
-                  }
+                  date={!birth ? new Date() : new Date(birth)}
                   mode="date"
                   onConfirm={handleConfirm}
                   onCancel={hideDatePicker}
-                  isDarkModeEnabled={true}
                 />
               </View>
             </View>
@@ -605,18 +570,13 @@ export default ({ navigation }) => {
                   onChangeText={value => {
                     setCellPhone(inputPhoneNumber(value));
                   }}
-                  label="(휴대전화)*"
+                  label="(휴대전화)"
                   keyboardType={'numeric'}
                   returnKeyType="next"
                   autoCapitalize={'none'}
                   autoCorrect={false}
                   onSubmitEditing={() => ref_input2.current.focus()}
                 />
-                {!cellPhone && (
-                  <HelperText type="info" visible={!cellPhone}>
-                    {'휴대전화는 필수입니다.'}
-                  </HelperText>
-                )}
               </View>
             </View>
           </Card.Content>

@@ -99,7 +99,7 @@ export default () => {
       borderColor: styles.hanyangColor,
       borderRadius: 4,
       color: 'black',
-      paddingRight: 5, // to ensure the text is never behind the icon
+      paddingRight: 7, // to ensure the text is never behind the icon
       textAlign: 'center'
     },
     inputAndroid: {
@@ -276,10 +276,17 @@ export default () => {
             기수:
           </Text>
           <RNPickerSelect
-            placeholder={{
-              label: '전체선택',
-              value: null
-            }}
+            placeholder={
+              Platform.OS === 'ios'
+                ? {
+                    label: '전체선택 ',
+                    value: null
+                  }
+                : {
+                    label: '전체선택',
+                    value: null
+                  }
+            }
             Icon={() => null}
             placeholderTextColor={'black'}
             style={{ ...pickerSelectStyles }}
@@ -309,10 +316,17 @@ export default () => {
           </Text>
 
           <RNPickerSelect
-            placeholder={{
-              label: '전체선택',
-              value: null
-            }}
+            placeholder={
+              Platform.OS === 'ios'
+                ? {
+                    label: '전체선택 ',
+                    value: null
+                  }
+                : {
+                    label: '전체선택',
+                    value: null
+                  }
+            }
             style={{ ...pickerSelectStyles }}
             placeholderTextColor={'black'}
             Icon={() => null}

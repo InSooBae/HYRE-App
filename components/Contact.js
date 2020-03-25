@@ -17,6 +17,7 @@ import { View, Platform, PermissionsAndroid } from 'react-native';
 import { Toast, Text } from 'native-base';
 import styled from 'styled-components';
 import Contacts from 'react-native-contacts';
+import { trimText } from '../utils';
 const Contact = ({
   id,
   __typename,
@@ -36,11 +37,15 @@ const Contact = ({
   const [visible, setVisible] = useState(false);
   const [buttonLoading, setButtonLoading] = useState(false);
   const saveContact = async () => {
+    const phoneName =
+      __typename === 'User'
+        ? `${name} ${major} ${generation}기`
+        : `${name} ${major} 교수`;
     if (Platform.OS === 'ios') {
       const { status } = await ContactS.requestPermissionsAsync();
       if (status === 'granted') {
         const contact = {
-          [ContactS.Fields.FirstName]: name,
+          [ContactS.Fields.FirstName]: phoneName,
           [ContactS.Fields.PhoneNumbers]: [
             {
               label: '전화번호',
@@ -127,7 +132,7 @@ const Contact = ({
           PermissionsAndroid.RESULTS.GRANTED
       ) {
         const contact = {
-          givenName: name,
+          givenName: phoneName,
           phoneNumbers: [
             {
               label: '전화번호',
@@ -237,7 +242,6 @@ const Contact = ({
         style={{
           flexDirection: 'row',
           flex: 1,
-          justifyContent: 'space-evenly',
           alignItems: 'center'
         }}
       >
@@ -246,74 +250,110 @@ const Contact = ({
           source={photo === '' ? require('../assets/HYU1.png') : { uri: photo }}
           theme={{ colors: { primary: '#ffffff' } }}
         />
-        <View style={{ marginLeft: 15, flex: 1 }}>
-          <Text
-            style={
-              Platform.OS === 'ios'
-                ? {
-                    fontSize: 20,
-                    color: styles.hanyangColor,
-                    fontWeight: '500',
-                    marginTop: 3,
-                    marginBottom: 3
-                  }
-                : {
-                    fontSize: 17,
-                    color: styles.hanyangColor
-                  }
-            }
-          >
-            {name}
-          </Text>
-
-          <TouchableOpacity
-            style={{ flexWrap: 'wrap', flex: 1 }}
-            onPress={() => callNumber(cellPhone)}
+        <View
+          style={{
+            flexDirection: 'column',
+            marginLeft: 10,
+            flex: 1
+          }}
+        >
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginRight: 15
+            }}
           >
             <Text
               style={
                 Platform.OS === 'ios'
                   ? {
-                      marginBottom: 5
+                      fontSize: 20,
+                      color: styles.hanyangColor,
+                      fontWeight: '600',
+                      marginTop: 3,
+                      marginBottom: 3
                     }
                   : {
-                      fontSize: 16
+                      fontSize: 17,
+                      color: styles.hanyangColor,
+                      fontWeight: '600'
                     }
               }
             >
-              {!cellPhone ? null : inputPhoneNumber(cellPhone)}
+              {name}
             </Text>
-          </TouchableOpacity>
-          <View>
             <Text
               style={
                 Platform.OS === 'ios'
-                  ? {
-                      fontSize: 17,
-                      marginBottom: 5
-                    }
-                  : { fontSize: 14, marginBottom: 5 }
+                  ? { fontSize: 16, marginTop: 5 }
+                  : { fontSize: 14, marginTop: 5 }
               }
             >
-              {company}
+              {!company ? '' : trimText(company, 15)}
             </Text>
           </View>
-        </View>
-        <View style={{ flex: 1 }}>
-          {__typename === 'User' ? (
-            <View
-              style={{
-                alignItems: 'flex-end'
-              }}
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginRight: 15
+            }}
+          >
+            <TouchableOpacity
+              style={{ flexWrap: 'wrap', flex: 1 }}
+              onPress={() => (!cellPhone ? null : callNumber(cellPhone))}
             >
+              <Text
+                style={
+                  Platform.OS === 'ios'
+                    ? {
+                        marginBottom: 5
+                      }
+                    : {
+                        fontSize: 16
+                      }
+                }
+              >
+                {!cellPhone ? null : inputPhoneNumber(cellPhone)}
+              </Text>
+            </TouchableOpacity>
+            <Text
+              style={
+                Platform.OS === 'ios'
+                  ? { fontSize: 16, marginTop: 2 }
+                  : { fontSize: 14, marginTop: 2 }
+              }
+            >
+              {!team ? '' : trimText(team, 12)}
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginRight: 15
+            }}
+          >
+            <View>
               {!directorTitle ? (
-                <Text
-                  style={
-                    Platform.OS === 'ios'
-                      ? { fontSize: 16, marginBottom: 3, marginRight: 13 }
-                      : { fontSize: 14, marginBottom: 3, marginRight: 13 }
-                  }
-                >{`${generation}기`}</Text>
+                __typename === 'User' ? (
+                  <Text
+                    style={
+                      Platform.OS === 'ios'
+                        ? { fontSize: 16, marginBottom: 3, marginRight: 13 }
+                        : { fontSize: 14, marginBottom: 3, marginRight: 13 }
+                    }
+                  >{`${generation}기/${major}`}</Text>
+                ) : (
+                  <Text
+                    style={
+                      Platform.OS === 'ios'
+                        ? { fontSize: 16, marginBottom: 3, marginRight: 13 }
+                        : { fontSize: 14, marginBottom: 3, marginRight: 13 }
+                    }
+                  >{`${major}`}</Text>
+                )
               ) : (
                 <Text
                   style={
@@ -321,73 +361,26 @@ const Contact = ({
                       ? {
                           fontSize: 16,
                           marginRight: 13,
-                          marginBottom: 3,
-                          color: `#${directorGen}C${directorGen}43C`
+                          marginBottom: 3
                         }
                       : {
                           marginRight: 13,
                           marginBottom: 3,
-                          fontSize: 14,
-                          color: `#${directorGen}C${directorGen}43C`
+                          fontSize: 14
                         }
                   }
                 >{`${generation}기 / ${directorGen}대 ${directorTitle}`}</Text>
               )}
-
-              <Text
-                style={
-                  Platform.OS === 'ios'
-                    ? { fontSize: 16, marginBottom: 3, marginRight: 13 }
-                    : { fontSize: 14, marginBottom: 3, marginRight: 13 }
-                }
-              >{`${major}`}</Text>
-              <Text
-                style={
-                  Platform.OS === 'ios'
-                    ? {
-                        fontSize: 16,
-                        marginRight: 17
-                      }
-                    : { fontSize: 14, marginRight: 17 }
-                }
-              >
-                {position}
-              </Text>
             </View>
-          ) : (
-            <View
-              style={{
-                alignItems: 'flex-end'
-              }}
+
+            <Text
+              style={
+                Platform.OS === 'ios' ? { fontSize: 16 } : { fontSize: 14 }
+              }
             >
-              <Text
-                style={{
-                  fontSize: 14,
-                  marginBottom: 5,
-                  marginRight: 10
-                }}
-              >
-                {position}
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: 14,
-                  marginBottom: 5,
-                  marginRight: 10
-                }}
-              >
-                {team}
-              </Text>
-              <Text
-                style={
-                  Platform.OS === 'ios'
-                    ? { fontSize: 16, marginBottom: 3, marginRight: 13 }
-                    : { fontSize: 14, marginBottom: 3, marginRight: 13 }
-                }
-              >{`${major}`}</Text>
-            </View>
-          )}
+              {!position ? '' : position}
+            </Text>
+          </View>
         </View>
       </View>
     </Card>

@@ -16,6 +16,7 @@ import { usePopUp, useLaterPopUp } from '../../AuthContext';
 import { Button, FAB } from 'react-native-paper';
 import styles from '../../styles';
 import styled from 'styled-components';
+
 const SEE_ALL_NOTICE = gql`
   query seeAllNotice($limit: Int!, $page: Int!) {
     seeAllNotice(limit: $limit, page: $page) {

@@ -95,7 +95,7 @@ export default ({ navigation }) => {
           returnKeyType="send"
           onSubmitEditing={handleConfirm}
           autoCorrect={false}
-          infoMessage="이메일로 발송된 Verification code를 입력해주세요"
+          infoMessage="이메일로 발송된 인증코드를 입력해주세요"
         />
         <AuthButton
           style={{

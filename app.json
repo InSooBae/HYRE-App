@@ -17,12 +17,11 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.contacts.hure",
       "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "이 앱이 사진에 접근하기 위한 권한 설정 입니다.",
-        "NSContactsUsageDescription": "이 앱이 연락처에 저장하기 위한 권한 설정 입니다."
+        "NSPhotoLibraryUsageDescription": "해당 사진은 프로필 사진 첨부에 활용합니다.",
+        "NSContactsUsageDescription": "연락처 정보를 해당 기기의 연락처에 저장합니다.",
+        "UIUserInterfaceStyle": "Light"
       },
-      "buildNumber": "1.0.3",
-      "publishBundlePath": "ios/-------/Supporting/shell-app.bundle",
-      "publishManifestPath": "ios/-------/Supporting/shell-app-manifest.json"
+      "buildNumber": "1.0.6"
     },
     "android": {
       "package": "com.MJU.HURE_APP",

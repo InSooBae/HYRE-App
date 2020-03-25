@@ -24,7 +24,6 @@ import styles from '../styles';
 
 import styled from 'styled-components';
 import { Platform } from 'react-native';
-
 const Text = styled.Text`
   font-family: lotte-bold;
   font-weight: 700;
@@ -81,30 +80,72 @@ export default ({
                 flex: 1
               }}
             >
-              <TouchableOpacity onPress={() => linkEmail(email)}>
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                onPress={() => linkEmail(email)}
+              >
                 <Avatar.Icon
                   icon="email"
                   size={45}
                   color={styles.hanyangColor}
                   theme={{ colors: { primary: '#ffffff' } }}
                 />
+                <Text
+                  style={
+                    Platform.OS === 'ios' ? { fontSize: 14 } : { fontSize: 12 }
+                  }
+                >
+                  Email
+                </Text>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => linkMessage(cellPhone)}>
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                onPress={() => linkMessage(cellPhone)}
+              >
                 <Avatar.Icon
-                  icon="facebook-messenger"
+                  icon="message-processing"
                   size={45}
                   color="#5592ff"
                   theme={{ colors: { primary: '#ffffff' } }}
                 />
+                <Text
+                  style={
+                    Platform.OS === 'ios' ? { fontSize: 14 } : { fontSize: 12 }
+                  }
+                >
+                  Message
+                </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => callNumber(cellPhone)}>
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                onPress={() => callNumber(cellPhone)}
+              >
                 <Avatar.Icon
                   icon="phone"
                   size={45}
                   color={styles.hanyangColor}
                   theme={{ colors: { primary: '#ffffff' } }}
                 />
+                <Text
+                  style={
+                    Platform.OS === 'ios' ? { fontSize: 14 } : { fontSize: 12 }
+                  }
+                >
+                  Phone
+                </Text>
               </TouchableOpacity>
             </Right>
           </CardItem>
@@ -137,31 +178,33 @@ export default ({
                     <Text>{name}</Text>
                   </Body>
                 </ListItem>
-                <ListItem thumbnail>
-                  <Left
-                    style={{ justifyContent: 'center', alignItems: 'center' }}
-                  >
-                    <Avatar.Icon
-                      icon="cake"
-                      size={25}
-                      color="#ffffff"
-                      theme={{ colors: { primary: '#5592ff' } }}
-                    />
-
-                    <Text
-                      style={
-                        Platform.OS === 'ios'
-                          ? { fontSize: 15, marginLeft: 5 }
-                          : { marginLeft: 5 }
-                      }
+                {!birth ? null : (
+                  <ListItem thumbnail>
+                    <Left
+                      style={{ justifyContent: 'center', alignItems: 'center' }}
                     >
-                      생일
-                    </Text>
-                  </Left>
-                  <Body>
-                    <Text>{new Date(birth).format('yyyy-MM-dd')}</Text>
-                  </Body>
-                </ListItem>
+                      <Avatar.Icon
+                        icon="cake"
+                        size={25}
+                        color="#ffffff"
+                        theme={{ colors: { primary: '#5592ff' } }}
+                      />
+
+                      <Text
+                        style={
+                          Platform.OS === 'ios'
+                            ? { fontSize: 15, marginLeft: 5 }
+                            : { marginLeft: 5 }
+                        }
+                      >
+                        생일
+                      </Text>
+                    </Left>
+                    <Body>
+                      <Text>{new Date(birth).format('yyyy-MM-dd')}</Text>
+                    </Body>
+                  </ListItem>
+                )}
                 <ListItem thumbnail>
                   <Left
                     style={{ justifyContent: 'center', alignItems: 'center' }}
@@ -183,9 +226,16 @@ export default ({
                     </Text>
                   </Left>
                   <Body>
-                    <Text>
-                      {!cellPhone ? null : inputPhoneNumber(cellPhone)}
-                    </Text>
+                    <TouchableOpacity
+                      style={{ flexWrap: 'wrap', flex: 1 }}
+                      onPress={() =>
+                        !cellPhone ? null : callNumber(cellPhone)
+                      }
+                    >
+                      <Text>
+                        {!cellPhone ? null : inputPhoneNumber(cellPhone)}
+                      </Text>
+                    </TouchableOpacity>
                   </Body>
                 </ListItem>
                 <ListItem thumbnail>
@@ -281,7 +331,14 @@ export default ({
                     </Text>
                   </Left>
                   <Body>
-                    <Text>{workPhone && inputPhoneNumber(workPhone)}</Text>
+                    <TouchableOpacity
+                      style={{ flexWrap: 'wrap', flex: 1 }}
+                      onPress={() =>
+                        !workPhone ? null : callNumber(workPhone)
+                      }
+                    >
+                      <Text>{workPhone && inputPhoneNumber(workPhone)}</Text>
+                    </TouchableOpacity>
                   </Body>
                 </ListItem>
                 <ListItem thumbnail>

@@ -4,6 +4,7 @@ import { Container } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import constants from '../../constants';
 import AuthButton from '../../components/AuthButton';
+import { BackHandler } from 'react-native';
 
 const View = styled.View`
   justify-content: center;
@@ -130,7 +131,7 @@ export default ({ navigation }) => (
     <Image resizeMode={'contain'} source={require('../../assets/HYU2.png')} />
     <AuthButton
       text={'Create New Account'}
-      onPress={() => navigation.navigate('SignUp')}
+      onPress={() => BackHandler.exitApp()} //navigation.navigate('SignUp')}
     />
     <Touchable onPress={() => navigation.navigate('Login')}>
       <LoginLink>

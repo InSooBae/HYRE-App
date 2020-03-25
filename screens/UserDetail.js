@@ -66,6 +66,10 @@ export default ({ navigation }) => {
   });
   const [buttonLoading, setButtonLoading] = useState(false);
   const saveContact = async () => {
+    const phoneName =
+      type === 'User'
+        ? `${a.name} ${a.major.name} ${a.graduatedYear.generation}기`
+        : `${a.name} ${a.major.name} 교수`;
     if (Platform.OS === 'ios') {
       const { status } = await ContactS.requestPermissionsAsync();
       if (status === 'granted') {
@@ -78,10 +82,10 @@ export default ({ navigation }) => {
             ? ''
             : inputPhoneNumber(a.workPhone);
         const contact = {
-          [ContactS.Fields.FirstName]: a.name,
+          [ContactS.Fields.FirstName]: phoneName,
           [ContactS.Fields.PhoneNumbers]: [
             {
-              label: '휴대폰',
+              label: '전화번호',
               number: cellPhoneA
             }
           ],
@@ -97,7 +101,6 @@ export default ({ navigation }) => {
         };
         try {
           const contactId = await ContactS.addContactAsync(contact);
-          console.log('contact-ID:', contactId);
           if (contactId) {
             Toast.show({
               text: `연락처가 저장되었습니다.`,
@@ -172,7 +175,7 @@ export default ({ navigation }) => {
             ? ''
             : inputPhoneNumber(a.workPhone);
         const contact = {
-          givenName: a.name,
+          givenName: phoneName,
           phoneNumbers: [
             {
               label: '전화번호',
@@ -269,7 +272,7 @@ export default ({ navigation }) => {
         </View>
         <UserProfile
           name={a.name}
-          birth={a.birthday}
+          birth={!a.birthday ? '' : a.birthday}
           email={a.email}
           cellPhone={type === 'User' ? a.cellPhone : a.workPhone}
           company={a.company}

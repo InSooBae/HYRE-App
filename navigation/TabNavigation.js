@@ -13,6 +13,7 @@ import UserDetail from '../screens/UserDetail';
 import NoticeDetail from '../screens/NoticeDetail';
 import Prof from '../screens/Tabs/Prof';
 import Search from '../screens/Search';
+import Director from '../screens/Tabs/Director';
 import SearchLink from '../components/SearchLink';
 import { IconButton } from 'react-native-paper';
 import styled from 'styled-components';
@@ -120,7 +121,30 @@ const TabNavigation = createMaterialTopTabNavigator(
         tabBarLabel: '공지사항'
       }
     },
-
+    Prof: {
+      screen: stackFactory(Prof, {
+        headerTitle: () => (
+          <Text
+            style={
+              Platform.OS === 'ios'
+                ? { fontSize: 17, fontWeight: '700' }
+                : { fontSize: 14, fontWeight: '700' }
+            }
+          >
+            교수
+          </Text>
+        )
+      }),
+      navigationOptions: {
+        tabBarIcon: ({ focused }) => (
+          <NavIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'graduation-cap' : 'graduation-cap'}
+          />
+        ),
+        tabBarLabel: '교수'
+      }
+    },
     Contacts: {
       screen: stackFactory(Contacts, {
         headerTitle: () => (
@@ -148,16 +172,29 @@ const TabNavigation = createMaterialTopTabNavigator(
         tabBarLabel: '연락처'
       }
     },
-    Prof: {
-      screen: stackFactory(Prof, {}),
+
+    Director: {
+      screen: stackFactory(Director, {
+        headerTitle: () => (
+          <Text
+            style={
+              Platform.OS === 'ios'
+                ? { fontSize: 17, fontWeight: '700' }
+                : { fontSize: 14, fontWeight: '700' }
+            }
+          >
+            원우회
+          </Text>
+        )
+      }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <NavIcon
             focused={focused}
-            name={Platform.OS === 'ios' ? 'graduation-cap' : 'graduation-cap'}
+            name={Platform.OS === 'ios' ? 'institution' : 'institution'}
           />
         ),
-        tabBarLabel: '교수/국장'
+        tabBarLabel: '원우회'
       }
     },
     Profile: {

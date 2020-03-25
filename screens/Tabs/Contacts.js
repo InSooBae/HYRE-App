@@ -13,9 +13,8 @@ import { gql } from 'apollo-boost';
 import Contact from '../../components/Contact';
 import Loader from '../../components/Loader';
 import styles from '../../styles';
-import { FAB, Dialog, Paragraph, Portal, Button } from 'react-native-paper';
+import { FAB } from 'react-native-paper';
 import styled from 'styled-components';
-import { LinearGradient } from 'expo-linear-gradient';
 const Text = styled.Text`
   font-family: bae-min;
   font-size: 20px;
@@ -100,7 +99,7 @@ export default () => {
       borderColor: styles.hanyangColor,
       borderRadius: 4,
       color: 'black',
-      paddingRight: 5, // to ensure the text is never behind the icon
+      paddingRight: 7, // to ensure the text is never behind the icon
       textAlign: 'center'
     },
     inputAndroid: {
@@ -277,10 +276,17 @@ export default () => {
             기수:
           </Text>
           <RNPickerSelect
-            placeholder={{
-              label: '전체선택',
-              value: null
-            }}
+            placeholder={
+              Platform.OS === 'ios'
+                ? {
+                    label: '전체선택 ',
+                    value: null
+                  }
+                : {
+                    label: '전체선택',
+                    value: null
+                  }
+            }
             Icon={() => null}
             placeholderTextColor={'black'}
             style={{ ...pickerSelectStyles }}
@@ -310,10 +316,17 @@ export default () => {
           </Text>
 
           <RNPickerSelect
-            placeholder={{
-              label: '전체선택',
-              value: null
-            }}
+            placeholder={
+              Platform.OS === 'ios'
+                ? {
+                    label: '전체선택 ',
+                    value: null
+                  }
+                : {
+                    label: '전체선택',
+                    value: null
+                  }
+            }
             style={{ ...pickerSelectStyles }}
             placeholderTextColor={'black'}
             Icon={() => null}

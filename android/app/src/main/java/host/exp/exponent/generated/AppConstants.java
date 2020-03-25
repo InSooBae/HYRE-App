@@ -29,11 +29,13 @@ public class AppConstants {
         
         
         
-        // ADD EMBEDDED RESPONSES HERE
-        // START EMBEDDED RESPONSES
-        embeddedResponses.add(new Constants.EmbeddedResponse("https://exp.host/@insoo/HURE-Contact", "assets://shell-app-manifest.json", "application/json"));
-        embeddedResponses.add(new Constants.EmbeddedResponse("https://d1wp6m56sqw74a.cloudfront.net/%40insoo%2FHURE-Contact%2F1.0.2%2F02fcdab13eaa030680735f883ce25ee5-36.0.0-android.js", "assets://shell-app.bundle", "application/javascript"));
-        // END EMBEDDED RESPONSES
+        
+        
+          // ADD EMBEDDED RESPONSES HERE
+          // START EMBEDDED RESPONSES
+          embeddedResponses.add(new Constants.EmbeddedResponse("https://exp.host/@insoo/HURE-Contact", "assets://shell-app-manifest.json", "application/json"));
+          embeddedResponses.add(new Constants.EmbeddedResponse("https://d1wp6m56sqw74a.cloudfront.net/%40insoo%2FHURE-Contact%2F1.0.2%2F8754fe675b4d34f5da727d500f0722c9-36.0.0-android.js", "assets://shell-app.bundle", "application/javascript"));
+          // END EMBEDDED RESPONSES
     EMBEDDED_RESPONSES = embeddedResponses;
   }
 

@@ -67,9 +67,9 @@ const EDIT_ME = gql`
   mutation editMe(
     $photo: String
     $name: String!
-    $birthday: String!
+    $birthday: String
     $email: String!
-    $cellPhone: String!
+    $cellPhone: String
     $company: String
     $companyDesc: [String!]!
     $team: String
@@ -108,11 +108,10 @@ export default () => {
   const ref_input5 = useRef();
   const ref_input6 = useRef();
   const ref_input7 = useRef();
-  const [effect, setEffect] = useState(false);
 
   const logOut = useLogOut();
   const [edit, setEdit] = useState(false);
-  const [birth, setBirth] = useState('');
+  const [birth, setBirth] = useState(null);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [cellPhone, setCellPhone] = useState('');
@@ -184,28 +183,7 @@ export default () => {
         style: { marginTop: 70 }
       });
     }
-    if (birth === '') {
-      return Toast.show({
-        text: `생년월일을 입력해 주세요.`,
-        textStyle: { textAlign: 'center' },
-        buttonText: 'Okay',
-        type: 'warning',
-        position: 'top',
-        duration: 3000,
-        style: { marginTop: 70 }
-      });
-    }
-    if (cellPhone === '') {
-      return Toast.show({
-        text: `전화번호를 입력해 주세요.`,
-        textStyle: { textAlign: 'center' },
-        buttonText: 'Okay',
-        type: 'warning',
-        position: 'top',
-        duration: 3000,
-        style: { marginTop: 70 }
-      });
-    }
+
     if (!major) {
       return Toast.show({
         text: `대학원 전공을 입력해 주세요.`,
@@ -286,14 +264,38 @@ export default () => {
         await refetch();
       }
     } catch (e) {
-      Alert.alert('수정 오류!');
+      if (cellPhone) {
+        Toast.show({
+          text: '이미 존재하는 휴대전화 및 이메일 입니다',
+          textStyle: { textAlign: 'center' },
+          buttonText: 'Okay',
+          type: 'danger',
+          position: 'top',
+          duration: 3000,
+          style: { marginTop: 70 }
+        });
+      } else {
+        Toast.show({
+          text: '휴대전화를 입력해 주셔야 합니다',
+          textStyle: { textAlign: 'center' },
+          buttonText: 'Okay',
+          type: 'danger',
+          position: 'top',
+          duration: 3000,
+          style: { marginTop: 70 }
+        });
+      }
     } finally {
       setIsLoading(false);
     }
   };
   const setAll = () => {
     setName(data.seeMe.name);
-    setBirth(new Date(data.seeMe.birthday).format('yyyy-MM-dd'));
+    setBirth(
+      !data.seeMe.birthday
+        ? null
+        : new Date(data.seeMe.birthday).format('yyyy-MM-dd')
+    );
     setCellPhone(data.seeMe.cellPhone);
     setCompany(data.seeMe.company);
     setWorkAddress(data.seeMe.workAddress);
@@ -548,6 +550,8 @@ export default () => {
                     <Button
                       color={styles.hanyangColor}
                       onPress={() => {
+                        logOut();
+
                         Toast.show({
                           text: '로그아웃 하셨습니다.',
                           textStyle: { textAlign: 'center' },
@@ -557,7 +561,6 @@ export default () => {
                           duration: 5000,
                           style: { marginTop: 70 }
                         });
-                        logOut();
                       }}
                     >
                       <Text
@@ -701,31 +704,18 @@ export default () => {
                       }
                     }}
                     disabled
-                    label="(출생년도를 선택하세요)*"
+                    label="(출생년도를 선택하세요)"
                   />
-                  {birth === '(출생년도를 선택하세요)*' && (
-                    <HelperText
-                      type="info"
-                      visible={birth === '(출생년도를 선택하세요)*'}
-                    >
-                      생일은 필수입니다.
-                    </HelperText>
-                  )}
                 </TouchableOpacity>
                 <DateTimePickerModal
                   cancelTextIOS="취소"
                   confirmTextIOS="선택"
                   headerTextIOS="출생년도를 선택하세요"
                   isVisible={isDatePickerVisible}
-                  date={
-                    birth !== '(출생년도를 선택하세요)*'
-                      ? new Date(birth)
-                      : new Date()
-                  }
+                  date={!birth ? new Date() : new Date(birth)}
                   mode="date"
                   onConfirm={handleConfirm}
                   onCancel={hideDatePicker}
-                  isDarkModeEnabled={true}
                 />
               </View>
             </View>
@@ -780,7 +770,7 @@ export default () => {
                   onChangeText={value => {
                     setCellPhone(value);
                   }}
-                  label="(휴대전화)*"
+                  label="(휴대전화)"
                   keyboardType={'numeric'}
                   returnKeyType="next"
                   autoCapitalize={'none'}
@@ -788,11 +778,6 @@ export default () => {
                   autoCorrect={false}
                   onSubmitEditing={() => ref_input2.current.focus()}
                 />
-                {!cellPhone && (
-                  <HelperText type="info" visible={!cellPhone}>
-                    {'휴대전화는 필수입니다.'}
-                  </HelperText>
-                )}
               </View>
             </View>
           </Card.Content>
@@ -1524,6 +1509,19 @@ export default () => {
           </>
         )}
         <View style={{ alignItems: 'center', marginBottom: 3, marginTop: 7 }}>
+          <Text
+            style={
+              Platform.OS === 'ios'
+                ? {
+                    color: styles.darkGreyColor,
+                    marginBottom: 10,
+                    fontSize: 17
+                  }
+                : { color: styles.darkGreyColor, marginBottom: 7 }
+            }
+          >
+            회원탈퇴는 관리자(원우회장)에게 문의하세요.
+          </Text>
           <TouchableOpacity onPress={() => callNumber('01057515232')}>
             <Text
               style={

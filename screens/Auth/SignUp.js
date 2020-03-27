@@ -560,7 +560,7 @@ export default ({ navigation }) => {
                 style={{ flexDirection: 'column', justifyContent: 'center' }}
               >
                 <TextInput
-                  style={{ width: constants.width / 1.5 }}
+                  style={{ width: constants.width / 1.6 }}
                   mode="outlined"
                   theme={{
                     roundness: 100,
@@ -721,7 +721,7 @@ export default ({ navigation }) => {
               </View>
               <View>
                 <TextInput
-                  style={{ width: constants.width / 1.5 }}
+                  style={{ width: constants.width / 1.6 }}
                   ref={ref_input4}
                   mode="outlined"
                   theme={{
@@ -770,7 +770,7 @@ export default ({ navigation }) => {
               </View>
               <View>
                 <TextInput
-                  style={{ width: constants.width / 1.5 }}
+                  style={{ width: constants.width / 1.6 }}
                   ref={ref_input5}
                   mode="outlined"
                   theme={{

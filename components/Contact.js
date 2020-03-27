@@ -11,13 +11,15 @@ import {
   Portal,
   Dialog,
   Paragraph,
-  Button
+  Button,
+  Text
 } from 'react-native-paper';
 import { View, Platform, PermissionsAndroid } from 'react-native';
-import { Toast, Text } from 'native-base';
+import { Toast } from 'native-base';
 import styled from 'styled-components';
 import Contacts from 'react-native-contacts';
 import { trimText } from '../utils';
+
 const Contact = ({
   id,
   __typename,
@@ -309,7 +311,8 @@ const Contact = ({
                 style={
                   Platform.OS === 'ios'
                     ? {
-                        marginBottom: 5
+                        marginBottom: 5,
+                        fontSize: 17
                       }
                     : {
                         fontSize: 16

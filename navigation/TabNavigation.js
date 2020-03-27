@@ -16,11 +16,7 @@ import Search from '../screens/Search';
 import Director from '../screens/Tabs/Director';
 import SearchLink from '../components/SearchLink';
 import { IconButton } from 'react-native-paper';
-import styled from 'styled-components';
-
-const Text = styled.Text`
-  font-family: lotte-medium;
-`;
+import Text from '../Text';
 
 //TabNavigator에 각 탭마다 StackNavigator효과를 주는일 customconfig에는설정들
 const stackFactory = (initialRoute, customConfig) =>
@@ -40,8 +36,16 @@ const stackFactory = (initialRoute, customConfig) =>
             <Text
               style={
                 Platform.OS === 'ios'
-                  ? { fontSize: 17, fontWeight: '700' }
-                  : { fontSize: 14, fontWeight: '700' }
+                  ? {
+                      fontSize: 17,
+                      fontWeight: '700',
+                      fontFamily: 'lotte-medium'
+                    }
+                  : {
+                      fontSize: 17,
+                      fontWeight: '700',
+                      fontFamily: 'lotte-medium'
+                    }
               }
             >
               {navigation.getParam('name')}
@@ -57,8 +61,16 @@ const stackFactory = (initialRoute, customConfig) =>
             <Text
               style={
                 Platform.OS === 'ios'
-                  ? { fontSize: 17, fontWeight: '700' }
-                  : { fontSize: 14, fontWeight: '700' }
+                  ? {
+                      fontSize: 17,
+                      fontWeight: '700',
+                      fontFamily: 'lotte-bold'
+                    }
+                  : {
+                      fontSize: 17,
+                      fontWeight: '700',
+                      fontFamily: 'lotte-bold'
+                    }
               }
             >
               공지사항
@@ -103,8 +115,16 @@ const TabNavigation = createMaterialTopTabNavigator(
           <Text
             style={
               Platform.OS === 'ios'
-                ? { fontSize: 17, fontWeight: '700' }
-                : { fontSize: 14, fontWeight: '700' }
+                ? {
+                    fontSize: 17,
+                    fontWeight: '700',
+                    fontFamily: 'lotte-bold'
+                  }
+                : {
+                    fontSize: 17,
+                    fontWeight: '700',
+                    fontFamily: 'lotte-bold'
+                  }
             }
           >
             공지사항
@@ -118,7 +138,37 @@ const TabNavigation = createMaterialTopTabNavigator(
             name={Platform.OS === 'ios' ? 'newspaper-o' : 'newspaper-o'}
           />
         ),
-        tabBarLabel: '공지사항'
+        tabBarLabel: ({ focused }) => (
+          <Text
+            style={
+              Platform.OS === 'ios'
+                ? focused
+                  ? {
+                      fontSize: 12,
+                      fontFamily: 'lotte-medium',
+                      color: 'white'
+                    }
+                  : {
+                      fontSize: 12,
+                      fontFamily: 'lotte-medium',
+                      color: '#a6a6a6'
+                    }
+                : focused
+                ? {
+                    fontSize: 12,
+                    color: 'white',
+                    fontFamily: 'lotte-medium'
+                  }
+                : {
+                    fontSize: 12,
+                    color: '#a6a6a6',
+                    fontFamily: 'lotte-medium'
+                  }
+            }
+          >
+            공지사항
+          </Text>
+        )
       }
     },
     Prof: {
@@ -128,7 +178,7 @@ const TabNavigation = createMaterialTopTabNavigator(
             style={
               Platform.OS === 'ios'
                 ? { fontSize: 17, fontWeight: '700' }
-                : { fontSize: 14, fontWeight: '700' }
+                : { fontSize: 17, fontWeight: '700' }
             }
           >
             교수
@@ -142,7 +192,37 @@ const TabNavigation = createMaterialTopTabNavigator(
             name={Platform.OS === 'ios' ? 'graduation-cap' : 'graduation-cap'}
           />
         ),
-        tabBarLabel: '교수'
+        tabBarLabel: ({ focused }) => (
+          <Text
+            style={
+              Platform.OS === 'ios'
+                ? focused
+                  ? {
+                      fontSize: 12,
+                      fontFamily: 'lotte-medium',
+                      color: 'white'
+                    }
+                  : {
+                      fontSize: 12,
+                      fontFamily: 'lotte-medium',
+                      color: '#a6a6a6'
+                    }
+                : focused
+                ? {
+                    fontSize: 12,
+                    color: 'white',
+                    fontFamily: 'lotte-medium'
+                  }
+                : {
+                    fontSize: 12,
+                    color: '#a6a6a6',
+                    fontFamily: 'lotte-medium'
+                  }
+            }
+          >
+            교수
+          </Text>
+        )
       }
     },
     Contacts: {
@@ -169,7 +249,37 @@ const TabNavigation = createMaterialTopTabNavigator(
             name={Platform.OS === 'ios' ? 'address-card' : 'address-card'}
           />
         ),
-        tabBarLabel: '연락처'
+        tabBarLabel: ({ focused }) => (
+          <Text
+            style={
+              Platform.OS === 'ios'
+                ? focused
+                  ? {
+                      fontSize: 12,
+                      fontFamily: 'lotte-medium',
+                      color: 'white'
+                    }
+                  : {
+                      fontSize: 12,
+                      fontFamily: 'lotte-medium',
+                      color: '#a6a6a6'
+                    }
+                : focused
+                ? {
+                    fontSize: 12,
+                    color: 'white',
+                    fontFamily: 'lotte-medium'
+                  }
+                : {
+                    fontSize: 12,
+                    color: '#a6a6a6',
+                    fontFamily: 'lotte-medium'
+                  }
+            }
+          >
+            연락처
+          </Text>
+        )
       }
     },
 
@@ -180,7 +290,7 @@ const TabNavigation = createMaterialTopTabNavigator(
             style={
               Platform.OS === 'ios'
                 ? { fontSize: 17, fontWeight: '700' }
-                : { fontSize: 14, fontWeight: '700' }
+                : { fontSize: 17, fontWeight: '700' }
             }
           >
             원우회
@@ -194,7 +304,37 @@ const TabNavigation = createMaterialTopTabNavigator(
             name={Platform.OS === 'ios' ? 'institution' : 'institution'}
           />
         ),
-        tabBarLabel: '원우회'
+        tabBarLabel: ({ focused }) => (
+          <Text
+            style={
+              Platform.OS === 'ios'
+                ? focused
+                  ? {
+                      fontSize: 12,
+                      fontFamily: 'lotte-medium',
+                      color: 'white'
+                    }
+                  : {
+                      fontSize: 12,
+                      fontFamily: 'lotte-medium',
+                      color: '#a6a6a6'
+                    }
+                : focused
+                ? {
+                    fontSize: 12,
+                    color: 'white',
+                    fontFamily: 'lotte-medium'
+                  }
+                : {
+                    fontSize: 12,
+                    color: '#a6a6a6',
+                    fontFamily: 'lotte-medium'
+                  }
+            }
+          >
+            공지사항
+          </Text>
+        )
       }
     },
     Profile: {
@@ -204,7 +344,7 @@ const TabNavigation = createMaterialTopTabNavigator(
             style={
               Platform.OS === 'ios'
                 ? { fontSize: 17, fontWeight: '700' }
-                : { fontSize: 14, fontWeight: '700' }
+                : { fontSize: 17, fontWeight: '700' }
             }
           >
             내 정보
@@ -219,7 +359,37 @@ const TabNavigation = createMaterialTopTabNavigator(
             name={Platform.OS === 'ios' ? 'user-circle' : 'user-circle'}
           />
         ),
-        tabBarLabel: '내정보'
+        tabBarLabel: ({ focused }) => (
+          <Text
+            style={
+              Platform.OS === 'ios'
+                ? focused
+                  ? {
+                      fontSize: 12,
+                      fontFamily: 'lotte-medium',
+                      color: 'white'
+                    }
+                  : {
+                      fontSize: 12,
+                      fontFamily: 'lotte-medium',
+                      color: '#a6a6a6'
+                    }
+                : focused
+                ? {
+                    fontSize: 12,
+                    color: 'white',
+                    fontFamily: 'lotte-medium'
+                  }
+                : {
+                    fontSize: 12,
+                    color: '#a6a6a6',
+                    fontFamily: 'lotte-medium'
+                  }
+            }
+          >
+            내정보
+          </Text>
+        )
       }
     }
   },
@@ -230,7 +400,7 @@ const TabNavigation = createMaterialTopTabNavigator(
         tabBarOptions: {
           indicatorStyle: {
             backgroundColor: styles.blackColor,
-            marginBottom: 15
+            marginBottom: 10
           },
           style: {
             ...stackStyles,
@@ -238,10 +408,7 @@ const TabNavigation = createMaterialTopTabNavigator(
             paddingBottom: 5
           },
           showIcon: true,
-          showLabel: true,
-          labelStyle: {
-            fontSize: 13
-          }
+          showLabel: true
         }
       }
     : {
@@ -257,10 +424,7 @@ const TabNavigation = createMaterialTopTabNavigator(
             backgroundColor: styles.hanyangColor
           },
           showIcon: true,
-          showLabel: true,
-          labelStyle: {
-            fontSize: 9
-          }
+          showLabel: true
         }
       }
 );

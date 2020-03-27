@@ -27,6 +27,7 @@ import { useLogOut } from '../../AuthContext';
 
 import InputScrollView from 'react-native-input-scroll-view';
 import styled from 'styled-components';
+
 const Text = styled.Text`
   font-family: lotte-medium;
 `;
@@ -760,7 +761,7 @@ export default () => {
                 style={{ flexDirection: 'column', justifyContent: 'center' }}
               >
                 <TextInput
-                  style={{ width: constants.width / 1.5 }}
+                  style={{ width: constants.width / 1.6 }}
                   mode="outlined"
                   theme={{
                     roundness: 100,
@@ -946,7 +947,7 @@ export default () => {
               </View>
               <View>
                 <TextInput
-                  style={{ width: constants.width / 1.5 }}
+                  style={{ width: constants.width / 1.6 }}
                   ref={ref_input4}
                   mode="outlined"
                   theme={{
@@ -1002,7 +1003,7 @@ export default () => {
               </View>
               <View>
                 <TextInput
-                  style={{ width: constants.width / 1.5 }}
+                  style={{ width: constants.width / 1.6 }}
                   ref={ref_input5}
                   mode="outlined"
                   theme={{
@@ -1159,11 +1160,10 @@ export default () => {
                   theme={{ colors: { primary: '#5592ff' } }}
                 />
                 <Text
-                  style={
-                    Platform.OS === 'ios'
-                      ? { fontWeight: '700', marginLeft: 5, fontSize: 15 }
-                      : { marginLeft: 5 }
-                  }
+                  style={{
+                    fontWeight: '700',
+                    marginLeft: 5
+                  }}
                 >
                   전공
                 </Text>

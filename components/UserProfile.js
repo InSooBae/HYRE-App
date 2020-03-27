@@ -24,6 +24,8 @@ import styles from '../styles';
 
 import styled from 'styled-components';
 import { Platform } from 'react-native';
+import Texts from '../Text';
+
 const Text = styled.Text`
   font-family: lotte-bold;
   font-weight: 700;
@@ -94,13 +96,13 @@ export default ({
                   color={styles.hanyangColor}
                   theme={{ colors: { primary: '#ffffff' } }}
                 />
-                <Text
+                <Texts
                   style={
                     Platform.OS === 'ios' ? { fontSize: 14 } : { fontSize: 12 }
                   }
                 >
                   Email
-                </Text>
+                </Texts>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -117,13 +119,13 @@ export default ({
                   color="#5592ff"
                   theme={{ colors: { primary: '#ffffff' } }}
                 />
-                <Text
+                <Texts
                   style={
                     Platform.OS === 'ios' ? { fontSize: 14 } : { fontSize: 12 }
                   }
                 >
                   Message
-                </Text>
+                </Texts>
               </TouchableOpacity>
               <TouchableOpacity
                 style={{
@@ -139,13 +141,13 @@ export default ({
                   color={styles.hanyangColor}
                   theme={{ colors: { primary: '#ffffff' } }}
                 />
-                <Text
+                <Texts
                   style={
                     Platform.OS === 'ios' ? { fontSize: 14 } : { fontSize: 12 }
                   }
                 >
                   Phone
-                </Text>
+                </Texts>
               </TouchableOpacity>
             </Right>
           </CardItem>
@@ -216,6 +218,7 @@ export default ({
                       theme={{ colors: { primary: '#5592ff' } }}
                     />
                     <Text
+                      allowFontScaling={false}
                       style={
                         Platform.OS === 'ios'
                           ? { fontSize: 15, marginLeft: 5 }

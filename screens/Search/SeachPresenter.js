@@ -7,6 +7,7 @@ import Loader from '../../components/Loader';
 import { FlatList } from 'react-native-gesture-handler';
 import Contact from '../../components/Contact';
 import styled from 'styled-components';
+import Texts from '../../Text';
 const Text = styled.Text`
   font-family: bae-min;
   font-size: 20px;
@@ -26,6 +27,7 @@ export const SEARCH = gql`
       photo
       major {
         name
+        shortName
       }
       graduatedYear {
         generation
@@ -69,8 +71,24 @@ const SearchPresenter = ({ query, shouldFetch }) => {
             backgroundColor: '#F8F8F8'
           }}
         >
-          <Text>검색해주세요</Text>
-          <Text>검색조건:이름 or 휴대전화 or 회사 or 전공</Text>
+          <Texts
+            style={
+              Platform.OS === 'ios'
+                ? { fontSize: 20, fontFamily: 'bae-min' }
+                : { fontSize: 20, fontFamily: 'bae-min' }
+            }
+          >
+            검색해주세요
+          </Texts>
+          <Texts
+            style={
+              Platform.OS === 'ios'
+                ? { fontSize: 20, fontFamily: 'bae-min' }
+                : { fontSize: 20, fontFamily: 'bae-min' }
+            }
+          >
+            검색조건:이름 or 휴대전화 or 회사 or 전공
+          </Texts>
         </View>
       )}
       {loading ? (
@@ -93,6 +111,7 @@ const SearchPresenter = ({ query, shouldFetch }) => {
                 position={item.position}
                 team={item.team}
                 generation={item.graduatedYear.generation}
+                shortName={item.major.shortName}
               />
             );
           }}

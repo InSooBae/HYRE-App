@@ -17,6 +17,7 @@ const SEE_ALL_PROF = gql`
       position
       major {
         name
+        shortName
       }
       email
       photo
@@ -79,6 +80,7 @@ export default ({ query }) => {
                 generation={null}
                 directorGen={''}
                 directorTitle={''}
+                shortName={item.major.shortName}
               />
             );
           }}

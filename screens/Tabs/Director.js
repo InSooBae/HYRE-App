@@ -23,6 +23,7 @@ const SEE_ALL_EXE = gql`
         email
         major {
           name
+          shortName
         }
         graduatedYear {
           generation
@@ -86,6 +87,7 @@ export default () => {
                 generation={item.user.graduatedYear.generation}
                 directorGen={item.generation}
                 directorTitle={item.title}
+                shortName={item.user.major.shortName}
               />
             );
           }}

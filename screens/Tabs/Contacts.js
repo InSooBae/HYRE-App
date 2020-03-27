@@ -42,6 +42,7 @@ const SEE_ALL_USER = gql`
       email
       major {
         name
+        shortName
       }
       graduatedYear {
         generation
@@ -367,6 +368,7 @@ export default () => {
                   id={item.id}
                   email={item.email}
                   major={item.major.name}
+                  shortName={item.major.shortName}
                   name={item.name}
                   photo={item.photo === null ? '' : item.photo}
                   position={item.position}

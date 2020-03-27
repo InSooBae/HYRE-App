@@ -23,6 +23,7 @@ const SEE_MAJOR_GRAD = gql`
     seeAllGradYear {
       generation
     }
+    seeAdminInfo
   }
 `;
 
@@ -80,6 +81,7 @@ export default ({ navigation }) => {
   const ref_input6 = useRef();
   const ref_input7 = useRef();
 
+  const [adminInfo, setAdminInfo] = useState([]);
   const [birth, setBirth] = useState(null);
   const [name, setName] = useState('');
   const [email, setEmail] = useState(navigation.getParam('email', ''));
@@ -138,6 +140,7 @@ export default ({ navigation }) => {
           };
         })
       );
+      setAdminInfo(data.seeAdminInfo);
     }
     return () => {
       if (!loading) {
@@ -1147,6 +1150,80 @@ export default ({ navigation }) => {
             onPress={handleSignUp}
             text="Sign Up"
           />
+          <View style={{ alignItems: 'center', marginBottom: 3, marginTop: 7 }}>
+            <Text
+              style={
+                Platform.OS === 'ios'
+                  ? {
+                      color: styles.darkGreyColor,
+                      marginBottom: 7,
+                      fontSize: 17
+                    }
+                  : {
+                      color: styles.darkGreyColor,
+                      marginBottom: 7,
+                      fontSize: 14
+                    }
+              }
+            >
+              문의사항은 원우회에게 문의하세요.
+            </Text>
+            <Text
+              style={
+                Platform.OS === 'ios'
+                  ? {
+                      color: styles.darkGreyColor,
+                      marginBottom: 7,
+                      fontSize: 17
+                    }
+                  : {
+                      color: styles.darkGreyColor,
+                      marginBottom: 7,
+                      fontSize: 14
+                    }
+              }
+            >
+              현재 담당자 : {adminInfo[0]}
+            </Text>
+            <TouchableOpacity onPress={() => callNumber(adminInfo[1])}>
+              <Text
+                style={
+                  Platform.OS === 'ios'
+                    ? {
+                        color: styles.darkGreyColor,
+                        marginBottom: 7,
+                        fontSize: 17
+                      }
+                    : {
+                        color: styles.darkGreyColor,
+                        marginBottom: 7,
+                        fontSize: 14
+                      }
+                }
+              >
+                H.P : {!adminInfo[1] ? null : inputPhoneNumber(adminInfo[1])}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => linkEmail('qospwmf@gmail.com')}>
+              <Text
+                style={
+                  Platform.OS === 'ios'
+                    ? {
+                        color: styles.darkGreyColor,
+                        marginBottom: 7,
+                        fontSize: 17
+                      }
+                    : {
+                        color: styles.darkGreyColor,
+                        marginBottom: 7,
+                        fontSize: 14
+                      }
+                }
+              >
+                email : {adminInfo[2]}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </InputScrollView>
     );

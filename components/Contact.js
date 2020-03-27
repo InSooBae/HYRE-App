@@ -32,15 +32,16 @@ const Contact = ({
   directorGen = '',
   directorTitle = '',
   email,
-  navigation
+  navigation,
+  shortName
 }) => {
   const [visible, setVisible] = useState(false);
   const [buttonLoading, setButtonLoading] = useState(false);
   const saveContact = async () => {
     const phoneName =
       __typename === 'User'
-        ? `${name} ${major} ${generation}기`
-        : `${name} ${major} 교수`;
+        ? `${name} ${shortName} ${generation}기`
+        : `${name} ${shortName} 교수`;
     if (Platform.OS === 'ios') {
       const { status } = await ContactS.requestPermissionsAsync();
       if (status === 'granted') {

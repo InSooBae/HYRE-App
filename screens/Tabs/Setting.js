@@ -60,6 +60,7 @@ const SEE_ME = gql`
       id
       name
     }
+    seeAdminInfo
   }
 `;
 
@@ -110,6 +111,7 @@ export default () => {
   const ref_input7 = useRef();
 
   const logOut = useLogOut();
+  const [adminInfo, setAdminInfo] = useState([]);
   const [edit, setEdit] = useState(false);
   const [birth, setBirth] = useState(null);
   const [name, setName] = useState('');
@@ -135,7 +137,6 @@ export default () => {
     fetchPolicy: 'network-only'
   });
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
   const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
       fontSize: 16
@@ -289,7 +290,9 @@ export default () => {
       setIsLoading(false);
     }
   };
+
   const setAll = () => {
+    setAdminInfo(data.seeAdminInfo);
     setName(data.seeMe.name);
     setBirth(
       !data.seeMe.birthday
@@ -1514,27 +1517,44 @@ export default () => {
               Platform.OS === 'ios'
                 ? {
                     color: styles.darkGreyColor,
-                    marginBottom: 10,
+                    marginBottom: 7,
                     fontSize: 17
                   }
-                : { color: styles.darkGreyColor, marginBottom: 7 }
+                : { color: styles.darkGreyColor, marginBottom: 7, fontSize: 14 }
             }
           >
-            회원탈퇴는 관리자(원우회장)에게 문의하세요.
+            문의사항은 원우회에게 문의하세요.
           </Text>
-          <TouchableOpacity onPress={() => callNumber('01057515232')}>
+          <Text
+            style={
+              Platform.OS === 'ios'
+                ? {
+                    color: styles.darkGreyColor,
+                    marginBottom: 7,
+                    fontSize: 17
+                  }
+                : { color: styles.darkGreyColor, marginBottom: 7, fontSize: 14 }
+            }
+          >
+            현재 담당자 : {adminInfo[0]}
+          </Text>
+          <TouchableOpacity onPress={() => callNumber(adminInfo[1])}>
             <Text
               style={
                 Platform.OS === 'ios'
                   ? {
                       color: styles.darkGreyColor,
-                      marginBottom: 10,
+                      marginBottom: 7,
                       fontSize: 17
                     }
-                  : { color: styles.darkGreyColor, marginBottom: 7 }
+                  : {
+                      color: styles.darkGreyColor,
+                      marginBottom: 7,
+                      fontSize: 14
+                    }
               }
             >
-              developer H.P : 010-5751-5232
+              H.P : {!adminInfo[1] ? null : inputPhoneNumber(adminInfo[1])}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => linkEmail('qospwmf@gmail.com')}>
@@ -1543,15 +1563,32 @@ export default () => {
                 Platform.OS === 'ios'
                   ? {
                       color: styles.darkGreyColor,
-                      marginBottom: 12,
+                      marginBottom: 7,
                       fontSize: 17
                     }
-                  : { color: styles.darkGreyColor, marginBottom: 7 }
+                  : {
+                      color: styles.darkGreyColor,
+                      marginBottom: 7,
+                      fontSize: 14
+                    }
               }
             >
-              email : qospwmf@gmail.com
+              email : {adminInfo[2]}
             </Text>
           </TouchableOpacity>
+          <Text
+            style={
+              Platform.OS === 'ios'
+                ? {
+                    color: styles.darkGreyColor,
+                    marginBottom: 12,
+                    fontSize: 17
+                  }
+                : { color: styles.darkGreyColor, marginBottom: 7, fontSize: 14 }
+            }
+          >
+            Developer : Insoobae,Tarrazu
+          </Text>
         </View>
       </InputScrollView>
     );

@@ -29,6 +29,7 @@ const SEE_USER = gql`
       companyDesc
       major {
         name
+        shortName
       }
       graduatedYear {
         generation
@@ -50,6 +51,7 @@ const SEE_PROF = gql`
       photo
       major {
         name
+        shortName
       }
     }
   }
@@ -68,8 +70,8 @@ export default ({ navigation }) => {
   const saveContact = async () => {
     const phoneName =
       type === 'User'
-        ? `${a.name} ${a.major.name} ${a.graduatedYear.generation}기`
-        : `${a.name} ${a.major.name} 교수`;
+        ? `${a.name} ${a.major.shortName} ${a.graduatedYear.generation}기`
+        : `${a.name} ${a.major.shortName} 교수`;
     if (Platform.OS === 'ios') {
       const { status } = await ContactS.requestPermissionsAsync();
       if (status === 'granted') {

@@ -25,12 +25,12 @@ const LoginLink = styled.View`
   width: ${constants.width / 1.5};
 `;
 const LoginLinkText = styled.Text`
-  color: ${props => props.theme.blueColor};
+  color: ${(props) => props.theme.blueColor};
   font-weight: 600;
   text-align: center;
   font-size: 18px;
 `;
-Date.prototype.format = function(f) {
+Date.prototype.format = function (f) {
   if (!this.valueOf()) return ' ';
 
   const weekKorName = [
@@ -40,7 +40,7 @@ Date.prototype.format = function(f) {
     '수요일',
     '목요일',
     '금요일',
-    '토요일'
+    '토요일',
   ];
 
   const weekKorShortName = ['일', '월', '화', '수', '목', '금', '토'];
@@ -52,14 +52,14 @@ Date.prototype.format = function(f) {
     'Wednesday',
     'Thursday',
     'Friday',
-    'Saturday'
+    'Saturday',
   ];
 
   const weekEngShortName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   const d = this;
 
-  return f.replace(/(yyyy|yy|MM|dd|KS|KL|ES|EL|HH|hh|mm|ss|a\/p)/gi, function(
+  return f.replace(/(yyyy|yy|MM|dd|KS|KL|ES|EL|HH|hh|mm|ss|a\/p)/gi, function (
     $1
   ) {
     switch ($1) {
@@ -108,7 +108,7 @@ Date.prototype.format = function(f) {
   });
 };
 
-String.prototype.string = function(len) {
+String.prototype.string = function (len) {
   var s = '',
     i = 0;
   while (i++ < len) {
@@ -117,17 +117,17 @@ String.prototype.string = function(len) {
   return s;
 };
 
-String.prototype.zf = function(len) {
+String.prototype.zf = function (len) {
   return '0'.string(len - this.length) + this;
 };
 
-Number.prototype.zf = function(len) {
+Number.prototype.zf = function (len) {
   return this.toString().zf(len);
 };
 
 export default ({ navigation }) => (
   <View>
-    <Image resizeMode={'contain'} source={require('../../assets/HYU2.png')} />
+    <Image resizeMode={'contain'} source={require('../../assets/HYU3.png')} />
     <AuthButton
       text={'Create New Account'}
       onPress={() => navigation.navigate('SignUp')}

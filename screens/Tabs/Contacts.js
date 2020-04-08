@@ -101,7 +101,7 @@ export default () => {
       borderColor: styles.hanyangColor,
       borderRadius: 4,
       color: 'white',
-      paddingRight: 7, // to ensure the text is never behind the icon
+      paddingHorizontal: 5, // to ensure the text is never behind the icon
       textAlign: 'center',
     },
     inputAndroid: {
@@ -112,8 +112,7 @@ export default () => {
       fontFamily: 'bae-min',
       borderRadius: 5,
       color: 'white',
-      paddingLeft: 2,
-      paddingRight: 3,
+      paddingHorizontal: 5,
       textAlign: 'center',
     },
   });
@@ -282,11 +281,11 @@ export default () => {
             placeholder={
               Platform.OS === 'ios'
                 ? {
-                    label: '전체선택 ',
+                    label: '전체',
                     value: null,
                   }
                 : {
-                    label: '전체선택',
+                    label: '전체',
                     value: null,
                   }
             }
@@ -322,11 +321,11 @@ export default () => {
             placeholder={
               Platform.OS === 'ios'
                 ? {
-                    label: '전체선택 ',
+                    label: '전체',
                     value: null,
                   }
                 : {
-                    label: '전체선택',
+                    label: '전체',
                     value: null,
                   }
             }

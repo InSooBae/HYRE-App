@@ -12,13 +12,13 @@ import {
   Dialog,
   Paragraph,
   Button,
-  Text
 } from 'react-native-paper';
 import { View, Platform, PermissionsAndroid } from 'react-native';
 import { Toast } from 'native-base';
 import styled from 'styled-components';
 import Contacts from 'react-native-contacts';
 import { trimText } from '../utils';
+import Text from '../Text';
 
 const Contact = ({
   id,
@@ -35,7 +35,7 @@ const Contact = ({
   directorTitle = '',
   email,
   navigation,
-  shortName
+  shortName,
 }) => {
   const [visible, setVisible] = useState(false);
   const [buttonLoading, setButtonLoading] = useState(false);
@@ -52,18 +52,18 @@ const Contact = ({
           [ContactS.Fields.PhoneNumbers]: [
             {
               label: '전화번호',
-              number: !cellPhone ? '' : inputPhoneNumber(cellPhone)
-            }
+              number: !cellPhone ? '' : inputPhoneNumber(cellPhone),
+            },
           ],
           [ContactS.Fields.Emails]: [
             {
               email: !email ? '' : email,
               isPrimary: true,
               id: '2',
-              label: '이메일'
-            }
+              label: '이메일',
+            },
           ],
-          [ContactS.Fields.Company]: !company ? '' : company
+          [ContactS.Fields.Company]: !company ? '' : company,
         };
         try {
           const contactId = await ContactS.addContactAsync(contact);
@@ -76,7 +76,7 @@ const Contact = ({
               type: 'success',
               position: 'top',
               duration: 3000,
-              style: { marginTop: 70 }
+              style: { marginTop: 70 },
             });
           } else {
             Toast.show({
@@ -86,7 +86,7 @@ const Contact = ({
               type: 'danger',
               position: 'top',
               duration: 3000,
-              style: { marginTop: 70 }
+              style: { marginTop: 70 },
             });
           }
         } catch (err) {
@@ -99,7 +99,7 @@ const Contact = ({
             type: 'danger',
             position: 'top',
             duration: 3000,
-            style: { marginTop: 70 }
+            style: { marginTop: 70 },
           });
         }
       } else {
@@ -110,7 +110,7 @@ const Contact = ({
           type: 'danger',
           position: 'top',
           duration: 3000,
-          style: { marginTop: 70 }
+          style: { marginTop: 70 },
         });
       }
       setButtonLoading(false);
@@ -119,12 +119,12 @@ const Contact = ({
       const granted = await PermissionsAndroid.requestMultiple(
         [
           PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
-          PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS
+          PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS,
         ],
         {
           title: 'Contacts',
           message: 'This app would like to view your contacts.',
-          buttonPositive: 'Please accept bare mortal'
+          buttonPositive: 'Please accept bare mortal',
         }
       );
       setButtonLoading(true);
@@ -139,19 +139,19 @@ const Contact = ({
           phoneNumbers: [
             {
               label: '전화번호',
-              number: !cellPhone ? '' : inputPhoneNumber(cellPhone)
-            }
+              number: !cellPhone ? '' : inputPhoneNumber(cellPhone),
+            },
           ],
           emailAddresses: [
             {
               label: '이메일',
-              email: email === null ? '' : email
-            }
+              email: email === null ? '' : email,
+            },
           ],
-          company: company === null ? '' : company
+          company: company === null ? '' : company,
         };
         setButtonLoading(true);
-        Contacts.addContact(contact, err => {
+        Contacts.addContact(contact, (err) => {
           if (err) {
             Toast.show({
               text: '연락처가 저장실패 하였습니다.',
@@ -160,7 +160,7 @@ const Contact = ({
               type: 'danger',
               position: 'top',
               duration: 3000,
-              style: { marginTop: 70 }
+              style: { marginTop: 70 },
             });
             console.log(err);
             throw err;
@@ -173,7 +173,7 @@ const Contact = ({
               type: 'success',
               position: 'top',
               duration: 3000,
-              style: { marginTop: 70 }
+              style: { marginTop: 70 },
             });
           }
         });
@@ -185,7 +185,7 @@ const Contact = ({
           type: 'danger',
           position: 'top',
           duration: 3000,
-          style: { marginTop: 70 }
+          style: { marginTop: 70 },
         });
       }
       setButtonLoading(false);
@@ -199,7 +199,7 @@ const Contact = ({
         navigation.navigate('UserDetail', {
           id: id,
           name: name,
-          __typename: __typename
+          __typename: __typename,
         })
       }
       onLongPress={() => setVisible(true)}
@@ -213,7 +213,7 @@ const Contact = ({
         borderTopLeftRadius: 33,
         borderBottomRightRadius: 33,
         borderBottomLeftRadius: 7,
-        borderWidth: 0.5
+        borderWidth: 0.5,
       }}
       theme={{}}
     >
@@ -245,7 +245,7 @@ const Contact = ({
         style={{
           flexDirection: 'row',
           flex: 1,
-          alignItems: 'center'
+          alignItems: 'center',
         }}
       >
         <Avatar.Image
@@ -257,14 +257,14 @@ const Contact = ({
           style={{
             flexDirection: 'column',
             marginLeft: 10,
-            flex: 1
+            flex: 1,
           }}
         >
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-              marginRight: 15
+              marginRight: 15,
             }}
           >
             <Text
@@ -275,12 +275,12 @@ const Contact = ({
                       color: styles.hanyangColor,
                       fontWeight: '600',
                       marginTop: 3,
-                      marginBottom: 3
+                      marginBottom: 3,
                     }
                   : {
-                      fontSize: 17,
+                      fontSize: 20,
                       color: styles.hanyangColor,
-                      fontWeight: '600'
+                      fontWeight: '600',
                     }
               }
             >
@@ -289,8 +289,8 @@ const Contact = ({
             <Text
               style={
                 Platform.OS === 'ios'
-                  ? { fontSize: 16, marginTop: 5 }
-                  : { fontSize: 14, marginTop: 5 }
+                  ? { fontSize: 14, marginTop: 5, color: '#666666' }
+                  : { fontSize: 14, marginTop: 5, color: '#666666' }
               }
             >
               {!company ? '' : trimText(company, 15)}
@@ -300,7 +300,7 @@ const Contact = ({
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-              marginRight: 15
+              marginRight: 15,
             }}
           >
             <TouchableOpacity
@@ -312,10 +312,10 @@ const Contact = ({
                   Platform.OS === 'ios'
                     ? {
                         marginBottom: 5,
-                        fontSize: 17
+                        fontSize: 17,
                       }
                     : {
-                        fontSize: 16
+                        fontSize: 17,
                       }
                 }
               >
@@ -325,8 +325,8 @@ const Contact = ({
             <Text
               style={
                 Platform.OS === 'ios'
-                  ? { fontSize: 16, marginTop: 2 }
-                  : { fontSize: 14, marginTop: 2 }
+                  ? { fontSize: 14, marginTop: 2, color: '#666666' }
+                  : { fontSize: 14, marginTop: 2, color: '#666666' }
               }
             >
               {!team ? '' : trimText(team, 12)}
@@ -336,7 +336,7 @@ const Contact = ({
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-              marginRight: 15
+              marginRight: 15,
             }}
           >
             <View>
@@ -345,15 +345,15 @@ const Contact = ({
                   <Text
                     style={
                       Platform.OS === 'ios'
-                        ? { fontSize: 16, marginBottom: 3, marginRight: 13 }
+                        ? { fontSize: 14, marginBottom: 3, marginRight: 13 }
                         : { fontSize: 14, marginBottom: 3, marginRight: 13 }
                     }
-                  >{`${generation}기/${major}`}</Text>
+                  >{`${generation}기 ${major}`}</Text>
                 ) : (
                   <Text
                     style={
                       Platform.OS === 'ios'
-                        ? { fontSize: 16, marginBottom: 3, marginRight: 13 }
+                        ? { fontSize: 14, marginBottom: 3, marginRight: 13 }
                         : { fontSize: 14, marginBottom: 3, marginRight: 13 }
                     }
                   >{`${major}`}</Text>
@@ -363,14 +363,14 @@ const Contact = ({
                   style={
                     Platform.OS === 'ios'
                       ? {
-                          fontSize: 16,
+                          fontSize: 14,
                           marginRight: 13,
-                          marginBottom: 3
+                          marginBottom: 3,
                         }
                       : {
                           marginRight: 13,
                           marginBottom: 3,
-                          fontSize: 14
+                          fontSize: 14,
                         }
                   }
                 >{`${generation}기 / ${directorGen}대 ${directorTitle}`}</Text>
@@ -379,7 +379,9 @@ const Contact = ({
 
             <Text
               style={
-                Platform.OS === 'ios' ? { fontSize: 16 } : { fontSize: 14 }
+                Platform.OS === 'ios'
+                  ? { fontSize: 14, color: '#666666' }
+                  : { fontSize: 14, color: '#666666' }
               }
             >
               {!position ? '' : position}
@@ -401,7 +403,7 @@ Contact.propTypes = {
   photo: PropTypes.string,
   major: PropTypes.string,
   generation: PropTypes.number,
-  __typename: PropTypes.string
+  __typename: PropTypes.string,
 };
 
 export default withNavigation(Contact);

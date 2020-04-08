@@ -4,7 +4,7 @@ import {
   RefreshControl,
   StyleSheet,
   Platform,
-  View
+  View,
 } from 'react-native';
 
 import { useApolloClient } from '@apollo/react-hooks';
@@ -15,6 +15,7 @@ import Loader from '../../components/Loader';
 import styles from '../../styles';
 import { FAB } from 'react-native-paper';
 import styled from 'styled-components';
+
 const Text = styled.Text`
   font-family: bae-min;
   font-size: 20px;
@@ -88,32 +89,33 @@ export default () => {
       margin: 16,
       right: 0,
       bottom: 0,
-      backgroundColor: styles.hanyangColor
-    }
+      backgroundColor: styles.hanyangColor,
+    },
   });
   const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
-      backgroundColor: 'white',
-      fontSize: 20,
+      backgroundColor: styles.hanyangColor,
+      fontSize: 18,
       fontFamily: 'bae-min',
       borderWidth: 1,
       borderColor: styles.hanyangColor,
       borderRadius: 4,
-      color: 'black',
+      color: 'white',
       paddingRight: 7, // to ensure the text is never behind the icon
-      textAlign: 'center'
+      textAlign: 'center',
     },
     inputAndroid: {
+      backgroundColor: styles.hanyangColor,
       fontSize: 14,
       borderWidth: 1,
       borderColor: styles.hanyangColor,
       fontFamily: 'bae-min',
       borderRadius: 5,
-      color: 'black',
+      color: 'white',
       paddingLeft: 2,
       paddingRight: 3,
-      textAlign: 'center'
-    }
+      textAlign: 'center',
+    },
   });
   const queryOptions =
     !majorQuery && !generationQuery
@@ -121,7 +123,7 @@ export default () => {
           query: SEE_ALL_USER,
           variables: { limit: limit, page: page + 1 },
 
-          fetchPolicy: 'network-only'
+          fetchPolicy: 'network-only',
         }
       : majorQuery === null
       ? {
@@ -129,16 +131,16 @@ export default () => {
           variables: {
             limit: limit,
             page: page + 1,
-            generation: generationQuery
+            generation: generationQuery,
           },
 
-          fetchPolicy: 'network-only'
+          fetchPolicy: 'network-only',
         }
       : generationQuery === null
       ? {
           query: SEE_ALL_USER,
           variables: { limit: limit, page: page + 1, major: majorQuery },
-          fetchPolicy: 'network-only'
+          fetchPolicy: 'network-only',
         }
       : {
           query: SEE_ALL_USER,
@@ -146,9 +148,9 @@ export default () => {
             limit: limit,
             page: page + 1,
             major: majorQuery,
-            generation: generationQuery
+            generation: generationQuery,
           },
-          fetchPolicy: 'network-only'
+          fetchPolicy: 'network-only',
         };
   const initQueryOptions =
     !majorQuery && !generationQuery
@@ -156,20 +158,20 @@ export default () => {
           query: SEE_ALL_USER,
           variables: { limit: limit, page: 1 },
 
-          fetchPolicy: 'network-only'
+          fetchPolicy: 'network-only',
         }
       : majorQuery === null
       ? {
           query: SEE_ALL_USER,
           variables: { limit: limit, page: 1, generation: generationQuery },
 
-          fetchPolicy: 'network-only'
+          fetchPolicy: 'network-only',
         }
       : generationQuery === null
       ? {
           query: SEE_ALL_USER,
           variables: { limit: limit, page: 1, major: majorQuery },
-          fetchPolicy: 'network-only'
+          fetchPolicy: 'network-only',
         }
       : {
           query: SEE_ALL_USER,
@@ -177,9 +179,9 @@ export default () => {
             limit: limit,
             page: 1,
             major: majorQuery,
-            generation: generationQuery
+            generation: generationQuery,
           },
-          fetchPolicy: 'network-only'
+          fetchPolicy: 'network-only',
         };
 
   const refresh = () => {
@@ -207,20 +209,20 @@ export default () => {
     setUsers(data.howManyUser);
     setAddData([...data.seeAllUser]);
     setGeneration(
-      data.seeAllGradYear.map(e => {
+      data.seeAllGradYear.map((e) => {
         return {
           key: e.id,
           label: `${e.generation}기`,
-          value: e.generation
+          value: e.generation,
         };
       })
     );
     setMajor(
-      data.seeAllMajor.map(e => {
+      data.seeAllMajor.map((e) => {
         return {
           key: e.id,
           label: e.name,
-          value: e.name
+          value: e.name,
         };
       })
     );
@@ -250,12 +252,12 @@ export default () => {
                   marginTop: 3,
                   flexDirection: 'row',
                   justifyContent: 'center',
-                  alignItems: 'center'
+                  alignItems: 'center',
                 }
               : {
                   flexDirection: 'row',
                   justifyContent: 'center',
-                  alignItems: 'center'
+                  alignItems: 'center',
                 }
           }
         >
@@ -265,12 +267,12 @@ export default () => {
                 ? {
                     fontSize: 18,
                     paddingHorizontal: 10,
-                    fontWeight: '600'
+                    fontWeight: '600',
                   }
                 : {
                     fontSize: 13,
                     paddingHorizontal: 10,
-                    fontWeight: '600'
+                    fontWeight: '600',
                   }
             }
           >
@@ -281,17 +283,17 @@ export default () => {
               Platform.OS === 'ios'
                 ? {
                     label: '전체선택 ',
-                    value: null
+                    value: null,
                   }
                 : {
                     label: '전체선택',
-                    value: null
+                    value: null,
                   }
             }
             Icon={() => null}
-            placeholderTextColor={'black'}
+            placeholderTextColor={'white'}
             style={{ ...pickerSelectStyles }}
-            onValueChange={generation => {
+            onValueChange={(generation) => {
               setGenerationQuery(generation);
             }}
             items={generation}
@@ -304,12 +306,12 @@ export default () => {
                 ? {
                     fontSize: 18,
                     paddingHorizontal: 10,
-                    fontWeight: '600'
+                    fontWeight: '600',
                   }
                 : {
                     fontSize: 13,
                     paddingHorizontal: 10,
-                    fontWeight: '600'
+                    fontWeight: '600',
                   }
             }
           >
@@ -321,17 +323,17 @@ export default () => {
               Platform.OS === 'ios'
                 ? {
                     label: '전체선택 ',
-                    value: null
+                    value: null,
                   }
                 : {
                     label: '전체선택',
-                    value: null
+                    value: null,
                   }
             }
             style={{ ...pickerSelectStyles }}
-            placeholderTextColor={'black'}
+            placeholderTextColor={'white'}
             Icon={() => null}
-            onValueChange={major => {
+            onValueChange={(major) => {
               setMajorQuery(major);
             }}
             items={major}

@@ -26,8 +26,8 @@ const stackFactory = (initialRoute, customConfig) =>
         screen: initialRoute,
         navigationOptions: {
           ...customConfig,
-          headerTitleAlign: 'center' | 'left'
-        }
+          headerTitleAlign: 'center' | 'left',
+        },
       },
       UserDetail: {
         screen: UserDetail,
@@ -39,20 +39,20 @@ const stackFactory = (initialRoute, customConfig) =>
                   ? {
                       fontSize: 17,
                       fontWeight: '700',
-                      fontFamily: 'lotte-medium'
+                      fontFamily: 'lotte-medium',
                     }
                   : {
                       fontSize: 17,
                       fontWeight: '700',
-                      fontFamily: 'lotte-medium'
+                      fontFamily: 'lotte-medium',
                     }
               }
             >
               {navigation.getParam('name')}
             </Text>
           ),
-          headerTitleAlign: 'center' | 'left'
-        })
+          headerTitleAlign: 'center' | 'left',
+        }),
       },
       NoticeDetail: {
         screen: NoticeDetail,
@@ -64,20 +64,20 @@ const stackFactory = (initialRoute, customConfig) =>
                   ? {
                       fontSize: 17,
                       fontWeight: '700',
-                      fontFamily: 'lotte-bold'
+                      fontFamily: 'lotte-bold',
                     }
                   : {
                       fontSize: 17,
                       fontWeight: '700',
-                      fontFamily: 'lotte-bold'
+                      fontFamily: 'lotte-bold',
                     }
               }
             >
               공지사항
             </Text>
           ),
-          headerTitleAlign: 'center' | 'left'
-        })
+          headerTitleAlign: 'center' | 'left',
+        }),
       },
       Search: {
         screen: Search,
@@ -91,10 +91,10 @@ const stackFactory = (initialRoute, customConfig) =>
             />
           ),
           headerStyle: {
-            backgroundColor: '#F0F0F0'
-          }
-        })
-      }
+            backgroundColor: '#F0F0F0',
+          },
+        }),
+      },
     },
 
     {
@@ -102,8 +102,8 @@ const stackFactory = (initialRoute, customConfig) =>
         headerBackTitle: null,
         headerBackTitleVisible: false,
         headerTintColor: styles.blackColor,
-        headerStyle: { ...stackStyles }
-      }
+        headerStyle: { ...stackStyles },
+      },
     }
   );
 
@@ -118,18 +118,18 @@ const TabNavigation = createMaterialTopTabNavigator(
                 ? {
                     fontSize: 17,
                     fontWeight: '700',
-                    fontFamily: 'lotte-bold'
+                    fontFamily: 'lotte-bold',
                   }
                 : {
                     fontSize: 17,
                     fontWeight: '700',
-                    fontFamily: 'lotte-bold'
+                    fontFamily: 'lotte-bold',
                   }
             }
           >
             공지사항
           </Text>
-        )
+        ),
       }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
@@ -146,30 +146,30 @@ const TabNavigation = createMaterialTopTabNavigator(
                   ? {
                       fontSize: 12,
                       fontFamily: 'lotte-medium',
-                      color: 'white'
+                      color: 'white',
                     }
                   : {
                       fontSize: 12,
                       fontFamily: 'lotte-medium',
-                      color: '#a6a6a6'
+                      color: '#a6a6a6',
                     }
                 : focused
                 ? {
                     fontSize: 12,
                     color: 'white',
-                    fontFamily: 'lotte-medium'
+                    fontFamily: 'lotte-medium',
                   }
                 : {
                     fontSize: 12,
                     color: '#a6a6a6',
-                    fontFamily: 'lotte-medium'
+                    fontFamily: 'lotte-medium',
                   }
             }
           >
             공지사항
           </Text>
-        )
-      }
+        ),
+      },
     },
     Prof: {
       screen: stackFactory(Prof, {
@@ -183,7 +183,7 @@ const TabNavigation = createMaterialTopTabNavigator(
           >
             교수
           </Text>
-        )
+        ),
       }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
@@ -200,30 +200,30 @@ const TabNavigation = createMaterialTopTabNavigator(
                   ? {
                       fontSize: 12,
                       fontFamily: 'lotte-medium',
-                      color: 'white'
+                      color: 'white',
                     }
                   : {
                       fontSize: 12,
                       fontFamily: 'lotte-medium',
-                      color: '#a6a6a6'
+                      color: '#a6a6a6',
                     }
                 : focused
                 ? {
                     fontSize: 12,
                     color: 'white',
-                    fontFamily: 'lotte-medium'
+                    fontFamily: 'lotte-medium',
                   }
                 : {
                     fontSize: 12,
                     color: '#a6a6a6',
-                    fontFamily: 'lotte-medium'
+                    fontFamily: 'lotte-medium',
                   }
             }
           >
             교수
           </Text>
-        )
-      }
+        ),
+      },
     },
     Contacts: {
       screen: stackFactory(Contacts, {
@@ -231,14 +231,14 @@ const TabNavigation = createMaterialTopTabNavigator(
           <View>
             <Image
               style={{
-                height: 45
+                height: 50,
               }}
               resizeMode="contain"
               source={require('../assets/HYU2.png')}
             />
           </View>
         ),
-        headerRight: () => <SearchLink />
+        headerRight: () => <SearchLink />,
       }),
 
       navigationOptions: {
@@ -257,30 +257,30 @@ const TabNavigation = createMaterialTopTabNavigator(
                   ? {
                       fontSize: 12,
                       fontFamily: 'lotte-medium',
-                      color: 'white'
+                      color: 'white',
                     }
                   : {
                       fontSize: 12,
                       fontFamily: 'lotte-medium',
-                      color: '#a6a6a6'
+                      color: '#a6a6a6',
                     }
                 : focused
                 ? {
                     fontSize: 12,
                     color: 'white',
-                    fontFamily: 'lotte-medium'
+                    fontFamily: 'lotte-medium',
                   }
                 : {
                     fontSize: 12,
                     color: '#a6a6a6',
-                    fontFamily: 'lotte-medium'
+                    fontFamily: 'lotte-medium',
                   }
             }
           >
             연락처
           </Text>
-        )
-      }
+        ),
+      },
     },
 
     Director: {
@@ -295,7 +295,7 @@ const TabNavigation = createMaterialTopTabNavigator(
           >
             원우회
           </Text>
-        )
+        ),
       }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
@@ -312,30 +312,30 @@ const TabNavigation = createMaterialTopTabNavigator(
                   ? {
                       fontSize: 12,
                       fontFamily: 'lotte-medium',
-                      color: 'white'
+                      color: 'white',
                     }
                   : {
                       fontSize: 12,
                       fontFamily: 'lotte-medium',
-                      color: '#a6a6a6'
+                      color: '#a6a6a6',
                     }
                 : focused
                 ? {
                     fontSize: 12,
                     color: 'white',
-                    fontFamily: 'lotte-medium'
+                    fontFamily: 'lotte-medium',
                   }
                 : {
                     fontSize: 12,
                     color: '#a6a6a6',
-                    fontFamily: 'lotte-medium'
+                    fontFamily: 'lotte-medium',
                   }
             }
           >
-            공지사항
+            원우회
           </Text>
-        )
-      }
+        ),
+      },
     },
     Profile: {
       screen: stackFactory(Setting, {
@@ -349,7 +349,7 @@ const TabNavigation = createMaterialTopTabNavigator(
           >
             내 정보
           </Text>
-        )
+        ),
       }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
@@ -367,31 +367,31 @@ const TabNavigation = createMaterialTopTabNavigator(
                   ? {
                       fontSize: 12,
                       fontFamily: 'lotte-medium',
-                      color: 'white'
+                      color: 'white',
                     }
                   : {
                       fontSize: 12,
                       fontFamily: 'lotte-medium',
-                      color: '#a6a6a6'
+                      color: '#a6a6a6',
                     }
                 : focused
                 ? {
                     fontSize: 12,
                     color: 'white',
-                    fontFamily: 'lotte-medium'
+                    fontFamily: 'lotte-medium',
                   }
                 : {
                     fontSize: 12,
                     color: '#a6a6a6',
-                    fontFamily: 'lotte-medium'
+                    fontFamily: 'lotte-medium',
                   }
             }
           >
             내정보
           </Text>
-        )
-      }
-    }
+        ),
+      },
+    },
   },
   Platform.OS === 'ios'
     ? {
@@ -400,16 +400,16 @@ const TabNavigation = createMaterialTopTabNavigator(
         tabBarOptions: {
           indicatorStyle: {
             backgroundColor: styles.blackColor,
-            marginBottom: 10
+            marginBottom: 10,
           },
           style: {
             ...stackStyles,
             backgroundColor: styles.hanyangColor,
-            paddingBottom: 5
+            paddingBottom: 5,
           },
           showIcon: true,
-          showLabel: true
-        }
+          showLabel: true,
+        },
       }
     : {
         initialRouteName: 'Notice',
@@ -417,15 +417,15 @@ const TabNavigation = createMaterialTopTabNavigator(
         tabBarOptions: {
           indicatorStyle: {
             backgroundColor: styles.blackColor,
-            marginBottom: 5
+            marginBottom: 5,
           },
           style: {
             ...stackStyles,
-            backgroundColor: styles.hanyangColor
+            backgroundColor: styles.hanyangColor,
           },
           showIcon: true,
-          showLabel: true
-        }
+          showLabel: true,
+        },
       }
 );
 

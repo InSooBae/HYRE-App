@@ -281,7 +281,7 @@ export default () => {
             placeholder={
               Platform.OS === 'ios'
                 ? {
-                    label: '전체',
+                    label: '전체 ',
                     value: null,
                   }
                 : {
@@ -321,7 +321,7 @@ export default () => {
             placeholder={
               Platform.OS === 'ios'
                 ? {
-                    label: '전체',
+                    label: '전체 ',
                     value: null,
                   }
                 : {

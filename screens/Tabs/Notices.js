@@ -9,7 +9,7 @@ import {
   Modal,
   StyleSheet,
   View,
-  Platform
+  Platform,
 } from 'react-native';
 import Notice from '../../components/Notice';
 import { usePopUp, useLaterPopUp } from '../../AuthContext';
@@ -63,8 +63,8 @@ export default () => {
       margin: 16,
       right: 0,
       bottom: 0,
-      backgroundColor: styles.hanyangColor
-    }
+      backgroundColor: styles.hanyangColor,
+    },
   });
   const refresh = () => {
     try {
@@ -85,7 +85,7 @@ export default () => {
       query: SEE_ALL_NOTICE,
       variables: { limit: limit, page: page + 1 },
 
-      fetchPolicy: 'network-only'
+      fetchPolicy: 'network-only',
     });
 
     setPage(page + 1);
@@ -98,9 +98,9 @@ export default () => {
       query: SEE_ALL_NOTICE,
       variables: {
         limit: limit,
-        page: 1
+        page: 1,
       },
-      fetchPolicy: 'network-only'
+      fetchPolicy: 'network-only',
     });
     if (!data) return;
     popUp(data.seeLatestNotice[0].createdAt);
@@ -118,9 +118,9 @@ export default () => {
       query: SEE_ALL_NOTICE,
       variables: {
         limit: limit,
-        page: 1
+        page: 1,
       },
-      fetchPolicy: 'network-only'
+      fetchPolicy: 'network-only',
     });
     if (!data) return;
     setHowNotice(data.howManyNotice);
@@ -151,7 +151,7 @@ export default () => {
                 style={{
                   backgroundColor: '#000000aa',
                   flex: 1,
-                  justifyContent: 'center'
+                  justifyContent: 'center',
                 }}
               >
                 <View
@@ -163,7 +163,7 @@ export default () => {
                     marginTop: 80,
                     padding: 20,
                     borderRadius: 10,
-                    flex: 1
+                    flex: 1,
                   }}
                 >
                   <View>
@@ -173,11 +173,11 @@ export default () => {
                           Platform.OS === 'ios'
                             ? {
                                 fontSize: 20,
-                                fontWeight: '700'
+                                fontWeight: '700',
                               }
                             : {
                                 fontSize: 18,
-                                fontWeight: '700'
+                                fontWeight: '700',
                               }
                         }
                       >
@@ -192,7 +192,7 @@ export default () => {
                         borderBottomColor: styles.lightGreyColor,
                         borderBottomWidth: 1,
                         marginBottom: 20,
-                        marginTop: 10
+                        marginTop: 10,
                       }}
                     >
                       <Text
@@ -231,7 +231,7 @@ export default () => {
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
-                      alignItems: 'flex-end'
+                      alignItems: 'flex-end',
                     }}
                   >
                     <Button
@@ -281,9 +281,9 @@ export default () => {
               footerLoading && howNotice / user > 1 ? <Loader /> : null
             }
           />
+          <FAB style={style.fab} small icon="chevron-up" onPress={toTop} />
         </>
       )}
-      <FAB style={style.fab} small icon="chevron-up" onPress={toTop} />
     </View>
   );
 };

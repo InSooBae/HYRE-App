@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import * as ContactS from 'expo-contacts';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -405,4 +405,4 @@ Contact.propTypes = {
   __typename: PropTypes.string,
 };
 
-export default withNavigation(Contact);
+export default withNavigation(memo(Contact));

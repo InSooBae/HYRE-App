@@ -339,7 +339,6 @@ export default ({
                       theme={{ colors: { primary: '#5592ff' } }}
                     />
                     <Text
-                      allowFontScaling={false}
                       style={
                         Platform.OS === 'ios'
                           ? { fontSize: 15, marginLeft: 5 }

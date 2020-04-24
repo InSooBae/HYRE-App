@@ -21,7 +21,7 @@
         "NSContactsUsageDescription": "연락처 정보를 해당 기기의 연락처에 저장합니다.",
         "UIUserInterfaceStyle": "Light"
       },
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.1"
     },
     "android": {
       "package": "com.MJU.HURE_APP",

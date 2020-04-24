@@ -12,10 +12,11 @@ import {
   Platform,
 } from 'react-native';
 import Notice from '../../components/Notice';
-import { usePopUp, useLaterPopUp } from '../../AuthContext';
+import { usePopUp, useLaterPopUp, useLogOut } from '../../AuthContext';
 import { Button, FAB } from 'react-native-paper';
 import styles from '../../styles';
 import styled from 'styled-components';
+import { Toast } from 'native-base';
 
 const SEE_ALL_NOTICE = gql`
   query seeAllNotice($limit: Int!, $page: Int!) {
@@ -52,7 +53,7 @@ export default () => {
   const client = useApolloClient();
   const [addData, setAddData] = useState();
   const [footerLoading, setFooterLoading] = useState(false);
-
+  const logout = useLogOut();
   const scrollTop = useRef();
   const toTop = () => {
     scrollTop.current.scrollToOffset({ animated: true, offset: 0 });
@@ -94,23 +95,37 @@ export default () => {
     setFooterLoading(false);
   };
   const getInitialData = async () => {
-    const { data } = await client.query({
-      query: SEE_ALL_NOTICE,
-      variables: {
-        limit: limit,
-        page: 1,
-      },
-      fetchPolicy: 'network-only',
-    });
-    if (!data) return;
-    popUp(data.seeLatestNotice[0].createdAt);
+    try {
+      const { data } = await client.query({
+        query: SEE_ALL_NOTICE,
+        variables: {
+          limit: limit,
+          page: 1,
+        },
+        fetchPolicy: 'network-only',
+      });
 
-    setIsOpen(JSON.parse(await AsyncStorage.getItem('isPopUp')).result);
-    setHowNotice(data.howManyNotice);
-    setAddData([...data.seeAllNotice]);
-    setLastData(...data.seeLatestNotice);
-    setLoading(false);
-    setIsOpen(JSON.parse(await AsyncStorage.getItem('isPopUp')).result);
+      if (!data) return;
+      popUp(data.seeLatestNotice[0].createdAt);
+
+      setIsOpen(JSON.parse(await AsyncStorage.getItem('isPopUp')).result);
+      setHowNotice(data.howManyNotice);
+      setAddData([...data.seeAllNotice]);
+      setLastData(...data.seeLatestNotice);
+      setLoading(false);
+      setIsOpen(JSON.parse(await AsyncStorage.getItem('isPopUp')).result);
+    } catch (e) {
+      Toast.show({
+        text: '이용의 문제가 있어서 다시 로그인 해주세요',
+        textStyle: { textAlign: 'center' },
+        buttonText: 'Okay',
+        type: 'danger',
+        position: 'top',
+        duration: 5000,
+        style: { marginTop: 70 },
+      });
+      logout();
+    }
   };
 
   const reFetchData = async () => {

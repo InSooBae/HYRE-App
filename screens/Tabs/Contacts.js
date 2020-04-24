@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
 import { RefreshControl, StyleSheet, Platform, View } from 'react-native';
 
 import { useApolloClient } from '@apollo/react-hooks';
@@ -56,7 +56,7 @@ const SEE_ALL_USER = gql`
   }
 `;
 
-export default () => {
+const abc = () => {
   // const [seeAllUserMutation] = useMutation();
   const [refreshing, setRefreshing] = useState(false);
   const [page, setPage] = useState(1);
@@ -72,12 +72,10 @@ export default () => {
   const [major, setMajor] = useState([]);
   const [addData, setAddData] = useState();
   const [footerLoading, setFooterLoading] = useState(false);
-
   const scrollTop = useRef();
   const toTop = () => {
     scrollTop.current.scrollToOffset({ animated: true, offset: 0 });
   };
-
   const style = StyleSheet.create({
     fab: {
       position: 'absolute',
@@ -393,3 +391,5 @@ export default () => {
     );
   }
 };
+
+export default memo(abc);

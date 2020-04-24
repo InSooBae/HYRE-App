@@ -15,7 +15,6 @@ import {
 } from 'react-native-paper';
 import { View, Platform, PermissionsAndroid } from 'react-native';
 import { Toast } from 'native-base';
-import styled from 'styled-components';
 import Contacts from 'react-native-contacts';
 import { trimText } from '../utils';
 import Text from '../Text';

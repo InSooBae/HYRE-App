@@ -8,7 +8,7 @@ import {
   HelperText,
   Avatar,
   Card,
-  Button
+  Button,
 } from 'react-native-paper';
 import { gql } from 'apollo-boost';
 import RNPickerSelect from 'react-native-picker-select';
@@ -21,10 +21,10 @@ import axios from 'axios';
 import {
   inputPhoneNumber,
   callNumber,
-  linkEmail
+  linkEmail,
 } from '../../components/PhoneCall';
 import { useLogOut } from '../../AuthContext';
-
+import Texts from '../../Text';
 import InputScrollView from 'react-native-input-scroll-view';
 import styled from 'styled-components';
 
@@ -135,29 +135,29 @@ export default () => {
   const { data, loading, refetch } = useQuery(SEE_ME, {
     //언제 쿼리를 조회하지 않고 넘길지 설정
     //검색 결과가 항상 캐시에 저장되지 않도록 fetchPolicy로 설정
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'network-only',
   });
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
-      fontSize: 16
+      fontSize: 16,
     },
     inputAndroid: {
-      fontSize: 16
-    }
+      fontSize: 16,
+    },
   });
 
   const styleBack = StyleSheet.create({
     background: {
       flex: 1,
-      width: '100%'
+      width: '100%',
     },
     container: {
       flex: 1,
       width: '100%',
       alignSelf: 'center',
-      justifyContent: 'center'
-    }
+      justifyContent: 'center',
+    },
   });
 
   const [isloading, setIsLoading] = useState(false);
@@ -171,7 +171,7 @@ export default () => {
         type: 'warning',
         position: 'top',
         duration: 3000,
-        style: { marginTop: 70 }
+        style: { marginTop: 70 },
       });
     }
     if (!emailRegex.test(email)) {
@@ -182,7 +182,7 @@ export default () => {
         type: 'warning',
         position: 'top',
         duration: 3000,
-        style: { marginTop: 70 }
+        style: { marginTop: 70 },
       });
     }
 
@@ -194,7 +194,7 @@ export default () => {
         type: 'warning',
         position: 'top',
         duration: 3000,
-        style: { marginTop: 70 }
+        style: { marginTop: 70 },
       });
     }
     if (!generation) {
@@ -205,7 +205,7 @@ export default () => {
         type: 'warning',
         position: 'top',
         duration: 3000,
-        style: { marginTop: 70 }
+        style: { marginTop: 70 },
       });
     }
     const formData = new FormData();
@@ -213,21 +213,21 @@ export default () => {
     formData.append('photo', {
       name: selectedImage.filename,
       type: 'image/jpeg',
-      uri: selectedImage.uri
+      uri: selectedImage.uri,
     });
     try {
       setIsLoading(true);
       let a = null;
       if (selectedImage.filename) {
         const {
-          data: { location }
+          data: { location },
         } = await axios.post(
           'https://hure-backend.herokuapp.com/api/upload',
           formData,
           {
             headers: {
-              'content-type': 'multipart/form-data'
-            }
+              'content-type': 'multipart/form-data',
+            },
           }
         );
 
@@ -238,7 +238,7 @@ export default () => {
       const { data } = await editMeMutation({
         variables: {
           photo: a,
-          name: name,
+          name: name.trim(),
           birthday: birth,
           email: email,
           cellPhone: cellPhone.replace(/-/g, ''),
@@ -249,8 +249,8 @@ export default () => {
           workPhone: workPhone.replace(/-/g, ''),
           workAddress: workAddress,
           majorName: major,
-          generation: parseInt(generation)
-        }
+          generation: parseInt(generation),
+        },
       });
       if (data) {
         Toast.show({
@@ -260,7 +260,7 @@ export default () => {
           type: 'success',
           position: 'top',
           duration: 3000,
-          style: { marginTop: 70 }
+          style: { marginTop: 70 },
         });
         setEdit(!edit);
         await refetch();
@@ -274,7 +274,7 @@ export default () => {
           type: 'danger',
           position: 'top',
           duration: 3000,
-          style: { marginTop: 70 }
+          style: { marginTop: 70 },
         });
       } else {
         Toast.show({
@@ -284,7 +284,7 @@ export default () => {
           type: 'danger',
           position: 'top',
           duration: 3000,
-          style: { marginTop: 70 }
+          style: { marginTop: 70 },
         });
       }
     } finally {
@@ -309,20 +309,20 @@ export default () => {
     setWorkPhone(data.seeMe.workPhone);
     setEmail(data.seeMe.email);
     setGenList(
-      data.seeAllGradYear.map(e => {
+      data.seeAllGradYear.map((e) => {
         return {
           key: e.id,
           label: `${e.generation}기`,
-          value: e.generation
+          value: e.generation,
         };
       })
     );
     setMajList(
-      data.seeAllMajor.map(e => {
+      data.seeAllMajor.map((e) => {
         return {
           key: e.id,
           label: e.name,
-          value: e.name
+          value: e.name,
         };
       })
     );
@@ -351,7 +351,7 @@ export default () => {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = date => {
+  const handleConfirm = (date) => {
     hideDatePicker();
     setBirth(new Date(date).format('yyyy-MM-dd'));
   };
@@ -364,7 +364,7 @@ export default () => {
     }
 
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: 'Images'
+      mediaTypes: 'Images',
     });
     if (pickerResult.cancelled === true) {
       return;
@@ -384,7 +384,7 @@ export default () => {
         keyboardAvoidingViewProps={{
           behavior: 'padding',
           enabled: true,
-          style: styleBack.container
+          style: styleBack.container,
         }}
       >
         <Card
@@ -398,14 +398,14 @@ export default () => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  justifyContent: 'space-around'
+                  justifyContent: 'space-around',
                 }}
               >
                 {edit === false ? (
@@ -446,27 +446,19 @@ export default () => {
                         justifyContent: 'flex-start',
                         alignItems: 'center',
                         height: 50,
-                        width: 138
+                        width: 138,
                       }}
                     >
-                      <Text
-                        style={
-                          Platform.OS === 'ios'
-                            ? {
-                                color: 'black',
-                                textAlign: 'center',
-                                fontWeight: '700',
-                                fontSize: 20
-                              }
-                            : {
-                                color: 'black',
-                                textAlign: 'center',
-                                fontSize: 16
-                              }
-                        }
+                      <Texts
+                        style={{
+                          color: 'black',
+                          textAlign: 'center',
+                          fontWeight: '700',
+                          fontSize: 17,
+                        }}
                       >
                         Choose Image
-                      </Text>
+                      </Texts>
                     </View>
                   </TouchableOpacity>
                 )}
@@ -477,7 +469,7 @@ export default () => {
                         flexDirection: 'column',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        flex: 1
+                        flex: 1,
                       }}
                     >
                       <Text style={{ marginBottom: 10 }}>
@@ -489,7 +481,7 @@ export default () => {
                       style={{
                         flexDirection: 'column',
                         justifyContent: 'space-between',
-                        alignItems: 'flex-end'
+                        alignItems: 'flex-end',
                       }}
                     >
                       <Button
@@ -533,7 +525,7 @@ export default () => {
                     style={{
                       flexDirection: 'column',
                       alignItems: 'flex-end',
-                      flex: 1
+                      flex: 1,
                     }}
                   >
                     <Button
@@ -563,7 +555,7 @@ export default () => {
                           type: 'success',
                           position: 'top',
                           duration: 5000,
-                          style: { marginTop: 70 }
+                          style: { marginTop: 70 },
                         });
                       }}
                     >
@@ -594,7 +586,7 @@ export default () => {
                 flexDirection: 'row',
                 flex: 1,
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -619,7 +611,7 @@ export default () => {
               <View
                 style={{
                   flexDirection: 'column',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
                 }}
               >
                 <TextInput
@@ -629,11 +621,11 @@ export default () => {
                     roundness: 100,
                     colors: {
                       background: 'white',
-                      primary: styles.hanyangColor
-                    }
+                      primary: styles.hanyangColor,
+                    },
                   }}
                   value={name}
-                  onChangeText={value => setName(value)}
+                  onChangeText={(value) => setName(value)}
                   label="(이름)*"
                   autoCorrect={false}
                   returnKeyType="next"
@@ -661,7 +653,7 @@ export default () => {
                 flexDirection: 'row',
                 flex: 1,
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -695,7 +687,7 @@ export default () => {
                   <TextInput
                     style={{
                       backgroundColor: 'white',
-                      width: constants.width / 1.5
+                      width: constants.width / 1.5,
                     }}
                     selectionColor={styles.hanyangColor}
                     mode="outlined"
@@ -704,8 +696,8 @@ export default () => {
                       roundness: 100,
                       colors: {
                         background: 'white',
-                        primary: styles.hanyangColor
-                      }
+                        primary: styles.hanyangColor,
+                      },
                     }}
                     disabled
                     label="(출생년도를 선택하세요)"
@@ -737,7 +729,7 @@ export default () => {
                 flexDirection: 'row',
                 flex: 1,
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -767,11 +759,11 @@ export default () => {
                     roundness: 100,
                     colors: {
                       background: 'white',
-                      primary: styles.hanyangColor
-                    }
+                      primary: styles.hanyangColor,
+                    },
                   }}
                   value={inputPhoneNumber(cellPhone)}
-                  onChangeText={value => {
+                  onChangeText={(value) => {
                     setCellPhone(value);
                   }}
                   label="(휴대전화)"
@@ -797,7 +789,7 @@ export default () => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -828,12 +820,12 @@ export default () => {
                     roundness: 100,
                     colors: {
                       background: 'white',
-                      primary: styles.hanyangColor
-                    }
+                      primary: styles.hanyangColor,
+                    },
                   }}
                   value={email}
                   onSubmitEditing={() => ref_input3.current.focus()}
-                  onChangeText={value => setEmail(value)}
+                  onChangeText={(value) => setEmail(value)}
                   label="(이메일)*"
                   keyboardType="email-address"
                   returnKeyType="next"
@@ -869,7 +861,7 @@ export default () => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -898,11 +890,11 @@ export default () => {
                     roundness: 100,
                     colors: {
                       background: 'white',
-                      primary: styles.hanyangColor
-                    }
+                      primary: styles.hanyangColor,
+                    },
                   }}
                   value={company}
-                  onChangeText={value => setCompany(value)}
+                  onChangeText={(value) => setCompany(value)}
                   label="(회사명)"
                   onSubmitEditing={() => ref_input4.current.focus()}
                   returnKeyType="next"
@@ -925,7 +917,7 @@ export default () => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -954,11 +946,11 @@ export default () => {
                     roundness: 100,
                     colors: {
                       background: 'white',
-                      primary: styles.hanyangColor
-                    }
+                      primary: styles.hanyangColor,
+                    },
                   }}
                   value={workAddress}
-                  onChangeText={value => setWorkAddress(value)}
+                  onChangeText={(value) => setWorkAddress(value)}
                   label="(회사주소)"
                   onSubmitEditing={() => ref_input5.current.focus()}
                   returnKeyType="next"
@@ -981,7 +973,7 @@ export default () => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -1010,11 +1002,11 @@ export default () => {
                     roundness: 100,
                     colors: {
                       background: 'white',
-                      primary: styles.hanyangColor
-                    }
+                      primary: styles.hanyangColor,
+                    },
                   }}
                   value={inputPhoneNumber(workPhone)}
-                  onChangeText={value => setWorkPhone(value)}
+                  onChangeText={(value) => setWorkPhone(value)}
                   label="(회사 전화)"
                   onSubmitEditing={() => ref_input6.current.focus()}
                   keyboardType={'numeric'}
@@ -1038,7 +1030,7 @@ export default () => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -1067,11 +1059,11 @@ export default () => {
                     roundness: 100,
                     colors: {
                       background: 'white',
-                      primary: styles.hanyangColor
-                    }
+                      primary: styles.hanyangColor,
+                    },
                   }}
                   value={team}
-                  onChangeText={value => setTeam(value)}
+                  onChangeText={(value) => setTeam(value)}
                   onSubmitEditing={() => ref_input7.current.focus()}
                   label="(부서)"
                   disabled={!edit}
@@ -1094,7 +1086,7 @@ export default () => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -1123,11 +1115,11 @@ export default () => {
                     roundness: 100,
                     colors: {
                       background: 'white',
-                      primary: styles.hanyangColor
-                    }
+                      primary: styles.hanyangColor,
+                    },
                   }}
                   value={position}
-                  onChangeText={value => setPosition(value)}
+                  onChangeText={(value) => setPosition(value)}
                   label="(직책)"
                   returnKeyType="next"
                   autoCapitalize={'none'}
@@ -1149,7 +1141,7 @@ export default () => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -1162,7 +1154,7 @@ export default () => {
                 <Text
                   style={{
                     fontWeight: '700',
-                    marginLeft: 5
+                    marginLeft: 5,
                   }}
                 >
                   전공
@@ -1170,16 +1162,16 @@ export default () => {
               </View>
               <View
                 style={{
-                  width: constants.width / 1.5
+                  width: constants.width / 1.5,
                 }}
               >
                 <RNPickerSelect
                   placeholder={{
                     label: '(전공을 선택하세요)*',
-                    value: null
+                    value: null,
                   }}
                   value={major}
-                  onValueChange={major => {
+                  onValueChange={(major) => {
                     setMajor(major);
                   }}
                   items={majList}
@@ -1218,7 +1210,7 @@ export default () => {
                 flexDirection: 'row',
                 flex: 1,
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -1231,7 +1223,7 @@ export default () => {
                 <Text
                   style={{
                     fontWeight: '700',
-                    marginLeft: 5
+                    marginLeft: 5,
                   }}
                 >
                   기수
@@ -1239,14 +1231,14 @@ export default () => {
               </View>
               <View
                 style={{
-                  width: constants.width / 1.5
+                  width: constants.width / 1.5,
                 }}
               >
                 <RNPickerSelect
                   placeholder={{
-                    label: '(기수를 선택하세요)*'
+                    label: '(기수를 선택하세요)*',
                   }}
-                  onValueChange={generation => {
+                  onValueChange={(generation) => {
                     setGeneration(generation);
                   }}
                   style={{ ...pickerSelectStyles }}
@@ -1286,7 +1278,7 @@ export default () => {
 
                     alignItems: 'center',
                     justifyContent: 'space-around',
-                    flex: 1
+                    flex: 1,
                   }}
                 >
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -1303,7 +1295,7 @@ export default () => {
                       width: constants.width / 1.4,
                       flexDirection: 'row',
                       justifyContent: 'space-between',
-                      alignItems: 'center'
+                      alignItems: 'center',
                     }}
                   >
                     <Text>우측 버튼을 눌러 추가하세요</Text>
@@ -1316,8 +1308,8 @@ export default () => {
                         size={45}
                         theme={{
                           colors: {
-                            primary: '#ffffff'
-                          }
+                            primary: '#ffffff',
+                          },
                         }}
                       />
                     </TouchableOpacity>
@@ -1342,7 +1334,7 @@ export default () => {
 
                           alignItems: 'center',
                           justifyContent: 'space-around',
-                          flex: 1
+                          flex: 1,
                         }}
                       >
                         <Avatar.Icon
@@ -1356,7 +1348,7 @@ export default () => {
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'space-around',
-                            flex: 1
+                            flex: 1,
                           }}
                         >
                           <TextInput
@@ -1366,11 +1358,11 @@ export default () => {
                               roundness: 100,
                               colors: {
                                 background: 'white',
-                                primary: styles.hanyangColor
-                              }
+                                primary: styles.hanyangColor,
+                              },
                             }}
                             value={desc}
-                            onChangeText={text =>
+                            onChangeText={(text) =>
                               setCompanyDesc(
                                 companyDesc.map((a, fIndex) => {
                                   if (fIndex === index) {
@@ -1400,8 +1392,8 @@ export default () => {
                               size={45}
                               theme={{
                                 colors: {
-                                  primary: '#ffffff'
-                                }
+                                  primary: '#ffffff',
+                                },
                               }}
                             />
                           </TouchableOpacity>
@@ -1422,7 +1414,7 @@ export default () => {
 
                     alignItems: 'center',
                     justifyContent: 'space-around',
-                    flex: 1
+                    flex: 1,
                   }}
                 >
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -1439,7 +1431,7 @@ export default () => {
                       width: constants.width / 1.4,
                       flexDirection: 'row',
                       justifyContent: 'space-between',
-                      alignItems: 'center'
+                      alignItems: 'center',
                     }}
                   ></Body>
                 </Left>
@@ -1461,7 +1453,7 @@ export default () => {
 
                           alignItems: 'center',
                           justifyContent: 'space-around',
-                          flex: 1
+                          flex: 1,
                         }}
                       >
                         <Avatar.Icon
@@ -1475,7 +1467,7 @@ export default () => {
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'space-around',
-                            flex: 1
+                            flex: 1,
                           }}
                         >
                           <TextInput
@@ -1485,11 +1477,11 @@ export default () => {
                               roundness: 100,
                               colors: {
                                 background: 'white',
-                                primary: styles.hanyangColor
-                              }
+                                primary: styles.hanyangColor,
+                              },
                             }}
                             value={desc}
-                            onChangeText={text =>
+                            onChangeText={(text) =>
                               setCompanyDesc(
                                 companyDesc.map((a, fIndex) => {
                                   if (fIndex === index) {
@@ -1518,7 +1510,7 @@ export default () => {
                 ? {
                     color: styles.darkGreyColor,
                     marginBottom: 7,
-                    fontSize: 17
+                    fontSize: 17,
                   }
                 : { color: styles.darkGreyColor, marginBottom: 7, fontSize: 14 }
             }
@@ -1531,7 +1523,7 @@ export default () => {
                 ? {
                     color: styles.darkGreyColor,
                     marginBottom: 7,
-                    fontSize: 17
+                    fontSize: 17,
                   }
                 : { color: styles.darkGreyColor, marginBottom: 7, fontSize: 14 }
             }
@@ -1545,12 +1537,12 @@ export default () => {
                   ? {
                       color: styles.darkGreyColor,
                       marginBottom: 7,
-                      fontSize: 17
+                      fontSize: 17,
                     }
                   : {
                       color: styles.darkGreyColor,
                       marginBottom: 7,
-                      fontSize: 14
+                      fontSize: 14,
                     }
               }
             >
@@ -1564,12 +1556,12 @@ export default () => {
                   ? {
                       color: styles.darkGreyColor,
                       marginBottom: 7,
-                      fontSize: 17
+                      fontSize: 17,
                     }
                   : {
                       color: styles.darkGreyColor,
                       marginBottom: 7,
-                      fontSize: 14
+                      fontSize: 14,
                     }
               }
             >
@@ -1582,7 +1574,7 @@ export default () => {
                 ? {
                     color: styles.darkGreyColor,
                     marginBottom: 12,
-                    fontSize: 17
+                    fontSize: 17,
                   }
                 : { color: styles.darkGreyColor, marginBottom: 7, fontSize: 14 }
             }

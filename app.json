@@ -5,7 +5,7 @@
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": ["ios", "android", "web"],
-    "version": "1.0.4",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "splash": {
@@ -17,15 +17,15 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.contacts.hure",
       "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "해당 사진은 프로필 사진 첨부에 활용합니다.",
+        "NSPhotoLibraryUsageDescription": "해당 사진은 프로필 사진 첨부 및 저장하는데 이용합니다.",
         "NSContactsUsageDescription": "연락처 정보를 해당 기기의 연락처에 저장합니다.",
         "UIUserInterfaceStyle": "Light"
       },
-      "buildNumber": "1.0.3"
+      "buildNumber": "1.0.0"
     },
     "android": {
       "package": "com.MJU.HURE_APP",
-      "versionCode": 6,
+      "versionCode": 7,
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",

@@ -105,38 +105,38 @@ export default ({ navigation }) => {
   const { data, loading, refetch } = useQuery(SEE_MAJOR_GRAD, {
     //언제 쿼리를 조회하지 않고 넘길지 설정
     //검색 결과가 항상 캐시에 저장되지 않도록 fetchPolicy로 설정
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'network-only',
   });
 
   const styleBack = StyleSheet.create({
     background: {
       flex: 1,
-      width: '100%'
+      width: '100%',
     },
     container: {
       flex: 1,
       width: '100%',
       alignSelf: 'center',
-      justifyContent: 'center'
-    }
+      justifyContent: 'center',
+    },
   });
   useEffect(() => {
     if (!loading) {
       setGenList(
-        data.seeAllGradYear.map(e => {
+        data.seeAllGradYear.map((e) => {
           return {
             key: e.id,
             label: `${e.generation}기`,
-            value: e.generation
+            value: e.generation,
           };
         })
       );
       setMajList(
-        data.seeAllMajor.map(e => {
+        data.seeAllMajor.map((e) => {
           return {
             key: e.id,
             label: e.name,
-            value: e.name
+            value: e.name,
           };
         })
       );
@@ -145,20 +145,20 @@ export default ({ navigation }) => {
     return () => {
       if (!loading) {
         setGenList(
-          data.seeAllGradYear.map(e => {
+          data.seeAllGradYear.map((e) => {
             return {
               key: e.id,
               label: `${e.generation}기`,
-              value: e.generation
+              value: e.generation,
             };
           })
         );
         setMajList(
-          data.seeAllMajor.map(e => {
+          data.seeAllMajor.map((e) => {
             return {
               key: e.id,
               label: e.name,
-              value: e.name
+              value: e.name,
             };
           })
         );
@@ -174,7 +174,7 @@ export default ({ navigation }) => {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = date => {
+  const handleConfirm = (date) => {
     hideDatePicker();
     setBirth(new Date(date).format('yyyy-MM-dd'));
   };
@@ -190,12 +190,12 @@ export default ({ navigation }) => {
         type: 'danger',
         position: 'top',
         duration: 4000,
-        style: { marginTop: 70 }
+        style: { marginTop: 70 },
       });
     }
 
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: 'Images'
+      mediaTypes: 'Images',
     });
     if (pickerResult.cancelled === true) {
       return;
@@ -207,11 +207,11 @@ export default ({ navigation }) => {
 
   const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
-      fontSize: 16
+      fontSize: 16,
     },
     inputAndroid: {
-      fontSize: 16
-    }
+      fontSize: 16,
+    },
   });
   // const handleConfirm = date => {
   //   setBirth(date.format('yyyy-MM-dd'));
@@ -232,7 +232,7 @@ export default ({ navigation }) => {
         type: 'warning',
         position: 'top',
         duration: 7000,
-        style: { marginTop: 70 }
+        style: { marginTop: 70 },
       });
     }
     if (!emailRegex.test(email)) {
@@ -243,7 +243,7 @@ export default ({ navigation }) => {
         type: 'warning',
         position: 'top',
         duration: 7000,
-        style: { marginTop: 70 }
+        style: { marginTop: 70 },
       });
     }
     if (!major) {
@@ -254,7 +254,7 @@ export default ({ navigation }) => {
         type: 'warning',
         position: 'top',
         duration: 7000,
-        style: { marginTop: 70 }
+        style: { marginTop: 70 },
       });
     }
     if (!generation) {
@@ -265,7 +265,7 @@ export default ({ navigation }) => {
         type: 'warning',
         position: 'top',
         duration: 7000,
-        style: { marginTop: 70 }
+        style: { marginTop: 70 },
       });
     }
     const formData = new FormData();
@@ -273,21 +273,21 @@ export default ({ navigation }) => {
     formData.append('photo', {
       name: selectedImage.filename,
       type: 'image/jpeg',
-      uri: selectedImage.uri
+      uri: selectedImage.uri,
     });
     try {
       setButtonLoading(true);
       let a = null;
       if (selectedImage.filename) {
         const {
-          data: { location }
+          data: { location },
         } = await axios.post(
           'https://hure-backend.herokuapp.com/api/upload',
           formData,
           {
             headers: {
-              'content-type': 'multipart/form-data'
-            }
+              'content-type': 'multipart/form-data',
+            },
           }
         );
 
@@ -296,7 +296,7 @@ export default ({ navigation }) => {
       const { data } = await requestCreateUserMutation({
         variables: {
           photo: a,
-          name: name,
+          name: name.trim(),
           birthday: birth,
           email: email,
           cellPhone: cellPhone.replace(/-/g, ''),
@@ -307,8 +307,8 @@ export default ({ navigation }) => {
           workPhone: workPhone.replace(/-/g, ''),
           workAddress: workAddress,
           majorName: major,
-          generation: parseInt(generation)
-        }
+          generation: parseInt(generation),
+        },
       });
       if (data) {
         Toast.show({
@@ -318,7 +318,7 @@ export default ({ navigation }) => {
           type: 'success',
           position: 'top',
           duration: 10000,
-          style: { marginTop: 70 }
+          style: { marginTop: 70 },
         });
         navigation.navigate('AuthHome');
       }
@@ -330,7 +330,7 @@ export default ({ navigation }) => {
         type: 'danger',
         position: 'top',
         duration: 7000,
-        style: { marginTop: 70 }
+        style: { marginTop: 70 },
       });
     } finally {
       setButtonLoading(false);
@@ -345,7 +345,7 @@ export default ({ navigation }) => {
         keyboardAvoidingViewProps={{
           behavior: 'padding',
           enabled: true,
-          style: styleBack.container
+          style: styleBack.container,
         }}
       >
         <Card
@@ -359,14 +359,14 @@ export default ({ navigation }) => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  justifyContent: 'space-around'
+                  justifyContent: 'space-around',
                 }}
               >
                 <TouchableOpacity onPress={openImagePickerAsync}>
@@ -384,7 +384,7 @@ export default ({ navigation }) => {
                       justifyContent: 'flex-start',
                       alignItems: 'center',
                       height: 50,
-                      width: 138
+                      width: 138,
                     }}
                   >
                     <Text
@@ -392,7 +392,7 @@ export default ({ navigation }) => {
                         color: 'black',
                         textAlign: 'center',
                         fontWeight: '700',
-                        marginRight: 10
+                        marginRight: 10,
                       }}
                     >
                       Choose Image
@@ -420,7 +420,7 @@ export default ({ navigation }) => {
                 flexDirection: 'row',
                 flex: 1,
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -436,7 +436,7 @@ export default ({ navigation }) => {
                 style={{
                   flexDirection: 'column',
                   justifyContent: 'center',
-                  width: constants.width / 1.5
+                  width: constants.width / 1.5,
                 }}
               >
                 <TextInput
@@ -446,11 +446,11 @@ export default ({ navigation }) => {
                     roundness: 100,
                     colors: {
                       background: 'white',
-                      primary: styles.hanyangColor
-                    }
+                      primary: styles.hanyangColor,
+                    },
                   }}
                   value={name}
-                  onChangeText={value => setName(value)}
+                  onChangeText={(value) => setName(value)}
                   label="(이름)*"
                   autoCorrect={false}
                   returnKeyType="next"
@@ -477,7 +477,7 @@ export default ({ navigation }) => {
                 flexDirection: 'row',
                 flex: 1,
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -501,7 +501,7 @@ export default ({ navigation }) => {
                   <TextInput
                     style={{
                       backgroundColor: 'white',
-                      width: constants.width / 1.5
+                      width: constants.width / 1.5,
                     }}
                     selectionColor={styles.hanyangColor}
                     mode="outlined"
@@ -510,8 +510,8 @@ export default ({ navigation }) => {
                       roundness: 100,
                       colors: {
                         background: 'white',
-                        primary: styles.hanyangColor
-                      }
+                        primary: styles.hanyangColor,
+                      },
                     }}
                     disabled
                     label="(출생년도를 선택하세요)"
@@ -542,7 +542,7 @@ export default ({ navigation }) => {
                 flexDirection: 'row',
                 flex: 1,
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -566,11 +566,11 @@ export default ({ navigation }) => {
                     roundness: 100,
                     colors: {
                       background: 'white',
-                      primary: styles.hanyangColor
-                    }
+                      primary: styles.hanyangColor,
+                    },
                   }}
                   value={cellPhone}
-                  onChangeText={value => {
+                  onChangeText={(value) => {
                     setCellPhone(inputPhoneNumber(value));
                   }}
                   label="(휴대전화)"
@@ -595,7 +595,7 @@ export default ({ navigation }) => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -618,12 +618,12 @@ export default ({ navigation }) => {
                     roundness: 100,
                     colors: {
                       background: 'white',
-                      primary: styles.hanyangColor
-                    }
+                      primary: styles.hanyangColor,
+                    },
                   }}
                   value={email}
                   onSubmitEditing={() => ref_input3.current.focus()}
-                  onChangeText={value => setEmail(value)}
+                  onChangeText={(value) => setEmail(value)}
                   label="(이메일)*"
                   keyboardType="email-address"
                   returnKeyType="next"
@@ -658,7 +658,7 @@ export default ({ navigation }) => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -679,11 +679,11 @@ export default ({ navigation }) => {
                     roundness: 100,
                     colors: {
                       background: 'white',
-                      primary: styles.hanyangColor
-                    }
+                      primary: styles.hanyangColor,
+                    },
                   }}
                   value={company}
-                  onChangeText={value => setCompany(value)}
+                  onChangeText={(value) => setCompany(value)}
                   label="(회사명)"
                   onSubmitEditing={() => ref_input4.current.focus()}
                   returnKeyType="next"
@@ -705,7 +705,7 @@ export default ({ navigation }) => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -728,11 +728,11 @@ export default ({ navigation }) => {
                     roundness: 100,
                     colors: {
                       background: 'white',
-                      primary: styles.hanyangColor
-                    }
+                      primary: styles.hanyangColor,
+                    },
                   }}
                   value={workAddress}
-                  onChangeText={value => setWorkAddress(value)}
+                  onChangeText={(value) => setWorkAddress(value)}
                   label="(회사주소)"
                   onSubmitEditing={() => ref_input5.current.focus()}
                   returnKeyType="next"
@@ -754,7 +754,7 @@ export default ({ navigation }) => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -777,11 +777,13 @@ export default ({ navigation }) => {
                     roundness: 100,
                     colors: {
                       background: 'white',
-                      primary: styles.hanyangColor
-                    }
+                      primary: styles.hanyangColor,
+                    },
                   }}
                   value={workPhone}
-                  onChangeText={value => setWorkPhone(inputPhoneNumber(value))}
+                  onChangeText={(value) =>
+                    setWorkPhone(inputPhoneNumber(value))
+                  }
                   label="(회사 전화)"
                   onSubmitEditing={() => ref_input6.current.focus()}
                   keyboardType={'numeric'}
@@ -804,7 +806,7 @@ export default ({ navigation }) => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -825,11 +827,11 @@ export default ({ navigation }) => {
                     roundness: 100,
                     colors: {
                       background: 'white',
-                      primary: styles.hanyangColor
-                    }
+                      primary: styles.hanyangColor,
+                    },
                   }}
                   value={team}
-                  onChangeText={value => setTeam(value)}
+                  onChangeText={(value) => setTeam(value)}
                   onSubmitEditing={() => ref_input7.current.focus()}
                   label="(부서)"
                   returnKeyType="next"
@@ -851,7 +853,7 @@ export default ({ navigation }) => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -872,11 +874,11 @@ export default ({ navigation }) => {
                     roundness: 100,
                     colors: {
                       background: 'white',
-                      primary: styles.hanyangColor
-                    }
+                      primary: styles.hanyangColor,
+                    },
                   }}
                   value={position}
-                  onChangeText={value => setPosition(value)}
+                  onChangeText={(value) => setPosition(value)}
                   label="(직책)"
                   returnKeyType="next"
                   autoCapitalize={'none'}
@@ -897,7 +899,7 @@ export default ({ navigation }) => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -913,10 +915,10 @@ export default ({ navigation }) => {
                 <RNPickerSelect
                   placeholder={{
                     label: '(전공을 선택하세요)*',
-                    value: null
+                    value: null,
                   }}
                   value={major}
-                  onValueChange={major => {
+                  onValueChange={(major) => {
                     setMajor(major);
                   }}
                   items={majList}
@@ -952,7 +954,7 @@ export default ({ navigation }) => {
                 flexDirection: 'row',
 
                 alignItems: 'center',
-                justifyContent: 'space-evenly'
+                justifyContent: 'space-evenly',
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -965,7 +967,7 @@ export default ({ navigation }) => {
                 <Text
                   style={{
                     fontWeight: '700',
-                    marginLeft: 5
+                    marginLeft: 5,
                   }}
                 >
                   기수
@@ -974,9 +976,9 @@ export default ({ navigation }) => {
               <View style={{ width: constants.width / 1.5 }}>
                 <RNPickerSelect
                   placeholder={{
-                    label: '(기수를 선택하세요)*'
+                    label: '(기수를 선택하세요)*',
                   }}
-                  onValueChange={generation => {
+                  onValueChange={(generation) => {
                     setGeneration(generation);
                   }}
                   style={{ ...pickerSelectStyles }}
@@ -1014,7 +1016,7 @@ export default ({ navigation }) => {
 
                 alignItems: 'center',
                 justifyContent: 'space-around',
-                flex: 1
+                flex: 1,
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -1031,7 +1033,7 @@ export default ({ navigation }) => {
                   width: constants.width / 1.5,
                   flexDirection: 'row',
                   justifyContent: 'space-between',
-                  alignItems: 'center'
+                  alignItems: 'center',
                 }}
               >
                 <Text>우측 버튼을 눌러 추가하세요</Text>
@@ -1044,8 +1046,8 @@ export default ({ navigation }) => {
                     size={45}
                     theme={{
                       colors: {
-                        primary: '#ffffff'
-                      }
+                        primary: '#ffffff',
+                      },
                     }}
                   />
                 </TouchableOpacity>
@@ -1071,7 +1073,7 @@ export default ({ navigation }) => {
 
                       alignItems: 'center',
                       justifyContent: 'space-around',
-                      flex: 1
+                      flex: 1,
                     }}
                   >
                     <Avatar.Icon
@@ -1085,7 +1087,7 @@ export default ({ navigation }) => {
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'space-evenly',
-                        flex: 1
+                        flex: 1,
                       }}
                     >
                       <TextInput
@@ -1095,11 +1097,11 @@ export default ({ navigation }) => {
                           roundness: 100,
                           colors: {
                             background: 'white',
-                            primary: styles.hanyangColor
-                          }
+                            primary: styles.hanyangColor,
+                          },
                         }}
                         value={desc}
-                        onChangeText={text =>
+                        onChangeText={(text) =>
                           setCompanyDesc(
                             companyDesc.map((a, fIndex) => {
                               if (fIndex === index) {
@@ -1127,8 +1129,8 @@ export default ({ navigation }) => {
                           size={45}
                           theme={{
                             colors: {
-                              primary: '#ffffff'
-                            }
+                              primary: '#ffffff',
+                            },
                           }}
                         />
                       </TouchableOpacity>
@@ -1142,7 +1144,7 @@ export default ({ navigation }) => {
           style={{
             width: constants.width / 1.5,
             alignSelf: 'center',
-            marginBottom: 20
+            marginBottom: 20,
           }}
         >
           <AuthButton
@@ -1157,12 +1159,12 @@ export default ({ navigation }) => {
                   ? {
                       color: styles.darkGreyColor,
                       marginBottom: 7,
-                      fontSize: 17
+                      fontSize: 17,
                     }
                   : {
                       color: styles.darkGreyColor,
                       marginBottom: 7,
-                      fontSize: 14
+                      fontSize: 14,
                     }
               }
             >
@@ -1174,12 +1176,12 @@ export default ({ navigation }) => {
                   ? {
                       color: styles.darkGreyColor,
                       marginBottom: 7,
-                      fontSize: 17
+                      fontSize: 17,
                     }
                   : {
                       color: styles.darkGreyColor,
                       marginBottom: 7,
-                      fontSize: 14
+                      fontSize: 14,
                     }
               }
             >
@@ -1192,12 +1194,12 @@ export default ({ navigation }) => {
                     ? {
                         color: styles.darkGreyColor,
                         marginBottom: 7,
-                        fontSize: 17
+                        fontSize: 17,
                       }
                     : {
                         color: styles.darkGreyColor,
                         marginBottom: 7,
-                        fontSize: 14
+                        fontSize: 14,
                       }
                 }
               >
@@ -1211,12 +1213,12 @@ export default ({ navigation }) => {
                     ? {
                         color: styles.darkGreyColor,
                         marginBottom: 7,
-                        fontSize: 17
+                        fontSize: 17,
                       }
                     : {
                         color: styles.darkGreyColor,
                         marginBottom: 7,
-                        fontSize: 14
+                        fontSize: 14,
                       }
                 }
               >

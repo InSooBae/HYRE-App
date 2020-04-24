@@ -64,8 +64,9 @@ export default ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const { data, loading, refetch } = useQuery(isUserProf, {
     variables: { id: navigation.getParam('id') },
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'network-only',
   });
+
   const [buttonLoading, setButtonLoading] = useState(false);
   const saveContact = async () => {
     const phoneName =
@@ -88,18 +89,18 @@ export default ({ navigation }) => {
           [ContactS.Fields.PhoneNumbers]: [
             {
               label: '전화번호',
-              number: cellPhoneA
-            }
+              number: cellPhoneA,
+            },
           ],
           [ContactS.Fields.Emails]: [
             {
               email: a.email === null ? '' : a.email,
               isPrimary: true,
               id: '2',
-              label: '이메일'
-            }
+              label: '이메일',
+            },
           ],
-          [ContactS.Fields.Company]: a.company === null ? '' : a.company
+          [ContactS.Fields.Company]: a.company === null ? '' : a.company,
         };
         try {
           const contactId = await ContactS.addContactAsync(contact);
@@ -111,7 +112,7 @@ export default ({ navigation }) => {
               type: 'success',
               position: 'top',
               duration: 3000,
-              style: { marginTop: 70 }
+              style: { marginTop: 70 },
             });
           } else {
             Toast.show({
@@ -121,7 +122,7 @@ export default ({ navigation }) => {
               type: 'danger',
               position: 'top',
               duration: 3000,
-              style: { marginTop: 70 }
+              style: { marginTop: 70 },
             });
           }
         } catch (err) {
@@ -134,7 +135,7 @@ export default ({ navigation }) => {
             type: 'danger',
             position: 'top',
             duration: 3000,
-            style: { marginTop: 70 }
+            style: { marginTop: 70 },
           });
         }
       } else {
@@ -145,7 +146,7 @@ export default ({ navigation }) => {
           type: 'danger',
           position: 'top',
           duration: 3000,
-          style: { marginTop: 70 }
+          style: { marginTop: 70 },
         });
       }
       setButtonLoading(false);
@@ -153,12 +154,12 @@ export default ({ navigation }) => {
       const granted = await PermissionsAndroid.requestMultiple(
         [
           PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
-          PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS
+          PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS,
         ],
         {
           title: 'Contacts',
           message: 'This app would like to view your contacts.',
-          buttonPositive: 'Please accept bare mortal'
+          buttonPositive: 'Please accept bare mortal',
         }
       );
       setButtonLoading(true);
@@ -181,19 +182,19 @@ export default ({ navigation }) => {
           phoneNumbers: [
             {
               label: '전화번호',
-              number: cellPhoneA
-            }
+              number: cellPhoneA,
+            },
           ],
           emailAddresses: [
             {
               label: '이메일',
-              email: a.email === null ? '' : a.email
-            }
+              email: a.email === null ? '' : a.email,
+            },
           ],
-          company: a.company === null ? '' : a.company
+          company: a.company === null ? '' : a.company,
         };
         setButtonLoading(true);
-        Contacts.addContact(contact, err => {
+        Contacts.addContact(contact, (err) => {
           if (err) {
             Toast.show({
               text: '연락처가 저장실패 하였습니다.',
@@ -202,7 +203,7 @@ export default ({ navigation }) => {
               type: 'danger',
               position: 'top',
               duration: 3000,
-              style: { marginTop: 70 }
+              style: { marginTop: 70 },
             });
             console.log(err);
             throw err;
@@ -215,7 +216,7 @@ export default ({ navigation }) => {
               type: 'success',
               position: 'top',
               duration: 3000,
-              style: { marginTop: 70 }
+              style: { marginTop: 70 },
             });
           }
         });
@@ -227,7 +228,7 @@ export default ({ navigation }) => {
           type: 'danger',
           position: 'top',
           duration: 3000,
-          style: { marginTop: 70 }
+          style: { marginTop: 70 },
         });
       }
       setButtonLoading(false);

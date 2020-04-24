@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  FlatList,
-  RefreshControl,
-  StyleSheet,
-  Platform,
-  View,
-} from 'react-native';
+import { RefreshControl, StyleSheet, Platform, View } from 'react-native';
 
 import { useApolloClient } from '@apollo/react-hooks';
 import RNPickerSelect from 'react-native-picker-select';
@@ -13,8 +7,9 @@ import { gql } from 'apollo-boost';
 import Contact from '../../components/Contact';
 import Loader from '../../components/Loader';
 import styles from '../../styles';
-import { FAB } from 'react-native-paper';
+import { FAB, Divider } from 'react-native-paper';
 import styled from 'styled-components';
+import { FlatList } from 'react-native-gesture-handler';
 
 const Text = styled.Text`
   font-family: bae-min;
@@ -379,12 +374,17 @@ export default () => {
               );
             }}
             onEndReached={users / user > 1 ? () => moreData() : () => null}
-            onEndReachedThreshold={Platform.OS === 'ios' ? 1 : 50}
+            onEndReachedThreshold={0.6}
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={refresh} />
             }
+            disableVirtualization={false}
             ListFooterComponent={
-              footerLoading && users / user > 1 ? <Loader /> : null
+              footerLoading && users / user > 1 ? (
+                <View style={{ marginVertical: 20 }}>
+                  <Loader />
+                </View>
+              ) : null
             }
           />
         )}

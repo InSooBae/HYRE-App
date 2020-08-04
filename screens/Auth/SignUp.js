@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Keyboard, View, StyleSheet } from 'react-native';
-import { Toast } from 'native-base';
-import RNPickerSelect from 'react-native-picker-select';
-import axios from 'axios';
-import { useMutation, useQuery } from '@apollo/react-hooks';
-import AuthButton from '../../components/AuthButton';
-import { gql } from 'apollo-boost';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import * as ImagePicker from 'expo-image-picker';
-import styles from '../../styles';
-import Loader from '../../components/Loader';
-import { TextInput, HelperText, Avatar, Text, Card } from 'react-native-paper';
-import { inputPhoneNumber } from '../../components/PhoneCall';
-import constants from '../../constants';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import InputScrollView from 'react-native-input-scroll-view';
+import React, { useState, useEffect, useRef } from "react";
+import { Keyboard, View, StyleSheet } from "react-native";
+import { Toast } from "native-base";
+import RNPickerSelect from "react-native-picker-select";
+import axios from "axios";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import AuthButton from "../../components/AuthButton";
+import { gql } from "apollo-boost";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import * as ImagePicker from "expo-image-picker";
+import styles from "../../styles";
+import Loader from "../../components/Loader";
+import { TextInput, HelperText, Avatar, Text, Card } from "react-native-paper";
+import { inputPhoneNumber } from "../../components/PhoneCall";
+import constants from "../../constants";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import InputScrollView from "react-native-input-scroll-view";
 const SEE_MAJOR_GRAD = gql`
   query seeAllMajor {
     seeAllMajor {
@@ -83,15 +83,15 @@ export default ({ navigation }) => {
 
   const [adminInfo, setAdminInfo] = useState([]);
   const [birth, setBirth] = useState(null);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState(navigation.getParam('email', ''));
-  const [cellPhone, setCellPhone] = useState('');
-  const [company, setCompany] = useState('');
-  const [workAddress, setWorkAddress] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState(navigation.getParam("email", ""));
+  const [cellPhone, setCellPhone] = useState("");
+  const [company, setCompany] = useState("");
+  const [workAddress, setWorkAddress] = useState("");
   const [companyDesc, setCompanyDesc] = useState([]);
-  const [team, setTeam] = useState('');
-  const [position, setPosition] = useState('');
-  const [workPhone, setWorkPhone] = useState('');
+  const [team, setTeam] = useState("");
+  const [position, setPosition] = useState("");
+  const [workPhone, setWorkPhone] = useState("");
   const [major, setMajor] = useState(null);
   const [generation, setGeneration] = useState(null);
   const [genList, setGenList] = useState([]);
@@ -99,25 +99,25 @@ export default ({ navigation }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [requestCreateUserMutation] = useMutation(REQUEST_CREATE_USER);
   const [selectedImage, setSelectedImage] = useState(
-    require('../../assets/HYU1.png')
+    require("../../assets/HYU1.png")
   );
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const { data, loading, refetch } = useQuery(SEE_MAJOR_GRAD, {
     //언제 쿼리를 조회하지 않고 넘길지 설정
     //검색 결과가 항상 캐시에 저장되지 않도록 fetchPolicy로 설정
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
   });
 
   const styleBack = StyleSheet.create({
     background: {
       flex: 1,
-      width: '100%',
+      width: "100%",
     },
     container: {
       flex: 1,
-      width: '100%',
-      alignSelf: 'center',
-      justifyContent: 'center',
+      width: "100%",
+      alignSelf: "center",
+      justifyContent: "center",
     },
   });
   useEffect(() => {
@@ -176,7 +176,7 @@ export default ({ navigation }) => {
 
   const handleConfirm = (date) => {
     hideDatePicker();
-    setBirth(new Date(date).format('yyyy-MM-dd'));
+    setBirth(new Date(date).format("yyyy-MM-dd"));
   };
 
   const openImagePickerAsync = async () => {
@@ -185,23 +185,23 @@ export default ({ navigation }) => {
     if (permissionResult.granted === false) {
       return Toast.show({
         text: `사진 권한을 설정해 주세요.`,
-        textStyle: { textAlign: 'center' },
-        buttonText: 'Okay',
-        type: 'danger',
-        position: 'top',
+        textStyle: { textAlign: "center" },
+        buttonText: "Okay",
+        type: "danger",
+        position: "top",
         duration: 4000,
         style: { marginTop: 70 },
       });
     }
 
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: 'Images',
+      mediaTypes: "Images",
     });
     if (pickerResult.cancelled === true) {
       return;
     }
     pickerResult.filename =
-      'IMG_' + Math.floor(Math.random(4000) * 100000) + '.JPG';
+      "IMG_" + Math.floor(Math.random(4000) * 100000) + ".JPG";
     setSelectedImage(pickerResult);
   };
 
@@ -224,13 +224,24 @@ export default ({ navigation }) => {
   // 이메일이 유효한지 검증
   const handleSignUp = async () => {
     //이메일 99.99% 유효성 체크
-    if (name === '') {
+    if (selectedImage == require("../../assets/HYU1.png")) {
+      return Toast.show({
+        text: `이미지를 첨부해 주세요.`,
+        textStyle: { textAlign: "center" },
+        buttonText: "Okay",
+        type: "warning",
+        position: "top",
+        duration: 7000,
+        style: { marginTop: 70 },
+      });
+    }
+    if (name === "") {
       return Toast.show({
         text: `이름을 입력해 주세요.`,
-        textStyle: { textAlign: 'center' },
-        buttonText: 'Okay',
-        type: 'warning',
-        position: 'top',
+        textStyle: { textAlign: "center" },
+        buttonText: "Okay",
+        type: "warning",
+        position: "top",
         duration: 7000,
         style: { marginTop: 70 },
       });
@@ -238,10 +249,10 @@ export default ({ navigation }) => {
     if (!emailRegex.test(email)) {
       return Toast.show({
         text: `이메일의 형식이 맞지 않습니다.`,
-        textStyle: { textAlign: 'center' },
-        buttonText: 'Okay',
-        type: 'warning',
-        position: 'top',
+        textStyle: { textAlign: "center" },
+        buttonText: "Okay",
+        type: "warning",
+        position: "top",
         duration: 7000,
         style: { marginTop: 70 },
       });
@@ -249,10 +260,10 @@ export default ({ navigation }) => {
     if (!major) {
       return Toast.show({
         text: `대학원 전공을 입력해 주세요.`,
-        textStyle: { textAlign: 'center' },
-        buttonText: 'Okay',
-        type: 'warning',
-        position: 'top',
+        textStyle: { textAlign: "center" },
+        buttonText: "Okay",
+        type: "warning",
+        position: "top",
         duration: 7000,
         style: { marginTop: 70 },
       });
@@ -260,19 +271,19 @@ export default ({ navigation }) => {
     if (!generation) {
       return Toast.show({
         text: `기수를 입력해 주세요.`,
-        textStyle: { textAlign: 'center' },
-        buttonText: 'Okay',
-        type: 'warning',
-        position: 'top',
+        textStyle: { textAlign: "center" },
+        buttonText: "Okay",
+        type: "warning",
+        position: "top",
         duration: 7000,
         style: { marginTop: 70 },
       });
     }
     const formData = new FormData();
 
-    formData.append('photo', {
+    formData.append("photo", {
       name: selectedImage.filename,
-      type: 'image/jpeg',
+      type: "image/jpeg",
       uri: selectedImage.uri,
     });
     try {
@@ -282,11 +293,11 @@ export default ({ navigation }) => {
         const {
           data: { location },
         } = await axios.post(
-          'https://hure-backend.herokuapp.com/api/upload',
+          "https://hure-backend.herokuapp.com/api/upload",
           formData,
           {
             headers: {
-              'content-type': 'multipart/form-data',
+              "content-type": "multipart/form-data",
             },
           }
         );
@@ -299,12 +310,12 @@ export default ({ navigation }) => {
           name: name.trim(),
           birthday: birth,
           email: email,
-          cellPhone: cellPhone.replace(/-/g, ''),
+          cellPhone: cellPhone.replace(/-/g, ""),
           company: company,
           companyDesc: companyDesc,
           team: team,
           position: position,
-          workPhone: workPhone.replace(/-/g, ''),
+          workPhone: workPhone.replace(/-/g, ""),
           workAddress: workAddress,
           majorName: major,
           generation: parseInt(generation),
@@ -313,22 +324,22 @@ export default ({ navigation }) => {
       if (data) {
         Toast.show({
           text: `회원가입요청이 완료되었습니다. 관리자 인증후 로그인 가능합니다.`,
-          textStyle: { textAlign: 'center' },
-          buttonText: 'Okay',
-          type: 'success',
-          position: 'top',
+          textStyle: { textAlign: "center" },
+          buttonText: "Okay",
+          type: "success",
+          position: "top",
           duration: 10000,
           style: { marginTop: 70 },
         });
-        navigation.navigate('AuthHome');
+        navigation.navigate("AuthHome");
       }
     } catch (e) {
       Toast.show({
-        text: '이미 존재하는 이메일 혹은 전화번호 입니다. 다시 확인 해주세요',
-        textStyle: { textAlign: 'center' },
-        buttonText: 'Okay',
-        type: 'danger',
-        position: 'top',
+        text: "이미 존재하는 이메일 혹은 전화번호 입니다. 다시 확인 해주세요",
+        textStyle: { textAlign: "center" },
+        buttonText: "Okay",
+        type: "danger",
+        position: "top",
         duration: 7000,
         style: { marginTop: 70 },
       });
@@ -343,7 +354,7 @@ export default ({ navigation }) => {
     return (
       <InputScrollView
         keyboardAvoidingViewProps={{
-          behavior: 'padding',
+          behavior: "padding",
           enabled: true,
           style: styleBack.container,
         }}
@@ -356,42 +367,42 @@ export default ({ navigation }) => {
           <Card.Content>
             <View
               style={{
-                flexDirection: 'row',
+                flexDirection: "row",
 
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
+                alignItems: "center",
+                justifyContent: "space-evenly",
               }}
             >
               <View
                 style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-around',
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-around",
                 }}
               >
                 <TouchableOpacity onPress={openImagePickerAsync}>
                   <Avatar.Image
                     source={selectedImage}
                     size={138}
-                    theme={{ colors: { primary: '#ffffff' } }}
+                    theme={{ colors: { primary: "#ffffff" } }}
                   />
                   <View
                     style={{
-                      position: 'absolute',
+                      position: "absolute",
                       bottom: 0,
-                      backgroundColor: 'white',
+                      backgroundColor: "white",
                       opacity: 0.5,
-                      justifyContent: 'flex-start',
-                      alignItems: 'center',
+                      justifyContent: "flex-start",
+                      alignItems: "center",
                       height: 50,
                       width: 138,
                     }}
                   >
                     <Text
                       style={{
-                        color: 'black',
-                        textAlign: 'center',
-                        fontWeight: '700',
+                        color: "black",
+                        textAlign: "center",
+                        fontWeight: "700",
                         marginRight: 10,
                       }}
                     >
@@ -401,9 +412,9 @@ export default ({ navigation }) => {
                 </TouchableOpacity>
               </View>
               <View>
-                <Text>이미지 클릭시 변경</Text>
-                {selectedImage === require('../../assets/HYU1.png') ? (
-                  <Text note>왼쪽이 기본이미지 입니다.</Text>
+                <Text>왼쪽 이미지 클릭시 변경</Text>
+                {selectedImage === require("../../assets/HYU1.png") ? (
+                  <Text note>본인 사진을 첨부해주세요.</Text>
                 ) : null}
               </View>
             </View>
@@ -417,25 +428,25 @@ export default ({ navigation }) => {
           <Card.Content>
             <View
               style={{
-                flexDirection: 'row',
+                flexDirection: "row",
                 flex: 1,
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
+                alignItems: "center",
+                justifyContent: "space-evenly",
               }}
             >
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Avatar.Icon
                   icon="account"
                   size={30}
                   color="#ffffff"
-                  theme={{ colors: { primary: '#5592ff' } }}
+                  theme={{ colors: { primary: "#5592ff" } }}
                 />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>이름</Text>
+                <Text style={{ fontWeight: "700", marginLeft: 5 }}>이름</Text>
               </View>
               <View
                 style={{
-                  flexDirection: 'column',
-                  justifyContent: 'center',
+                  flexDirection: "column",
+                  justifyContent: "center",
                   width: constants.width / 1.5,
                 }}
               >
@@ -445,7 +456,7 @@ export default ({ navigation }) => {
                   theme={{
                     roundness: 100,
                     colors: {
-                      background: 'white',
+                      background: "white",
                       primary: styles.hanyangColor,
                     },
                   }}
@@ -454,12 +465,12 @@ export default ({ navigation }) => {
                   label="(이름)*"
                   autoCorrect={false}
                   returnKeyType="next"
-                  autoCapitalize={'none'}
+                  autoCapitalize={"none"}
                   onSubmitEditing={() => showDatePicker()}
                 />
                 {!name && (
                   <HelperText type="info" visible={!name}>
-                    {'이름은 필수입니다.'}
+                    {"이름은 필수입니다."}
                   </HelperText>
                 )}
               </View>
@@ -474,24 +485,24 @@ export default ({ navigation }) => {
           <Card.Content>
             <View
               style={{
-                flexDirection: 'row',
+                flexDirection: "row",
                 flex: 1,
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
+                alignItems: "center",
+                justifyContent: "space-evenly",
               }}
             >
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Avatar.Icon
                   icon="cake"
                   size={30}
                   color="#ffffff"
-                  theme={{ colors: { primary: '#5592ff' } }}
+                  theme={{ colors: { primary: "#5592ff" } }}
                 />
 
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>생일</Text>
+                <Text style={{ fontWeight: "700", marginLeft: 5 }}>생일</Text>
               </View>
               <View
-                style={{ flexDirection: 'column', justifyContent: 'center' }}
+                style={{ flexDirection: "column", justifyContent: "center" }}
               >
                 <TouchableOpacity
                   disabled={false}
@@ -500,7 +511,7 @@ export default ({ navigation }) => {
                 >
                   <TextInput
                     style={{
-                      backgroundColor: 'white',
+                      backgroundColor: "white",
                       width: constants.width / 1.5,
                     }}
                     selectionColor={styles.hanyangColor}
@@ -509,7 +520,7 @@ export default ({ navigation }) => {
                     theme={{
                       roundness: 100,
                       colors: {
-                        background: 'white',
+                        background: "white",
                         primary: styles.hanyangColor,
                       },
                     }}
@@ -539,25 +550,25 @@ export default ({ navigation }) => {
           <Card.Content>
             <View
               style={{
-                flexDirection: 'row',
+                flexDirection: "row",
                 flex: 1,
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
+                alignItems: "center",
+                justifyContent: "space-evenly",
               }}
             >
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Avatar.Icon
                   icon="phone"
                   size={30}
                   color="#ffffff"
-                  theme={{ colors: { primary: '#5592ff' } }}
+                  theme={{ colors: { primary: "#5592ff" } }}
                 />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                <Text style={{ fontWeight: "700", marginLeft: 5 }}>
                   휴대전화
                 </Text>
               </View>
               <View
-                style={{ flexDirection: 'column', justifyContent: 'center' }}
+                style={{ flexDirection: "column", justifyContent: "center" }}
               >
                 <TextInput
                   style={{ width: constants.width / 1.6 }}
@@ -565,7 +576,7 @@ export default ({ navigation }) => {
                   theme={{
                     roundness: 100,
                     colors: {
-                      background: 'white',
+                      background: "white",
                       primary: styles.hanyangColor,
                     },
                   }}
@@ -574,9 +585,9 @@ export default ({ navigation }) => {
                     setCellPhone(inputPhoneNumber(value));
                   }}
                   label="(휴대전화)"
-                  keyboardType={'numeric'}
+                  keyboardType={"numeric"}
                   returnKeyType="next"
-                  autoCapitalize={'none'}
+                  autoCapitalize={"none"}
                   autoCorrect={false}
                   onSubmitEditing={() => ref_input2.current.focus()}
                 />
@@ -592,23 +603,23 @@ export default ({ navigation }) => {
           <Card.Content>
             <View
               style={{
-                flexDirection: 'row',
+                flexDirection: "row",
 
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
+                alignItems: "center",
+                justifyContent: "space-evenly",
               }}
             >
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Avatar.Icon
                   icon="email"
                   size={30}
                   color="#ffffff"
-                  theme={{ colors: { primary: '#5592ff' } }}
+                  theme={{ colors: { primary: "#5592ff" } }}
                 />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>이메일</Text>
+                <Text style={{ fontWeight: "700", marginLeft: 5 }}>이메일</Text>
               </View>
               <View
-                style={{ flexDirection: 'column', justifyContent: 'center' }}
+                style={{ flexDirection: "column", justifyContent: "center" }}
               >
                 <TextInput
                   style={{ width: constants.width / 1.5 }}
@@ -617,7 +628,7 @@ export default ({ navigation }) => {
                   theme={{
                     roundness: 100,
                     colors: {
-                      background: 'white',
+                      background: "white",
                       primary: styles.hanyangColor,
                     },
                   }}
@@ -627,7 +638,7 @@ export default ({ navigation }) => {
                   label="(이메일)*"
                   keyboardType="email-address"
                   returnKeyType="next"
-                  autoCapitalize={'none'}
+                  autoCapitalize={"none"}
                   autoCorrect={false}
                   error={
                     (email.length != 0) !== false && !emailRegex.test(email)
@@ -635,12 +646,12 @@ export default ({ navigation }) => {
                 />
                 {!email && (
                   <HelperText type="info" visible={!email}>
-                    {'이메일은 필수입니다.'}
+                    {"이메일은 필수입니다."}
                   </HelperText>
                 )}
                 {email.length != 0 && !emailRegex.test(email) && (
                   <HelperText type="error" visible={!emailRegex.test(email)}>
-                    {'이메일 형식이 맞지 않습니다.'}
+                    {"이메일 형식이 맞지 않습니다."}
                   </HelperText>
                 )}
               </View>
@@ -655,20 +666,20 @@ export default ({ navigation }) => {
           <Card.Content>
             <View
               style={{
-                flexDirection: 'row',
+                flexDirection: "row",
 
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
+                alignItems: "center",
+                justifyContent: "space-evenly",
               }}
             >
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Avatar.Icon
                   icon="office-building"
                   size={30}
                   color="#ffffff"
-                  theme={{ colors: { primary: '#5592ff' } }}
+                  theme={{ colors: { primary: "#5592ff" } }}
                 />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>회사명</Text>
+                <Text style={{ fontWeight: "700", marginLeft: 5 }}>회사명</Text>
               </View>
               <View>
                 <TextInput
@@ -678,7 +689,7 @@ export default ({ navigation }) => {
                   theme={{
                     roundness: 100,
                     colors: {
-                      background: 'white',
+                      background: "white",
                       primary: styles.hanyangColor,
                     },
                   }}
@@ -687,7 +698,7 @@ export default ({ navigation }) => {
                   label="(회사명)"
                   onSubmitEditing={() => ref_input4.current.focus()}
                   returnKeyType="next"
-                  autoCapitalize={'none'}
+                  autoCapitalize={"none"}
                   autoCorrect={false}
                 />
               </View>
@@ -702,20 +713,20 @@ export default ({ navigation }) => {
           <Card.Content>
             <View
               style={{
-                flexDirection: 'row',
+                flexDirection: "row",
 
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
+                alignItems: "center",
+                justifyContent: "space-evenly",
               }}
             >
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Avatar.Icon
                   icon="domain"
                   size={30}
                   color="#ffffff"
-                  theme={{ colors: { primary: '#5592ff' } }}
+                  theme={{ colors: { primary: "#5592ff" } }}
                 />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                <Text style={{ fontWeight: "700", marginLeft: 5 }}>
                   회사주소
                 </Text>
               </View>
@@ -727,7 +738,7 @@ export default ({ navigation }) => {
                   theme={{
                     roundness: 100,
                     colors: {
-                      background: 'white',
+                      background: "white",
                       primary: styles.hanyangColor,
                     },
                   }}
@@ -736,7 +747,7 @@ export default ({ navigation }) => {
                   label="(회사주소)"
                   onSubmitEditing={() => ref_input5.current.focus()}
                   returnKeyType="next"
-                  autoCapitalize={'none'}
+                  autoCapitalize={"none"}
                   autoCorrect={false}
                 />
               </View>
@@ -751,20 +762,20 @@ export default ({ navigation }) => {
           <Card.Content>
             <View
               style={{
-                flexDirection: 'row',
+                flexDirection: "row",
 
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
+                alignItems: "center",
+                justifyContent: "space-evenly",
               }}
             >
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Avatar.Icon
                   icon="deskphone"
                   size={30}
                   color="#ffffff"
-                  theme={{ colors: { primary: '#5592ff' } }}
+                  theme={{ colors: { primary: "#5592ff" } }}
                 />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>
+                <Text style={{ fontWeight: "700", marginLeft: 5 }}>
                   회사전화
                 </Text>
               </View>
@@ -776,7 +787,7 @@ export default ({ navigation }) => {
                   theme={{
                     roundness: 100,
                     colors: {
-                      background: 'white',
+                      background: "white",
                       primary: styles.hanyangColor,
                     },
                   }}
@@ -786,9 +797,9 @@ export default ({ navigation }) => {
                   }
                   label="(회사 전화)"
                   onSubmitEditing={() => ref_input6.current.focus()}
-                  keyboardType={'numeric'}
+                  keyboardType={"numeric"}
                   returnKeyType="next"
-                  autoCapitalize={'none'}
+                  autoCapitalize={"none"}
                   autoCorrect={false}
                 />
               </View>
@@ -803,20 +814,20 @@ export default ({ navigation }) => {
           <Card.Content>
             <View
               style={{
-                flexDirection: 'row',
+                flexDirection: "row",
 
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
+                alignItems: "center",
+                justifyContent: "space-evenly",
               }}
             >
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Avatar.Icon
                   icon="briefcase-account"
                   size={30}
                   color="#ffffff"
-                  theme={{ colors: { primary: '#5592ff' } }}
+                  theme={{ colors: { primary: "#5592ff" } }}
                 />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>부서</Text>
+                <Text style={{ fontWeight: "700", marginLeft: 5 }}>부서</Text>
               </View>
               <View>
                 <TextInput
@@ -826,7 +837,7 @@ export default ({ navigation }) => {
                   theme={{
                     roundness: 100,
                     colors: {
-                      background: 'white',
+                      background: "white",
                       primary: styles.hanyangColor,
                     },
                   }}
@@ -835,7 +846,7 @@ export default ({ navigation }) => {
                   onSubmitEditing={() => ref_input7.current.focus()}
                   label="(부서)"
                   returnKeyType="next"
-                  autoCapitalize={'none'}
+                  autoCapitalize={"none"}
                   autoCorrect={false}
                 />
               </View>
@@ -850,20 +861,20 @@ export default ({ navigation }) => {
           <Card.Content>
             <View
               style={{
-                flexDirection: 'row',
+                flexDirection: "row",
 
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
+                alignItems: "center",
+                justifyContent: "space-evenly",
               }}
             >
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Avatar.Icon
                   icon="medal"
                   size={30}
                   color="#ffffff"
-                  theme={{ colors: { primary: '#5592ff' } }}
+                  theme={{ colors: { primary: "#5592ff" } }}
                 />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>직책</Text>
+                <Text style={{ fontWeight: "700", marginLeft: 5 }}>직책</Text>
               </View>
               <View>
                 <TextInput
@@ -873,7 +884,7 @@ export default ({ navigation }) => {
                   theme={{
                     roundness: 100,
                     colors: {
-                      background: 'white',
+                      background: "white",
                       primary: styles.hanyangColor,
                     },
                   }}
@@ -881,7 +892,7 @@ export default ({ navigation }) => {
                   onChangeText={(value) => setPosition(value)}
                   label="(직책)"
                   returnKeyType="next"
-                  autoCapitalize={'none'}
+                  autoCapitalize={"none"}
                   autoCorrect={false}
                 />
               </View>
@@ -896,25 +907,25 @@ export default ({ navigation }) => {
           <Card.Content>
             <View
               style={{
-                flexDirection: 'row',
+                flexDirection: "row",
 
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
+                alignItems: "center",
+                justifyContent: "space-evenly",
               }}
             >
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Avatar.Icon
                   icon="star"
                   color="#ffffff"
                   size={30}
-                  theme={{ colors: { primary: '#5592ff' } }}
+                  theme={{ colors: { primary: "#5592ff" } }}
                 />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>전공</Text>
+                <Text style={{ fontWeight: "700", marginLeft: 5 }}>전공</Text>
               </View>
               <View style={{ width: constants.width / 1.5 }}>
                 <RNPickerSelect
                   placeholder={{
-                    label: '(전공을 선택하세요)*',
+                    label: "(전공을 선택하세요)*",
                     value: null,
                   }}
                   value={major}
@@ -922,14 +933,14 @@ export default ({ navigation }) => {
                     setMajor(major);
                   }}
                   items={majList}
-                  doneText={'확인'}
+                  doneText={"확인"}
                   style={{ ...pickerSelectStyles }}
                   Icon={() => (
                     <Avatar.Icon
                       icon="chevron-down"
                       size={30}
                       color="gray"
-                      theme={{ colors: { primary: '#ffffff' } }}
+                      theme={{ colors: { primary: "#ffffff" } }}
                     />
                   )}
                   useNativeAndroidPickerStyle={false}
@@ -951,22 +962,22 @@ export default ({ navigation }) => {
           <Card.Content>
             <View
               style={{
-                flexDirection: 'row',
+                flexDirection: "row",
 
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
+                alignItems: "center",
+                justifyContent: "space-evenly",
               }}
             >
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Avatar.Icon
                   icon="altimeter"
                   size={30}
                   color="#ffffff"
-                  theme={{ colors: { primary: '#5592ff' } }}
+                  theme={{ colors: { primary: "#5592ff" } }}
                 />
                 <Text
                   style={{
-                    fontWeight: '700',
+                    fontWeight: "700",
                     marginLeft: 5,
                   }}
                 >
@@ -976,7 +987,7 @@ export default ({ navigation }) => {
               <View style={{ width: constants.width / 1.5 }}>
                 <RNPickerSelect
                   placeholder={{
-                    label: '(기수를 선택하세요)*',
+                    label: "(기수를 선택하세요)*",
                   }}
                   onValueChange={(generation) => {
                     setGeneration(generation);
@@ -984,13 +995,13 @@ export default ({ navigation }) => {
                   style={{ ...pickerSelectStyles }}
                   value={generation}
                   items={genList}
-                  doneText={'확인'}
+                  doneText={"확인"}
                   Icon={() => (
                     <Avatar.Icon
                       icon="chevron-down"
                       size={30}
                       color="gray"
-                      theme={{ colors: { primary: '#ffffff' } }}
+                      theme={{ colors: { primary: "#ffffff" } }}
                     />
                   )}
                   useNativeAndroidPickerStyle={false}
@@ -1012,33 +1023,33 @@ export default ({ navigation }) => {
           <Card.Content>
             <View
               style={{
-                flexDirection: 'row',
+                flexDirection: "row",
 
-                alignItems: 'center',
-                justifyContent: 'space-around',
+                alignItems: "center",
+                justifyContent: "space-around",
                 flex: 1,
               }}
             >
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Avatar.Icon
                   icon="briefcase-edit"
                   size={30}
                   color="#ffffff"
-                  theme={{ colors: { primary: '#5592ff' } }}
+                  theme={{ colors: { primary: "#5592ff" } }}
                 />
-                <Text style={{ fontWeight: '700', marginLeft: 5 }}>설명</Text>
+                <Text style={{ fontWeight: "700", marginLeft: 5 }}>설명</Text>
               </View>
               <View
                 style={{
                   width: constants.width / 1.5,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <Text>우측 버튼을 눌러 추가하세요</Text>
                 <TouchableOpacity
-                  onPress={() => setCompanyDesc(companyDesc.concat(''))}
+                  onPress={() => setCompanyDesc(companyDesc.concat(""))}
                 >
                   <Avatar.Icon
                     icon="plus-circle"
@@ -1046,7 +1057,7 @@ export default ({ navigation }) => {
                     size={45}
                     theme={{
                       colors: {
-                        primary: '#ffffff',
+                        primary: "#ffffff",
                       },
                     }}
                   />
@@ -1069,10 +1080,10 @@ export default ({ navigation }) => {
                 <Card.Content>
                   <View
                     style={{
-                      flexDirection: 'row',
+                      flexDirection: "row",
 
-                      alignItems: 'center',
-                      justifyContent: 'space-around',
+                      alignItems: "center",
+                      justifyContent: "space-around",
                       flex: 1,
                     }}
                   >
@@ -1080,13 +1091,13 @@ export default ({ navigation }) => {
                       icon="checkbox-multiple-marked-circle"
                       color="#5592ff"
                       size={30}
-                      theme={{ colors: { primary: '#ffffff' } }}
+                      theme={{ colors: { primary: "#ffffff" } }}
                     />
                     <View
                       style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-evenly',
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-evenly",
                         flex: 1,
                       }}
                     >
@@ -1096,7 +1107,7 @@ export default ({ navigation }) => {
                         theme={{
                           roundness: 100,
                           colors: {
-                            background: 'white',
+                            background: "white",
                             primary: styles.hanyangColor,
                           },
                         }}
@@ -1129,7 +1140,7 @@ export default ({ navigation }) => {
                           size={45}
                           theme={{
                             colors: {
-                              primary: '#ffffff',
+                              primary: "#ffffff",
                             },
                           }}
                         />
@@ -1143,7 +1154,7 @@ export default ({ navigation }) => {
         <View
           style={{
             width: constants.width / 1.5,
-            alignSelf: 'center',
+            alignSelf: "center",
             marginBottom: 20,
           }}
         >
@@ -1152,10 +1163,10 @@ export default ({ navigation }) => {
             onPress={handleSignUp}
             text="Sign Up"
           />
-          <View style={{ alignItems: 'center', marginBottom: 3, marginTop: 7 }}>
+          <View style={{ alignItems: "center", marginBottom: 3, marginTop: 7 }}>
             <Text
               style={
-                Platform.OS === 'ios'
+                Platform.OS === "ios"
                   ? {
                       color: styles.darkGreyColor,
                       marginBottom: 7,
@@ -1172,7 +1183,7 @@ export default ({ navigation }) => {
             </Text>
             <Text
               style={
-                Platform.OS === 'ios'
+                Platform.OS === "ios"
                   ? {
                       color: styles.darkGreyColor,
                       marginBottom: 7,
@@ -1190,7 +1201,7 @@ export default ({ navigation }) => {
             <TouchableOpacity onPress={() => callNumber(adminInfo[1])}>
               <Text
                 style={
-                  Platform.OS === 'ios'
+                  Platform.OS === "ios"
                     ? {
                         color: styles.darkGreyColor,
                         marginBottom: 7,
@@ -1206,10 +1217,10 @@ export default ({ navigation }) => {
                 H.P : {!adminInfo[1] ? null : inputPhoneNumber(adminInfo[1])}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => linkEmail('qospwmf@gmail.com')}>
+            <TouchableOpacity onPress={() => linkEmail("qospwmf@gmail.com")}>
               <Text
                 style={
-                  Platform.OS === 'ios'
+                  Platform.OS === "ios"
                     ? {
                         color: styles.darkGreyColor,
                         marginBottom: 7,

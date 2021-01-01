@@ -1,7 +1,7 @@
 import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Contacts from '../screens/Tabs/Contacts';
 import Notices from '../screens/Tabs/Notices';
 import Setting from '../screens/Tabs/Setting';
@@ -107,7 +107,7 @@ const stackFactory = (initialRoute, customConfig) =>
     }
   );
 
-const TabNavigation = createMaterialTopTabNavigator(
+const TabNavigation = createBottomTabNavigator(
   {
     Notice: {
       screen: stackFactory(Notices, {
@@ -158,11 +158,14 @@ const TabNavigation = createMaterialTopTabNavigator(
                     fontSize: 12,
                     color: 'white',
                     fontFamily: 'lotte-medium',
+                    textAlign:'center'
+                    
                   }
                 : {
                     fontSize: 12,
                     color: '#a6a6a6',
                     fontFamily: 'lotte-medium',
+                    textAlign:'center'
                   }
             }
           >
@@ -212,11 +215,13 @@ const TabNavigation = createMaterialTopTabNavigator(
                     fontSize: 12,
                     color: 'white',
                     fontFamily: 'lotte-medium',
+                    textAlign:'center'
                   }
                 : {
                     fontSize: 12,
                     color: '#a6a6a6',
                     fontFamily: 'lotte-medium',
+                    textAlign:'center'
                   }
             }
           >
@@ -269,11 +274,13 @@ const TabNavigation = createMaterialTopTabNavigator(
                     fontSize: 12,
                     color: 'white',
                     fontFamily: 'lotte-medium',
+                    textAlign:'center'
                   }
                 : {
                     fontSize: 12,
                     color: '#a6a6a6',
                     fontFamily: 'lotte-medium',
+                    textAlign:'center'
                   }
             }
           >
@@ -324,11 +331,13 @@ const TabNavigation = createMaterialTopTabNavigator(
                     fontSize: 12,
                     color: 'white',
                     fontFamily: 'lotte-medium',
+                    textAlign:'center'
                   }
                 : {
                     fontSize: 12,
                     color: '#a6a6a6',
                     fontFamily: 'lotte-medium',
+                    textAlign:'center'
                   }
             }
           >
@@ -379,11 +388,13 @@ const TabNavigation = createMaterialTopTabNavigator(
                     fontSize: 12,
                     color: 'white',
                     fontFamily: 'lotte-medium',
+                    textAlign:'center'
                   }
                 : {
                     fontSize: 12,
                     color: '#a6a6a6',
                     fontFamily: 'lotte-medium',
+                    textAlign:'center'
                   }
             }
           >

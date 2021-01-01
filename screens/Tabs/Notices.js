@@ -5,7 +5,7 @@ import Loader from '../../components/Loader';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import {
   RefreshControl,
-  AsyncStorage,
+  
   Modal,
   StyleSheet,
   View,
@@ -17,7 +17,7 @@ import { Button, FAB } from 'react-native-paper';
 import styles from '../../styles';
 import styled from 'styled-components';
 import { Toast } from 'native-base';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const SEE_ALL_NOTICE = gql`
   query seeAllNotice($limit: Int!, $page: Int!) {
     seeAllNotice(limit: $limit, page: $page) {
@@ -106,8 +106,7 @@ export default () => {
       });
 
       if (!data) return;
-      popUp(data.seeLatestNotice[0].createdAt);
-
+      popUp(data.seeLatestNotice[0]?.createdAt);
       setIsOpen(JSON.parse(await AsyncStorage.getItem('isPopUp')).result);
       setHowNotice(data.howManyNotice);
       setAddData([...data.seeAllNotice]);
@@ -160,7 +159,8 @@ export default () => {
         <Loader />
       ) : (
         <>
-          {isOpen ? (
+          {isOpen&&howNotice!=0 ? (
+
             <Modal visible={isOpen} transparent={true}>
               <View
                 style={{

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 /*
 context를 object라고 상상(함수,변수를포함하는) -> 

@@ -4,7 +4,6 @@ import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import {
-  AsyncStorage,
   StatusBar,
   Platform,
   BackHandler,
@@ -20,7 +19,7 @@ import apolloClientOptions from './apollo';
 import styles from './styles';
 import { Root } from 'native-base';
 import NetInfo, { useNetInfo } from '@react-native-community/netinfo';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import NavController from './components/NavController';
 import { AuthProvider } from './AuthContext';
 // apollo cache persist가 local estate안에서 기본을 잘 동작하지 못함. context로 고침?

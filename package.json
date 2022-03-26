@@ -31,7 +31,7 @@
     "expo-media-library": "~8.0.0",
     "expo-permissions": "~8.0.0",
     "graphql": "^14.6.0",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "native-base": "^2.13.8",
     "prop-types": "^15.7.2",
     "react": "~16.9.0",
